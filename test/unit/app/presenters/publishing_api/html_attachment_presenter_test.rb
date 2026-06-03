@@ -61,6 +61,13 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     %i[organisations parent primary_publishing_organisation government].each { |k| assert_includes(expected_content[:links].keys, k) }
   end
 
+  test "presents an empty auth_bypass_ids array when the parent edition has no token" do
+    html_attachment = create(:html_attachment)
+    html_attachment.attachable.auth_bypass_id = nil
+
+    assert_equal [], present(html_attachment).content[:auth_bypass_ids]
+  end
+
   test "it includes auto-numbered headers when headers are present in body" do
     html_attachment = create(
       :html_attachment,

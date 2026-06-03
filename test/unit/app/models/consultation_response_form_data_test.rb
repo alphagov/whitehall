@@ -16,6 +16,15 @@ class ConsultationResponseFormDataTest < ActiveSupport::TestCase
     assert_equal consultation_response_form_data.auth_bypass_ids, [auth_bypass_id]
   end
 
+  test "should return an empty array when its consultation has no auth_bypass_id" do
+    consultation = Consultation.new(id: 1, auth_bypass_id: nil)
+    consultation_participation = build(:consultation_participation, consultation:)
+    consultation_response_form = build(:consultation_response_form, consultation_participation:)
+    consultation_response_form_data = build(:consultation_response_form_data, consultation_response_form:)
+
+    assert_equal [], consultation_response_form_data.auth_bypass_ids
+  end
+
   test "#all_asset_variants_uploaded? should return true when there is an original asset" do
     consultation_response_form_data = build(:consultation_response_form_data)
 

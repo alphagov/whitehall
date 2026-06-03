@@ -9,7 +9,7 @@ class ConsultationResponseFormData < ApplicationRecord
   validates :file, presence: true
 
   def auth_bypass_ids
-    [consultation_response_form.consultation_participation.consultation.auth_bypass_id]
+    [consultation_response_form.consultation_participation.consultation.auth_bypass_id].compact
   end
 
   def all_asset_variants_uploaded?

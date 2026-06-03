@@ -60,6 +60,13 @@ module PublishingApi::WorldwideOrganisationPagePresenterTest
         assert_valid_against_links_schema({ links: presented_item.edition_links }, "worldwide_corporate_information_page")
       end
 
+      test "presents an empty auth_bypass_ids array when the edition has no token" do
+        self.page = create(:worldwide_organisation_page)
+        page.edition.auth_bypass_id = nil
+
+        assert_equal [], presented_page.content[:auth_bypass_ids]
+      end
+
       test "presents the correct routes for a Worldwide Organisation Page with a translation" do
         self.page = create(:worldwide_organisation_page, translated_into: [:fr])
 

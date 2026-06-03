@@ -25,7 +25,7 @@ module PublishingApi
           schema_name: "plan_for_change_landing_page",
           details:,
           links: edition_links,
-          auth_bypass_ids: [item.auth_bypass_id],
+          auth_bypass_ids: [item.auth_bypass_id].compact,
         )
         content.merge!(PayloadBuilder::AccessLimitation.for(item))
         content.merge!(PayloadBuilder::FirstPublishedAt.for(item))

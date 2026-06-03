@@ -25,7 +25,7 @@ module PublishingApi
           document_type:,
           schema_name: SCHEMA_NAME,
           links: edition_links,
-          auth_bypass_ids: [corporate_information_page.auth_bypass_id],
+          auth_bypass_ids: [corporate_information_page.auth_bypass_id].compact,
         )
     end
 

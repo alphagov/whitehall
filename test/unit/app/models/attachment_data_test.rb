@@ -33,6 +33,13 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal [auth_bypass_id], attachment.auth_bypass_ids
   end
 
+  test "returns an empty array when its attachable has no auth_bypass_id" do
+    attachable = Publication.new(auth_bypass_id: nil)
+    attachment = build(:attachment_data, attachable:)
+
+    assert_equal [], attachment.auth_bypass_ids
+  end
+
   test "should return filename even after reloading" do
     attachment = create(:attachment_data, attachable: build(:draft_publication, id: 1))
     assert_not_nil attachment.filename
