@@ -363,7 +363,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_120000) do
     t.boolean "all_nation_applicability", default: true
     t.integer "alternative_format_provider_id"
     t.string "analytics_identifier"
-    t.string "auth_bypass_id", null: false
+    t.string "auth_bypass_id"
     t.text "change_note", size: :medium
     t.datetime "closing_at", precision: nil
     t.string "configurable_document_type"
