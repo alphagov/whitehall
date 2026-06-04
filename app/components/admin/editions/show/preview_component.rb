@@ -19,6 +19,10 @@ private
     @versioning_completed ||= edition.versioning_completed?
   end
 
+  def token_generated?
+    edition.auth_bypass_id.present?
+  end
+
   def preview_link(link_text, href)
     link_to(link_text,
             href,
