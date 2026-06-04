@@ -61,8 +61,17 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
 
       assert_equal "Sample body content", block_content["body"]
     end
-
-    # TODO: Topical Event Featurings
-    # TODO: Topical Event logo image
   end
+
+  describe "#ignore_legacy_content_fields" do
+    test "removes 'end_date' as we're not carrying over duration fields to new topical events" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = { details: { some: "content", end_date: "2024-01-01" } }
+      expected_content = { details: { some: "content" } }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
+  end
+
+  # TODO: Topical Event Featurings
+  # TODO: Topical Event logo image
 end
