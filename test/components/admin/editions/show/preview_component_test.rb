@@ -58,7 +58,31 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
 
     render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
 
-    assert_selector ".govuk-details__summary-text", text: "Share document preview"
+    assert_selector ".govuk-details__summary-text", text: "Share preview link with someone else"
+  end
+
+  test "renders the copy link, regenerate and delete controls when the edition has a preview token" do
+    edition = build_stubbed(:publication, document: @document)
+
+    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+
+    assert_text "Anyone with a link can preview the content on GOV.UK."
+    assert_text "The link will expire on"
+    assert_text "The old link will no longer work."
+    assert_button "Copy link", exact: true, visible: :all
+    assert_button "Generate new link", exact: true, visible: :all
+    assert_button "Delete link", exact: true, visible: :all
+  end
+
+  test "renders only a generate control and no link when the edition has no preview token" do
+    edition = build_stubbed(:publication, document: @document, auth_bypass_id: nil)
+
+    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
+
+    assert_text "Anyone with a link can preview the content on GOV.UK."
+    assert_button "Generate link", exact: true, visible: :all
+    assert_no_button "Copy link", exact: true, visible: :all
+    assert_no_button "Delete link", exact: true, visible: :all
   end
 
   test "does not render sharable preview functionality when edition is in a post-published state" do
@@ -66,7 +90,7 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
 
     render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
 
-    assert_selector ".govuk-details__summary-text", text: "Share document preview", count: 0
+    assert_selector ".govuk-details__summary-text", text: "Share preview link with someone else", count: 0
   end
 
   test "does not render preview or sharable preview functionality and informs the user when versioning needs to be completed" do
@@ -76,7 +100,7 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
     render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
 
     assert_selector "a[href='#{edition.public_url(draft: true)}']", text: "Preview on website (opens in new tab)", count: 0
-    assert_selector ".govuk-details__summary-text", text: "Share document preview", count: 0
+    assert_selector ".govuk-details__summary-text", text: "Share preview link with someone else", count: 0
     assert_selector ".govuk-inset-text", text: "To see the changes and share a document preview link, add a change note or mark the change type to minor."
   end
 
