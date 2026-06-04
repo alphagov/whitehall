@@ -94,4 +94,15 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     #   assert_instance_of StandardEditionMigrator::YourLegacyDocumentTypeRecipe, recipe
     # end
   end
+
+  describe ".compare_payloads" do
+    test "instantiates and calls StandardEditionMigratorJob's `compare_payloads` method" do
+      legacy_record = build(:edition)
+      recipe = stub("Recipe")
+
+      StandardEditionMigratorJob.any_instance.expects(:compare_payloads).with(legacy_record, recipe).once
+
+      StandardEditionMigrator.compare_payloads(legacy_record, recipe)
+    end
+  end
 end

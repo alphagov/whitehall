@@ -9,6 +9,36 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#compare_payloads" do
+    test "returns the content/links payloads before and after, without performing any migration" do
+      legacy_document_type = OpenStruct.new(
+        updated_at: Time.zone.now,
+      )
+
+      PublishingApi::StandardEditionPresenter.expects(:new).returns(StandardEditionMigratorJobTest::StubbedStandardEditionPresenter.new(legacy_document_type))
+
+      output = capture_io {
+        assert_no_difference("StandardEdition.count") do
+          StandardEditionMigrator.compare_payloads(legacy_document_type, CustomRecipe)
+        end
+      }.first
+
+      assert_equal <<~OUTPUT, output
+        OLD PAYLOAD
+        ===CONTENT
+        {:body=>\"OLD PAYLOAD\", :some_old_field=>\"some old value\"}
+        ===LINKS
+        {:old_link=>\"old link\"}
+
+        NEW PAYLOAD
+        ===CONTENT
+        {:body=>\"NEW PAYLOAD\"}
+        ===LINKS
+        {:old_link=>\"old link\", :new_link=>\"new link\"}
+      OUTPUT
+    end
+  end
+
   describe "#perform" do
     it "finds the Document by ID" do
       ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
@@ -468,6 +498,58 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
           "model_class" => "StandardEditionMigratorJobTest::TestNonEditionableRecord",
         )
       end
+    end
+  end
+
+  class CustomRecipe
+    def initialize(record)
+      @record = record
+    end
+
+    def translations
+      []
+    end
+
+    def presenter
+      LegacyPresenter
+    end
+
+    def configurable_document_type
+      "test_type"
+    end
+  end
+
+  class LegacyPresenter
+    def initialize(_record); end
+
+    def content
+      {
+        "body": "OLD PAYLOAD",
+        "some_old_field": "some old value",
+      }
+    end
+
+    def links
+      {
+        "old_link": "old link",
+      }
+    end
+  end
+
+  class StubbedStandardEditionPresenter
+    def initialize(_edition); end
+
+    def content
+      {
+        "body": "NEW PAYLOAD",
+      }
+    end
+
+    def links
+      {
+        "old_link": "old link",
+        "new_link": "new link",
+      }
     end
   end
 
