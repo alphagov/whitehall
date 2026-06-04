@@ -1,0 +1,68 @@
+require "test_helper"
+
+class TopicalEventRecipeTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
+  setup do
+    @legacy_topical_event = create(:topical_event)
+  end
+
+  describe "#configurable_document_type" do
+    test "is topical_event" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      assert_equal "topical_event", recipe.configurable_document_type
+    end
+  end
+
+  describe "#presenter" do
+    test "returns the correct presenter class" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      assert_equal PublishingApi::TopicalEventPresenter, recipe.presenter
+    end
+  end
+
+  describe "#title" do
+    test "returns the title of the topical event" do
+      legacy_topical_event = create(:topical_event, name: "Sample Topical Event")
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(legacy_topical_event)
+      assert_equal "Sample Topical Event", recipe.title(legacy_topical_event)
+    end
+  end
+
+  describe "#summary" do
+    test "returns the summary of the topical event" do
+      legacy_topical_event = create(:topical_event, summary: "Sample Summary")
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(legacy_topical_event)
+      assert_equal "Sample Summary", recipe.summary(legacy_topical_event)
+    end
+  end
+
+  describe "#map_legacy_fields_to_block_content" do
+    test "raises an exception if passed a Topical Event that has an About page - we're not ready to migrate those yet" do
+      legacy_topical_event = create(:topical_event)
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(legacy_topical_event)
+
+      create(:topical_event_about_page, topical_event: legacy_topical_event, read_more_link_text: "Read more about this event")
+
+      assert_raises(WhitehallError) do
+        recipe.map_legacy_fields_to_block_content(legacy_topical_event, legacy_topical_event)
+      end
+    end
+
+    test "maps legacy fields to block content correctly" do
+      legacy_topical_event = create(
+        :topical_event,
+        name: "Topical event title",
+        description: "Sample body content",
+        summary: "Sample summary",
+      )
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(legacy_topical_event)
+      block_content = recipe.map_legacy_fields_to_block_content(legacy_topical_event, legacy_topical_event)
+
+      assert_equal "Sample body content", block_content["body"]
+    end
+
+    # TODO: Topical Event Featurings
+    # TODO: Topical Event logo image
+  end
+end

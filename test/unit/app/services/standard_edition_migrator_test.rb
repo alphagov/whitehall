@@ -93,6 +93,12 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     #   recipe = StandardEditionMigrator.recipe_for(legacy_document_type)
     #   assert_instance_of StandardEditionMigrator::YourLegacyDocumentTypeRecipe, recipe
     # end
+
+    test "returns the correct recipe for legacy topical events" do
+      legacy_topical_event = build(:topical_event)
+      recipe = StandardEditionMigrator.recipe_for(legacy_topical_event)
+      assert_instance_of StandardEditionMigrator::TopicalEventRecipe, recipe
+    end
   end
 
   describe ".compare_payloads" do

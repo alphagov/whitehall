@@ -17,6 +17,10 @@ class StandardEditionMigrator
     #   return YourLegacyDocumentTypeRecipe.new
     # end
 
+    if model.is_a?(TopicalEvent)
+      return TopicalEventRecipe.new
+    end
+
     if model.is_a?(Edition)
       raise "No migration recipe defined for Edition type #{model.type}"
     end

@@ -139,11 +139,11 @@ private
     )
     edition.save!(validate: false)
 
-    record.translations.each do |record_translation|
-      edition.translations.find_or_create_by!(locale: record_translation.locale).update_columns(
-        title: recipe.title(record_translation),
-        summary: recipe.summary(record_translation),
-        block_content: recipe.map_legacy_fields_to_block_content(record, record_translation),
+    recipe.translations.each do |translation|
+      edition.translations.find_or_create_by!(locale: translation.fixed_locale).update_columns(
+        title: recipe.title(translation),
+        summary: recipe.summary(translation),
+        block_content: recipe.map_legacy_fields_to_block_content(record, translation),
       )
     end
 
