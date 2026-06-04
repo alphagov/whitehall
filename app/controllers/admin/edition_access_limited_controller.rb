@@ -47,7 +47,7 @@ private
     @edition_params ||= params
     .fetch(:edition, {})
     .permit(
-      :access_limited,
+      :access_limiting,
       :editorial_remark,
       {
         lead_organisation_ids: [],

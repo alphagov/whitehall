@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_03_141011) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_04_120000) do
   create_table "access_limiting_organisations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "edition_id", null: false
@@ -356,7 +356,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_03_141011) do
   end
 
   create_table "editions", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.boolean "access_limited", null: false
+    t.boolean "access_limited", default: false, null: false
     t.string "access_limiting", default: "none", null: false
     t.string "additional_related_mainstream_content_title"
     t.string "additional_related_mainstream_content_url"

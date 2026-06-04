@@ -228,7 +228,7 @@ private
       :publication_type_id,
       :scheduled_publication,
       :lock_version,
-      :access_limited,
+      :access_limiting,
       :alternative_format_provider_id,
       :opening_at,
       :closing_at,

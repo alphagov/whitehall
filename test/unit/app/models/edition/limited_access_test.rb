@@ -26,10 +26,10 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
   test "can persist limited access flag (regardless of <class>.access_limited_by_default?)" do
     e = build(:limited_by_default_edition)
-    e.access_limited = true
+    e.access_limiting = "organisations"
     e.save!
     assert e.reload.access_limited?
-    e.access_limited = false
+    e.access_limiting = "none"
     e.save!
     assert_not e.reload.access_limited?
   end
@@ -49,7 +49,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   test "is not accessible if edition is not accessible to user" do
     user = build(:user)
     edition_id = 123
-    edition = LimitedAccessEdition.new(id: edition_id, access_limited: true)
+    edition = LimitedAccessEdition.new(id: edition_id, access_limiting: "organisations")
 
     assert_not edition.accessible_to?(user)
   end
@@ -62,53 +62,66 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert edition.accessible_to?(user)
   end
 
-  test "setting access_limited = true bridges to access_limiting = 'organisations'" do
+  test "setting access_limiting writes through to the legacy access_limited column" do
     edition = build(:limited_access_edition)
-    edition.access_limited = true
-    assert_equal "organisations", edition.access_limiting
-  end
 
-  test "setting access_limited = false bridges to access_limiting = 'none'" do
-    edition = build(:limited_access_edition)
-    edition.access_limited = false
-    assert_equal "none", edition.access_limiting
-  end
-
-  test "setting access_limiting = 'organisations' bridges to access_limited = true" do
-    edition = build(:limited_access_edition)
     edition.access_limiting = "organisations"
-    assert edition.access_limited?
-  end
+    assert_equal true, edition[:access_limited]
 
-  test "setting access_limiting = 'individuals' bridges to access_limited = true" do
-    edition = build(:limited_access_edition)
     edition.access_limiting = "individuals"
-    assert edition.access_limited?
+    assert_equal true, edition[:access_limited]
+
+    edition.access_limiting = "none"
+    assert_equal false, edition[:access_limited]
   end
 
-  test "setting access_limiting = 'none' bridges to access_limited = false" do
+  test "access_limiting persists across save/reload and keeps both columns in sync" do
     edition = build(:limited_access_edition)
     edition.access_limiting = "organisations"
-    edition.access_limiting = "none"
-    assert_not edition.access_limited?
-  end
-
-  test "bridge writers persist both columns" do
-    edition = build(:limited_access_edition)
-    edition.access_limited = true
     edition.save!
     edition.reload
     assert edition.access_limited?
     assert_equal "organisations", edition.access_limiting
+    assert_equal true, edition[:access_limited]
 
     edition.access_limiting = "individuals"
     edition.save!
     edition.reload
     assert edition.access_limited?
     assert_equal "individuals", edition.access_limiting
+    assert_equal true, edition[:access_limited]
   end
 
   test "new instance of default-limited edition has access_limiting = 'organisations'" do
     assert_equal "organisations", build(:limited_by_default_edition).access_limiting
+  end
+
+  test "access_limited? reads from access_limiting, not the legacy boolean" do
+    edition = create(:limited_access_edition, access_limiting: "organisations")
+    # Force the legacy and new columns out of sync via raw SQL (bypasses bridge)
+    Edition.where(id: edition.id).update_all(access_limited: true, access_limiting: "none")
+    edition.reload
+    assert_not edition.access_limited?, "access_limited? should reflect the new column"
+
+    Edition.where(id: edition.id).update_all(access_limited: false, access_limiting: "organisations")
+    edition.reload
+    assert edition.access_limited?, "access_limited? should reflect the new column"
+  end
+
+  test "access_limited? is true for organisations and individuals modes" do
+    edition = build(:limited_access_edition)
+    edition.access_limiting = "organisations"
+    assert edition.access_limited?
+    edition.access_limiting = "individuals"
+    assert edition.access_limited?
+  end
+
+  test "access_limited? is false when access_limiting is none or nil" do
+    edition = build(:limited_access_edition)
+    edition.access_limiting = "none"
+    assert_not edition.access_limited?
+
+    edition.access_limiting = nil
+    assert_not edition.access_limited?
   end
 end
