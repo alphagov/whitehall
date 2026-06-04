@@ -3,15 +3,6 @@ class StandardEditionMigrator
     @scope = scope
   end
 
-  def preview
-    if document_scope?
-      total_editions = @scope.sum { |doc| Edition.unscoped.where(document: doc).count }
-      { unique_documents: @scope.count, total_editions: total_editions }
-    else
-      { unique_records: @scope.count }
-    end
-  end
-
   def migrate!(compare_payloads: true)
     @scope.each do |record|
       StandardEditionMigratorJob.perform_async(
