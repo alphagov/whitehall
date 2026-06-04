@@ -30,7 +30,7 @@ class StandardEditionMigratorJob < JobBase
 
     puts ""
     puts "NEW PAYLOAD"
-    standard_edition = build_edition(legacy_record, initialized_recipe)
+    standard_edition = initialized_recipe.build_edition(legacy_record)
     new_presenter = PublishingApi::StandardEditionPresenter.new(standard_edition)
     puts "===CONTENT"
     pp new_presenter.content
@@ -74,29 +74,6 @@ class StandardEditionMigratorJob < JobBase
   end
 
 private
-
-  def build_edition(record, recipe)
-    document = Document.new(document_type: "StandardEdition", content_id: record.content_id)
-    attributes = {
-      document:,
-      configurable_document_type: recipe.configurable_document_type,
-      state: "published",
-      slug: record.slug,
-      updated_at: record.updated_at.rfc3339,
-    }
-    attributes[:public_timestamp] = record.public_timestamp if record.respond_to?(:public_timestamp)
-    edition = StandardEdition.new(attributes)
-
-    recipe.translations.each do |translation|
-      edition.translations.find_or_initialize_by(locale: translation.fixed_locale).update(
-        title: recipe.title(translation),
-        summary: recipe.summary(translation),
-        block_content: recipe.map_legacy_fields_to_block_content(record, translation),
-      )
-    end
-
-    edition
-  end
 
   def perform_for_document(document_id, compare_payloads:)
     ActiveRecord::Base.transaction do
