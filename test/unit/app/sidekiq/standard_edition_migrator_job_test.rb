@@ -17,7 +17,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       job = StandardEditionMigratorJob.new
       job.stubs(:migrate_editions!)
       assert_nothing_raised do
-        job.perform(document.id, "republish" => true, "compare_payloads" => true, "model_class" => "Document")
+        job.perform(document.id, "compare_payloads" => true, "model_class" => "Document")
       end
     end
 
@@ -28,7 +28,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       job = StandardEditionMigratorJob.new
 
       assert_raises(ActiveRecord::RecordNotFound) do
-        job.perform(invalid_document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document")
+        job.perform(invalid_document_id, "compare_payloads" => true, "model_class" => "Document")
       end
     end
 
@@ -83,13 +83,13 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       test "doesn't change the document history" do
         change_history = Document.find(@document_id).change_history.to_json
 
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
 
         assert_equal change_history, Document.find(@document_id).change_history.to_json
       end
 
       test "migrates all editions in the scope to the configurable_document_type variant of StandardEdition" do
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
@@ -110,7 +110,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       end
 
       test "migrates all editions in the scope and retains their original states" do
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
         draft_edition = Edition.find(@draft_edition_id)
@@ -123,7 +123,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       end
 
       test "defers to `map_legacy_fields_to_block_content` to set the block_content= field" do
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
         deleted_edition = Edition.unscoped.find(@deleted_edition_id)
@@ -140,7 +140,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       end
 
       test "clears the legacy body field" do
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
         deleted_edition = Edition.unscoped.find(@deleted_edition_id)
@@ -160,7 +160,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         draft_edition.attachments = [attachment]
         draft_edition.save!
 
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
 
         draft_edition = Edition.find(@draft_edition_id)
         assert_equal draft_edition.images, [image]
@@ -176,7 +176,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         end
         draft_edition.save!
 
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
 
         draft_edition = Edition.find(@draft_edition_id)
         with_locale(:fr) do
@@ -191,7 +191,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         # be a reasonable simulation of a failure part way through the migration.
         Document.any_instance.stubs(:update_column).raises(StandardError.new("Simulated failure"))
         assert_raises(StandardError) do
-          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         end
         superseded_edition = Edition.find(@superseded_edition_id)
         published_edition = Edition.find(@published_edition_id)
@@ -203,27 +203,6 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         assert_equal "Publication", draft_edition.type
       end
 
-      test "re-presents document to Publishing API (on bulk publishing queue) when `republish => true` is passed" do
-        PublishingApiDocumentRepublishingJob.any_instance.expects(:perform).with(Edition.find(@draft_edition_id).document.id, true).once
-
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
-      end
-
-      test "doesn't re-present document to Publishing API if `republish => true` isn't passed" do
-        PublishingApiDocumentRepublishingJob.any_instance.expects(:perform).with(Edition.find(@draft_edition_id).document.id, true).never
-
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => false, "compare_payloads" => true, "model_class" => "Document") }
-      end
-
-      test "doesn't re-present document to Publishing API if exception encountered during migration" do
-        PublishingApiDocumentRepublishingJob.any_instance.expects(:perform).with(Edition.find(@draft_edition_id).document.id, true).never
-
-        Document.any_instance.stubs(:update_column).raises(StandardError.new("Simulated failure"))
-        assert_raises(StandardError) do
-          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
-        end
-      end
-
       test "Calls ensure_payloads_remain_identical when `compare_payloads => true`" do
         calls = []
         StandardEditionMigratorJob.any_instance.stubs(:migrate_edition!)
@@ -232,7 +211,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
           true
         end
 
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         assert_equal [@published_edition_id, @draft_edition_id], calls
       end
 
@@ -240,7 +219,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         StandardEditionMigratorJob.any_instance.stubs(:migrate_edition!)
         StandardEditionMigratorJob.any_instance.expects(:ensure_payloads_remain_identical).never
 
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => false, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => false, "model_class" => "Document") }
       end
     end
 
@@ -260,7 +239,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links" })
 
         assert_nothing_raised do
-          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         end
       end
 
@@ -301,7 +280,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
           calls << edition.id
           true
         end
-        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+        Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(document_id, "compare_payloads" => true, "model_class" => "Document") }
         assert_equal [published_edition_id, draft_edition_id], calls
       end
 
@@ -312,7 +291,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links", nested: { baz: "bax", foo: "bar" } })
 
         assert_nothing_raised do
-          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         end
       end
 
@@ -323,7 +302,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links" })
 
         error = assert_raises(RuntimeError) do
-          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         end
         assert_match(/Presenter content mismatch after migration for Edition ID/, error.message)
       end
@@ -335,7 +314,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "something else" })
 
         error = assert_raises(RuntimeError) do
-          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         end
         assert_match(/Presenter links mismatch after migration for Edition ID/, error.message)
       end
@@ -351,7 +330,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links" })
 
         assert_nothing_raised do
-          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         end
       end
 
@@ -367,7 +346,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         PublishingApi::StandardEditionPresenter.any_instance.stubs(:links).returns({ some: "links", ignore_new: "new_value" })
 
         assert_nothing_raised do
-          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "republish" => true, "compare_payloads" => true, "model_class" => "Document") }
+          Sidekiq::Testing.inline! { StandardEditionMigratorJob.new.perform(@document_id, "compare_payloads" => true, "model_class" => "Document") }
         end
       end
     end
@@ -433,7 +412,6 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       Sidekiq::Testing.inline! do
         StandardEditionMigratorJob.new.perform(
           bilingual_record.id,
-          "republish" => false,
           "compare_payloads" => false,
           "model_class" => "StandardEditionMigratorJobTest::TestNonEditionableRecord",
         )
@@ -456,24 +434,6 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
 
       assert TestNonEditionableRecord.find(@test_record.id).present?,
              "Expected original TestNonEditionableRecord to still exist after migration"
-    end
-
-    test "re-presents document to Publishing API when republish => true" do
-      PublishingApiDocumentRepublishingJob.any_instance.expects(:perform).once
-
-      perform_non_editionable_migration(republish: true)
-    end
-
-    test "republishes the newly created document (not some other document) when republish => true" do
-      republished_document_id = nil
-      PublishingApiDocumentRepublishingJob.any_instance.expects(:perform).with do |document_id, _bulk|
-        republished_document_id = document_id
-        true
-      end
-
-      perform_non_editionable_migration(republish: true)
-
-      assert_equal Document.last.id, republished_document_id
     end
 
     test "runs payload comparison when compare_payloads => true and raises if content differs" do
@@ -500,11 +460,10 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
 
   private
 
-    def perform_non_editionable_migration(republish: false, compare_payloads: false)
+    def perform_non_editionable_migration(compare_payloads: false)
       Sidekiq::Testing.inline! do
         StandardEditionMigratorJob.new.perform(
           @test_record.id,
-          "republish" => republish,
           "compare_payloads" => compare_payloads,
           "model_class" => "StandardEditionMigratorJobTest::TestNonEditionableRecord",
         )

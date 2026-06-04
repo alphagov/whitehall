@@ -12,11 +12,11 @@ class StandardEditionMigrator
     end
   end
 
-  def migrate!(republish: false, compare_payloads: true)
+  def migrate!(compare_payloads: true)
     @scope.each do |record|
       StandardEditionMigratorJob.perform_async(
         record.id,
-        { "republish" => republish, "compare_payloads" => compare_payloads, "model_class" => model_class_name },
+        { "compare_payloads" => compare_payloads, "model_class" => model_class_name },
       )
     end
   end

@@ -8,37 +8,33 @@ class StandardEditionMigratorJob < JobBase
   sidekiq_options queue: "standard_edition_migration", retry: 0
 
   def perform(record_id, args)
-    republish = args["republish"]
     compare_payloads = args["compare_payloads"]
     model_class_name = args["model_class"]
 
     if model_class_name != "Document"
-      perform_for_non_editionable(record_id, model_class_name, republish:, compare_payloads:)
+      perform_for_non_editionable(record_id, model_class_name, compare_payloads:)
     else
-      perform_for_document(record_id, republish:, compare_payloads:)
+      perform_for_document(record_id, compare_payloads:)
     end
   end
 
 private
 
-  def perform_for_document(document_id, republish:, compare_payloads:)
+  def perform_for_document(document_id, compare_payloads:)
     ActiveRecord::Base.transaction do
       document = Document.find(document_id)
       migrate_editions!(document, compare_payloads)
       document.update_column(:document_type, "StandardEdition")
     end
-    PublishingApiDocumentRepublishingJob.new.perform(document_id, true) if republish
   end
 
-  def perform_for_non_editionable(record_id, model_class_name, republish:, compare_payloads:)
+  def perform_for_non_editionable(record_id, model_class_name, compare_payloads:)
     record = model_class_name.constantize.find(record_id)
     recipe = StandardEditionMigrator.recipe_for(record)
 
     new_document_id = ActiveRecord::Base.transaction do
       migrate_non_editionable!(record, recipe, compare_payloads)
     end
-
-    PublishingApiDocumentRepublishingJob.new.perform(new_document_id, true) if republish
   end
 
   def migrate_editions!(document, compare_payloads)
