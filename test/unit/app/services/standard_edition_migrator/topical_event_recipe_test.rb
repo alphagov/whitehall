@@ -72,6 +72,15 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#ignore_new_content_fields" do
+    test "ignores 'auth_bypass_ids' as these were not present on legacy topical events and are included by default on StandardEdition" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = { details: { some: "content" }, auth_bypass_ids: [1, 2, 3] }
+      expected_content = { details: { some: "content" } }
+      assert_equal expected_content, recipe.ignore_new_content_fields(content)
+    end
+  end
+
   # TODO: Topical Event Featurings
   # TODO: Topical Event logo image
 end
