@@ -36,8 +36,42 @@ class StandardEditionMigratorJob < JobBase
     pp new_presenter.content
     puts "===LINKS"
     pp new_presenter.links
+
+    puts ""
+    puts "DIFF"
+    puts "===CONTENT"
+    puts diff_payloads(
+      old_content: old_presenter.content,
+      new_content: new_presenter.content,
+      recipe: initialized_recipe,
+    )
+    puts "===LINKS"
+    puts diff_payloads(
+      old_links: old_presenter.links,
+      new_links: new_presenter.links,
+      recipe: initialized_recipe,
+    )
   end
   # rubocop:enable Rails/Output
+
+  def diff_payloads(recipe:, old_content: nil, new_content: nil, old_links: nil, new_links: nil)
+    diff = ""
+    if old_content && new_content
+      diff += diff_values(
+        recipe.ignore_legacy_content_fields(old_content),
+        recipe.ignore_new_content_fields(new_content),
+      ).to_s
+    end
+
+    if old_links && new_links
+      diff += diff_values(
+        recipe.ignore_legacy_links(old_links),
+        recipe.ignore_new_links(new_links),
+      ).to_s
+    end
+
+    diff
+  end
 
 private
 

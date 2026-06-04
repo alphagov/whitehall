@@ -10,7 +10,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
   end
 
   describe "#compare_payloads" do
-    test "returns the content/links payloads before and after, without performing any migration" do
+    test "returns the content/links payloads before and after, and a diff, without performing any migration" do
       legacy_document_type = OpenStruct.new(
         updated_at: Time.zone.now,
       )
@@ -35,6 +35,14 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         {:body=>\"NEW PAYLOAD\"}
         ===LINKS
         {:old_link=>\"old link\", :new_link=>\"new link\"}
+
+        DIFF
+        ===CONTENT
+        -{:body=>\"OLD PAYLOAD\", :some_old_field=>\"some old value\"}
+        +{:body=>\"NEW PAYLOAD\"}
+        ===LINKS
+        -{:old_link=>\"old link\"}
+        +{:new_link=>\"new link\", :old_link=>\"old link\"}
       OUTPUT
     end
   end
@@ -516,6 +524,22 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
 
     def configurable_document_type
       "test_type"
+    end
+
+    def ignore_legacy_content_fields(content)
+      content
+    end
+
+    def ignore_new_content_fields(content)
+      content
+    end
+
+    def ignore_legacy_links(links)
+      links
+    end
+
+    def ignore_new_links(links)
+      links
     end
   end
 
