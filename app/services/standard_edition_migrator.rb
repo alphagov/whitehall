@@ -22,6 +22,10 @@ class StandardEditionMigrator
   end
 
   def self.recipe_for(model)
+    # if model.is_a?(<FILL ME IN>)
+    #   return YourLegacyDocumentTypeRecipe.new
+    # end
+
     if model.is_a?(Edition)
       raise "No migration recipe defined for Edition type #{model.type}"
     end

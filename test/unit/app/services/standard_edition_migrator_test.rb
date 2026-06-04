@@ -143,4 +143,26 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       migrator.migrate!
     end
   end
+
+  describe ".recipe_for" do
+    test "raises an error if passed an Edition type which has no recipe" do
+      edition = build(:edition)
+      assert_raises(RuntimeError, "No migration recipe defined for Edition type Edition") do
+        StandardEditionMigrator.recipe_for(edition)
+      end
+    end
+
+    test "raises an error if passed a model class which has no recipe" do
+      model = build(:organisation)
+      assert_raises(RuntimeError, "No migration recipe defined for Organisation") do
+        StandardEditionMigrator.recipe_for(model)
+      end
+    end
+
+    # test "returns the correct recipe for <FILL ME IN>" do
+    #   legacy_document_type = build(:x)
+    #   recipe = StandardEditionMigrator.recipe_for(legacy_document_type)
+    #   assert_instance_of StandardEditionMigrator::YourLegacyDocumentTypeRecipe, recipe
+    # end
+  end
 end
