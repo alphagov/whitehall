@@ -19,10 +19,9 @@ class StandardEditionMigratorJob < JobBase
   end
 
   # rubocop:disable Rails/Output
-  def compare_payloads(legacy_record, recipe)
-    initialized_recipe = recipe.new(legacy_record)
+  def compare_payloads(legacy_record, standard_edition, recipe)
     puts "OLD PAYLOAD"
-    old_presenter = initialized_recipe.presenter.new(legacy_record)
+    old_presenter = recipe.new(legacy_record).presenter.new(legacy_record)
     puts "===CONTENT"
     pp old_presenter.content
     puts "===LINKS"
@@ -30,7 +29,6 @@ class StandardEditionMigratorJob < JobBase
 
     puts ""
     puts "NEW PAYLOAD"
-    standard_edition = initialized_recipe.build_edition(legacy_record)
     new_presenter = PublishingApi::StandardEditionPresenter.new(standard_edition)
     puts "===CONTENT"
     pp new_presenter.content
@@ -43,13 +41,13 @@ class StandardEditionMigratorJob < JobBase
     puts diff_payloads(
       old_content: old_presenter.content,
       new_content: new_presenter.content,
-      recipe: initialized_recipe,
+      recipe: recipe.new(legacy_record),
     )
     puts "===LINKS"
     puts diff_payloads(
       old_links: old_presenter.links,
       new_links: new_presenter.links,
-      recipe: initialized_recipe,
+      recipe: recipe.new(legacy_record),
     )
   end
   # rubocop:enable Rails/Output

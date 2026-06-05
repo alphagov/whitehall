@@ -18,7 +18,7 @@ class StandardEditionMigrator
     # end
 
     if model.is_a?(TopicalEvent)
-      return TopicalEventRecipe.new
+      return TopicalEventRecipe
     end
 
     if model.is_a?(Edition)
@@ -28,8 +28,8 @@ class StandardEditionMigrator
     raise "No migration recipe defined for #{model.class.name}"
   end
 
-  def self.compare_payloads(legacy_record, recipe)
-    StandardEditionMigratorJob.new.compare_payloads(legacy_record, recipe)
+  def self.compare_payloads(legacy_record, standard_edition, recipe)
+    StandardEditionMigratorJob.new.compare_payloads(legacy_record, standard_edition, recipe)
   end
 
 private

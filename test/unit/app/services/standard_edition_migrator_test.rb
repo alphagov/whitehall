@@ -97,7 +97,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     test "returns the correct recipe for legacy topical events" do
       legacy_topical_event = build(:topical_event)
       recipe = StandardEditionMigrator.recipe_for(legacy_topical_event)
-      assert_instance_of StandardEditionMigrator::TopicalEventRecipe, recipe
+      assert_equal StandardEditionMigrator::TopicalEventRecipe, recipe
     end
   end
 
@@ -105,10 +105,11 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     test "instantiates and calls StandardEditionMigratorJob's `compare_payloads` method" do
       legacy_record = build(:edition)
       recipe = stub("Recipe")
+      standard_edition = stub("StandardEdition")
 
-      StandardEditionMigratorJob.any_instance.expects(:compare_payloads).with(legacy_record, recipe).once
+      StandardEditionMigratorJob.any_instance.expects(:compare_payloads).with(legacy_record, standard_edition, recipe).once
 
-      StandardEditionMigrator.compare_payloads(legacy_record, recipe)
+      StandardEditionMigrator.compare_payloads(legacy_record, standard_edition, recipe)
     end
   end
 end

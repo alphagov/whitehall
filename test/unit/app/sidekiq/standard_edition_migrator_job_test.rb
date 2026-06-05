@@ -10,16 +10,18 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
   end
 
   describe "#compare_payloads" do
-    test "returns the content/links payloads before and after, and a diff, without performing any migration" do
+    test "returns the content/links payloads (and diffs) of the old record and the migrated edition, given a recipe, without performing any migration" do
       legacy_document_type = OpenStruct.new(
         updated_at: Time.zone.now,
       )
+      initialized_recipe = CustomRecipe.new(legacy_document_type)
+      standard_edition = initialized_recipe.build_edition(legacy_document_type)
 
       PublishingApi::StandardEditionPresenter.expects(:new).returns(StandardEditionMigratorJobTest::StubbedStandardEditionPresenter.new(legacy_document_type))
 
       output = capture_io {
         assert_no_difference("StandardEdition.count") do
-          StandardEditionMigrator.compare_payloads(legacy_document_type, CustomRecipe)
+          StandardEditionMigrator.compare_payloads(legacy_document_type, standard_edition, CustomRecipe)
         end
       }.first
 
@@ -516,6 +518,10 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
 
     def translations
       []
+    end
+
+    def build_edition(_legacy_document)
+      StandardEdition.new
     end
 
     def presenter
