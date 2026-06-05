@@ -182,7 +182,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Adran anweinidogol yw'r The Comisiwn Elusennau."
+      assert_display_name_text org, "Adran anweinidogol yw'r Comisiwn Elusennau."
     end
   end
 
@@ -191,7 +191,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Adran anweinidogol yw'r The Comisiwn Elusennau."
+      assert_display_name_text org, "Adran anweinidogol yw'r Comisiwn Elusennau."
     end
   end
 
@@ -203,7 +203,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
     I18n.with_locale(:cy) do
       description = organisation_with_parental_and_child_relationships_sentence(org)
-      assert_equal "Adran anweinidogol yw'r The Comisiwn Elusennau, supported by 1 public body.", strip_html_tags(description)
+      assert_equal "Adran anweinidogol yw'r Comisiwn Elusennau, supported by 1 public body.", strip_html_tags(description)
     end
   end
 

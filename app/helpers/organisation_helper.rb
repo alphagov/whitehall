@@ -31,6 +31,14 @@ module OrganisationHelper
     end
   end
 
+  def organisation_display_name_without_definite_article(organisation)
+    if organisation.acronym.present?
+      tag.abbr(organisation.acronym, title: organisation.name)
+    else
+      organisation.name
+    end
+  end
+
   def organisation_logo_name(organisation, stacked: true)
     if stacked
       format_with_html_line_breaks(ERB::Util.html_escape(organisation.logo_formatted_name))
@@ -54,8 +62,10 @@ module OrganisationHelper
     localised_organisation_type_with_fallback = I18n.t("organisation.type.#{organisation_type_key}", default: organisation_type_name(organisation))
 
     # org_type_with_no_indefinite_article is only used for Welsh, and it should be provided with a capital letter in the locale file.
+    # display_name_without_article is also only used for Welsh. The locale file always inserts the article.
     locale_template_args = {
       display_name: ERB::Util.h(organisation_display_name_with_definite_article(organisation)).strip,
+      display_name_without_article: ERB::Util.h(organisation_display_name_without_definite_article(organisation)).strip,
       org_type_with_no_indefinite_article: ERB::Util.h(localised_organisation_type_with_fallback),
       org_type: ERB::Util.h(add_indefinite_article(localised_organisation_type_with_fallback)),
       parents: parents_sentence(organisation_type_key, parent_organisations),
