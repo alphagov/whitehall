@@ -80,16 +80,40 @@ class StandardEditionMigrator::TopicalEventRecipe
       )
     end
 
-    @artefacts_to_save << [document, edition, edition.translations]
-    @artefacts_to_save.concat(features.flat_map(&:image).flat_map(&:assets))
-    @artefacts_to_save.concat(features)
-    @artefacts_to_save.concat(feature_lists)
-    @artefacts_to_save = @artefacts_to_save.flatten
-
     # TODO: fix. Some Topical Events don't have organisations set. We need to make this requirement a configurable thing in StandardEdition and disable it for Topical Events.
     # ActiveRecord::RecordInvalid: Validation failed: Lead organisations at least one required (ActiveRecord::RecordInvalid)
+    edition.lead_organisations = [Organisation.last]
+
+    @artefacts_to_save  = {
+      document: document,
+      edition: edition,
+      everything_else: edition.translations,
+    }
+    @artefacts_to_save[:everything_else] += features.flat_map(&:image).flat_map(&:assets)
+    @artefacts_to_save[:everything_else] += features
+    @artefacts_to_save[:everything_else] += feature_lists
+    @artefacts_to_save[:everything_else] = @artefacts_to_save[:everything_else].flatten
 
     edition
+  end
+
+  def save_built_edition!
+    # First time around, save without validation, since some records are interdependent
+    @artefacts_to_save[:document].save(validate: false)
+    @artefacts_to_save[:edition].save(validate: false)
+    @artefacts_to_save[:everything_else].each do |artefact|
+      if artefact.respond_to?(:edition_id=)
+        artefact.edition_id = @artefacts_to_save[:edition].id
+      end
+      artefact.save(validate: false)
+    end
+
+    # Second time around, save with validation, to ensure all artefacts are valid (and to trigger any callbacks)
+    @artefacts_to_save[:document].save
+    @artefacts_to_save[:edition].save
+    @artefacts_to_save[:everything_else].each do |artefact|
+      artefact.save! # bang to raise if any validation fails, since we want to know about it and fix the underlying data issue
+    end
   end
 
   def translations

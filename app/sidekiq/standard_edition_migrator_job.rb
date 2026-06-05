@@ -22,18 +22,9 @@ class StandardEditionMigratorJob < JobBase
         compare_payloads(legacy_record, edition, recipe)
         # TODO: add a comparison check guardrail here ^
 
-        # First time around, save without validation, since some records are interdependent
-        initialized_recipe.artefacts_to_save.each do |artefact|
-          artefact.save(validate: false)
-        end
-
-        # Second time around, save with validation, to ensure all artefacts are valid (and to trigger any callbacks)
-        initialized_recipe.artefacts_to_save.each do |artefact|
-          artefact.save! # bang to raise if any validation fails, since we want to know about it and fix the underlying data issue
-        end
-
+        saved_edition = initialized_recipe.save_built_edition!
         # TODO: add a comparison guardrail here, i.e. if the payload of the saved thing doesn't match the payload
-        # of the preview, raise an error
+        # of the preview, raise an error ^
       end
     else
       perform_for_document(record_id, compare_payloads:)
