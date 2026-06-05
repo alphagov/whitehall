@@ -10,18 +10,18 @@ module OrganisationHelper
     /building law and hygiene/,
   ].freeze
 
-  SPONSORED_TYPE_KEYS = %i[
+  SPONSORED_ORGANISATION_TYPE_KEYS = %i[
     advisory_ndpb
     executive_agency
     executive_ndpb
     special_health_authority
   ].freeze
 
-  IDENTIFICATION_ONLY_TYPE_KEYS = %i[
+  ORGANISATIONS_WITH_NO_PARENT_RELATIONSHIP_TYPE_KEYS = %i[
     non_ministerial_department
   ].freeze
 
-  def organisation_relationship_display_name(organisation)
+  def organisation_display_name_with_definite_article(organisation)
     if organisation.acronym.present?
       tag.abbr(organisation.acronym, title: organisation.name)
     elsif needs_definite_article?(organisation.name)
@@ -44,65 +44,65 @@ module OrganisationHelper
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
-    type_key = organisation.organisation_type_key
+    organisation_type_key = organisation.organisation_type_key
     parent_organisations = organisation.parent_organisations
+    localised_organisation_type_with_fallback = I18n.t("organisation.type.#{organisation_type_key}", default: organisation_type_name(organisation))
 
-    relationship_description(organisation, type_key, parent_organisations).html_safe
+    # org_type_with_no_indefinite_article is only used for Welsh, and it should be provided with a capital letter in the locale file.
+    locale_template_args = {
+      display_name: ERB::Util.h(organisation_display_name_with_definite_article(organisation)).strip,
+      org_type_with_no_indefinite_article: ERB::Util.h(localised_organisation_type_with_fallback),
+      org_type: ERB::Util.h(add_indefinite_article(localised_organisation_type_with_fallback)),
+      parents: parents_sentence(organisation_type_key, parent_organisations),
+    }.compact
+
+    locale_key = display_name_and_parental_relationship_i18n_key(organisation_type_key, parent_organisations)
+    I18n.t(locale_key, **locale_template_args).html_safe
   end
 
-  def relationship_description(organisation, type_key, parent_organisations)
-    key = relationship_i18n_key(type_key, parent_organisations)
-    args = relationship_template_args(organisation, type_key)
-    args[:parents] = parents_sentence(parent_organisations) if display_parent_relationships?(type_key, parent_organisations)
-    I18n.t(key, **args)
-  end
+  def display_name_and_parental_relationship_i18n_key(organisation_type_key, parent_organisations)
+    return "organisation.display_name_and_parental_relationship.display_name_html" if organisation_type_key == :other && parent_organisations.empty?
+    return "organisation.display_name_and_parental_relationship.is_organisation_type_html" unless display_parent_relationships?(organisation_type_key, parent_organisations)
 
-  def relationship_i18n_key(type_key, parent_organisations)
-    return "organisation.relationship.none_html" if type_key == :other && parent_organisations.empty?
-    return "organisation.relationship.identification_html" unless display_parent_relationships?(type_key, parent_organisations)
-
-    case type_key
-    when :other then "organisation.relationship.works_with_html"
-    when :sub_organisation then "organisation.relationship.part_of_html"
-    when *SPONSORED_TYPE_KEYS then "organisation.relationship.sponsored_html"
-    else "organisation.relationship.default_with_parents_html"
+    case organisation_type_key
+    when :other
+      "organisation.display_name_and_parental_relationship.works_with_html"
+    when :sub_organisation
+      "organisation.display_name_and_parental_relationship.part_of_html"
+    when *SPONSORED_ORGANISATION_TYPE_KEYS
+      "organisation.display_name_and_parental_relationship.sponsored_html"
+    else
+      "organisation.display_name_and_parental_relationship.default_with_parents_html"
     end
   end
 
-  def display_parent_relationships?(type_key, parent_organisations)
-    parent_organisations.any? && IDENTIFICATION_ONLY_TYPE_KEYS.exclude?(type_key)
+  def display_parent_relationships?(organisation_type_key, parent_organisations)
+    parent_organisations.any? && ORGANISATIONS_WITH_NO_PARENT_RELATIONSHIP_TYPE_KEYS.exclude?(organisation_type_key)
   end
 
-  def relationship_template_args(organisation, type_key)
-    localised_type_name = I18n.t("organisation.type.#{type_key}", default: organisation_type_name(organisation))
-    {
-      name: ERB::Util.h(organisation_relationship_display_name(organisation)).strip,
-      type_name: ERB::Util.h(localised_type_name),
-      relationship: ERB::Util.h(add_indefinite_article(localised_type_name)),
-    }
-  end
+  def parents_sentence(organisation_type_key, parent_organisations)
+    return unless display_parent_relationships?(organisation_type_key, parent_organisations)
 
-  def parents_sentence(parent_organisations)
     parent_organisations.map { |parent| organisation_relationship_html(parent) }.to_sentence
   end
 
   def organisation_display_name_including_parental_and_child_relationships(organisation)
-    organisation_name = organisation_display_name_and_parental_relationship(organisation)
-    child_organisations = organisation.supporting_bodies
+    org_temp_name = organisation_display_name_and_parental_relationship(organisation)
+    supporting_bodies = organisation.supporting_bodies
 
-    if child_organisations.any?
-      organisation_name.chomp!(".")
-      organisation_name += supporting_organisation_text(organisation)
+    if supporting_bodies.any?
+      org_temp_name.chomp!(".")
+      org_temp_name += supporting_organisation_text(organisation)
 
-      child_relationships_link_text = child_organisations.size.to_s
-      child_relationships_link_text += child_organisations.size == 1 ? " public body" : " agencies and public bodies"
+      child_relationships_link_text = supporting_bodies.size.to_s
+      child_relationships_link_text += supporting_bodies.size == 1 ? " public body" : " agencies and public bodies"
 
-      organisation_name += link_to(child_relationships_link_text, organisation.link_to_section_on_organisation_list_page, class: "brand__color")
+      org_temp_name += link_to(child_relationships_link_text, organisation.link_to_section_on_organisation_list_page, class: "brand__color")
 
-      organisation_name += "."
+      org_temp_name += "."
     end
 
-    organisation_name.html_safe
+    org_temp_name.html_safe
   end
 
   def supporting_organisation_text(organisation)

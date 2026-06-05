@@ -37,8 +37,8 @@ cy:
       jobs: Swyddi
       jobs_and_contacts: Swyddi a chontractau
       organisation_chart: Ein siart sefydliadol
-    relationship:
-      identification_html: "%{type_name} yw'r %{name}."
+    display_name_and_parental_relationship:
+      is_organisation_type_html: "%{org_type_with_no_indefinite_article} yw'r %{display_name}."
     type:
       non_ministerial_department: Adran anweinidogol
   worldwide_organisation:
