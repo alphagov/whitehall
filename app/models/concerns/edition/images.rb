@@ -15,14 +15,19 @@ module Edition::Images
 
   included do
     has_many :images, foreign_key: "edition_id", dependent: :destroy do
+      # def usable_as(*usage)
+      #   usage_keys = usage.map(&:key).flatten
+      #   where(usage: usage_keys)
+      # end
       def usable_as(*usage)
         usage_keys = usage.map(&:key).flatten
-        where(usage: usage_keys)
+        select { |img| usage_keys.include?(img.usage) }
       end
 
       def usable
-        id = select(&:can_be_used?).pluck(:id)
-        where(id:)
+        select(&:can_be_used?)
+        # id = select(&:can_be_used?).pluck(:id)
+        # where(id:)
       end
     end
 

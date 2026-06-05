@@ -91,8 +91,38 @@ class StandardEditionMigrator::TopicalEventRecipe
     @artefacts_to_save[:everything_else] += features.flat_map(&:image).flat_map(&:assets)
     @artefacts_to_save[:everything_else] += features
     @artefacts_to_save[:everything_else] += feature_lists
-    @artefacts_to_save[:everything_else] = @artefacts_to_save[:everything_else].flatten
 
+    if record.logo
+      new_logo_data = ImageData.new(
+        carrierwave_image: record.logo.carrierwave_image,
+        image_kind: "topical_event_logo",
+      )
+
+      # include all derived variants
+      new_logo_data.file.active_version_names.each do |version_name|
+        new_logo_data.assets.build(
+          variant: version_name,
+          filename: record.logo.filename,
+          asset_manager_id: record.logo.assets.first&.asset_manager_id
+        )
+      end
+
+      # ⚠️ critical: original must exist explicitly
+      new_logo_data.assets.build(
+        variant: :original,
+        filename: record.logo.filename,
+        asset_manager_id: record.logo.assets.first&.asset_manager_id
+      )
+
+      new_logo = edition.images.build(
+        image_data: new_logo_data,
+        usage: "logo",
+      )
+
+      @artefacts_to_save[:everything_else] += [new_logo, new_logo_data]
+    end
+
+    @artefacts_to_save[:everything_else] = @artefacts_to_save[:everything_else].flatten
     edition
   end
 

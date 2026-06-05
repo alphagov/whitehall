@@ -22,13 +22,24 @@ module PublishingApi
     private
 
       def images
+        usage_keys = item.permitted_image_usages
+                        .reject { |usage| usage.embeddable? || usage.lead? }
+                        .map(&:key)
+
         item.images
-            .usable
-            .usable_as(*item.permitted_image_usages.reject { |usage| usage.embeddable? || usage.lead? })
-            .to_a
+            .select(&:can_be_used?)
+            .select { |image| usage_keys.include?(image.usage) }
             .select { |image| image.image_data&.all_asset_variants_uploaded? }
             .map(&:publishing_api_details)
       end
+      # def images
+      #   item.images
+      #       .usable
+      #       .usable_as(*item.permitted_image_usages.reject { |usage| usage.embeddable? || usage.lead? })
+      #       .to_a
+      #       .select { |image| image.image_data&.all_asset_variants_uploaded? }
+      #       .map(&:publishing_api_details)
+      # end
     end
   end
 end
