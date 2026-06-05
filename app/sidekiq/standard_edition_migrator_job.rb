@@ -22,7 +22,7 @@ class StandardEditionMigratorJob < JobBase
         compare_payloads(legacy_record, edition, recipe)
         # TODO: add a comparison check guardrail here ^
 
-        saved_edition = initialized_recipe.save_built_edition!
+        initialized_recipe.save_built_edition!
         # TODO: add a comparison guardrail here, i.e. if the payload of the saved thing doesn't match the payload
         # of the preview, raise an error ^
       end
