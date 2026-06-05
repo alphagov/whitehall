@@ -9,6 +9,22 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#preview_migration" do
+    test "given a legacy record and a recipe, it returns the content/links payloads (and diffs) of the old record and the migrated edition, without performing any migration" do
+      legacy_document_type = OpenStruct.new(
+        updated_at: Time.zone.now,
+      )
+      initialized_recipe = CustomRecipe.new(legacy_document_type)
+      job = StandardEditionMigratorJob.new
+
+      job.expects(:compare_payloads).once
+
+      assert_no_difference("StandardEdition.count") do
+        job.preview_migration(legacy_document_type, initialized_recipe)
+      end
+    end
+  end
+
   describe "#compare_payloads" do
     test "returns the content/links payloads (and diffs) of the old record and the migrated edition, given a recipe, without performing any migration" do
       legacy_document_type = OpenStruct.new(
@@ -21,7 +37,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
 
       output = capture_io {
         assert_no_difference("StandardEdition.count") do
-          StandardEditionMigrator.compare_payloads(legacy_document_type, standard_edition, CustomRecipe)
+          StandardEditionMigratorJob.new.compare_payloads(legacy_document_type, standard_edition, CustomRecipe)
         end
       }.first
 
@@ -53,7 +69,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
     it "finds the Document by ID" do
       ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
       document = create(:document)
-      StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new)
+      StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new(nil))
       job = StandardEditionMigratorJob.new
       job.stubs(:migrate_editions!)
       assert_nothing_raised do
@@ -63,7 +79,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
 
     it "raises exception if Document is not found" do
       invalid_document_id = 0
-      StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new)
+      StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new(nil))
 
       job = StandardEditionMigratorJob.new
 
@@ -75,7 +91,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
     describe "#migrate_editions!" do
       setup do
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-        StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new)
+        StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new(nil))
 
         # stub the presenters - we'll test those separately
         TestPresenter.any_instance.stubs(:content).returns({ some: "content" })
@@ -266,9 +282,9 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
     describe "ensure_payloads_remain_identical logic" do
       setup do
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-        StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new)
         document = create(:document)
         create(:standard_edition, document: document) #  we need an edition of any type to attach to the document
+        StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestRecipe.new(Edition.last))
         @document_id = document.id
       end
 
@@ -395,7 +411,6 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
   describe "#perform with non-editionable records" do
     setup do
       ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-      StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestNonEditionableRecipe.new)
 
       TestNonEditionablePresenter.any_instance.stubs(:content).returns({ some: "content" })
       PublishingApi::StandardEditionPresenter.any_instance.stubs(:content).returns({ some: "content" })
@@ -409,6 +424,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
         description: "Event description",
         content_id: SecureRandom.uuid,
       )
+      StandardEditionMigrator.stubs(:recipe_for).returns(StandardEditionMigratorJobTest::TestNonEditionableRecipe.new(@test_record))
       TestNonEditionableRecord.register(@test_record)
     end
 
@@ -429,7 +445,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
 
       new_edition = Edition.last
       assert_equal "published", new_edition.state
-      assert_equal TestNonEditionableRecipe.new.configurable_document_type, new_edition.configurable_document_type
+      assert_equal TestNonEditionableRecipe.new(@test_record).configurable_document_type, new_edition.configurable_document_type
       assert_equal "My Event", new_edition.title
       assert_equal "Event summary", new_edition.summary
       assert_equal({ "description" => "Event description" }, new_edition[:block_content])
@@ -596,6 +612,10 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
   end
 
   class TestRecipe
+    def initialize(record)
+      @record = record
+    end
+
     def configurable_document_type
       "test_type"
     end
@@ -660,6 +680,10 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
 
     def summary(record_translation)
       record_translation.summary
+    end
+
+    def translations
+      []
     end
 
     def map_legacy_fields_to_block_content(_record, record_translation)

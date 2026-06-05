@@ -28,6 +28,10 @@ class StandardEditionMigrator
     raise "No migration recipe defined for #{model.class.name}"
   end
 
+  def self.preview_migration(legacy_record, recipe)
+    StandardEditionMigratorJob.new.preview_migration(legacy_record, recipe)
+  end
+
   def self.compare_payloads(legacy_record, standard_edition, recipe)
     StandardEditionMigratorJob.new.compare_payloads(legacy_record, standard_edition, recipe)
   end

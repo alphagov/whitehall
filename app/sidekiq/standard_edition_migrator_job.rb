@@ -18,6 +18,11 @@ class StandardEditionMigratorJob < JobBase
     end
   end
 
+  def preview_migration(legacy_record, recipe)
+    edition = recipe.new(legacy_record).build_edition(legacy_record)
+    compare_payloads(legacy_record, edition, recipe)
+  end
+
   # rubocop:disable Rails/Output
   def compare_payloads(legacy_record, standard_edition, recipe)
     puts "OLD PAYLOAD"

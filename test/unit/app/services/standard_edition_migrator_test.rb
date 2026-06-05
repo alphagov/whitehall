@@ -101,6 +101,17 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     end
   end
 
+  describe ".preview_migration" do
+    test "instantiates and calls StandardEditionMigratorJob's `preview_migration` method" do
+      legacy_record = build(:edition)
+      recipe = stub("Recipe")
+
+      StandardEditionMigratorJob.any_instance.expects(:preview_migration).with(legacy_record, recipe).once
+
+      StandardEditionMigrator.preview_migration(legacy_record, recipe)
+    end
+  end
+
   describe ".compare_payloads" do
     test "instantiates and calls StandardEditionMigratorJob's `compare_payloads` method" do
       legacy_record = build(:edition)
