@@ -15,8 +15,8 @@ module Presenters
               featured_documents_topical_event(feature)
             elsif feature.offsite_link
               featured_documents_offsite_link(feature)
-            # else
-            #   { summary: "" } # TMP (while we sort out featurings on legacy topical events)
+              # else
+              #   { summary: "" } # TMP (while we sort out featurings on legacy topical events)
             end
           end
       end
