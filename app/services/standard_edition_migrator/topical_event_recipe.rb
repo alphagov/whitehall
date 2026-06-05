@@ -87,6 +87,12 @@ class StandardEditionMigrator::TopicalEventRecipe
     # we're not carrying over duration fields to new topical events
     content[:details].delete(:start_date)
     content[:details].delete(:end_date)
+    if content[:details][:ordered_featured_documents]
+      content[:details][:ordered_featured_documents].each do |featured_document|
+        # Deleting as the value is changed in the StandardEdition equivalent
+        featured_document[:image].delete(:url)
+      end
+    end
     content
   end
 
@@ -96,8 +102,12 @@ class StandardEditionMigrator::TopicalEventRecipe
     if content[:details][:ordered_featured_documents]
       # Delete medium_resolution_url and high_resolution_url in each feature in ordered_featured_documents - these are new optional extra image variants in the StandardEdition featuring equivalent
       content[:details][:ordered_featured_documents].each do |featured_document|
+        # Deleting as these are new values in the StandardEdition equivalent
         featured_document[:image].delete(:medium_resolution_url)
         featured_document[:image].delete(:high_resolution_url)
+
+        # Deleting as the value is changed in the StandardEdition equivalent
+        featured_document[:image].delete(:url)
       end
     end
     content

@@ -77,6 +77,38 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       expected_content = { details: { some: "content" } }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
+
+    test "ignores 'URL' field inside ordered_featured_documents as the value is changed in the StandardEdition equivalent" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = {
+        details: {
+          some: "content",
+          ordered_featured_documents: [
+            {
+              title: "Featured document",
+              image: {
+                url: "http://example.com/image.jpg",
+                foo: "bar",
+              },
+            },
+          ],
+        },
+      }
+      expected_content = {
+        details: {
+          some: "content",
+          ordered_featured_documents: [
+            {
+              title: "Featured document",
+              image: {
+                foo: "bar",
+              },
+            },
+          ],
+        },
+      }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
   end
 
   describe "#ignore_new_content_fields" do
@@ -103,7 +135,7 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
             {
               title: "Featured document",
               image: {
-                url: "http://example.com/image.jpg",
+                alt_text: "a",
                 medium_resolution_url: "http://example.com/image_medium.jpg",
                 high_resolution_url: "http://example.com/image_high.jpg",
               },
@@ -118,7 +150,39 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
             {
               title: "Featured document",
               image: {
+                alt_text: "a",
+              },
+            },
+          ],
+        },
+      }
+      assert_equal expected_content, recipe.ignore_new_content_fields(content)
+    end
+
+    test "ignores 'URL' field inside ordered_featured_documents as the value is changed in the StandardEdition equivalent" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = {
+        details: {
+          some: "content",
+          ordered_featured_documents: [
+            {
+              title: "Featured document",
+              image: {
                 url: "http://example.com/image.jpg",
+                foo: "bar",
+              },
+            },
+          ],
+        },
+      }
+      expected_content = {
+        details: {
+          some: "content",
+          ordered_featured_documents: [
+            {
+              title: "Featured document",
+              image: {
+                foo: "bar",
               },
             },
           ],
