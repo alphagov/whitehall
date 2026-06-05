@@ -80,9 +80,8 @@ class StandardEditionMigrator::TopicalEventRecipe
       )
     end
 
-    # TODO: fix. Some Topical Events don't have organisations set. We need to make this requirement a configurable thing in StandardEdition and disable it for Topical Events.
-    # ActiveRecord::RecordInvalid: Validation failed: Lead organisations at least one required (ActiveRecord::RecordInvalid)
-    edition.lead_organisations = [Organisation.last]
+    edition.lead_organisations = record.topical_event_organisations.where(lead: true).map(&:organisation)
+    edition.supporting_organisations = record.topical_event_organisations.where(lead: false).map(&:organisation)
 
     @artefacts_to_save  = {
       document: document,
