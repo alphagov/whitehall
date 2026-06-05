@@ -215,6 +215,15 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#ignore_new_links" do
+    test "ignores emphasised_organisations - these are not present on legacy topical events and are included by default on StandardEdition" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      links = { emphasised_organisations: [1, 2, 3], some: "links" }
+      expected_links = { some: "links" }
+      assert_equal expected_links, recipe.ignore_new_links(links)
+    end
+  end
+
   # TODO: Topical Event Featurings
   # TODO: Topical Event logo image
 end

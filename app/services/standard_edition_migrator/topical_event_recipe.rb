@@ -58,8 +58,8 @@ class StandardEditionMigrator::TopicalEventRecipe
       change_note: [
         {
           "note": "First published.",
-          "public_timestamp": record.created_at.rfc3339
-        }
+          "public_timestamp": record.created_at.rfc3339,
+        },
       ],
       # TODO: add an internal note too, indicating the date of the migraton.
     }
@@ -83,7 +83,7 @@ class StandardEditionMigrator::TopicalEventRecipe
     edition.lead_organisations = record.topical_event_organisations.where(lead: true).map(&:organisation)
     edition.supporting_organisations = record.topical_event_organisations.where(lead: false).map(&:organisation)
 
-    @artefacts_to_save  = {
+    @artefacts_to_save = {
       document: document,
       edition: edition,
       everything_else: edition.translations,
@@ -98,21 +98,19 @@ class StandardEditionMigrator::TopicalEventRecipe
 
   def save_built_edition!
     # First time around, save without validation, since some records are interdependent
-    @artefacts_to_save[:document].save(validate: false)
-    @artefacts_to_save[:edition].save(validate: false)
+    @artefacts_to_save[:document].save!(validate: false)
+    @artefacts_to_save[:edition].save!(validate: false)
     @artefacts_to_save[:everything_else].each do |artefact|
       if artefact.respond_to?(:edition_id=)
         artefact.edition_id = @artefacts_to_save[:edition].id
       end
-      artefact.save(validate: false)
+      artefact.save!(validate: false)
     end
 
     # Second time around, save with validation, to ensure all artefacts are valid (and to trigger any callbacks)
-    @artefacts_to_save[:document].save
-    @artefacts_to_save[:edition].save
-    @artefacts_to_save[:everything_else].each do |artefact|
-      artefact.save! # bang to raise if any validation fails, since we want to know about it and fix the underlying data issue
-    end
+    @artefacts_to_save[:document].save!
+    @artefacts_to_save[:edition].save!
+    @artefacts_to_save[:everything_else].each(&:save!)
   end
 
   def translations
@@ -191,6 +189,7 @@ class StandardEditionMigrator::TopicalEventRecipe
   end
 
   def ignore_new_links(links)
+    links.delete(:emphasised_organisations) # these are not present on legacy topical events and are included by default on StandardEdition
     links
   end
 end
