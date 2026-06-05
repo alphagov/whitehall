@@ -55,7 +55,9 @@ class StandardEditionMigrator::TopicalEventRecipe
   end
 
   def ignore_legacy_content_fields(content)
-    content[:details].delete(:end_date) # we're not carrying over duration fields to new topical events
+    # we're not carrying over duration fields to new topical events
+    content[:details].delete(:start_date)
+    content[:details].delete(:end_date)
     content
   end
 
