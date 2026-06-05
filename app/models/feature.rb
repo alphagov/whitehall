@@ -30,6 +30,8 @@ class Feature < ApplicationRecord
     end
   end
 
+  # Argh - can't refer to this from FeaturedDocumentsHelper because it relies on the feature being
+  # in the DB already, which it won't be at the point of running StandardEditionMigrator preview code.
   def self.current
     where(ended_at: nil)
   end

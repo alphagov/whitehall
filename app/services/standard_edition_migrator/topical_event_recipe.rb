@@ -5,12 +5,35 @@ class StandardEditionMigrator::TopicalEventRecipe
 
   def build_edition(record)
     document = Document.new(document_type: "StandardEdition", content_id: record.content_id)
+    feature_lists = [FeatureList.new(locale: "en")]
+    features = []
+
+    record.topical_event_featurings.each do |featuring|
+      featured_image = FeaturedImageData.new(
+        carrierwave_image: featuring.image.carrierwave_image,
+      )
+      featuring.image.assets.each do |asset|
+        duplicated_asset = asset.dup
+        duplicated_asset.assetable = featured_image
+        featured_image.assets << duplicated_asset
+      end
+
+      features << Feature.new(
+        document: featuring.edition&.document,
+        offsite_link: featuring.offsite_link,
+        image: featured_image,
+        alt_text: featuring.alt_text, 
+        # ordering: featuring.ordering, # TODO: no ordering needed?
+      )
+    end
+    feature_lists.first.features = features
     attributes = {
       document:,
       configurable_document_type: configurable_document_type,
       state: "published",
       slug: record.slug,
       updated_at: record.updated_at.rfc3339,
+      feature_lists: feature_lists,
     }
     attributes[:public_timestamp] = record.public_timestamp if record.respond_to?(:public_timestamp)
     edition = StandardEdition.new(attributes)
@@ -22,7 +45,6 @@ class StandardEditionMigrator::TopicalEventRecipe
         block_content: map_legacy_fields_to_block_content(record, translation),
       )
     end
-
     edition
   end
 

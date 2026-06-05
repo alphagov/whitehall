@@ -4,8 +4,10 @@ module Presenters
       include GovspeakHelper
       def featured_documents(featurable_item, document_limit)
         featurable_item
-          .feature_list_for_locale(I18n.locale).current.limit(document_limit)
-          .select { |feature| feature.image&.all_asset_variants_uploaded? }
+          .feature_list_for_locale(I18n.locale)
+          .features
+          .select { |feature| feature.ended_at.nil? && feature.image&.all_asset_variants_uploaded? }
+          .first(document_limit)
           .map do |feature|
             if feature.document
               featured_documents_editioned(feature)
@@ -13,6 +15,8 @@ module Presenters
               featured_documents_topical_event(feature)
             elsif feature.offsite_link
               featured_documents_offsite_link(feature)
+            # else
+            #   { summary: "" } # TMP (while we sort out featurings on legacy topical events)
             end
           end
       end
