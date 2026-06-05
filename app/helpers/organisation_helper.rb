@@ -10,22 +10,30 @@ module OrganisationHelper
     /building law and hygiene/,
   ].freeze
 
-  SPONSORED_TYPE_KEYS = %i[
+  SPONSORED_ORGANISATION_TYPE_KEYS = %i[
     advisory_ndpb
     executive_agency
     executive_ndpb
     special_health_authority
   ].freeze
 
-  IDENTIFICATION_ONLY_TYPE_KEYS = %i[
+  ORGANISATIONS_WITH_NO_PARENT_RELATIONSHIP_KEYS = %i[
     non_ministerial_department
   ].freeze
 
-  def organisation_relationship_display_name(organisation)
+  def organisation_english_display_name_with_article(organisation)
     if organisation.acronym.present?
       tag.abbr(organisation.acronym, title: organisation.name)
     elsif needs_definite_article?(organisation.name)
-      "#{I18n.t('organisation.the').capitalize} #{organisation.name}"
+      "The #{organisation.name}"
+    else
+      organisation.name
+    end
+  end
+
+  def organisation_welsh_display_name_lowercased_with_no_article(organisation)
+    if organisation.acronym.present?
+      tag.abbr(organisation.acronym, title: organisation.name)
     else
       organisation.name
     end
@@ -44,45 +52,45 @@ module OrganisationHelper
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
-    type_key = organisation.organisation_type_key
+    organisation_type_key = organisation.organisation_type_key
     parent_organisations = organisation.parent_organisations
+    locale_key = display_name_and_parental_relationship_i18n_key(organisation_type_key, parent_organisations)
+    localised_organisation_type_name_with_fallback = I18n.t("organisation.type.#{organisation_type_key}", default: organisation_type_name(organisation))
 
-    relationship_description(organisation, type_key, parent_organisations).html_safe
+    locale_template_args = {
+      parents: parents_sentence(organisation_type_key, parent_organisations),
+      english_display_name: ERB::Util.h(organisation_english_display_name_with_article(organisation)).strip,
+      welsh_display_name: organisation_welsh_display_name_lowercased_with_no_article(organisation).strip,
+      english_org_type: ERB::Util.h(add_indefinite_article(localised_organisation_type_name_with_fallback)),
+      welsh_org_type: ERB::Util.h(localised_organisation_type_name_with_fallback),
+    }.compact
+
+    I18n.t(locale_key, **locale_template_args).html_safe
   end
 
-  def relationship_description(organisation, type_key, parent_organisations)
-    key = relationship_i18n_key(type_key, parent_organisations)
-    args = relationship_template_args(organisation, type_key)
-    args[:parents] = parents_sentence(parent_organisations) if display_parent_relationships?(type_key, parent_organisations)
-    I18n.t(key, **args)
-  end
+  def display_name_and_parental_relationship_i18n_key(organisation_type_key, parent_organisations)
+    return "organisation.display_name_and_parental_relationship.display_name_html" if organisation_type_key == :other && parent_organisations.empty?
+    return "organisation.display_name_and_parental_relationship.is_organisation_type_html" unless display_parent_relationships?(organisation_type_key, parent_organisations)
 
-  def relationship_i18n_key(type_key, parent_organisations)
-    return "organisation.relationship.none_html" if type_key == :other && parent_organisations.empty?
-    return "organisation.relationship.identification_html" unless display_parent_relationships?(type_key, parent_organisations)
-
-    case type_key
-    when :other then "organisation.relationship.works_with_html"
-    when :sub_organisation then "organisation.relationship.part_of_html"
-    when *SPONSORED_TYPE_KEYS then "organisation.relationship.sponsored_html"
-    else "organisation.relationship.default_with_parents_html"
+    case organisation_type_key
+    when :other
+      "organisation.display_name_and_parental_relationship.works_with_html"
+    when :sub_organisation
+      "organisation.display_name_and_parental_relationship.part_of_html"
+    when *SPONSORED_ORGANISATION_TYPE_KEYS
+      "organisation.display_name_and_parental_relationship.sponsored_html"
+    else
+      "organisation.display_name_and_parental_relationship.default_with_parents_html"
     end
   end
 
-  def display_parent_relationships?(type_key, parent_organisations)
-    parent_organisations.any? && IDENTIFICATION_ONLY_TYPE_KEYS.exclude?(type_key)
+  def display_parent_relationships?(organisation_type_key, parent_organisations)
+    parent_organisations.any? && ORGANISATIONS_WITH_NO_PARENT_RELATIONSHIP_KEYS.exclude?(organisation_type_key)
   end
 
-  def relationship_template_args(organisation, type_key)
-    localised_type_name = I18n.t("organisation.type.#{type_key}", default: organisation_type_name(organisation))
-    {
-      name: ERB::Util.h(organisation_relationship_display_name(organisation)).strip,
-      type_name: ERB::Util.h(localised_type_name),
-      relationship: ERB::Util.h(add_indefinite_article(localised_type_name)),
-    }
-  end
+  def parents_sentence(organisation_type_key, parent_organisations)
+    return unless display_parent_relationships?(organisation_type_key, parent_organisations)
 
-  def parents_sentence(parent_organisations)
     parent_organisations.map { |parent| organisation_relationship_html(parent) }.to_sentence
   end
 

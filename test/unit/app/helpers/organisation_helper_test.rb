@@ -5,17 +5,17 @@ class OrganisationHelperTest < ActionView::TestCase
 
   test "returns acronym in abbr tag if present" do
     organisation = build(:organisation, acronym: "BLAH", name: "Building Law and Hygiene")
-    assert_equal %(<abbr title="Building Law and Hygiene">BLAH</abbr>), organisation_relationship_display_name(organisation)
+    assert_equal %(<abbr title="Building Law and Hygiene">BLAH</abbr>), organisation_english_display_name(organisation)
   end
 
   test "returns name when acronym is nil" do
     organisation = build(:organisation, acronym: nil, name: "Building Law and Hygiene")
-    assert_equal "Building Law and Hygiene", organisation_relationship_display_name(organisation)
+    assert_equal "Building Law and Hygiene", organisation_english_display_name(organisation)
   end
 
   test "returns name when acronym is empty" do
     organisation = build(:organisation, acronym: "", name: "Building Law and Hygiene")
-    assert_equal "Building Law and Hygiene", organisation_relationship_display_name(organisation)
+    assert_equal "Building Law and Hygiene", organisation_english_display_name(organisation)
   end
 
   test "returns name formatted for logos" do
@@ -179,19 +179,19 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   end
 
   test "non-ministerial department renders Welsh identification sentence" do
-    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
+    org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Adran anweinidogol yw'r CC."
+      assert_display_name_text org, "Mae Comisiwn Elusennau yn adran anweinidogol."
     end
   end
 
   test "non-ministerial department with parents renders Welsh identification sentence" do
     parent = create(:ministerial_department, name: "Department of Testing")
-    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department, parent_organisations: [parent])
+    org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Adran anweinidogol yw'r CC."
+      assert_display_name_text org, "Mae Comisiwn Elusennau yn adran anweinidogol."
     end
   end
 
@@ -200,7 +200,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Mae CC yn an asiantaeth gweithredol, a noddir gan y Department of Testing."
+      assert_display_name_text org, "Mae Comisiwn Elusennau yn asiantaeth gweithredol, a noddir gan y Department of Testing."
     end
   end
 
@@ -212,7 +212,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
     I18n.with_locale(:cy) do
       description = organisation_display_name_including_parental_and_child_relationships(org)
-      assert_equal "Adran anweinidogol yw'r CC, supported by 1 public body.", strip_html_tags(description)
+      assert_equal "Mae CC yn adran anweinidogol, supported by 1 public body.", strip_html_tags(description)
     end
   end
 

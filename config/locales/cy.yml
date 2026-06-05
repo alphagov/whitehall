@@ -38,11 +38,11 @@ cy:
       jobs: Swyddi
       jobs_and_contacts: Swyddi a chontractau
       organisation_chart: Ein siart sefydliadol
-    relationship:
-      identification_html: "%{type_name} yw'r %{name}."
-      sponsored_html: "Mae %{name} yn %{relationship}, a noddir gan %{parents}."
+    display_name_and_parental_relationship:
+      is_organisation_type_html: "Mae %{welsh_display_name} yn %{welsh_org_type}."
+      sponsored_html: "Mae %{welsh_display_name} yn %{welsh_org_type}, a noddir gan %{parents}."
     type:
-      non_ministerial_department: Adran anweinidogol
+      non_ministerial_department: adran anweinidogol
       executive_agency: asiantaeth gweithredol
   worldwide_organisation:
     corporate_information:

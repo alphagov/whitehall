@@ -402,13 +402,13 @@ en:
       organisation_chart: Our organisation chart
     embassies:
       find_an_embassy_title: Find a British embassy, high commission or consulate
-    relationship:
-      none_html: "%{name}"
-      identification_html: "%{name} is %{relationship}."
-      works_with_html: "%{name} works with %{parents}."
-      part_of_html: "%{name} is part of %{parents}."
-      sponsored_html: "%{name} is %{relationship}, sponsored by %{parents}."
-      default_with_parents_html: "%{name} is %{relationship} of %{parents}."
+    display_name_and_parental_relationship:
+      display_name_html: "%{english_display_name}"
+      is_organisation_type_html: "%{english_display_name} is %{english_org_type}."
+      works_with_html: "%{english_display_name} works with %{parents}."
+      part_of_html: "%{english_display_name} is part of %{parents}."
+      sponsored_html: "%{english_display_name} is %{english_org_type}, sponsored by %{parents}."
+      default_with_parents_html: "%{english_display_name} is %{english_org_type} of %{parents}."
     type:
       adhoc_advisory_group: ad-hoc advisory group
       advisory_ndpb: advisory non-departmental public body
