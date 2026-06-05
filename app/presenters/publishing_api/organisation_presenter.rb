@@ -136,7 +136,7 @@ module PublishingApi
       return if item.organisation_type.executive_office? || item.organisation_type.civil_service? || item.closed?
       return if item.parent_organisations.empty? && item.supporting_bodies.empty?
 
-      "\n\n#{organisation_display_name_including_parental_and_child_relationships(item)}"
+      "\n\n#{organisation_with_parental_and_child_relationships_sentence(item)}"
     end
 
     def brand

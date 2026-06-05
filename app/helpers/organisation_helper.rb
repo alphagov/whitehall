@@ -43,7 +43,12 @@ module OrganisationHelper
     ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
   end
 
-  def organisation_display_name_and_parental_relationship(organisation)
+  def organisation_with_parental_and_child_relationships_sentence(organisation)
+    parental_relationship_sentence = organisation_display_name_with_parental_relationship_sentence(organisation)
+    child_relationships_sentence(parental_relationship_sentence, organisation).html_safe
+  end
+
+  def organisation_display_name_with_parental_relationship_sentence(organisation)
     organisation_type_key = organisation.organisation_type_key
     parent_organisations = organisation.parent_organisations
     localised_organisation_type_with_fallback = I18n.t("organisation.type.#{organisation_type_key}", default: organisation_type_name(organisation))
@@ -86,23 +91,22 @@ module OrganisationHelper
     parent_organisations.map { |parent| organisation_relationship_html(parent) }.to_sentence
   end
 
-  def organisation_display_name_including_parental_and_child_relationships(organisation)
-    org_temp_name = organisation_display_name_and_parental_relationship(organisation)
+  def child_relationships_sentence(temp_org_sentence, organisation)
     supporting_bodies = organisation.supporting_bodies
 
     if supporting_bodies.any?
-      org_temp_name.chomp!(".")
-      org_temp_name += supporting_organisation_text(organisation)
+      temp_org_sentence.chomp!(".")
+      temp_org_sentence += supporting_organisation_text(organisation)
 
       child_relationships_link_text = supporting_bodies.size.to_s
       child_relationships_link_text += supporting_bodies.size == 1 ? " public body" : " agencies and public bodies"
 
-      org_temp_name += link_to(child_relationships_link_text, organisation.link_to_section_on_organisation_list_page, class: "brand__color")
+      temp_org_sentence += link_to(child_relationships_link_text, organisation.link_to_section_on_organisation_list_page, class: "brand__color")
 
-      org_temp_name += "."
+      temp_org_sentence += "."
     end
 
-    org_temp_name.html_safe
+    temp_org_sentence
   end
 
   def supporting_organisation_text(organisation)
