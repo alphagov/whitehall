@@ -37,10 +37,12 @@ cy:
       jobs: Swyddi
       jobs_and_contacts: Swyddi a chontractau
       organisation_chart: Ein siart sefydliadol
-    relationship:
-      identification_html: "%{type_name} yw'r %{name}."
+    display_name_and_parental_relationship:
+      is_organisation_type_html: "%{org_type_with_no_indefinite_article} yw'r %{display_name_without_article}."
+      sponsored_html: "Mae %{display_name_without_article} yn %{org_type_with_no_indefinite_article}, a noddir gan %{parents}."
     type:
       non_ministerial_department: Adran anweinidogol
+      executive_agency: asiantaeth weithredol
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Darganfod %{link}.

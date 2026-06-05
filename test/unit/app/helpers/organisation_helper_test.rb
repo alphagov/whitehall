@@ -5,17 +5,17 @@ class OrganisationHelperTest < ActionView::TestCase
 
   test "returns acronym in abbr tag if present" do
     organisation = build(:organisation, acronym: "BLAH", name: "Building Law and Hygiene")
-    assert_equal %(<abbr title="Building Law and Hygiene">BLAH</abbr>), organisation_relationship_display_name(organisation)
+    assert_equal %(<abbr title="Building Law and Hygiene">BLAH</abbr>), organisation_display_name_with_definite_article(organisation)
   end
 
   test "returns name when acronym is nil" do
     organisation = build(:organisation, acronym: nil, name: "Building Law and Hygiene")
-    assert_equal "Building Law and Hygiene", organisation_relationship_display_name(organisation)
+    assert_equal "Building Law and Hygiene", organisation_display_name_with_definite_article(organisation)
   end
 
   test "returns name when acronym is empty" do
     organisation = build(:organisation, acronym: "", name: "Building Law and Hygiene")
-    assert_equal "Building Law and Hygiene", organisation_relationship_display_name(organisation)
+    assert_equal "Building Law and Hygiene", organisation_display_name_with_definite_article(organisation)
   end
 
   test "returns name formatted for logos" do
@@ -35,19 +35,19 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   def assert_relationship_type_is_described_as(type_key, expected_description, org_name, parent_org_name)
     parent = create(:organisation, name: parent_org_name)
     child = create(:organisation, parent_organisations: [parent], organisation_type: OrganisationType.get(type_key), name: org_name)
-    actual_html = organisation_display_name_and_parental_relationship(child)
+    actual_html = organisation_display_name_with_parental_relationship_sentence(child)
     assert_equal expected_description, strip_html_tags(actual_html)
   end
 
   def assert_definite_article_skipped(parent_organisation_name)
     parent = create(:organisation, name: parent_organisation_name)
     child = create(:organisation, parent_organisations: [parent], organisation_type: OrganisationType.ministerial_department)
-    actual_html = organisation_display_name_and_parental_relationship(child)
+    actual_html = organisation_display_name_with_parental_relationship_sentence(child)
     assert_match %r{of #{parent.name}}, strip_html_tags(actual_html)
   end
 
   def assert_display_name_text(organisation, expected_text)
-    actual_html = organisation_display_name_and_parental_relationship(organisation)
+    actual_html = organisation_display_name_with_parental_relationship_sentence(organisation)
     assert_equal expected_text, strip_html_tags(actual_html)
   end
 
@@ -75,7 +75,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     )
     expected = %(B&amp;B is an executive agency, sponsored by the Department of Economy &amp; Trade.)
     assert_display_name_text child, expected
-    assert organisation_display_name_and_parental_relationship(child).html_safe?
+    assert organisation_display_name_with_parental_relationship_sentence(child).html_safe?
   end
 
   test "description of parent organisations" do
@@ -87,7 +87,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   test "links to parent organisation" do
     parent = create(:organisation, name: "Testing Agency")
     child = create(:organisation, name: "Department of Testing", parent_organisations: [parent])
-    assert_match %r{the <a class="brand__color" href="/government/organisations/#{parent.to_param}">#{parent.name}</a>}, organisation_display_name_and_parental_relationship(child)
+    assert_match %r{the <a class="brand__color" href="/government/organisations/#{parent.to_param}">#{parent.name}</a>}, organisation_display_name_with_parental_relationship_sentence(child)
   end
 
   test "relationship types are described correctly and trailing spaces are removed" do
@@ -122,7 +122,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent1 = create(:organisation)
     parent2 = create(:organisation)
     child = create(:organisation, parent_organisations: [parent1, parent2])
-    result = organisation_display_name_and_parental_relationship(child)
+    result = organisation_display_name_with_parental_relationship_sentence(child)
 
     assert_match parent1.name, result
     assert_match parent2.name, result
@@ -131,7 +131,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   test "single child organisation reflected as in copy" do
     child = create(:organisation)
     parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child])
-    description = organisation_display_name_including_parental_and_child_relationships(parent)
+    description = organisation_with_parental_and_child_relationships_sentence(parent)
     assert description.include? "1 public body"
   end
 
@@ -139,7 +139,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child1 = create(:organisation)
     child2 = create(:organisation)
     parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child1, child2])
-    description = organisation_display_name_including_parental_and_child_relationships(parent)
+    description = organisation_with_parental_and_child_relationships_sentence(parent)
     assert description.include? "2 agencies and public bodies"
   end
 
@@ -147,7 +147,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "COO", name: "Child Organisation One")
     parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child])
 
-    description = organisation_display_name_including_parental_and_child_relationships(parent)
+    description = organisation_with_parental_and_child_relationships_sentence(parent)
     assert_equal "PAN is a ministerial department, supported by 1 public body.", strip_html_tags(description)
   end
 
@@ -155,7 +155,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "CO", name: "Child Organisation")
     parent = create(:organisation, organisation_type_key: "other", acronym: "OON", name: "Other Organisation Name", child_organisations: [child])
 
-    description = organisation_display_name_including_parental_and_child_relationships(parent)
+    description = organisation_with_parental_and_child_relationships_sentence(parent)
     assert_equal "OON is supported by 1 public body.", strip_html_tags(description)
   end
 
@@ -163,7 +163,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     organisation = create(:organisation, organisation_type_key: "other", acronym: "OON", name: "Other Organisation Name")
     organisation.stubs(:supporting_bodies).returns([])
 
-    description = organisation_display_name_including_parental_and_child_relationships(organisation)
+    description = organisation_with_parental_and_child_relationships_sentence(organisation)
     assert description.include? "Other Organisation Name"
     assert_equal "OON", strip_html_tags(description)
   end
@@ -174,46 +174,74 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent = create(:organisation, acronym: "PO", name: "Department of Testing")
     org = create(:organisation, organisation_type_key: "other", acronym: "TO", name: "This Organisation", child_organisations: [child1, child2], parent_organisations: [parent])
 
-    description = organisation_display_name_including_parental_and_child_relationships(org)
+    description = organisation_with_parental_and_child_relationships_sentence(org)
     assert_equal "TO works with the Department of Testing and is supported by 2 agencies and public bodies.", strip_html_tags(description)
   end
 
   test "non-ministerial department renders Welsh identification sentence" do
-    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
+    org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Adran anweinidogol yw'r CC."
+      assert_display_name_text org, "Adran anweinidogol yw'r Comisiwn Elusennau."
     end
   end
 
   test "non-ministerial department with parents renders Welsh identification sentence" do
     parent = create(:ministerial_department, name: "Department of Testing")
-    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department, parent_organisations: [parent])
+    org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Adran anweinidogol yw'r CC."
+      assert_display_name_text org, "Adran anweinidogol yw'r Comisiwn Elusennau."
     end
   end
 
   # TODO: delete test once we have full Welsh translations
   test "non-ministerial department with supporting bodies renders mixed Welsh/English sentence in Welsh" do
     child = create(:organisation, acronym: "CO", name: "Child Organisation One")
-    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
+    org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
     org.stubs(:supporting_bodies).returns([child])
 
     I18n.with_locale(:cy) do
-      description = organisation_display_name_including_parental_and_child_relationships(org)
-      assert_equal "Adran anweinidogol yw'r CC, supported by 1 public body.", strip_html_tags(description)
+      description = organisation_with_parental_and_child_relationships_sentence(org)
+      assert_equal "Adran anweinidogol yw'r Comisiwn Elusennau, supported by 1 public body.", strip_html_tags(description)
+    end
+  end
+
+  test "sponsored executive agency with parents renders Welsh sponsored sentence (consonant starting org)" do
+    parent = create(:ministerial_department, name: "Department of Testing")
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "Mae CC yn asiantaeth weithredol, a noddir gan y Department of Testing."
+    end
+  end
+
+  test "sponsored executive agency with parents renders Welsh sponsored sentence (vowel starting org)" do
+    parent = create(:ministerial_department, name: "Agency for fun")
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "Mae CC yn asiantaeth weithredol, a noddir gan yr Agency for fun."
+    end
+  end
+
+  test "sponsored executive agency with parents renders Welsh sponsored sentence (mixed orgs)" do
+    vowel_starting_parent = create(:ministerial_department, name: "Agency for fun")
+    consonant_starting_parent = create(:ministerial_department, name: "Department for fun")
+    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [vowel_starting_parent, consonant_starting_parent])
+
+    I18n.with_locale(:cy) do
+      assert_display_name_text org, "Mae CC yn asiantaeth weithredol, a noddir gan yr Agency for fun a y Department for fun."
     end
   end
 
   # TODO: delete test once we have full Welsh translations
   test "non-Welsh-translated type falls back to English in Welsh locale" do
     parent = create(:ministerial_department, name: "Department of Testing")
-    org = create(:organisation, acronym: "EA", name: "Executive Agency Example", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+    org = create(:organisation, name: "Executive Agency Example", organisation_type: OrganisationType.other, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "EA is an executive agency, sponsored by the Department of Testing."
+      assert_display_name_text org, "The Executive Agency Example works with y Department of Testing."
     end
   end
 end
