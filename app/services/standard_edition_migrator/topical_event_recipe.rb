@@ -149,6 +149,10 @@ class StandardEditionMigrator::TopicalEventRecipe
   end
 
   def ignore_legacy_content_fields(content)
+    # drop .atom routes - they're not supported anymore
+    if content[:routes]
+      content[:routes] = content[:routes].reject { |route| route[:path].end_with?(".atom") }
+    end
     # we're not carrying over duration fields to new topical events
     content[:details].delete(:start_date)
     content[:details].delete(:end_date)

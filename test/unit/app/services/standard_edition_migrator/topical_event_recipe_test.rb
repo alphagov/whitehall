@@ -64,6 +64,13 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
   end
 
   describe "#ignore_legacy_content_fields" do
+    test "removes .atom route as these are not present on StandardEdition documents and we have made a business decision to drop support for them" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = { details: {}, routes: [{ path: "/government/topical-events/example" }, { path: "/government/topical-events/example.atom" }] }
+      expected_content = { details: {}, routes: [{ path: "/government/topical-events/example" }] }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
+
     test "removes 'start_date' as we're not carrying over duration fields to new topical events" do
       recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
       content = { details: { some: "content", start_date: "2024-01-01" } }
