@@ -99,7 +99,7 @@ module OrganisationHelper
       temp_org_sentence += supporting_organisation_text(organisation)
 
       child_relationships_link_text = supporting_bodies.size.to_s
-      child_relationships_link_text += supporting_bodies.size == 1 ? " public body" : " agencies and public bodies"
+      child_relationships_link_text += supporting_bodies.size == 1 ? " #{I18n.t('organisation.child_relationships.public_body')}" : " #{I18n.t('organisation.child_relationships.agencies_and_public_bodies')}"
 
       temp_org_sentence += link_to(child_relationships_link_text, organisation.link_to_section_on_organisation_list_page, class: "brand__color")
 
@@ -110,10 +110,10 @@ module OrganisationHelper
   end
 
   def supporting_organisation_text(organisation)
-    return ", supported by " if organisation_type_name(organisation) != "other"
-    return " and is supported by " if organisation.parent_organisations.any?
+    return ", #{I18n.t('organisation.child_relationships.supported_by')} " if organisation_type_name(organisation) != "other"
+    return " #{I18n.t('organisation.child_relationships.and_is_supported_by')} " if organisation.parent_organisations.any?
 
-    " is supported by "
+    " #{I18n.t('organisation.child_relationships.is_supported_by')} "
   end
 
   def organisation_relationship_html(organisation)

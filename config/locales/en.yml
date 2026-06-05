@@ -425,6 +425,12 @@ en:
       special_health_authority: special health authority
       sub_organisation: sub-organisation
       tribunal: tribunal
+    child_relationships:
+      supported_by: "supported by"
+      and_is_supported_by: "and is supported by"
+      is_supported_by: "is supported by"
+      public_body: "public body"
+      agencies_and_public_bodies: "agencies and public bodies"
   roles:
     unassigned: No one is assigned to this role
   support:
