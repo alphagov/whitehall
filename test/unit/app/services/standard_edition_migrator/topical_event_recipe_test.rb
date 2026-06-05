@@ -93,6 +93,39 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       expected_content = { details: { some: "content" } }
       assert_equal expected_content, recipe.ignore_new_content_fields(content)
     end
+
+    test "ignores medium_resolution_url and high_resolution_url in each feature in ordered_featured_documents - these are new optional extra image variants in the StandardEdition featuring equivalent" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = {
+        details: {
+          some: "content",
+          ordered_featured_documents: [
+            {
+              title: "Featured document",
+              image: {
+                url: "http://example.com/image.jpg",
+                medium_resolution_url: "http://example.com/image_medium.jpg",
+                high_resolution_url: "http://example.com/image_high.jpg",
+              },
+            },
+          ],
+        },
+      }
+      expected_content = {
+        details: {
+          some: "content",
+          ordered_featured_documents: [
+            {
+              title: "Featured document",
+              image: {
+                url: "http://example.com/image.jpg",
+              },
+            },
+          ],
+        },
+      }
+      assert_equal expected_content, recipe.ignore_new_content_fields(content)
+    end
   end
 
   # TODO: Topical Event Featurings

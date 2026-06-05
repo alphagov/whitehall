@@ -22,7 +22,7 @@ class StandardEditionMigrator::TopicalEventRecipe
         document: featuring.edition&.document,
         offsite_link: featuring.offsite_link,
         image: featured_image,
-        alt_text: featuring.alt_text, 
+        alt_text: featuring.alt_text,
         # ordering: featuring.ordering, # TODO: no ordering needed?
       )
     end
@@ -93,6 +93,13 @@ class StandardEditionMigrator::TopicalEventRecipe
   def ignore_new_content_fields(content)
     content.delete(:auth_bypass_ids) # these were not present on legacy topical events and are included by default on StandardEdition
     content.delete(:links) # legacy Topical Events had no edition links, but StandardEdition ones will
+    if content[:details][:ordered_featured_documents]
+      # Delete medium_resolution_url and high_resolution_url in each feature in ordered_featured_documents - these are new optional extra image variants in the StandardEdition featuring equivalent
+      content[:details][:ordered_featured_documents].each do |featured_document|
+        featured_document[:image].delete(:medium_resolution_url)
+        featured_document[:image].delete(:high_resolution_url)
+      end
+    end
     content
   end
 
