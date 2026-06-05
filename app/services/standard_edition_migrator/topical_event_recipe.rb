@@ -51,6 +51,13 @@ class StandardEditionMigrator::TopicalEventRecipe
 
     {
       "body" => edition.description,
+      "social_media_links" => edition.social_media_accounts.map do |account|
+        {
+          "social_media_service_name" => account.service_name,
+          "url" => account.url,
+          "title" => account.display_name,
+        }
+      end,
     }
   end
 
