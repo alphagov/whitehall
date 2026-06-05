@@ -89,8 +89,14 @@ class StandardEditionMigrator::TopicalEventRecipe
     content[:details].delete(:end_date)
     if content[:details][:ordered_featured_documents]
       content[:details][:ordered_featured_documents].each do |featured_document|
-        # Deleting as the value is changed in the StandardEdition equivalent
-        featured_document[:image].delete(:url)
+        if featured_document[:summary]
+          # Remove stray spaces from end of the summary as that is what the StandardEdition equivalent does
+          featured_document[:summary] = featured_document[:summary].gsub(/\s+$/, "")
+        end
+        if featured_document[:image]
+          # Deleting as the value is changed in the StandardEdition equivalent
+          featured_document[:image].delete(:url)
+        end
       end
     end
     content

@@ -78,6 +78,29 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
 
+    test "calls 'chomp' on the old summary inside ordered_featured_documents because the StandardEdition equivalent removes stray spaces" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = {
+        details: {
+          ordered_featured_documents: [
+            {
+              summary: "Summary with trailing space ",
+            },
+          ],
+        },
+      }
+      expected_content = {
+        details: {
+          ordered_featured_documents: [
+            {
+              summary: "Summary with trailing space",
+            },
+          ],
+        },
+      }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
+
     test "ignores 'URL' field inside ordered_featured_documents as the value is changed in the StandardEdition equivalent" do
       recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
       content = {
