@@ -179,41 +179,41 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   end
 
   test "non-ministerial department renders Welsh identification sentence" do
-    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
+    org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Adran anweinidogol yw'r CC."
+      assert_display_name_text org, "Adran anweinidogol yw'r The Comisiwn Elusennau."
     end
   end
 
   test "non-ministerial department with parents renders Welsh identification sentence" do
     parent = create(:ministerial_department, name: "Department of Testing")
-    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department, parent_organisations: [parent])
+    org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "Adran anweinidogol yw'r CC."
+      assert_display_name_text org, "Adran anweinidogol yw'r The Comisiwn Elusennau."
     end
   end
 
   # TODO: delete test once we have full Welsh translations
   test "non-ministerial department with supporting bodies renders mixed Welsh/English sentence in Welsh" do
     child = create(:organisation, acronym: "CO", name: "Child Organisation One")
-    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
+    org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.non_ministerial_department)
     org.stubs(:supporting_bodies).returns([child])
 
     I18n.with_locale(:cy) do
       description = organisation_with_parental_and_child_relationships_sentence(org)
-      assert_equal "Adran anweinidogol yw'r CC, supported by 1 public body.", strip_html_tags(description)
+      assert_equal "Adran anweinidogol yw'r The Comisiwn Elusennau, supported by 1 public body.", strip_html_tags(description)
     end
   end
 
   # TODO: delete test once we have full Welsh translations
   test "non-Welsh-translated type falls back to English in Welsh locale" do
     parent = create(:ministerial_department, name: "Department of Testing")
-    org = create(:organisation, acronym: "EA", name: "Executive Agency Example", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+    org = create(:organisation, name: "Executive Agency Example", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
-      assert_display_name_text org, "EA is an executive agency, sponsored by the Department of Testing."
+      assert_display_name_text org, "The Executive Agency Example is an executive agency, sponsored by the Department of Testing."
     end
   end
 end
