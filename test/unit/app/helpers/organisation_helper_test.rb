@@ -197,7 +197,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
   test "sponsored executive agency with parents renders Welsh identification sentence" do
     parent = create(:ministerial_department, name: "Department of Testing")
-    org = create(:organisation, acronym: "CC", name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
+    org = create(:organisation, name: "Comisiwn Elusennau", organisation_type: OrganisationType.executive_agency, parent_organisations: [parent])
 
     I18n.with_locale(:cy) do
       assert_display_name_text org, "Mae CC yn an asiantaeth gweithredol, a noddir gan y Department of Testing."
