@@ -190,5 +190,12 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       expected_content = { details: { some: "content" } }
       assert_equal expected_content, recipe.ignore_new_content_fields(content)
     end
+
+    it "ignores 'links' as legacy Topical Events had no edition links, but StandardEdition ones will" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = { details: { some: "content" }, links: { some: "links" } }
+      expected_content = { details: { some: "content" } }
+      assert_equal expected_content, recipe.ignore_new_content_fields(content)
+    end
   end
 end
