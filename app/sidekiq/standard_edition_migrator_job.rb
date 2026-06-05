@@ -12,7 +12,29 @@ class StandardEditionMigratorJob < JobBase
     model_class_name = args["model_class"]
 
     if model_class_name != "Document"
-      perform_for_non_editionable(record_id, model_class_name, compare_payloads:)
+      # perform_for_non_editionable(record_id, model_class_name, compare_payloads:)
+
+      ActiveRecord::Base.transaction do
+        legacy_record = model_class_name.constantize.find(record_id)
+        recipe = StandardEditionMigrator.recipe_for(legacy_record)
+        initialized_recipe = recipe.new(legacy_record)
+        edition = initialized_recipe.build_edition(legacy_record)
+        compare_payloads(legacy_record, edition, recipe)
+        # TODO: add a comparison check guardrail here ^
+
+        # First time around, save without validation, since some records are interdependent
+        initialized_recipe.artefacts_to_save.each do |artefact|
+          artefact.save(validate: false)
+        end
+
+        # Second time around, save with validation, to ensure all artefacts are valid (and to trigger any callbacks)
+        initialized_recipe.artefacts_to_save.each do |artefact|
+          artefact.save! # bang to raise if any validation fails, since we want to know about it and fix the underlying data issue
+        end
+
+        # TODO: add a comparison guardrail here, i.e. if the payload of the saved thing doesn't match the payload
+        # of the preview, raise an error
+      end
     else
       perform_for_document(record_id, compare_payloads:)
     end

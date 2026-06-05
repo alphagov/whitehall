@@ -1,9 +1,13 @@
 class StandardEditionMigrator::TopicalEventRecipe
+  attr_reader :artefacts_to_save
+
   def initialize(record)
     @legacy_topical_event = record
+    @artefacts_to_save = nil
   end
 
   def build_edition(record)
+    @artefacts_to_save = [] # set here just in case we called this once already e.g. for preview
     document = Document.new(document_type: "StandardEdition", content_id: record.content_id)
     feature_lists = [FeatureList.new(locale: "en")]
     features = []
@@ -26,6 +30,7 @@ class StandardEditionMigrator::TopicalEventRecipe
         # ordering: featuring.ordering, # TODO: no ordering needed?
       )
     end
+
     feature_lists.first.features = features
     attributes = {
       document:,
@@ -33,10 +38,39 @@ class StandardEditionMigrator::TopicalEventRecipe
       state: "published",
       slug: record.slug,
       updated_at: record.updated_at.rfc3339,
+      first_published_at: record.created_at.rfc3339,
+      major_change_published_at: record.updated_at.rfc3339,
       feature_lists: feature_lists,
+      # We're only importing a single 'flattened' edition
+      # from Content Publisher. This doesn't play nicely with the
+      # Edition model's `set_public_timestamp` callback, which checks
+      #  if this is the "first published version" (defined in `Edition::Publishing`),
+      # which is true if `published_major_version` is `nil` or `1`.
+      # It would then set `public_timestamp` to `first_published_at`,
+      # which is not the correct timestamp if there was a subsequent
+      # major version.
+      # By setting `published_major_version` to a minimum of `2`, the
+      # `set_public_timestamp` falls back to `major_change_published_at`,
+      # which we've set to match the latest public changenote timestamp
+      # associated with the edition, which is the correct value.
+      published_major_version: 2,
+      # TODO: are we planning to send changenotes, period?
+      change_note: [
+        {
+          "note": "First published.",
+          "public_timestamp": record.created_at.rfc3339
+        }
+      ],
+      # TODO: add an internal note too, indicating the date of the migraton.
     }
     attributes[:public_timestamp] = record.public_timestamp if record.respond_to?(:public_timestamp)
-    edition = StandardEdition.new(attributes)
+
+    user = User.find_by(name: "Scheduled Publishing Robot")
+    edition = nil
+    AuditTrail.acting_as(user) do
+      edition = StandardEdition.new(attributes)
+      edition.creator = user
+    end
 
     translations.each do |translation|
       edition.translations.find_or_initialize_by(locale: translation.fixed_locale).update(
@@ -45,6 +79,16 @@ class StandardEditionMigrator::TopicalEventRecipe
         block_content: map_legacy_fields_to_block_content(record, translation),
       )
     end
+
+    @artefacts_to_save << [document, edition, edition.translations]
+    @artefacts_to_save.concat(features.flat_map(&:image).flat_map(&:assets))
+    @artefacts_to_save.concat(features)
+    @artefacts_to_save.concat(feature_lists)
+    @artefacts_to_save = @artefacts_to_save.flatten
+
+    # TODO: fix. Some Topical Events don't have organisations set. We need to make this requirement a configurable thing in StandardEdition and disable it for Topical Events.
+    # ActiveRecord::RecordInvalid: Validation failed: Lead organisations at least one required (ActiveRecord::RecordInvalid)
+
     edition
   end
 
