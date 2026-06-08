@@ -302,5 +302,28 @@ class Edition::SluggingTest < ActiveSupport::TestCase
       assert_equal "original-title-override", draft_edition_with_slug_override.slug
       assert_equal "original-title-override", draft_edition_with_slug_override.slug_override
     end
+
+    test "it sets an override on new drafts from published, where a custom slug is set, but not saved as an override" do
+      published_edition = SluggableEdition.create_published!(title: "Original Title")
+      published_edition.update_columns(slug: "original-title-override", slug_from_title: "original-title-override")
+      assert_nil published_edition.slug_override
+
+      draft_edition = published_edition.create_draft(create(:writer))
+
+      assert_equal "original-title-override", published_edition.slug
+      assert_equal "original-title-override", draft_edition.slug_override
+    end
+
+    test "it preserves a blank override on drafts from published, where a custom slug is set, but not saved as an override" do
+      published_edition = SluggableEdition.create_published!(title: "Original Title")
+      published_edition.update_columns(slug: "original-title-override", slug_from_title: "original-title-override")
+      assert_nil published_edition.slug_override
+
+      draft_edition = published_edition.create_draft(create(:writer))
+      draft_edition.slug_override = nil
+      draft_edition.save!(validate: false)
+
+      assert_nil draft_edition.slug_override
+    end
   end
 end

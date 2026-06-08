@@ -276,8 +276,13 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
     published_edition = create(:published_standard_edition, configurable_document_type: "test_type")
-    edition = create(:draft_standard_edition, configurable_document_type: "test_type", document: published_edition.document)
-    edition.update!(title: "Different title")
+    edition = published_edition.create_draft(published_edition.authors.first)
+    edition.title = "Different title"
+    edition.slug_override = nil
+    edition.save!(validate: false)
+
+    assert_nil edition.slug_override
+    assert_not_equal published_edition.slug, edition.slug
 
     get :edit, params: { id: edition }
 
