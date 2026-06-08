@@ -34,8 +34,7 @@
   </section>
 
   <%= render partial: "admin/editions/show/main_notices", locals: { edition: @edition } %>
-
-  <%= render Admin::Editions::Show::PreviewComponent.new(edition: @edition) %>
+  <%= render Admin::Editions::Show::PreviewComponent.new(edition: @edition, invalid_tab_forms: @invalid_tab_forms) %>
 
   <% if @edition.change_note_required? %>
     <section class="app-view-summary__section">

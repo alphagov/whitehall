@@ -7,6 +7,11 @@
     margin_bottom: 3,
   } %>
 
+  <% if local_edition.is_a?(StandardEdition) && invalid_tab_forms&.any? %>
+    <%= render "govuk_publishing_components/components/inset_text", {
+      text: "This preview may be out of date because the edition is invalid.",
+    } %>
+  <% end %>
   <% if versioning_completed %>
     <p class="govuk-body">
       <%= preview_link(primary_locale_link_text, preview_url) %>

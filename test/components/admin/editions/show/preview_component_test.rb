@@ -108,4 +108,21 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
     assert page.has_content? "Preview on website - French (opens in new tab)"
     assert_not page.has_content? "Preview on website - Français (French) (opens in new tab)"
   end
+
+  test "renders a hint text when the edition is a StandardEdition with invalid tab forms" do
+    edition = build_stubbed(:standard_edition, document: @document)
+    invalid_tab_forms = [{ tab_key: "documents", label: "Document" }]
+
+    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:, invalid_tab_forms:))
+
+    assert_selector ".govuk-inset-text", text: "This preview may be out of date because the edition is invalid."
+  end
+
+  test "does not render a hint text when there are no invalid tab forms" do
+    edition = build_stubbed(:standard_edition, document: @document)
+
+    render_inline(Admin::Editions::Show::PreviewComponent.new(edition:, invalid_tab_forms: []))
+
+    assert_selector ".govuk-inset-text", text: "This preview may be out of date because the edition is invalid.", count: 0
+  end
 end

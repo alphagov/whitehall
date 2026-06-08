@@ -3,8 +3,9 @@
 class Admin::Editions::Show::PreviewComponent < ViewComponent::Base
   include Admin::UrlOptionsHelper
 
-  def initialize(edition:)
+  def initialize(edition:, invalid_tab_forms: [])
     @edition = edition
+    @invalid_tab_forms = invalid_tab_forms
   end
 
   def render?
@@ -13,7 +14,7 @@ class Admin::Editions::Show::PreviewComponent < ViewComponent::Base
 
 private
 
-  attr_reader :edition
+  attr_reader :edition, :invalid_tab_forms
 
   def versioning_completed
     @versioning_completed ||= edition.versioning_completed?
