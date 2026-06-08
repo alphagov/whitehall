@@ -220,13 +220,12 @@
       "details": {
         "body": { "field": "body", "type": "compiled_govspeak" },
         "social_media_links": { "field": "social_media_links", "type": "social_media_links" },
-        "parts": [
-          {
-            "title": { "field": "about.title", "type": "raw" },
-            "body": { "field": "about.body", "type": "compiled_and_raw_govspeak" },
-            "slug": { "hardcoded_value": "/about" }
-          }
-        ]
+        "about": {
+          "title": { "field": "about.title", "type": "raw" },
+          "summary": { "field": "about.summary", "type": "raw" },
+          "body": { "field": "about.body", "type": "compiled_and_raw_govspeak" },
+          "slug": { "hardcoded_value": "/about" }
+        }
       },
       "links": [
         "organisations"
