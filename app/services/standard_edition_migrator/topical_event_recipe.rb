@@ -1,4 +1,6 @@
 class StandardEditionMigrator::TopicalEventRecipe
+  include GovspeakHelper
+
   attr_reader :artefacts_to_save
 
   def initialize(record)
@@ -195,6 +197,8 @@ class StandardEditionMigrator::TopicalEventRecipe
         if featured_document[:summary]
           # Remove stray spaces from end of the summary as that is what the StandardEdition equivalent does
           featured_document[:summary] = featured_document[:summary].gsub(/\s+$/, "")
+          # Put through govspeak_to_html as that's what the StandardEdition equivalent does
+          featured_document[:summary] = ActionView::Base.full_sanitizer.sanitize(govspeak_to_html(featured_document[:summary])).strip
         end
         if featured_document[:image]
           # Deleting as the value is changed in the StandardEdition equivalent

@@ -108,6 +108,29 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
 
+    test "puts summary through govspeak_to_html then ActionView::Base.full_sanitizer.sanitize as that's what the StandardEdition equivalent does" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = {
+        details: {
+          ordered_featured_documents: [
+            {
+              summary: "The UK's G8 is committed to support the recovery of stolen assets for the Arab Countries in Transition",
+            },
+          ],
+        },
+      }
+      expected_content = {
+        details: {
+          ordered_featured_documents: [
+            {
+              summary: "The UK’s G8 is committed to support the recovery of stolen assets for the Arab Countries in Transition",
+            },
+          ],
+        },
+      }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
+
     test "ignores 'URL' field inside ordered_featured_documents as the value is changed in the StandardEdition equivalent" do
       recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
       content = {
