@@ -17,7 +17,7 @@ window.GOVUK.vars.extraDomains = [
     domains: ['whitehall-admin.integration.publishing.service.gov.uk'],
     initialiseGA4: true,
     id: 'GTM-KHZP7S7Q',
-    auth: '8jHx-VNEguw67iX9TBC6_g',
-    preview: 'env-50'
+    auth: 'GoGeIsCL2PK9Dv50tgM6Lg',
+    preview: 'env-172'
   }
 ]
