@@ -234,6 +234,7 @@
   },
   "settings": {
     "base_path_prefix": "/government/topical-events",
+    "additional_routes": ["/about"],
     "publishing_api_schema_name": "topical_event",
     "publishing_api_document_type": "topical_event",
     "rendering_app": "frontend",

@@ -107,7 +107,7 @@ class StandardEdition < Edition
   end
 
   def additional_routes
-    type_instance.parts
+    type_instance.settings["additional_routes"] || []
   end
 
   def type_instance
