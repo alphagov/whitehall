@@ -103,7 +103,7 @@ class StandardEditionMigrator::TopicalEventRecipe
         new_logo_data.assets.build(
           variant: version_name,
           filename: record.logo.filename,
-          asset_manager_id: record.logo.assets.first&.asset_manager_id
+          asset_manager_id: record.logo.assets.first&.asset_manager_id,
         )
       end
 
@@ -111,7 +111,7 @@ class StandardEditionMigrator::TopicalEventRecipe
       new_logo_data.assets.build(
         variant: :original,
         filename: record.logo.filename,
-        asset_manager_id: record.logo.assets.first&.asset_manager_id
+        asset_manager_id: record.logo.assets.first&.asset_manager_id,
       )
 
       new_logo = edition.images.build(
@@ -186,6 +186,10 @@ class StandardEditionMigrator::TopicalEventRecipe
     # we're not carrying over duration fields to new topical events
     content[:details].delete(:start_date)
     content[:details].delete(:end_date)
+
+    # remove image as it has been replaced by images
+    content[:details].delete(:image)
+
     if content[:details][:ordered_featured_documents]
       content[:details][:ordered_featured_documents].each do |featured_document|
         if featured_document[:summary]
@@ -215,6 +219,9 @@ class StandardEditionMigrator::TopicalEventRecipe
         featured_document[:image].delete(:url)
       end
     end
+
+    # remove images as it replaces 'image'
+    content[:details].delete(:images)
     content
   end
 

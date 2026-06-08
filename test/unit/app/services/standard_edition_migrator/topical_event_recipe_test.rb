@@ -139,6 +139,22 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
+
+    test "ignores 'image' field as this is replaced by 'images' array" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = {
+        details: {
+          image: {
+            alt_text: "a",
+            url: "http://example.com/image.jpg",
+          },
+        },
+      }
+      expected_content = {
+        details: {},
+      }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
   end
 
   describe "#ignore_new_content_fields" do
@@ -216,6 +232,28 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
               },
             },
           ],
+        },
+      }
+      assert_equal expected_content, recipe.ignore_new_content_fields(content)
+    end
+
+    test "ignores 'images' field as this replaces the old 'image' field" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = {
+        details: {
+          some: "content",
+          images: [
+            {
+              alt_text: "a",
+              url: "http://example.com/image.jpg",
+            },
+          ],
+        },
+      }
+      expected_content = {
+        details: {
+          some: "content",
+          # images field is ignored as this replaces the old image field in the StandardEdition equivalent
         },
       }
       assert_equal expected_content, recipe.ignore_new_content_fields(content)
