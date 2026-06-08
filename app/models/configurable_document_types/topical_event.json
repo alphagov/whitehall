@@ -44,6 +44,12 @@
               "attribute_path": ["title"],
               "translatable": true
             },
+            "summary": {
+              "title": "Summary",
+              "block": "default_textarea",
+              "attribute_path": ["summary"],
+              "translatable": true
+            },
             "body": {
               "title": "Body",
               "block": "govspeak",
@@ -156,6 +162,9 @@
         "type": "object",
         "attributes": {
           "title": {
+            "type": "string"
+          },
+          "summary": {
             "type": "string"
           },
           "body": {
