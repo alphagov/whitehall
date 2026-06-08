@@ -2,6 +2,7 @@ module PublishingApi
   module PayloadBuilder
     class BlockContent
       include GovspeakHelper
+      include Presenters::PublishingApi::PayloadHeadingsHelper
 
       def self.for(item)
         new(item).call
@@ -16,24 +17,26 @@ module PublishingApi
         return {} unless mapping
 
         mapping.each_with_object({}) { |(attribute, builder), details|
-          details[attribute.to_sym] = if builder.is_a?(Array)
-                                        builder.map do |part_builder|
-                                          part_builder.each_with_object({}) do |(part_attribute, part_builder_type), part_details|
-                                            if part_builder_type["hardcoded_value"]
-                                              part_details[part_attribute.to_sym] = part_builder_type["hardcoded_value"]
-                                            elsif part_builder_type["field"].include?(".")
-                                              # TODO: again, support recursion for infinite depths
-                                              namespace = part_builder_type["field"].split(".").first
-                                              field = part_builder_type["field"].split(".").last
-                                              part_details[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(namespace)&.[](field))
-                                            else
-                                              part_details[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(part_builder_type["field"]))
-                                            end
-                                          end
-                                        end
-                                      else
-                                        send(builder["type"], item.block_content&.public_send(attribute))
-                                      end
+          if builder["type"]
+            details[attribute.to_sym] = send(builder["type"], item.block_content&.public_send(attribute))
+          else # this is a nested hash
+            # TODO: again, we want to support recursion for infinite depths
+            # And probably handle possible namespace clash of field/type/hardcoded_value keys better
+            child_hash = {}
+            builder.keys.each do |part_attribute|
+              part_builder_type = builder[part_attribute]
+              if part_builder_type["hardcoded_value"]
+                child_hash[part_attribute.to_sym] = part_builder_type["hardcoded_value"]
+              elsif part_builder_type["field"].include?(".")
+                namespace = part_builder_type["field"].split(".").first
+                field = part_builder_type["field"].split(".").last
+                child_hash[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(namespace)&.[](field))
+              else
+                child_hash[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(part_builder_type["field"]))
+              end
+            end
+            details[attribute.to_sym] = child_hash
+          end
         }.compact
       end
 
@@ -84,6 +87,12 @@ module PublishingApi
             href: service_url,
           }
         end
+      end
+
+      def headings_from(attribute)
+        return nil if attribute.nil?
+
+        extract_headings(attribute)[:headers]
       end
     end
   end

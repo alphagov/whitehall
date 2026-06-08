@@ -223,8 +223,8 @@
         "about": {
           "title": { "field": "about.title", "type": "raw" },
           "summary": { "field": "about.summary", "type": "raw" },
-          "body": { "field": "about.body", "type": "compiled_and_raw_govspeak" },
-          "slug": { "hardcoded_value": "/about" }
+          "body": { "field": "about.body", "type": "compiled_govspeak" },
+          "headers": { "field": "about.body", "type": "headings_from" }
         }
       },
       "links": [
