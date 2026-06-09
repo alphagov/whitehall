@@ -96,5 +96,53 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting_organisation_ids = []
 
     assert edition.valid?
+  test "setting access_limited = true bridges to access_limiting = 'organisations'" do
+    edition = build(:limited_access_edition)
+    edition.access_limited = true
+    assert_equal "organisations", edition.access_limiting
+  end
+
+  test "setting access_limited = false bridges to access_limiting = 'none'" do
+    edition = build(:limited_access_edition)
+    edition.access_limited = false
+    assert_equal "none", edition.access_limiting
+  end
+
+  test "setting access_limiting = 'organisations' bridges to access_limited = true" do
+    edition = build(:limited_access_edition)
+    edition.access_limiting = "organisations"
+    assert edition.access_limited?
+  end
+
+  test "setting access_limiting = 'individuals' bridges to access_limited = true" do
+    edition = build(:limited_access_edition)
+    edition.access_limiting = "individuals"
+    assert edition.access_limited?
+  end
+
+  test "setting access_limiting = 'none' bridges to access_limited = false" do
+    edition = build(:limited_access_edition)
+    edition.access_limiting = "organisations"
+    edition.access_limiting = "none"
+    assert_not edition.access_limited?
+  end
+
+  test "bridge writers persist both columns" do
+    edition = build(:limited_access_edition)
+    edition.access_limited = true
+    edition.save!
+    edition.reload
+    assert edition.access_limited?
+    assert_equal "organisations", edition.access_limiting
+
+    edition.access_limiting = "individuals"
+    edition.save!
+    edition.reload
+    assert edition.access_limited?
+    assert_equal "individuals", edition.access_limiting
+  end
+
+  test "new instance of default-limited edition has access_limiting = 'organisations'" do
+    assert_equal "organisations", build(:limited_by_default_edition).access_limiting
   end
 end
