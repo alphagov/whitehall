@@ -1,4 +1,4 @@
-class StandardEditionMigrator::TopicalEventRecipe
+class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::BaseRecipe
   include GovspeakHelper
 
   attr_reader :artefacts_to_save
@@ -31,7 +31,7 @@ class StandardEditionMigrator::TopicalEventRecipe
     feature_lists.first.features = features
     attributes = {
       document:,
-      configurable_document_type: configurable_document_type,
+      configurable_document_type: "topical_event",
       state: "published",
       slug: record.slug,
       updated_at: record.updated_at.rfc3339,
@@ -62,13 +62,21 @@ class StandardEditionMigrator::TopicalEventRecipe
       edition.creator = user
     end
 
-    translations(record).each do |translation|
-      edition.translations.find_or_initialize_by(locale: translation.fixed_locale).update(
-        title: title(translation),
-        summary: summary(translation),
-        block_content: map_legacy_fields_to_block_content(record, translation),
-      )
-    end
+    raise WhitehallError, "Topical Events with About pages are not currently supported by the migrator" if record.topical_event_about_page
+    edition.translations.find_or_initialize_by(locale: "en").update(
+      title: title(record),
+      summary: summary(record),
+      block_content: {
+        "body" => record.description,
+        "social_media_links" => record.social_media_accounts.map do |account|
+          {
+            "social_media_service_name" => account.service_name,
+            "url" => account.url,
+            "title" => account.display_name,
+          }
+        end,
+      }
+    )
 
     edition.lead_organisations = record.topical_event_organisations.where(lead: true).map(&:organisation)
     edition.supporting_organisations = record.topical_event_organisations.where(lead: false).map(&:organisation)
@@ -133,15 +141,7 @@ class StandardEditionMigrator::TopicalEventRecipe
     @artefacts_to_save[:everything_else].each(&:save!)
   end
 
-  def translations(legacy_topical_event)
-    [LocalisedModel.new(legacy_topical_event, "en")]
-  end
-
-  def configurable_document_type
-    "topical_event"
-  end
-
-  def presenter
+  def legacy_presenter
     PublishingApi::TopicalEventPresenter
   end
 
@@ -151,21 +151,6 @@ class StandardEditionMigrator::TopicalEventRecipe
 
   def summary(legacy_topical_event)
     legacy_topical_event.summary
-  end
-
-  def map_legacy_fields_to_block_content(edition, _translation)
-    raise WhitehallError, "Topical Events with About pages are not currently supported by the migrator" if edition.topical_event_about_page
-
-    {
-      "body" => edition.description,
-      "social_media_links" => edition.social_media_accounts.map do |account|
-        {
-          "social_media_service_name" => account.service_name,
-          "url" => account.url,
-          "title" => account.display_name,
-        }
-      end,
-    }
   end
 
   def ignore_legacy_content_fields(content)
