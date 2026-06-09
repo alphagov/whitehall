@@ -3,11 +3,6 @@ class StandardEditionMigrator::TopicalEventRecipe
 
   attr_reader :artefacts_to_save
 
-  def initialize(record)
-    @legacy_topical_event = record
-    @artefacts_to_save = nil
-  end
-
   def build_edition(record)
     @artefacts_to_save = [] # set here just in case we called this once already e.g. for preview
     document = Document.new(document_type: "StandardEdition", content_id: record.content_id)
@@ -67,7 +62,7 @@ class StandardEditionMigrator::TopicalEventRecipe
       edition.creator = user
     end
 
-    translations.each do |translation|
+    translations(record).each do |translation|
       edition.translations.find_or_initialize_by(locale: translation.fixed_locale).update(
         title: title(translation),
         summary: summary(translation),
@@ -138,8 +133,8 @@ class StandardEditionMigrator::TopicalEventRecipe
     @artefacts_to_save[:everything_else].each(&:save!)
   end
 
-  def translations
-    [LocalisedModel.new(@legacy_topical_event, "en")]
+  def translations(legacy_topical_event)
+    [LocalisedModel.new(legacy_topical_event, "en")]
   end
 
   def configurable_document_type
