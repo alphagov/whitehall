@@ -3,19 +3,45 @@ class StandardEditionMigrator
     new.preview_migration(...)
   end
 
+  def self.perform_migration(...)
+    new.perform_migration(...)
+  end
+
   def preview_migration(legacy_record, recipe)
     if legacy_record.is_a?(Edition)
       raise "An Edition was passed. You must pass the Document instead (so that we can migrate all of its Editions)"
     end
 
     # If passed an Editionable legacy model, let's preview migrating only the latest edition.
-    # Else, we're already working with a top-level "thing" (e.g. TopicalEvent)
-    if legacy_record.respond_to?(:editions)
+    if legacy_record.is_a?(Document)
       legacy_record = legacy_record.editions.last
     end
 
     edition = recipe.new.build_edition(legacy_record)
     compare_payloads(legacy_record, edition, recipe)
+  end
+
+  def perform_migration(legacy_record, recipe)
+    ActiveRecord::Base.transaction do
+      recipe_instance = recipe.new
+      if legacy_record.is_a?(Document)
+        editions_to_update = Edition.unscoped.where(document: legacy_record)
+        legacy_record.update_column(:document_type, "StandardEdition")
+        # Update each edition in-place
+        editions_to_update.each do |legacy_edition|
+          edition = recipe_instance.build_edition(legacy_edition)
+          # Save without validation to get all our ducks in a row
+          edition.save!(validate: false)
+          recipe_instance.save_artefacts!(validate: false)
+          # Then save _with_ validation, now that every interdependent artefact has been created and associated
+          edition.save!(validate: true)
+          recipe_instance.save_artefacts!(validate: true)
+        end
+      else
+        # TODO: test
+        edition.save!(validate: false)
+      end
+    end
   end
 
 private

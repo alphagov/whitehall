@@ -5,7 +5,8 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
   setup do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-    @legacy_document = create(:detailed_guide, :with_document).document
+    @legacy_editionable_document = create(:detailed_guide, :with_document, title: "Detailed Guide", summary: "Old summary", body: "Old body").document
+    @legacy_non_editionable_record = create(:organisation)
   end
 
   describe "#preview_migration" do
@@ -21,7 +22,6 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     end
 
     test "returns string summary of content and links payloads before-and-after, including a diff" do
-      summary = StandardEditionMigrator.preview_migration(@legacy_document, CustomRecipe)
       expected_output = <<~OUTPUT
         OLD PAYLOAD
         ===CONTENT
@@ -79,7 +79,36 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         +{}
       OUTPUT
 
+
+      # Test with a legacy record which is Editionable (i.e. Document) - should preview migration of the latest Edition
+      summary = StandardEditionMigrator.preview_migration(@legacy_editionable_document, CustomRecipe)
       assert_equal expected_output, summary.chomp
+
+      # Test with a legacy record which is not Editionable - should preview migration of the record itself
+      summary = StandardEditionMigrator.preview_migration(@legacy_non_editionable_record, CustomRecipe)
+      assert_equal expected_output, summary.chomp
+    end
+
+    test "doesn't create any StandardEdition or Document, and doesn't persist any changes to the legacy record" do
+      assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
+        StandardEditionMigrator.preview_migration(@legacy_editionable_document, CustomRecipe)
+      end
+
+      assert_equal "Detailed Guide", @legacy_editionable_document.reload.editions.last.title
+    end
+  end
+
+  describe "#perform_migration" do
+    test "performs the migration and saves the new edition" do
+      old_id = @legacy_editionable_document.content_id
+      old_body = @legacy_editionable_document.editions.last.body
+      StandardEditionMigrator.perform_migration(@legacy_editionable_document, CustomRecipe)
+      edition = StandardEdition.last
+      assert edition.persisted?
+      assert_equal "test_type", edition.configurable_document_type
+      assert_equal old_id, edition.document.content_id
+      assert_equal "Title", edition.translations.first.title
+      assert_equal({ "field_attribute" => old_body }, edition.translations.first.block_content)
     end
   end
 
@@ -89,21 +118,63 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     end
 
     def build_edition(legacy_record)
-      StandardEdition.new(
+      edition_attrs = {
         configurable_document_type: "test_type",
         updated_at: legacy_record.updated_at.rfc3339,
         first_published_at: legacy_record.created_at.rfc3339,
         major_change_published_at: legacy_record.updated_at.rfc3339,
-      )
+        creator: User.last,
+      }
+      # In the real recipe this wouldn't be dynamic - we'd know what object we're dealing with
+      edition_attrs[:document] = legacy_record.document if legacy_record.respond_to?(:document)
+      @edition = StandardEdition.new(edition_attrs)
+
+      if legacy_record.respond_to?(:document)
+        legacy_record.translations.each do |translation|
+          # Still operating on the newly initialized Edition in memory - careful use of `find_or_initialize_by`
+          @edition.translations.find_or_initialize_by(locale: translation.locale).update(
+            title: title(translation),
+            summary: summary(translation),
+            block_content: {
+              "field_attribute" => "#{translation.body}",
+            },
+          )
+        end
+      else
+        # TODO: test
+        @edition.translations.build(
+          locale: "en",
+          title: title(legacy_record),
+          summary: summary(legacy_record),
+          block_content: { "field_attribute" => legacy_record.body },
+        )
+      end
+
+      @artefacts_to_save = [@edition.translations].flatten
+
+      @edition
+    end
+
+    def save_artefacts!(validate:)
+      # This is where the Recipe can handle saving any associated artefacts (e.g. Features, Organisations, etc.).
+      @artefacts_to_save.each do |artefact|
+        # Translations need to be associated with the edition before they can be saved
+        if artefact.respond_to?(:edition_id=)
+          artefact.edition_id = @edition.id
+        end
+        artefact.save!(validate: validate)
+      end
     end
 
     def title(_legacy_record)
       "Title"
     end
 
-    def map_legacy_fields_to_block_content(legacy_record)
-      { "field_attribute" => "#{legacy_record.body}" }
+    def summary(_legacy_record)
+      "summary"
     end
+
+    # The below methods aren't used in Edition creation - they're used only for payload normalisation for comparison purposes
 
     def ignore_legacy_content_fields(content)
       content
