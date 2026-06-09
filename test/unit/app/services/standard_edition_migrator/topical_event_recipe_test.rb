@@ -64,6 +64,13 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
   end
 
   describe "#ignore_legacy_content_fields" do
+    test "converts public_updated_at to a string in the same format as the StandardEdition equivalent" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
+      content = { public_updated_at: Time.zone.local(2024, 1, 1, 12, 0, 0) }
+      expected_content = { public_updated_at: "2024-01-01T12:00:00+00:00" }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
+
     test "removes .atom route as these are not present on StandardEdition documents and we have made a business decision to drop support for them" do
       recipe = StandardEditionMigrator::TopicalEventRecipe.new(@legacy_topical_event)
       content = { details: {}, routes: [{ path: "/government/topical-events/example" }, { path: "/government/topical-events/example.atom" }] }

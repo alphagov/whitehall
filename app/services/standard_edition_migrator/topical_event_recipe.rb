@@ -178,27 +178,33 @@ class StandardEditionMigrator::TopicalEventRecipe
     if content[:routes]
       content[:routes] = content[:routes].reject { |route| route[:path].end_with?(".atom") }
     end
-    # we're not carrying over duration fields to new topical events
-    content[:details].delete(:start_date)
-    content[:details].delete(:end_date)
+    if content[:details]
+      # we're not carrying over duration fields to new topical events
+      content[:details].delete(:start_date)
+      content[:details].delete(:end_date)
 
-    # remove image as it has been replaced by images
-    content[:details].delete(:image)
+      # remove image as it has been replaced by images
+      content[:details].delete(:image)
 
-    if content[:details][:ordered_featured_documents]
-      content[:details][:ordered_featured_documents].each do |featured_document|
-        if featured_document[:summary]
-          # Remove stray spaces from end of the summary as that is what the StandardEdition equivalent does
-          featured_document[:summary] = featured_document[:summary].gsub(/\s+$/, "")
-          # Put through govspeak_to_html as that's what the StandardEdition equivalent does
-          featured_document[:summary] = ActionView::Base.full_sanitizer.sanitize(govspeak_to_html(featured_document[:summary])).strip
-        end
-        if featured_document[:image]
-          # Deleting as the value is changed in the StandardEdition equivalent
-          featured_document[:image].delete(:url)
+      if content[:details][:ordered_featured_documents]
+        content[:details][:ordered_featured_documents].each do |featured_document|
+          if featured_document[:summary]
+            # Remove stray spaces from end of the summary as that is what the StandardEdition equivalent does
+            featured_document[:summary] = featured_document[:summary].gsub(/\s+$/, "")
+            # Put through govspeak_to_html as that's what the StandardEdition equivalent does
+            featured_document[:summary] = ActionView::Base.full_sanitizer.sanitize(govspeak_to_html(featured_document[:summary])).strip
+          end
+          if featured_document[:image]
+            # Deleting as the value is changed in the StandardEdition equivalent
+            featured_document[:image].delete(:url)
+          end
         end
       end
     end
+
+    # convert public_timestamp to a string in the same format as the StandardEdition equivalent
+    content[:public_updated_at] = content[:public_updated_at].rfc3339 if content[:public_updated_at].respond_to?(:rfc3339)
+
     content
   end
 
