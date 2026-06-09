@@ -51,6 +51,16 @@ class Edition < ApplicationRecord
   has_many :depended_upon_contacts, through: :edition_dependencies, source: :dependable, source_type: "Contact"
   has_many :depended_upon_editions, through: :edition_dependencies, source: :dependable, source_type: "Edition"
 
+  has_many :edition_access_limiting_organisations,
+           class_name: "AccessLimitingOrganisation",
+           dependent: :destroy,
+           autosave: true,
+           validate: false
+
+  has_many :access_limiting_organisations,
+           through: :edition_access_limiting_organisations,
+           source: :organisation
+
   # Add validation rules on legacy Edition content types, but opt out of them on StandardEdition
   # types whose validation rules are configured via JSON and applied via StandardEdition::BlockContent.
   validates_with SafeHtmlValidator, unless: ->(record) { record.is_a?(StandardEdition) }
