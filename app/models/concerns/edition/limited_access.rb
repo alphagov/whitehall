@@ -9,6 +9,8 @@ module Edition::LimitedAccess
     }, prefix: true
 
     after_initialize :set_access_limited
+    validate :access_limiting_organisations_required,
+             if: -> { validate_access_limiting_organisations? }
   end
 
   module ClassMethods
@@ -43,5 +45,18 @@ module Edition::LimitedAccess
 
   def accessible_to?(user)
     user.present? && Whitehall::Authority::Enforcer.new(user, self).can?(:see)
+  end
+
+private
+
+  def validate_access_limiting_organisations?
+    Flipflop.access_limiting_organisations_ui? && access_limited?
+  end
+
+  def access_limiting_organisations_required
+    if access_limiting_organisations? && edition_access_limiting_organisations.empty?
+      errors.add(:access_limiting_organisation_ids,
+                 "must include at least one organisation when access limiting is enabled")
+    end
   end
 end
