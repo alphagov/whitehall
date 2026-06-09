@@ -13,7 +13,7 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
     end
 
     test "updates the editions auth_bypass_id, saves it with the current user and calls 'perform!' on the updater" do
-      edition = create(:draft_edition)
+      edition = create(:draft_edition, :with_auth_bypass_id)
       auth_bypass_id_to_revoke = edition.auth_bypass_id
       SecureRandom.stubs(uuid: uid)
 

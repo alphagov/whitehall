@@ -120,7 +120,13 @@ class Admin::UploadsControllerTest < ActionController::TestCase
   test "POST :create triggers a job to be queued to store the attachments in Asset Manager" do
     model_type = AttachmentData.to_s
 
-    AssetManagerCreateAssetJob.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id]).twice
+    AssetManagerCreateAssetJob.expects(:perform_async).with { |_path, asset_params, _draft, attachable_class, attachable_id, _auth_bypass_ids|
+      asset_params["assetable_id"].is_a?(Integer) &&
+        asset_params["asset_variant"] == Asset.variants[:original] &&
+        asset_params["assetable_type"] == model_type &&
+        attachable_class == @edition.class.to_s &&
+        attachable_id == @edition.id
+    }.twice
 
     post :create, params: { edition_id: @edition, upload: valid_create_params }
   end

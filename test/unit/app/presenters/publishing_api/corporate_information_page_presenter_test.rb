@@ -124,11 +124,11 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test "auth bypass id" do
-      assert_attribute :auth_bypass_ids, [corporate_information_page.auth_bypass_id]
+      corporate_information_page.auth_bypass_id = "auth-bypass-id"
+      assert_attribute :auth_bypass_ids, %w[auth-bypass-id]
     end
 
     test "auth bypass ids are empty when the edition has no token" do
-      corporate_information_page.auth_bypass_id = nil
       assert_attribute :auth_bypass_ids, []
     end
 

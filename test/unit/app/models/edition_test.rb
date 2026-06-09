@@ -38,13 +38,8 @@ class EditionTest < ActiveSupport::TestCase
     edition.unpublish!
   end
 
-  test "adds auth bypass id to a newly created edition" do
-    edition = create(:edition)
-    assert_not_nil edition.auth_bypass_id
-  end
-
   test "generates auth bypass token for edition" do
-    edition = create(:edition)
+    edition = create(:edition, :with_auth_bypass_id)
     payload = decoded_token_payload(edition.auth_bypass_token)
 
     assert_equal payload["sub"], edition.auth_bypass_id
@@ -91,6 +86,15 @@ class EditionTest < ActiveSupport::TestCase
     new_draft = original_edition.create_draft(create(:writer))
     assert_not Edition.latest_edition.include?(original_edition)
     assert Edition.latest_edition.include?(new_draft)
+  end
+
+  test "#create_draft does not copy the auth bypass id to the new draft" do
+    published_edition = create(:published_edition, :with_auth_bypass_id)
+    assert_not_nil published_edition.auth_bypass_id
+
+    new_draft = published_edition.create_draft(create(:writer))
+
+    assert_nil new_draft.auth_bypass_id
   end
 
   test ".latest_edition ignores deleted editions" do

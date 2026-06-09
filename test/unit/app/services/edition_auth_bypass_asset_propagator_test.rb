@@ -5,7 +5,7 @@ class EditionAuthBypassAssetPropagatorTest < ActiveSupport::TestCase
 
   describe "#propagate" do
     test "updates file attachments with the edition's auth_bypass_id" do
-      edition = create(:draft_edition)
+      edition = create(:draft_edition, :with_auth_bypass_id)
       file_attachment = create(:file_attachment, attachable: edition)
       expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
 
@@ -36,7 +36,7 @@ class EditionAuthBypassAssetPropagatorTest < ActiveSupport::TestCase
     end
 
     test "updates images with the edition's auth_bypass_id" do
-      edition = create(:draft_fatality_notice)
+      edition = create(:draft_fatality_notice, :with_auth_bypass_id)
       image = create(:image, edition:)
       expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
 
@@ -60,7 +60,7 @@ class EditionAuthBypassAssetPropagatorTest < ActiveSupport::TestCase
     end
 
     test "updates a consultation response form asset" do
-      edition = create(:consultation)
+      edition = create(:consultation, :with_auth_bypass_id)
       participation = create(:consultation_participation, consultation: edition)
       consultation_response_form = create(:consultation_response_form, consultation_participation: participation)
 
@@ -78,7 +78,7 @@ class EditionAuthBypassAssetPropagatorTest < ActiveSupport::TestCase
     end
 
     test "updates a consultation outcome's attachments" do
-      edition = create(:draft_consultation)
+      edition = create(:draft_consultation, :with_auth_bypass_id)
       outcome = create(:consultation_outcome, consultation: edition)
       file_attachment = create(:file_attachment, attachable: outcome)
       expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
@@ -94,7 +94,7 @@ class EditionAuthBypassAssetPropagatorTest < ActiveSupport::TestCase
     end
 
     test "updates a consultation's public feedback attachments" do
-      edition = create(:draft_consultation)
+      edition = create(:draft_consultation, :with_auth_bypass_id)
       feedback = create(:consultation_public_feedback, consultation: edition)
       file_attachment = create(:file_attachment, attachable: feedback)
       expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }
@@ -110,7 +110,7 @@ class EditionAuthBypassAssetPropagatorTest < ActiveSupport::TestCase
     end
 
     test "updates a call for evidence response form asset" do
-      edition = create(:call_for_evidence)
+      edition = create(:call_for_evidence, :with_auth_bypass_id)
       participation = create(:call_for_evidence_participation, call_for_evidence: edition)
       call_for_evidence_response_form = create(:call_for_evidence_response_form, call_for_evidence_participation: participation)
 
@@ -128,7 +128,7 @@ class EditionAuthBypassAssetPropagatorTest < ActiveSupport::TestCase
     end
 
     test "updates a call for evidence outcome's attachments" do
-      edition = create(:draft_call_for_evidence)
+      edition = create(:draft_call_for_evidence, :with_auth_bypass_id)
       outcome = create(:call_for_evidence_outcome, call_for_evidence: edition)
       file_attachment = create(:file_attachment, attachable: outcome)
       expected_attributes = { "auth_bypass_ids" => [edition.auth_bypass_id] }

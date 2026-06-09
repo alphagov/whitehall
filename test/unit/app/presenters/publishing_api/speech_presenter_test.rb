@@ -66,7 +66,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         assert_equal("The description", presented.content[:description])
         assert_equal(Whitehall::PublishingApp::WHITEHALL, presented.content[:publishing_app])
         assert_equal("frontend", presented.content[:rendering_app])
-        assert_equal([speech.auth_bypass_id], presented.content[:auth_bypass_ids])
+        assert_equal([], presented.content[:auth_bypass_ids])
 
         details = presented.content[:details]
         assert_not(details[:political])
@@ -78,9 +78,9 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         assert_match(/minister-of-funk.960x640.jpg$/, details[:image][:url])
       end
 
-      it "presents an empty auth_bypass_ids array when the speech has no token" do
-        speech.auth_bypass_id = nil
-        assert_equal([], presented.content[:auth_bypass_ids])
+      it "presents the auth bypass id" do
+        speech.auth_bypass_id = "auth-bypass-id"
+        assert_equal(%w[auth-bypass-id], presented.content[:auth_bypass_ids])
       end
     end
 

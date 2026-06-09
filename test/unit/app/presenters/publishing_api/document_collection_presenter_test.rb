@@ -70,13 +70,13 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the auth bypass id" do
-    assert_equal [@document_collection.auth_bypass_id], @presented_content[:auth_bypass_ids]
+    @document_collection.auth_bypass_id = "auth-bypass-id"
+    presented = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
+    assert_equal %w[auth-bypass-id], presented.content[:auth_bypass_ids]
   end
 
   test "it presents an empty auth bypass id array when the edition has no token" do
-    @document_collection.auth_bypass_id = nil
-    presented = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
-    assert_equal [], presented.content[:auth_bypass_ids]
+    assert_equal [], @presented_content[:auth_bypass_ids]
   end
 
   test "it includes headers when headers are present in body" do
