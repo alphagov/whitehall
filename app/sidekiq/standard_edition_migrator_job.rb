@@ -11,29 +11,28 @@ class StandardEditionMigratorJob < JobBase
     compare_payloads = args["compare_payloads"]
     model_class_name = args["model_class"]
 
-    if model_class_name != "Document"
-      # perform_for_non_editionable(record_id, model_class_name, compare_payloads:)
+    legacy_record = model_class_name.constantize.find(record_id)
+    recipe = StandardEditionMigrator.recipe_for(legacy_record)
 
-      ActiveRecord::Base.transaction do
-        legacy_record = model_class_name.constantize.find(record_id)
-        recipe = StandardEditionMigrator.recipe_for(legacy_record)
-        initialized_recipe = recipe.new(legacy_record)
-        edition = initialized_recipe.build_edition(legacy_record)
-        compare_payloads(legacy_record, edition, recipe)
-        # TODO: add a comparison check guardrail here ^
+    ActiveRecord::Base.transaction do
+      initialized_recipe = recipe.new(legacy_record)
 
-        initialized_recipe.save_built_edition!
-        # TODO: add a comparison guardrail here, i.e. if the payload of the saved thing doesn't match the payload
-        # of the preview, raise an error ^
-      end
-    else
-      perform_for_document(record_id, compare_payloads:)
+      edition = preview_migration(legacy_record, recipe, raise_if_payloads_diverge: compare_payloads)
+      # TODO: add a comparison check guardrail here ^
+
+      initialized_recipe.save_built_edition!
+      # TODO: add a comparison guardrail here, i.e. if the payload of the saved thing doesn't match the payload
+      # of the preview, raise an error ^
     end
   end
 
-  def preview_migration(legacy_record, recipe)
+  def preview_migration(legacy_record, recipe, raise_if_payloads_diverge: false)
     edition = recipe.new(legacy_record).build_edition(legacy_record)
-    compare_payloads(legacy_record, edition, recipe)
+    payloads_unchanged = compare_payloads(legacy_record, edition, recipe)
+    if raise_if_payloads_diverge && !payloads_unchanged
+      raise "Payloads diverged in preview for #{legacy_record.class.name} ID #{legacy_record.id}"
+    end
+    edition
   end
 
   # rubocop:disable Rails/Output
@@ -56,17 +55,20 @@ class StandardEditionMigratorJob < JobBase
     puts ""
     puts "DIFF"
     puts "===CONTENT"
-    puts diff_payloads(
+    content_diff = diff_payloads(
       old_content: old_presenter.content,
       new_content: new_presenter.content,
       recipe: recipe.new(legacy_record),
     )
+    puts content_diff
     puts "===LINKS"
-    puts diff_payloads(
+    links_diff = diff_payloads(
       old_links: old_presenter.links,
       new_links: new_presenter.links,
       recipe: recipe.new(legacy_record),
     )
+    puts links_diff
+    content_diff + links_diff == ""
   end
   # rubocop:enable Rails/Output
 
@@ -112,7 +114,7 @@ private
     editions_to_migrate = Edition.unscoped.where(document: document)
 
     editions_to_migrate.each do |edition|
-      recipe = StandardEditionMigrator.recipe_for(edition)
+      recipe = StandardEditionMigrator.recipe_for(edition).new(document)
 
       # Skip the payload comparison for superseded or deleted editions
       if compare_payloads && edition.state != "superseded" && !edition.deleted?
