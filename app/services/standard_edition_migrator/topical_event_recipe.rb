@@ -56,13 +56,6 @@ class StandardEditionMigrator::TopicalEventRecipe
       # which we've set to match the latest public changenote timestamp
       # associated with the edition, which is the correct value.
       published_major_version: 2,
-      # TODO: are we planning to send changenotes, period?
-      change_note: [
-        {
-          "note": "First published.",
-          "public_timestamp": record.created_at.rfc3339,
-        },
-      ],
       # TODO: add an internal note too, indicating the date of the migraton.
     }
     attributes[:public_timestamp] = record.public_timestamp if record.respond_to?(:public_timestamp)
