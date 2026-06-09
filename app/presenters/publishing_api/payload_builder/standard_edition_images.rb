@@ -22,7 +22,7 @@ module PublishingApi
     private
 
       def images
-        item.images_usable_as(*item.permitted_image_usages.reject { |usage| usage.embeddable? || usage.lead? })
+        (item.valid_images & item.images_usable_as(*item.permitted_image_usages.reject { |usage| usage.embeddable? || usage.lead? }))
             .to_a
             .select { |image| image.image_data&.all_asset_variants_uploaded? }
             .map(&:publishing_api_details)

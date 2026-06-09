@@ -34,7 +34,7 @@ module Edition::Images
 
   def images_usable_as(*usage)
     usage_keys = usage.map(&:key).flatten
-    images.select { |image| image.can_be_used? && usage_keys.include?(image.usage) }
+    images.select { |image| usage_keys.include?(image.usage) }
   end
 
   def allows_image_attachments?
