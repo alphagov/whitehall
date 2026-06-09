@@ -96,7 +96,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting_organisation_ids = []
     assert edition.valid?
   end
-  
+
   test "setting access_limited = true bridges to access_limiting = 'organisations'" do
     edition = build(:limited_access_edition)
     edition.access_limited = true

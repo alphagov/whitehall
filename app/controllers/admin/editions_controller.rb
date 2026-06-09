@@ -114,6 +114,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     @edition.assign_attributes(edition_params.except(:access_limiting_radio, :access_limiting_organisation_ids))
+    # :access_limiting_organisation_ids is temporary — remove when access limiting is consolidated to the one form at edit_access_limited
 
     # When the access_limiting_organisations_ui flag is on, translate the radio value
     # into access_limited and access_limiting_organisation_ids before saving.
@@ -349,7 +350,7 @@ private
   end
 
   def new_edition_params
-    edition_params.merge(creator: current_user)
+    edition_params.except(:access_limiting_radio).merge(creator: current_user)
   end
 
   def show_or_edit_path
