@@ -61,4 +61,40 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
     assert edition.accessible_to?(user)
   end
+
+  test "is invalid when access_limited is true and no access limiting organisations are selected" do
+    @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+    edition = create(:limited_access_edition, access_limited: true)
+    edition.access_limiting_organisation_ids = []
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_organisation_ids],
+                    "must include at least one organisation when access limiting is enabled"
+  end
+
+  test "is valid when access_limited is true and access limiting organisations are present" do
+    @feature_flags.switch!(:access_limiting_organisations_ui, true)
+    org = create(:organisation)
+
+    edition = create(:limited_access_edition, access_limited: true)
+    edition.access_limiting_organisation_ids = [org.id]
+
+    assert edition.valid?
+  end
+
+  test "is valid when access_limited is false regardless of access limiting organisations" do
+    @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+    edition = create(:limited_access_edition, access_limited: false)
+    edition.access_limiting_organisation_ids = []
+    assert edition.valid?
+  end
+
+  test "is valid when access_limited is true and no access limiting organisations are selected when flag is off" do
+    edition = create(:consultation, access_limited: true)
+    edition.access_limiting_organisation_ids = []
+
+    assert edition.valid?
+  end
 end

@@ -4,19 +4,41 @@
     heading_level: 3,
     heading_size: "m",
   } do %>
-    <%= form.hidden_field :access_limited, value: "0" %>
+    <% if Flipflop.access_limiting_organisations_ui? %>
+      <% access_limiting_radio_value = edition.access_limited? ? "organisation_access_limiting" : "no_access_limiting" %>
+      <%= render "govuk_publishing_components/components/radio", {
+        name: "edition[access_limiting_radio]",
+        id_prefix: "edition_access_limiting_radio",
+        error_items: errors_for(edition.errors, :access_limiting_organisation_ids),
+        items: [
+          {
+            value: "no_access_limiting",
+            text: "No access limiting",
+            checked: access_limiting_radio_value == "no_access_limiting",
+          },
+          {
+            value: "organisation_access_limiting",
+            text: "Organisation access limiting",
+            checked: access_limiting_radio_value == "organisation_access_limiting",
+            conditional: render("admin/editions/access_limiting_organisation_select", form: form, edition: edition),
+          },
+        ],
+      } %>
+    <% else %>
+      <%= form.hidden_field :access_limited, value: "0" %>
 
-    <%= render "govuk_publishing_components/components/checkboxes", {
-      name: "edition[access_limited]",
-      id: "edition_access_limited",
-      error_items: errors_for(edition.errors, :access_limited),
-      items: [
-        {
-          label: "Limit access to publishers from organisations associated with this document before you publish",
-          value: 1,
-          checked: edition.access_limited,
-        },
-      ],
-    } %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "edition[access_limited]",
+        id: "edition_access_limited",
+        error_items: errors_for(edition.errors, :access_limited),
+        items: [
+          {
+            label: "Limit access to publishers from organisations associated with this document before you publish",
+            value: 1,
+            checked: edition.access_limited,
+          },
+        ],
+      } %>
+    <% end %>
   <% end %>
 </div>

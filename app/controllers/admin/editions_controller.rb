@@ -113,7 +113,25 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    @edition.assign_attributes(edition_params)
+    @edition.assign_attributes(edition_params.except(:access_limiting_radio, :access_limiting_organisation_ids))
+
+    # When the access_limiting_organisations_ui flag is on, translate the radio value
+    # into access_limited and access_limiting_organisation_ids before saving.
+    # NOTE: This duplicates logic from EditionAccessLimitedController and is not ideal —
+    # ideally access limiting would only be managed via the edit_access_limited form.
+    # This is a pragmatic interim solution to avoid confusing users who set access
+    # limiting via the main edit form.
+    if Flipflop.access_limiting_organisations_ui?
+      case edition_params[:access_limiting_radio]
+      when "no_access_limiting"
+        @edition.access_limited = false
+      when "organisation_access_limiting"
+        @edition.access_limited = true
+      end
+
+      @edition.access_limiting_organisation_ids =
+        Array(edition_params[:access_limiting_organisation_ids]).reject(&:blank?)
+    end
 
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
@@ -254,10 +272,17 @@ private
       :all_nation_applicability,
       :speaker_radios,
       :logo_formatted_name,
+      :access_limiting_radio,
+      # access_limiting_radio is a UI-only param — it is a form control whose value
+      # is translated into access_limited and access_limiting_organisation_ids by
+      # edition_access_limited_controller. It is permitted here to avoid
+      # UnpermittedParameters errors since the access limiting partial renders on
+      # the main edition form, but must not be assigned directly to the edition.
       {
         all_nation_applicability: [],
         lead_organisation_ids: [],
         supporting_organisation_ids: [],
+        access_limiting_organisation_ids: [],
         organisation_ids: [],
         role_ids: [],
         world_location_ids: [],
