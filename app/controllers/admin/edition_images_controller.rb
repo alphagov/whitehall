@@ -135,7 +135,7 @@ private
   end
 
   def redirect_if_single_usage_image_exists
-    if @image_usage && !@image_usage.multiple? && @edition.images.usable_as(@image_usage).any?
+    if @image_usage && !@image_usage.multiple? && @edition.images_usable_as(@image_usage).any?
       redirect_to admin_edition_images_path(@edition), alert: "#{@image_usage.title.upcase_first} already uploaded. Delete the currently uploaded #{@image_usage.title} to upload a new #{@image_usage.title}."
 
       true

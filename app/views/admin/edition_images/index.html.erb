@@ -20,7 +20,7 @@
     <% end %>
 
     <% @edition.permitted_image_usages.reject { |usage| usage.multiple? }.each do |image_usage| %>
-      <% image = @edition.images.usable_as(image_usage).first %>
+      <% image = @edition.images_usable_as(image_usage).first %>
       <%= image_usage.lead? ? render(Admin::EditionImages::LeadImageCardComponent.new(edition: @edition, image:, image_usage:)) : render(Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage:)) %>
     <% end %>
 
@@ -40,7 +40,7 @@
         padding: true,
       } if usage.embeddable? %>
 
-      <% current_images = @edition.images.usable_as(usage) %>
+      <% current_images = @edition.images_usable_as(usage) %>
 
       <% if current_images.present? %>
         <% if usage.embeddable? %>

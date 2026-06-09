@@ -14,22 +14,7 @@ module Edition::Images
   end
 
   included do
-    has_many :images, foreign_key: "edition_id", dependent: :destroy do
-      # def usable_as(*usage)
-      #   usage_keys = usage.map(&:key).flatten
-      #   where(usage: usage_keys)
-      # end
-      def usable_as(*usage)
-        usage_keys = usage.map(&:key).flatten
-        select { |img| usage_keys.include?(img.usage) }
-      end
-
-      def usable
-        select(&:can_be_used?)
-        # id = select(&:can_be_used?).pluck(:id)
-        # where(id:)
-      end
-    end
+    has_many :images, foreign_key: "edition_id", dependent: :destroy
 
     accepts_nested_attributes_for :images, reject_if: :no_substantive_attributes?, allow_destroy: true
 
@@ -45,6 +30,11 @@ module Edition::Images
 
   def valid_images
     images.select(&:can_be_used?)
+  end
+
+  def images_usable_as(*usage)
+    usage_keys = usage.map(&:key).flatten
+    images.select { |image| image.can_be_used? && usage_keys.include?(image.usage) }
   end
 
   def allows_image_attachments?
