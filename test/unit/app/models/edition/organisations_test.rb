@@ -76,4 +76,49 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
 
     assert_equal [organisation2, organisation3, organisation1], edition.sorted_organisations
   end
+
+  test "validates lead organisations for presence for non-configurable types" do
+    edition = create(:publication)
+    edition.lead_organisations = []
+
+    assert_not edition.valid?
+    assert edition.errors.include?(:lead_organisation_ids)
+  end
+
+  test "does not validate supporting organisations for presence for non-configurable types" do
+    edition = create(:publication)
+    edition.supporting_organisations = []
+
+    assert edition.valid?
+    assert_not edition.errors.include?(:supporting_organisation_ids)
+  end
+
+  test "does not validate lead and supporting organisations for presence when configured to not be required on a standard edition" do
+    edition = create(:standard_edition, lead_organisations: [], supporting_organisations: [])
+    edition.stubs(:organisation_association_enabled?).returns(true)
+    edition.stubs(:lead_organisation_association_required?).returns(false)
+    edition.stubs(:supporting_organisation_association_required?).returns(false)
+
+    assert edition.valid?
+    assert_not edition.errors.include?(:lead_organisation_ids)
+    assert_not edition.errors.include?(:supporting_organisation_ids)
+  end
+
+  test "validates lead organisations for presence when configured to be required on a standard edition" do
+    edition = create(:standard_edition, lead_organisations: [])
+    edition.stubs(:organisation_association_enabled?).returns(true)
+    edition.stubs(:lead_organisation_association_required?).returns(true)
+
+    assert_not edition.valid?
+    assert edition.errors.include?(:lead_organisation_ids)
+  end
+
+  test "validates supporting organisations for presence when configured to be required on a standard edition" do
+    edition = create(:standard_edition, supporting_organisations: [])
+    edition.stubs(:organisation_association_enabled?).returns(true)
+    edition.stubs(:supporting_organisation_association_required?).returns(true)
+
+    assert_not edition.valid?
+    assert edition.errors.include?(:supporting_organisation_ids)
+  end
 end

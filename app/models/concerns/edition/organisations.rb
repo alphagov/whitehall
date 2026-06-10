@@ -15,7 +15,8 @@ module Edition::Organisations
 
     has_many :organisations, -> { includes(:translations) }, through: :edition_organisations, validate: false
 
-    validate :at_least_one_lead_organisation, if: :organisation_association_enabled?
+    validate :at_least_one_lead_organisation, if: -> { organisation_association_enabled? && lead_organisation_association_required? }
+    validate :at_least_one_supporting_organisation, if: -> { organisation_association_enabled? && supporting_organisation_association_required? }
     validate :no_duplication_of_organisations, if: :organisation_association_enabled?
 
     add_trait Trait
@@ -73,6 +74,14 @@ module Edition::Organisations
     true
   end
 
+  def lead_organisation_association_required?
+    true
+  end
+
+  def supporting_organisation_association_required?
+    false
+  end
+
   def error_labels
     super.merge({
       "lead_organisation_ids" => "Lead organisations",
@@ -85,6 +94,12 @@ private
   def at_least_one_lead_organisation
     unless edition_organisations.detect(&:lead?)
       errors.add(:lead_organisation_ids, "at least one required")
+    end
+  end
+
+  def at_least_one_supporting_organisation
+    unless edition_organisations.detect { |eo| !eo.lead? }
+      errors.add(:supporting_organisation_ids, "at least one required")
     end
   end
 
