@@ -44,11 +44,21 @@ class SpeechTest < ActiveSupport::TestCase
     assert_not speech.valid?
   end
 
-  test "does not require an organisation or role appointment if a person_override is given" do
+  test "requires an organisation and displays organisation fields, if a person_override and role_appointment are not given" do
+    speech = build(:speech, person_override: nil, role_appointment: nil, create_default_organisation: false)
+
+    assert_not speech.valid?
+    assert speech.errors.include?(:lead_organisation_ids)
+    assert speech.organisation_association_enabled?
+    assert speech.lead_organisation_association_required?
+  end
+
+  test "does not require an organisation or role appointment if a person_override is given, and displays org fields" do
     speech = build(:speech, person_override: "The Queen", role_appointment: nil, create_default_organisation: false)
-    assert speech.person_override?
-    speech.save!
-    assert_equal [], speech.reload.organisations
+
+    assert speech.valid?
+    assert speech.organisation_association_enabled?
+    assert_not speech.lead_organisation_association_required?
   end
 
   test "#display_type returns en locale values" do

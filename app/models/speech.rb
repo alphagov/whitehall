@@ -52,7 +52,7 @@ class Speech < Edition
     PublishingApi::SpeechPresenter
   end
 
-  def organisation_association_enabled?
+  def lead_organisation_association_required?
     !can_have_some_invalid_data? && person_override.blank?
   end
 
