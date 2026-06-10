@@ -3,8 +3,12 @@ class StandardEditionMigrator
     new.preview_migration(...)
   end
 
-  def self.perform_migration(...)
-    new.perform_migration(...)
+  def self.create_new_document(...)
+    new.create_new_document(...)
+  end
+
+  def self.migrate_existing_document(...)
+    new.migrate_existing_document(...)
   end
 
   # TODO: enqueue_bulk_migration method
@@ -22,49 +26,50 @@ class StandardEditionMigrator
     compare_payloads(legacy_record, recipe)
   end
 
-  # TODO: split into two methods.
-  # Would be nice to make it clearer that one replaces in-place,
-  # and the other creates a new Edition and Document, requiring
-  # subsequent deletion of the legacy record.
-  #
   # TODO: tests for all of the `save!` calls.
   #
-  # TODO: `raise_if_payloads_differ: true` argument
-  def perform_migration(legacy_record, recipe)
+  # TODO: `raise_if_payloads_differ: true` argument (maybe?)
+  def create_new_document(legacy_record, recipe)
     ActiveRecord::Base.transaction do
       recipe_instance = recipe.new
-      if legacy_record.is_a?(Document)
-        editions_to_update = Edition.unscoped.where(document: legacy_record)
-        legacy_record.update_column(:document_type, "StandardEdition")
-        # Update each edition in-place
-        editions_to_update.each do |legacy_edition|
-          edition = recipe_instance.build_edition(legacy_edition)
-          # Save without validation to get all our ducks in a row
-          edition.save!(validate: false)
-          recipe_instance.save_artefacts!(validate: false)
-          # Then save _with_ validation, now that every interdependent artefact has been created and associated
-          edition.save!(validate: true)
-          recipe_instance.save_artefacts!(validate: true)
-        end
-      else
-        document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
-        edition = recipe_instance.build_edition(legacy_record)
-        edition.document = document
-          # Save without validation to get all our ducks in a row
+      raise "Cannot pass a Document to create_new_document" if legacy_record.is_a?(Document)
+
+      document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
+      edition = recipe_instance.build_edition(legacy_record)
+      edition.document = document
+      # Save without validation to get all our ducks in a row
+      edition.save!(validate: false)
+      recipe_instance.save_artefacts!(validate: false)
+      document.save!(validate: false)
+      # Then save _with_ validation, now that every interdependent artefact has been created and associated
+      edition.save!(validate: true)
+      recipe_instance.save_artefacts!(validate: true)
+      document.save!(validate: true)
+    end
+  end
+
+  def migrate_existing_document(legacy_record, recipe)
+    ActiveRecord::Base.transaction do
+      recipe_instance = recipe.new
+      raise "Cannot pass a non-Document to migrate_existing_document" unless legacy_record.is_a?(Document)
+
+      editions_to_update = Edition.unscoped.where(document: legacy_record)
+      legacy_record.update_column(:document_type, "StandardEdition")
+      # Update each edition in-place
+      editions_to_update.each do |legacy_edition|
+        edition = recipe_instance.build_edition(legacy_edition)
+        # Save without validation to get all our ducks in a row
         edition.save!(validate: false)
-          recipe_instance.save_artefacts!(validate: false)
-        document.save!(validate: false)
+        recipe_instance.save_artefacts!(validate: false)
         # Then save _with_ validation, now that every interdependent artefact has been created and associated
         edition.save!(validate: true)
         recipe_instance.save_artefacts!(validate: true)
-        document.save!(validate: true)
       end
     end
   end
 
 private
 
-  # rubocop:disable Rails/Output
   def compare_payloads(legacy_record, recipe)
     # Grab the payloads from the old presenter _before_ we do any mutation, to ensure we're comparing against the original payload
     old_presenter = recipe.new.legacy_presenter.new(legacy_record, update_type: "minor")
@@ -88,15 +93,15 @@ private
     <<~OUTPUT
       OLD PAYLOAD
       ===CONTENT
-      #{PP.pp(old_content, +"")}
+      #{PP.pp(old_content, +'')}
       ===LINKS
-      #{PP.pp(old_links, +"")}
+      #{PP.pp(old_links, +'')}
 
       NEW PAYLOAD
       ===CONTENT
-      #{PP.pp(new_presenter.content, +"")}
+      #{PP.pp(new_presenter.content, +'')}
       ===LINKS
-      #{PP.pp(new_presenter.links, +"")}
+      #{PP.pp(new_presenter.links, +'')}
 
       DIFF
       ===CONTENT
@@ -105,7 +110,6 @@ private
       #{links_diff}
     OUTPUT
   end
-  # rubocop:enable Rails/Output
 
   def diff_payloads(recipe:, old_content: nil, new_content: nil, old_links: nil, new_links: nil)
     diff = ""

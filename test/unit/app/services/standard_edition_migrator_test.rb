@@ -79,7 +79,6 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         +{}
       OUTPUT
 
-
       # Test with a legacy record which is Editionable (i.e. Document) - should preview migration of the latest Edition
       summary = StandardEditionMigrator.preview_migration(@legacy_editionable_document, RecipeForLegacyEditionableDocument)
       assert_equal expected_output, summary.chomp
@@ -98,11 +97,31 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     end
   end
 
-  describe "#perform_migration" do
+  describe "#create_new_document" do
+    test "performs the migration and saves the new edition on a legacy non-editionable record" do
+      StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, RecipeForNonEditionableRecord)
+      edition = StandardEdition.last
+      assert edition.persisted?
+      assert_equal "test_type", edition.configurable_document_type
+      assert_equal "Title", edition.translations.first.title
+      assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
+    end
+
+    test "raises exception if a Document is passed (we could handle this in theory, but for simplicity we expect all Document conversions to go through the migrate_existing_document route)" do
+      document = build(:document)
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.create_new_document(document, RecipeForLegacyEditionableDocument)
+      end
+
+      assert_equal "Cannot pass a Document to create_new_document", error.message
+    end
+  end
+
+  describe "#migrate_existing_document" do
     test "performs the migration and saves the new edition (and document) on a legacy editionable document" do
       old_id = @legacy_editionable_document.content_id
       old_body = @legacy_editionable_document.editions.last.body
-      StandardEditionMigrator.perform_migration(@legacy_editionable_document, RecipeForLegacyEditionableDocument)
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, RecipeForLegacyEditionableDocument)
       edition = StandardEdition.last
       assert edition.persisted?
       assert_equal "test_type", edition.configurable_document_type
@@ -111,13 +130,13 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal({ "field_attribute" => old_body }, edition.translations.first.block_content)
     end
 
-    test "performs the migration and saves the new edition on a legacy non-editionable record" do
-      StandardEditionMigrator.perform_migration(@legacy_non_editionable_record, RecipeForNonEditionableRecord)
-      edition = StandardEdition.last
-      assert edition.persisted?
-      assert_equal "test_type", edition.configurable_document_type
-      assert_equal "Title", edition.translations.first.title
-      assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
+    test "raises exception if a non-Document is passed" do
+      non_document = build(:organisation)
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.migrate_existing_document(non_document, RecipeForLegacyEditionableDocument)
+      end
+
+      assert_equal "Cannot pass a non-Document to migrate_existing_document", error.message
     end
   end
 
@@ -143,7 +162,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
           title: title(translation),
           summary: summary(translation),
           block_content: {
-            "field_attribute" => "#{translation.body}",
+            "field_attribute" => translation.body.to_s,
           },
         )
       end
@@ -176,7 +195,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       }
       @edition = StandardEdition.new(edition_attrs)
 
-      # Note: implementation will vary depending on non-editionable model.
+      # NOTE: implementation will vary depending on non-editionable model.
       # Organisation has `translations` we can iterate over. TopicalEvent does not.
       legacy_record.translations.each do |translation|
         @edition.translations.find_or_initialize_by(locale: translation.locale).update(
