@@ -17,7 +17,7 @@ class StandardEditionMigratorJob < JobBase
     ActiveRecord::Base.transaction do
       initialized_recipe = recipe.new(legacy_record)
 
-      edition = preview_migration(legacy_record, recipe, raise_if_payloads_diverge: compare_payloads)
+      preview_migration(legacy_record, recipe, raise_if_payloads_diverge: compare_payloads)
       # TODO: add a comparison check guardrail here ^
 
       initialized_recipe.save_built_edition!

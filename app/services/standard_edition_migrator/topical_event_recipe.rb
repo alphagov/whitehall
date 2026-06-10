@@ -63,7 +63,8 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     end
 
     raise WhitehallError, "Topical Events with About pages are not currently supported by the migrator" if record.topical_event_about_page
-    edition.translations.find_or_initialize_by(locale: "en").update(
+
+    edition.translations.find_or_initialize_by(locale: "en").update!(
       title: title(record),
       summary: summary(record),
       block_content: {
@@ -75,7 +76,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
             "title" => account.display_name,
           }
         end,
-      }
+      },
     )
 
     edition.lead_organisations = record.topical_event_organisations.where(lead: true).map(&:organisation)
