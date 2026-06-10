@@ -1007,6 +1007,11 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.valid?
   end
 
+  test "#invalid_tab_reasons returns an empty array" do
+    publication = create(:publication)
+    assert_equal [], publication.invalid_tab_messages
+  end
+
   def decoded_token_payload(token)
     payload, _header = JWT.decode(
       token,

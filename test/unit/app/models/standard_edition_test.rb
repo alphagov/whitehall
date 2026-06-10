@@ -1091,4 +1091,58 @@ class StandardEditionTest < ActiveSupport::TestCase
   test ".human_attribute_name falls back to the Rails default when no base edition is provided" do
     assert_equal "Title", StandardEdition.human_attribute_name("title")
   end
+
+  describe "#invalid_tab_messages" do
+    setup do
+      type = build_configurable_document_type(
+        "test_type", {
+          "forms" => {
+            "documents" => {
+              "fields" => {
+                "body" => {
+                  "title" => "Body",
+                  "block" => "govspeak",
+                  "attribute_path" => %w[block_content body],
+                },
+              },
+            },
+            "extra_tab" => {
+              "dynamic" => true,
+              "label" => "Extra",
+              "fields" => {
+                "sidebar" => {
+                  "title" => "Sidebar",
+                  "block" => "govspeak",
+                  "attribute_path" => %w[block_content sidebar],
+                },
+              },
+            },
+          },
+          "schema" => {
+            "attributes" => {
+              "body" => { "type" => "string" },
+              "sidebar" => { "type" => "string" },
+            },
+            "validations" => {
+              "presence" => { "attributes" => %w[body sidebar] },
+            },
+          },
+        }
+      )
+      ConfigurableDocumentType.setup_test_types(type)
+      @edition = create(:draft_standard_edition, :with_organisations,
+                        configurable_document_type: "test_type",
+                        block_content: { body: "Some content", sidebar: "Some sidebar content" })
+    end
+    test "it returns an empty array when all tabs are valid" do
+      assert_equal [], @edition.invalid_tab_messages
+    end
+
+    test "it returns a reason for each invalid tab" do
+      @edition.translation.update_column(:block_content, { "body" => "", "sidebar" => nil })
+
+      assert_includes @edition.invalid_tab_messages, "Documents tab is invalid"
+      assert_includes @edition.invalid_tab_messages, "Extra tab is invalid"
+    end
+  end
 end

@@ -179,6 +179,16 @@ class StandardEdition < Edition
     options[:base]&.type_instance&.title_for_attribute(attribute.to_s) || super
   end
 
+  def invalid_tab_messages
+    type_instance.form_keys.filter_map do |tab_key|
+      tab_form = StandardEdition::TabForm.new(self, tab_key)
+      unless tab_form.valid?(:publish)
+        tab_label = type_instance.form(tab_key)["label"] || tab_key.humanize
+        "#{tab_label} tab is invalid"
+      end
+    end
+  end
+
 private
 
   def field_paths(&block)

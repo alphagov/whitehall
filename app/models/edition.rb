@@ -443,6 +443,10 @@ class Edition < ApplicationRecord
     {}
   end
 
+  def invalid_tab_messages
+    []
+  end
+
 private
 
   def date_for_government
