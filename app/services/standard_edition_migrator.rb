@@ -48,6 +48,7 @@ class StandardEditionMigrator
     end
   end
 
+  # TODO: tests for all of the `save!` calls.
   def migrate_existing_document(legacy_record, recipe)
     ActiveRecord::Base.transaction do
       recipe_instance = recipe.new
