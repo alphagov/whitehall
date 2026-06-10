@@ -31,7 +31,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#new_edition" do
       assert_select "input[name*='edition[first_published_at']", count: 3
       assert_select "select[name='edition[publication_type_id]']"
-      assert_select "input[name='edition[access_limited]']"
+      assert_select "input[name='edition[access_limiting]']"
     end
   end
 
@@ -138,7 +138,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     my_organisation = create(:organisation)
     other_organisation = create(:organisation)
     @user = login_as(create(:user, organisation: my_organisation))
-    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limiting: "organisations", organisations: [other_organisation])
 
     get :show, params: { id: inaccessible }
     assert_response :forbidden

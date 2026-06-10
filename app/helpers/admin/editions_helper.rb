@@ -219,7 +219,7 @@ module Admin::EditionsHelper
       )
     end
 
-    if can?(:perform_administrative_tasks, Edition) && edition.access_limited
+    if can?(:perform_administrative_tasks, Edition) && edition.access_limited?
       actions << link_to(
         sanitize("Edit access #{tag.span("for #{edition.title}", class: 'govuk-visually-hidden')}"),
         edit_access_limited_admin_edition_path(edition),

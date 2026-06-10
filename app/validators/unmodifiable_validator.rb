@@ -12,7 +12,7 @@ class UnmodifiableValidator < ActiveModel::Validator
   def modifiable_attributes(previous_state, current_state)
     modifiable = %w[state updated_at force_published]
     if previous_state == "scheduled"
-      modifiable += %w[major_change_published_at first_published_at access_limited]
+      modifiable += %w[major_change_published_at first_published_at access_limited access_limiting]
     end
     if Edition::PRE_PUBLICATION_STATES.include?(previous_state) || being_unpublished?(previous_state, current_state)
       modifiable += %w[published_major_version published_minor_version]
