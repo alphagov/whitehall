@@ -88,6 +88,14 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal expected_output, summary.chomp
     end
 
+    test "raises an exception if the payloads diverge and `raise_if_payloads_differ` is true" do
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.preview_migration(@legacy_editionable_document, RecipeForLegacyEditionableDocument, raise_if_payloads_differ: true)
+      end
+
+      assert_equal "Payloads diverged between legacy and new presenters", error.message
+    end
+
     test "doesn't create any StandardEdition or Document, and doesn't persist any changes to the legacy record" do
       assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
         StandardEditionMigrator.preview_migration(@legacy_editionable_document, RecipeForLegacyEditionableDocument)
@@ -169,6 +177,11 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
       @artefacts_to_save = @edition.translations
       @edition
+    end
+
+    def save_artefacts!(validate: true, edition: nil)
+      edition ||= @artefacts_to_save.first.edition
+      @artefacts_to_save.each(&:save!)
     end
 
     def title(_legacy_record)

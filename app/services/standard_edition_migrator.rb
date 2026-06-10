@@ -13,7 +13,7 @@ class StandardEditionMigrator
 
   # TODO: enqueue_bulk_migration method
 
-  def preview_migration(legacy_record, recipe)
+  def preview_migration(legacy_record, recipe, raise_if_payloads_differ: false)
     if legacy_record.is_a?(Edition)
       raise "An Edition was passed. You must pass the Document instead (so that we can migrate all of its Editions)"
     end
@@ -23,12 +23,10 @@ class StandardEditionMigrator
       legacy_record = legacy_record.editions.last
     end
 
-    compare_payloads(legacy_record, recipe)
+    compare_payloads(legacy_record, recipe, raise_if_payloads_differ)
   end
 
   # TODO: tests for all of the `save!` calls.
-  #
-  # TODO: `raise_if_payloads_differ: true` argument (maybe?)
   def create_new_document(legacy_record, recipe)
     ActiveRecord::Base.transaction do
       recipe_instance = recipe.new
@@ -39,11 +37,11 @@ class StandardEditionMigrator
       edition.document = document
       # Save without validation to get all our ducks in a row
       edition.save!(validate: false)
-      recipe_instance.save_artefacts!(validate: false)
+      recipe_instance.save_artefacts!(edition: edition, validate: false)
       document.save!(validate: false)
       # Then save _with_ validation, now that every interdependent artefact has been created and associated
       edition.save!(validate: true)
-      recipe_instance.save_artefacts!(validate: true)
+      recipe_instance.save_artefacts!(edition: edition, validate: true)
       document.save!(validate: true)
     end
   end
@@ -59,19 +57,24 @@ class StandardEditionMigrator
       # Update each edition in-place
       editions_to_update.each do |legacy_edition|
         edition = recipe_instance.build_edition(legacy_edition)
+        # Overwrite the legacy edition's attributes with the new edition's attributes (except for id and document_id, which must be preserved)
+        legacy_edition = legacy_edition.becomes!(StandardEdition)
+        legacy_edition.assign_attributes(edition.attributes.except("id", "document_id"))
+        legacy_edition.auth_bypass_id ||= edition.auth_bypass_id || [] # can't be null
+        # Have to cast the legacy edition to a StandardEdition in order to save it to bypass STI
         # Save without validation to get all our ducks in a row
-        edition.save!(validate: false)
-        recipe_instance.save_artefacts!(validate: false)
+        legacy_edition.save!(validate: false)
+        recipe_instance.save_artefacts!(edition: legacy_edition, validate: false)
         # Then save _with_ validation, now that every interdependent artefact has been created and associated
-        edition.save!(validate: true)
-        recipe_instance.save_artefacts!(validate: true)
+        legacy_edition.save!(validate: true)
+        recipe_instance.save_artefacts!(edition: legacy_edition, validate: true)
       end
     end
   end
 
 private
 
-  def compare_payloads(legacy_record, recipe)
+  def compare_payloads(legacy_record, recipe, raise_if_payloads_differ)
     # Grab the payloads from the old presenter _before_ we do any mutation, to ensure we're comparing against the original payload
     old_presenter = recipe.new.legacy_presenter.new(legacy_record, update_type: "minor")
     old_content = old_presenter.content
@@ -90,6 +93,10 @@ private
       new_links: new_presenter.links,
       recipe: recipe.new,
     )
+
+    if raise_if_payloads_differ && (!content_diff.empty? || !links_diff.empty?)
+      raise "Payloads diverged between legacy and new presenters"
+    end
 
     <<~OUTPUT
       OLD PAYLOAD

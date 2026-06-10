@@ -125,23 +125,6 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     edition
   end
 
-  def save_built_edition!
-    # First time around, save without validation, since some records are interdependent
-    @artefacts_to_save[:document].save!(validate: false)
-    @artefacts_to_save[:edition].save!(validate: false)
-    @artefacts_to_save[:everything_else].each do |artefact|
-      if artefact.respond_to?(:edition_id=)
-        artefact.edition_id = @artefacts_to_save[:edition].id
-      end
-      artefact.save!(validate: false)
-    end
-
-    # Second time around, save with validation, to ensure all artefacts are valid (and to trigger any callbacks)
-    @artefacts_to_save[:document].save!
-    @artefacts_to_save[:edition].save!
-    @artefacts_to_save[:everything_else].each(&:save!)
-  end
-
   def legacy_presenter
     PublishingApi::TopicalEventPresenter
   end
