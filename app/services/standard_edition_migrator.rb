@@ -11,7 +11,9 @@ class StandardEditionMigrator
     new.migrate_existing_document(...)
   end
 
-  # TODO: enqueue_bulk_migration method
+  def self.enqueue_bulk_migration(...)
+    new.enqueue_bulk_migration(...)
+  end
 
   def preview_migration(legacy_record, recipe, raise_if_payloads_differ: false)
     if legacy_record.is_a?(Edition)
@@ -69,6 +71,19 @@ class StandardEditionMigrator
         legacy_edition.save!(validate: true)
         recipe_instance.save_artefacts!(edition: legacy_edition, validate: true)
       end
+    end
+  end
+
+  def enqueue_bulk_migration(legacy_records, recipe_class, migration_method:)
+    legacy_records.each do |legacy_record|
+      StandardEditionMigratorJob.perform_async(
+        legacy_record.id,
+        {
+          "model_class" => legacy_record.class.name,
+          "recipe_class" => recipe_class.name,
+          "migration_method" => migration_method,
+        },
+      )
     end
   end
 
