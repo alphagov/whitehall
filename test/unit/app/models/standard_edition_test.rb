@@ -485,22 +485,34 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert StandardEdition.new(configurable_document_type: "test_type_with_legacy_topical_events").can_be_associated_with_topical_events?
   end
 
-  test "conditionally requires worldwide organisation and world location associations" do
+  test "requires organisations, worldwide organisations, and world locations associations when configured with the required flag set to true" do
     test_type = build_configurable_document_type(
       "test_type", {
         "forms" => {
           "documents" => {
             "fields" => {
+              "lead_organisations" => {
+                "required" => true,
+                "attribute_path" => %w[lead_organisation_ids],
+                "translatable" => false,
+                "block" => "ordered_select_with_search_tagging",
+              },
+              "supporting_organisations" => {
+                "required" => true,
+                "attribute_path" => %w[supporting_organisation_ids],
+                "translatable" => false,
+                "block" => "select_with_search_tagging",
+              },
               "worldwide_organisations" => {
                 "required" => true,
                 "attribute_path" => %w[worldwide_organisation_document_ids],
-                "translatable" => true,
+                "translatable" => false,
                 "block" => "select_with_search_tagging",
               },
               "world_locations" => {
-                "required" => false,
+                "required" => true,
                 "attribute_path" => %w[world_location_ids],
-                "translatable" => true,
+                "translatable" => false,
                 "block" => "select_with_search_tagging",
               },
             },
@@ -510,9 +522,92 @@ class StandardEditionTest < ActiveSupport::TestCase
     )
     ConfigurableDocumentType.setup_test_types(test_type)
     page = StandardEdition.new(configurable_document_type: "test_type")
+    assert page.lead_organisation_association_required?
+    assert page.supporting_organisation_association_required?
     assert page.worldwide_organisation_association_required?
+    assert page.world_location_association_required?
+  end
+
+  test "does not require organisations, worldwide organisations, and world locations associations when configured with the required flag set to false" do
+    test_type = build_configurable_document_type(
+      "test_type", {
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "lead_organisations" => {
+                "required" => false,
+                "attribute_path" => %w[lead_organisation_ids],
+                "translatable" => false,
+                "block" => "ordered_select_with_search_tagging",
+              },
+              "supporting_organisations" => {
+                "required" => false,
+                "attribute_path" => %w[supporting_organisation_ids],
+                "translatable" => false,
+                "block" => "select_with_search_tagging",
+              },
+              "worldwide_organisations" => {
+                "required" => false,
+                "attribute_path" => %w[worldwide_organisation_document_ids],
+                "translatable" => false,
+                "block" => "select_with_search_tagging",
+              },
+              "world_locations" => {
+                "required" => false,
+                "attribute_path" => %w[world_location_ids],
+                "translatable" => false,
+                "block" => "select_with_search_tagging",
+              },
+            },
+          },
+        },
+      }
+    )
+    ConfigurableDocumentType.setup_test_types(test_type)
+    page = StandardEdition.new(configurable_document_type: "test_type")
+    assert_not page.lead_organisation_association_required?
+    assert_not page.supporting_organisation_association_required?
+    assert_not page.worldwide_organisation_association_required?
     assert_not page.world_location_association_required?
-    assert_not page.respond_to?(:organisation_association_required?) # ignores required value for other associations
+  end
+
+  test "interprets required flag missing as 'not required' for organisations, worldwide organisations, and world locations associations" do
+    test_type = build_configurable_document_type(
+      "test_type", {
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "lead_organisations" => {
+                "attribute_path" => %w[lead_organisation_ids],
+                "translatable" => false,
+                "block" => "ordered_select_with_search_tagging",
+              },
+              "supporting_organisations" => {
+                "attribute_path" => %w[supporting_organisation_ids],
+                "translatable" => false,
+                "block" => "select_with_search_tagging",
+              },
+              "worldwide_organisations" => {
+                "attribute_path" => %w[worldwide_organisation_document_ids],
+                "translatable" => false,
+                "block" => "select_with_search_tagging",
+              },
+              "world_locations" => {
+                "attribute_path" => %w[world_location_ids],
+                "translatable" => false,
+                "block" => "select_with_search_tagging",
+              },
+            },
+          },
+        },
+      }
+    )
+    ConfigurableDocumentType.setup_test_types(test_type)
+    page = StandardEdition.new(configurable_document_type: "test_type")
+    assert_not page.lead_organisation_association_required?
+    assert_not page.supporting_organisation_association_required?
+    assert_not page.worldwide_organisation_association_required?
+    assert_not page.world_location_association_required?
   end
 
   test "features are copied over to new edition of document if the featurable is editionable" do
