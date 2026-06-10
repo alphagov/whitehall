@@ -179,11 +179,6 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       @edition
     end
 
-    def save_artefacts!(validate: true, edition: nil)
-      edition ||= @artefacts_to_save.first.edition
-      @artefacts_to_save.each(&:save!)
-    end
-
     def title(_legacy_record)
       "Title"
     end

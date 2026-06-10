@@ -60,7 +60,7 @@ class StandardEditionMigrator
         # Overwrite the legacy edition's attributes with the new edition's attributes (except for id and document_id, which must be preserved)
         legacy_edition = legacy_edition.becomes!(StandardEdition)
         legacy_edition.assign_attributes(edition.attributes.except("id", "document_id"))
-        legacy_edition.auth_bypass_id ||= edition.auth_bypass_id || [] # can't be null
+        legacy_edition.auth_bypass_id ||= edition.auth_bypass_id || [] #  can't be null
         # Have to cast the legacy edition to a StandardEdition in order to save it to bypass STI
         # Save without validation to get all our ducks in a row
         legacy_edition.save!(validate: false)
