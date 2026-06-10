@@ -14,7 +14,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
       legacy_record = create(:organisation)
       recipe_class = StandardEditionMigrator::BaseRecipe
 
-      StandardEditionMigrator.expects(:create_new_document).with(legacy_record, recipe_class)
+      StandardEditionMigrator.expects(:create_new_document).with(legacy_record, recipe_class, raise_if_payloads_differ: true)
 
       StandardEditionMigratorJob.new.perform(
         legacy_record.id,
@@ -22,6 +22,7 @@ class StandardEditionMigratorJobTest < ActiveSupport::TestCase
           "model_class" => "Organisation",
           "recipe_class" => "StandardEditionMigrator::BaseRecipe",
           "migration_method" => "create_new_document",
+          "raise_if_payloads_differ" => true,
         },
       )
     end
