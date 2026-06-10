@@ -15,7 +15,7 @@ class StandardEditionMigrator
     new.enqueue_bulk_migration(...)
   end
 
-  def preview_migration(legacy_record, recipe, raise_if_payloads_differ: false)
+  def preview_migration(legacy_record, recipe)
     if legacy_record.is_a?(Edition)
       raise "An Edition was passed. You must pass the Document instead (so that we can migrate all of its Editions)"
     end
@@ -25,17 +25,23 @@ class StandardEditionMigrator
       legacy_record = legacy_record.editions.last
     end
 
-    compare_payloads(legacy_record, recipe, raise_if_payloads_differ)
+    compare_payloads(legacy_record, recipe)
   end
 
   # TODO: tests for all of the `save!` calls.
-  def create_new_document(legacy_record, recipe)
+  def create_new_document(legacy_record, recipe, raise_if_payloads_differ: false)
     ActiveRecord::Base.transaction do
+      document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
+
       recipe_instance = recipe.new
       raise "Cannot pass a Document to create_new_document" if legacy_record.is_a?(Document)
 
-      document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
-      edition = recipe_instance.build_edition(legacy_record)
+      edition = nil
+      compare_payloads_and_raise(legacy_record, recipe_instance, raise_if_payloads_differ) do |maybe_compare_generated_payload|
+        edition = recipe_instance.build_edition(legacy_record)
+        maybe_compare_generated_payload.call(edition)
+      end
+
       edition.document = document
       # Save without validation to get all our ducks in a row
       edition.save!(validate: false)
@@ -49,7 +55,7 @@ class StandardEditionMigrator
   end
 
   # TODO: tests for all of the `save!` calls.
-  def migrate_existing_document(legacy_record, recipe)
+  def migrate_existing_document(legacy_record, recipe, raise_if_payloads_differ: false)
     ActiveRecord::Base.transaction do
       recipe_instance = recipe.new
       raise "Cannot pass a non-Document to migrate_existing_document" unless legacy_record.is_a?(Document)
@@ -58,7 +64,11 @@ class StandardEditionMigrator
       legacy_record.update_column(:document_type, "StandardEdition")
       # Update each edition in-place
       editions_to_update.each do |legacy_edition|
-        edition = recipe_instance.build_edition(legacy_edition)
+        edition = nil
+        compare_payloads_and_raise(legacy_edition, recipe_instance, raise_if_payloads_differ) do |maybe_compare_generated_payload|
+          edition = recipe_instance.build_edition(legacy_edition)
+          maybe_compare_generated_payload.call(edition)
+        end
         # Overwrite the legacy edition's attributes with the new edition's attributes (except for id and document_id, which must be preserved)
         legacy_edition = legacy_edition.becomes!(StandardEdition)
         legacy_edition.assign_attributes(edition.attributes.except("id", "document_id"))
@@ -89,7 +99,35 @@ class StandardEditionMigrator
 
 private
 
-  def compare_payloads(legacy_record, recipe, raise_if_payloads_differ)
+  def compare_payloads_and_raise(legacy_record, recipe_instance, raise_if_payloads_differ)
+    unless raise_if_payloads_differ
+      # Noop
+      yield ->(_edition) { nil }
+      return
+    end
+
+    old_presenter = recipe_instance.legacy_presenter.new(legacy_record, update_type: "minor")
+    old_content = old_presenter.content
+    old_links = old_presenter.links
+    compare_generated_payload = lambda do |edition|
+      new_presenter = PublishingApi::StandardEditionPresenter.new(edition, update_type: "minor")
+      new_content = new_presenter.content
+      new_links = new_presenter.links
+      diff = diff_payloads(
+        recipe: recipe_instance,
+        old_content: recipe_instance.ignore_legacy_content_fields(old_content),
+        new_content: recipe_instance.ignore_new_content_fields(new_content),
+        old_links: recipe_instance.ignore_legacy_links(old_links),
+        new_links: recipe_instance.ignore_new_links(new_links),
+      )
+      if diff != ""
+        raise "Payloads diverged between legacy and new presenters:\n#{diff}"
+      end
+    end
+    yield compare_generated_payload
+  end
+
+  def compare_payloads(legacy_record, recipe)
     # Grab the payloads from the old presenter _before_ we do any mutation, to ensure we're comparing against the original payload
     old_presenter = recipe.new.legacy_presenter.new(legacy_record, update_type: "minor")
     old_content = old_presenter.content
@@ -108,10 +146,6 @@ private
       new_links: new_presenter.links,
       recipe: recipe.new,
     )
-
-    if raise_if_payloads_differ && (!content_diff.empty? || !links_diff.empty?)
-      raise "Payloads diverged between legacy and new presenters"
-    end
 
     <<~OUTPUT
       OLD PAYLOAD

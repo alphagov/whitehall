@@ -88,14 +88,6 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal expected_output, summary.chomp
     end
 
-    test "raises an exception if the payloads diverge and `raise_if_payloads_differ` is true" do
-      error = assert_raises(RuntimeError) do
-        StandardEditionMigrator.preview_migration(@legacy_editionable_document, RecipeForLegacyEditionableDocument, raise_if_payloads_differ: true)
-      end
-
-      assert_equal "Payloads diverged between legacy and new presenters", error.message
-    end
-
     test "doesn't create any StandardEdition or Document, and doesn't persist any changes to the legacy record" do
       assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
         StandardEditionMigrator.preview_migration(@legacy_editionable_document, RecipeForLegacyEditionableDocument)
@@ -123,6 +115,17 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
       assert_equal "Cannot pass a Document to create_new_document", error.message
     end
+
+    test "raises an exception if the payloads diverge and `raise_if_payloads_differ` is true, and no changes are persisted" do
+      error = nil
+      assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
+        error = assert_raises(RuntimeError) do
+          StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, RecipeForNonEditionableRecord, raise_if_payloads_differ: true)
+        end
+      end
+
+      assert_match(/^Payloads diverged between legacy and new presenters/, error.message)
+    end
   end
 
   describe "#migrate_existing_document" do
@@ -145,6 +148,18 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       end
 
       assert_equal "Cannot pass a non-Document to migrate_existing_document", error.message
+    end
+
+    test "raises an exception if the payloads diverge and `raise_if_payloads_differ` is true, and no changes are persisted" do
+      error = nil
+      assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
+        error = assert_raises(RuntimeError) do
+          StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, RecipeForLegacyEditionableDocument, raise_if_payloads_differ: true)
+        end
+      end
+
+      assert_match(/^Payloads diverged between legacy and new presenters/, error.message)
+      assert_instance_of DetailedGuide, @legacy_editionable_document.reload.editions.last
     end
   end
 
