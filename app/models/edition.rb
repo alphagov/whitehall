@@ -322,6 +322,10 @@ class Edition < ApplicationRecord
     true
   end
 
+  def supports_taxon?
+    true
+  end
+
   # 'previously_published' is a transient attribute populated
   # by request parameters, and because it's not persisted it's
   # not converted to a boolean, hence this manual attr writer method.

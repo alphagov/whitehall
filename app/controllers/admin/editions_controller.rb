@@ -77,7 +77,7 @@ class Admin::EditionsController < Admin::BaseController
   def show
     fetch_version_and_remark_trails
 
-    @edition_taxons = if @edition.requires_taxon?
+    @edition_taxons = if @edition.supports_taxon?
                         EditionTaxonsFetcher.new(@edition.content_id).fetch
                       else
                         []
