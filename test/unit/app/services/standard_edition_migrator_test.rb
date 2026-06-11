@@ -28,57 +28,83 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       expected_output = <<~OUTPUT
         OLD PAYLOAD
         ===CONTENT
-        {:body=>"OLD PAYLOAD", :some_old_field=>"some old value"}
-
+        {
+          "body": "OLD PAYLOAD",
+          "some_old_field": "some old value"
+        }
         ===LINKS
-        {:old_link=>"old link"}
-
+        {
+          "old_link": "old link"
+        }
 
         NEW PAYLOAD
         ===CONTENT
-        {:title=>"Title",
-         :locale=>"en",
-         :publishing_app=>"whitehall",
-         :redirects=>[],
-         :update_type=>"minor",
-         :description=>"summary",
-         :details=>{:field_attribute=>"Old body"},
-         :document_type=>"test_story",
-         :public_updated_at=>"2011-11-11T11:11:11+00:00",
-         :rendering_app=>"frontend",
-         :schema_name=>"test_article",
-         :links=>{},
-         :auth_bypass_ids=>[nil],
-         :base_path=>"/government/test/",
-         :routes=>[{:path=>"/government/test/", :type=>"exact"}],
-         :first_published_at=>2011-11-11 11:11:11.000000000 GMT +00:00}
-
+        {
+          "title": "Title",
+          "locale": "en",
+          "publishing_app": "whitehall",
+          "redirects": [],
+          "update_type": "minor",
+          "description": "summary",
+          "details": {
+            "field_attribute": "Old body"
+          },
+          "document_type": "test_story",
+          "public_updated_at": "2011-11-11T11:11:11+00:00",
+          "rendering_app": "frontend",
+          "schema_name": "test_article",
+          "links": {},
+          "auth_bypass_ids": [
+            null
+          ],
+          "base_path": "/government/test/",
+          "routes": [
+            {
+              "path": "/government/test/",
+              "type": "exact"
+            }
+          ],
+          "first_published_at": "2011-11-11 11:11:11 +0000"
+        }
         ===LINKS
         {}
 
-
         DIFF
         ===CONTENT
-        -{:body=>"OLD PAYLOAD", :some_old_field=>"some old value"}
-        +{:auth_bypass_ids=>[nil],
-        + :base_path=>"/government/test/",
-        + :description=>"summary",
-        + :details=>{:field_attribute=>"Old body"},
-        + :document_type=>"test_story",
-        + :first_published_at=>2011-11-11 11:11:11.000000000 GMT +00:00,
-        + :links=>{},
-        + :locale=>"en",
-        + :public_updated_at=>"2011-11-11T11:11:11+00:00",
-        + :publishing_app=>"whitehall",
-        + :redirects=>[],
-        + :rendering_app=>"frontend",
-        + :routes=>[{:path=>"/government/test/", :type=>"exact"}],
-        + :schema_name=>"test_article",
-        + :title=>"Title",
-        + :update_type=>"minor"}
+         {
+        -  "body": "OLD PAYLOAD",
+        -  "some_old_field": "some old value"
+        +  "auth_bypass_ids": [
+        +    null
+        +  ],
+        +  "base_path": "/government/test/",
+        +  "description": "summary",
+        +  "details": {
+        +    "field_attribute": "Old body"
+        +  },
+        +  "document_type": "test_story",
+        +  "first_published_at": "2011-11-11 11:11:11 +0000",
+        +  "links": {},
+        +  "locale": "en",
+        +  "public_updated_at": "2011-11-11T11:11:11+00:00",
+        +  "publishing_app": "whitehall",
+        +  "redirects": [],
+        +  "rendering_app": "frontend",
+        +  "routes": [
+        +    {
+        +      "path": "/government/test/",
+        +      "type": "exact"
+        +    }
+        +  ],
+        +  "schema_name": "test_article",
+        +  "title": "Title",
+        +  "update_type": "minor"
+         }
 
         ===LINKS
-        -{:old_link=>"old link"}
+        -{
+        -  "old_link": "old link"
+        -}
         +{}
       OUTPUT
 

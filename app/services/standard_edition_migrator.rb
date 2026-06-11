@@ -151,15 +151,15 @@ private
     <<~OUTPUT
       OLD PAYLOAD
       ===CONTENT
-      #{PP.pp(old_content, +'')}
+      #{JSON.pretty_generate(old_content)}
       ===LINKS
-      #{PP.pp(old_links, +'')}
+      #{JSON.pretty_generate(old_links)}
 
       NEW PAYLOAD
       ===CONTENT
-      #{PP.pp(new_presenter.content, +'')}
+      #{JSON.pretty_generate(new_presenter.content)}
       ===LINKS
-      #{PP.pp(new_presenter.links, +'')}
+      #{JSON.pretty_generate(new_presenter.links)}
 
       DIFF
       ===CONTENT
@@ -189,8 +189,9 @@ private
   end
 
   def diff_values(left_val, right_val)
-    left  = PP.pp(deep_sort(left_val), +"") # pretty-print to string for cleaner diff output
-    right = PP.pp(deep_sort(right_val), +"")
+    # Newlines required otherwise Diffy appends "\\ No newline at end of file" to the output
+    left  = "#{JSON.pretty_generate(deep_sort(left_val))}\n"
+    right = "#{JSON.pretty_generate(deep_sort(right_val))}\n"
     Diffy::Diff.new(left, right, context: 5, color: true)
   end
 
