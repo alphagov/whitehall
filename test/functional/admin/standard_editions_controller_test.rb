@@ -1243,6 +1243,22 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select ".govuk-error-summary__body", text: "Body cannot be blank"
   end
 
+  test "GET edit runs validation against a fresh copy of an edition from the database, not the in-memory version" do
+    ConfigurableDocumentType.setup_test_types(tabbed_document_type)
+    edition = create(:draft_standard_edition, :with_organisations,
+                     configurable_document_type: "test_type",
+                     block_content: { body: "original" })
+
+    get :edit, params: { id: edition, current_tab: "documents" }
+
+    # Tab validation runs on a fresh DB copy via edition.reload,
+    # so the in-memory placeholder fields built by build_edition_dependencies eg review_reminder
+    # should never be validated if untouched and should send no errors when loading the edit view.
+    reminder = assigns(:edition).document.review_reminder
+    assert reminder.nil? || reminder.errors.empty?,
+           "Expected no review_reminder errors but found: #{reminder&.errors&.full_messages}"
+  end
+
   view_test "POST create surfaces Publishing API validation error if save_draft fails" do
     error_hash = {
       "error" => {
