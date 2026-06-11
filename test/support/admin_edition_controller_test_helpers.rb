@@ -460,14 +460,19 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "new should set first lead organisation to users organisation" do
+      view_test "new should set and pre-select the first lead organisation as the user's organisation" do
         editors_org = create(:organisation)
-        @user = login_as create(:departmental_editor, organisation: editors_org)
+        @user = login_as create(:gds_editor, organisation: editors_org)
+
         get :new
 
+        assert assigns(:edition).lead_organisation_association_required?
         assert_equal assigns(:edition).edition_organisations.first.organisation, editors_org
         assert_equal assigns(:edition).edition_organisations.first.lead, true
         assert_equal assigns(:edition).edition_organisations.first.lead_ordering, 0
+        assert_select "select[name='edition[lead_organisation_ids][]']" do
+          assert_select "option[selected='selected']", text: editors_org.name
+        end
       end
 
       test "create should associate organisations with edition" do
@@ -584,14 +589,19 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "new should set first lead organisation to users organisation" do
+      view_test "new should set and pre-select the first lead organisation as the user's organisation" do
         editors_org = create(:organisation)
-        @user = login_as create(:departmental_editor, organisation: editors_org)
+        @user = login_as create(:gds_editor, organisation: editors_org)
+
         get :new
 
+        assert assigns(:edition).lead_organisation_association_required?
         assert_equal assigns(:edition).edition_organisations.first.organisation, editors_org
         assert_equal assigns(:edition).edition_organisations.first.lead, true
         assert_equal assigns(:edition).edition_organisations.first.lead_ordering, 0
+        assert_select "select[name='edition[lead_organisation_ids][]']" do
+          assert_select "option[selected='selected']", text: editors_org.name
+        end
       end
 
       test "create should associate organisations with edition" do

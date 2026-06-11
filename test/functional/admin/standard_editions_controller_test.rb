@@ -48,6 +48,73 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  view_test "GET new pre-selects the user's organisation in the lead organisations field, if lead organisations are required" do
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "lead_organisations" => {
+                "title" => "Lead organisations",
+                "required" => true,
+                "block" => "ordered_select_with_search_tagging",
+                "container" => "organisations",
+                "attribute_path" => %w[lead_organisation_ids],
+                "size" => 4,
+                "translatable" => false,
+              },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    organisation = create(:organisation)
+    login_as create(:gds_admin, organisation:)
+
+    get :new, params: { configurable_document_type: "test_type" }
+
+    assert assigns(:edition).lead_organisation_association_required?
+    assert_select "select[name='edition[lead_organisation_ids][]']" do
+      assert_select "option[selected='selected']", text: organisation.name
+    end
+  end
+
+  view_test "GET new does not pre-select the user's organisation in the lead organisations field, if organisation are only enabled" do
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "lead_organisations" => {
+                "title" => "Lead organisations",
+                "required" => false,
+                "block" => "ordered_select_with_search_tagging",
+                "container" => "organisations",
+                "attribute_path" => %w[lead_organisation_ids],
+                "size" => 4,
+                "translatable" => false,
+              },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    organisation = create(:organisation)
+    login_as create(:gds_admin, organisation:)
+
+    get :new, params: { configurable_document_type: "test_type" }
+
+    assert assigns(:edition).organisation_association_enabled?
+    assert_not assigns(:edition).lead_organisation_association_required?
+    assert_select "select[name='edition[lead_organisation_ids][]']" do
+      refute_select "option[selected='selected']"
+    end
+  end
+
   test "GET new returns a not_found response when no configurable_document_type parameter is provided" do
     get :new
     assert_response :not_found
