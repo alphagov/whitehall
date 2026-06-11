@@ -16,105 +16,56 @@ We're gradually migrating all document types to use the StandardEdition model, a
 
 ## Steps to migrate a legacy content type
 
-These steps assume you have already recreated the legacy content type as a StandardEdition (above).
+Use the [StandardEditionMigrator](https://github.com/alphagov/whitehall/blob/main/app/services/standard_edition_migrator.rb) to migrate both editionable and non-editionable content types.
 
-### The legacy content type already uses the Edition model 
-
-If the legacy content type already uses the Edition model, the migration is made much simpler by use of the [StandardEditionMigrator](https://github.com/alphagov/whitehall/blob/main/app/services/standard_edition_migrator.rb) class.
-
-The StandardEditionMigrator takes a 'recipe' ([example](https://github.com/alphagov/whitehall/pull/10814/changes#diff-08a7cc438a61f2e81368a00c4b5753e52a072e2e4ddc30563eb531d4d041f139R1)) that tells the migrator service how to map the legacy fields to the config-driven `block_content` structure (`map_legacy_fields_to_block_content`). It also has built-in payload comparison, so that it can take the Publishing API payload of the legacy content item and 'diff' it against the StandardEdition Publishing API payload of the _converted_ content item, aborting the migration if the diff isn't as expected.
+The StandardEditionMigrator takes a 'recipe' that tells the migrator service how to build a StandardEdition from the legacy record. It also has built-in payload comparison, so that it can take the Publishing API payload of the legacy content item and 'diff' it against the StandardEdition Publishing API payload of the _converted_ content item, aborting the migration if the diff isn't as expected.
 
 Conceptually, the diff should be empty: converting legacy content types to being config-driven is a straight up refactor that shouldn't affect the end user experience. In practice, the diffs end up being subtly different, so we have to configure the recipe to state which bits of the diff are 'expected'.
 
-The API is as follows:
-- `configurable_document_type` - the config-driven 'configurable_document_type', e.g. `news_story`
-- `presenter` - the presenter for the legacy content type, e.g. `PublishingApi::NewsArticlePresenter`
-- `map_legacy_fields_to_block_content(edition, translation)` - defines which top level 'fields' of the legacy edition should be injected into the `block_content` of the config-driven edition. E.g. `{ "body" => translation.body }`.
+Your recipe will need to define the following methods:
+
+- `legacy_presenter` - the presenter for the legacy content type, e.g. `PublishingApi::NewsArticlePresenter`
+- `build_edition(legacy_record)` - create a StandardEdition, and assign its attributes based on what is in the legacy_record. This is the main part of the recipe. *Important*: be careful to no persist anything here as this method is also called by the preview_migration method. It is cleaner to build all of this in memory, than to make the actual changes and then rely on rolling back (which can have unexpected side effects such as updating Publishing API).
+
+Then the following methods are all about normalisation of the payloads, for comparison purposes:
+
 - `ignore_legacy_content_fields(content)` - defines which fields in the `details` hash of the legacy content item will not be carried over to the `details` hash of the config-driven content item. (Sometimes we consciously drop fields if they're no longer required). E.g. `content[:details].delete(:first_public_at)` (which is a legacy field no longer needed - see [this PR description](https://github.com/alphagov/whitehall/pull/10670)).
 - `ignore_new_content_fields(content)` - defines which fields in the `details` hash of the config-driven content item were not present in the legacy content item. E.g. `content[:details].delete(:image)`
 - `ignore_legacy_links(links)` - defines which links in the legacy content item will not be carried over to the links of the config-driven content item. E.g. `links.delete(:worldwide_organisations)`
 - `ignore_new_links(links)` - defines which links in the config-driven content item were not present on the legacy content item. If no changes, just return unchanged, i.e. `links`. The same applies to all of the above arguments.
 
-The migrator itself offers two methods:
+The migrator itself offers a few methods:
 
-- `preview`: to see how many unique documents and editions are in scope for migration
-- `migrate!`: to perform the actual migration. It takes two arguments:
-  - `compare_payloads` (default `true`): runs the legacy content item through its Publishing API presenter and compares it with the converted content item through the StandardEdition presenter, raising an exception if the diff contains any differences not accounted for by the recipe.
-    It is highly recommended to keep this on, but it does slow down the migration somewhat.
-  - `republish` (default `false`): whether or not to republish the document after it has been migrated.
-    This is a nice idea in theory, but in practice can cause [race conditions with document slugs being changed](https://gov-uk.atlassian.net/browse/WHIT-2766?focusedCommentId=165942), so use with caution.
+- `preview_migration(legacy_record, recipe)` - given an old record and a recipe, this will build the StandardEdition in memory and summarise its before-and-after payloads, including any diff.
+- `migrate_existing_document(legacy_record, recipe, raise_if_payloads_differ: boolean<true>)` - overwrites an existing (legacy) Document and all of its Editions. It is intended to be called for legacy edition types such as Publication, Speech, etc. It is not compatible with other content types. Passing `raise_if_payloads_differ: true` aborts the migration if the normalised payloads don't match.
+- `create_new_document(legacy_record, recipe, raise_if_payloads_differ: boolean<true>)` - creates a new Document instance and one 'published' Edition. It is intended to be called for legacy content types that don't follow the Document/Edition model, e.g. TopicalEvent, Organisation etc. It could in theory support legacy edition types too, so that we have an alternative to overwriting-in-place (could instead duplicate a given Document and then delete the old one).
+- `enqueue_bulk_migration(scope, recipe, migration_method: string, raise_if_payloads_differ: boolean<true>)` - enqueues the migration of an array of legacy records, using the migration method provided ("migrate_existing_document" or "create_new_document"), using StandardEditionJob.
 
 With that in mind, the steps for migrating a legacy content type to being config-driven is roughly as follows:
 
-1. Write a recipe and [associated tests](https://github.com/alphagov/whitehall/pull/10814/changes#diff-54659f36bda92219acd8b13bc0a48192707fcd668c591e4651ddbe5b58981a4bR1).
+1. Choose a guinea pig legacy document, e.g. `TopicalEvent.find(123)` and use it as the basis of writing your recipe.
+   `StandardEditionMigrator.preview_migration(TopicalEvent.find(123), StandardEditionMigrator::TopicalEventRecipe)`.
+   Gradually build up your recipe (and associated tests) until you have a recipe that fully carries over all the relevant fields and the normalised payloads match.
 
-2. See how many unique documents and editions are in scope for migration:
-   `StandardEditionMigrator.new(scope: Document.where(document_type: "NewsArticle")).preview` 
+2. Try migrating that one document locally (using `migrate_existing_document` or `create_new_document`).
+   Manually test that the resulting StandardEdition is as you expect. If not, iterate the recipe.
 
-3. Try converting a legacy content item (or several) locally. Example:
+3. Try the same on Integration so that you can also check the converted content item looks as it should on the frontend (you'll need to edit and republish the document to have it present to Publishing API). Compare the resulting page with how it looks on Production.
 
-   ```ruby
-   array_of_one_test_document = Document.where(id: NewsArticle.where(id: 1733267).map(&:document_id))
-   StandardEditionMigrator.new(scope: array_of_one_test_document).migrate!
-   ```
+4. Try a few more examples locally, especially where you know they differ (e.g. some have translations, or 'features', or no associated organisations, etc). Keep iterating the recipe.
 
-   If you want a clearer view of what's going on, you could call the job directly, synchronously:
+5. When you think the recipe is complete, try a bulk migration of everything in scope (or take it more slowly to begin with, e.g. `.limit(10)`).
 
-   ```ruby
-   StandardEditionMigratorJob.new.perform(document.id, { "republish" => true, "compare_payloads" => true })
-   ```
-
-4. Test the converted content item to make sure it still works as expected.
-
-5. Do the same on Integration so that you can also check the converted content item looks as it should on the frontend.
-   Compare it with how it looks on Production.
-
-6. Repeat the steps locally for more content items.
-   You will likely run into edge cases you haven't factored in to your recipe, which you'll want to tweak accordingly.
-
-   ```ruby
-   StandardEditionMigrator.new(scope: Document.where(document_type: "NewsArticle").first(5000)).migrate!(republish: false, compare_payloads: true)
-   ```
-
-7. Come up with a plan for the handful of stragglers.
+6. Come up with a plan for the handful of stragglers.
    You'll likely run into a few instances that, for whatever reason, cannot be easily auto-migrated.
    See [examples of issues we ran into with NewsArticles](https://gov-uk.atlassian.net/browse/WHIT-2487?focusedCommentId=165943).
-   Typically a little manual intervention is required, e.g. to patch up some data, before you can then invoke the `StandardEditionMigratorJob` to complete the migration of the document.
+   Typically a little manual intervention is required, e.g. to patch up some data first.
 
 8. Test running the full migration (and any manual patches) on Integration.
+   If you've used `create_new_document`, you'll need to delete the old legacy records, e.g. `TopicalEvent.destroy_all`, so that you don't have two competing items per document.
+   When you're down to one item per document, [bulk republish by type](https://whitehall-admin.integration.publishing.service.gov.uk/government/admin/republishing/bulk/by-type/new) to present them all downstream.
+   Then keep an eye out for Sentry errors, and manually check a handful of documents to see if they've been updated as expected.
 
-9. Run the full migration (and any manual patches) on Production.
+9. Repeat for Production.
 
 10. Celebrate! 🥳 Then delete the recipe - you won't need it again.
-
-### The legacy content type does not use the Edition model
-
-If the legacy content type doesn't use the Edition model (e.g. `TopicalEvent`), you can still use the `StandardEditionMigrator` — just pass a scope of the legacy records directly rather than a `Document` scope.
-
-For each record in scope, the migrator creates a brand new `Document` and `StandardEdition`, preserving the original record's `content_id` on the new document. Note that for the base path overwrite to work in Publishing API you'll need to do the groundwork described in [#11210](https://github.com/alphagov/whitehall/pull/11210) — this lets you interchangeably publish either the legacy content item or the new `StandardEdition` at the same path for testing purposes. The original record is left untouched, so you can remove it manually afterwards (or leave the two co-existing for a while if that's useful).
-
-The recipe works the same way as for editionable content types, with two differences:
-
-- Use the same `StandardEditionMigrator.recipe_for` method (it accepts any model, not just editions)
-- Add `title(record_translation)` and `summary(record_translation)` methods — these are called once per source record translation, so if the record has multiple locales, each gets its own edition translation. The argument is the Globalize translation object, so you can read locale-specific attributes directly from it (e.g. `record_translation.name`).
-
-`map_legacy_fields_to_block_content` takes `(record, record_translation)` — the first argument is your record (for any non-translated data) and the second is the source translation being processed. Everything else — `presenter`, `configurable_document_type`, and the `ignore_*` methods — works identically to the editionable recipe.
-
-The steps from there are the same as above. To preview:
-
-```ruby
-StandardEditionMigrator.new(scope: TopicalEvent.all).preview
-```
-
-To migrate a handful locally first:
-
-```ruby
-StandardEditionMigrator.new(scope: TopicalEvent.first(5)).migrate!(compare_payloads: true, republish: false)
-```
-
-Or to call the job directly for a single record:
-
-```ruby
-StandardEditionMigratorJob.new.perform(topical_event.id, { "model_class" => "TopicalEvent", "republish" => false, "compare_payloads" => true })
-```
-
