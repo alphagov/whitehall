@@ -165,5 +165,54 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
       service.call
     end
+
+    test "updates a call for evidence response form asset with auth_bypass_id" do
+      edition = create(:call_for_evidence)
+      participation = create(:call_for_evidence_participation, call_for_evidence: edition)
+      call_for_evidence_response_form = create(:call_for_evidence_response_form, call_for_evidence_participation: participation)
+
+      edition.reload
+      SecureRandom.stubs(uuid: uid)
+      expected_attributes = { "auth_bypass_ids" => [uid] }
+
+      service = EditionAuthBypassUpdater.new(
+        edition:,
+        current_user: user,
+        updater:,
+      )
+
+      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
+        "asset_manager_updater",
+        "CallForEvidenceResponseFormData",
+        call_for_evidence_response_form.call_for_evidence_response_form_data.id,
+        expected_attributes,
+      )
+
+      service.call
+    end
+
+    test "updates a call for evidence outcome's attachments with auth_bypass_id" do
+      edition = create(:draft_call_for_evidence)
+      outcome = create(:call_for_evidence_outcome, call_for_evidence: edition)
+      file_attachment = create(:file_attachment, attachable: outcome)
+
+      SecureRandom.stubs(uuid: uid)
+      expected_attributes = { "auth_bypass_ids" => [uid] }
+
+      service = EditionAuthBypassUpdater.new(
+        edition:,
+        current_user: user,
+        updater:,
+      )
+
+      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
+        "asset_manager_updater",
+        "AttachmentData",
+        file_attachment.attachment_data.id,
+        expected_attributes,
+      )
+
+      service.call
+    end
   end
 end
