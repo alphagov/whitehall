@@ -78,34 +78,76 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
 
     @artefacts_to_save = [features.flat_map(&:image).flat_map(&:assets), features, feature_lists, edition.translations].flatten
 
-    if record.logo
-      new_logo_data = ImageData.new(
-        carrierwave_image: record.logo.carrierwave_image,
-        image_kind: "topical_event_logo",
-      )
+    # if record.logo
+      # new_logo_data = ImageData.new(
+      #   carrierwave_image: record.logo.carrierwave_image,
+      #   image_kind: "topical_event_logo",
+      # )
 
-      # include all derived variants
-      new_logo_data.file.active_version_names.each do |version_name|
-        new_logo_data.assets.build(
-          variant: version_name,
-          filename: record.logo.filename,
-          asset_manager_id: record.logo.assets.first&.asset_manager_id,
+      # # include all derived variants
+      # new_logo_data.file.active_version_names.each do |version_name|
+      #   new_logo_data.assets.build(
+      #     variant: version_name,
+      #     filename: record.logo.filename,
+      #     asset_manager_id: record.logo.assets.first&.asset_manager_id,
+      #   )
+      # end
+
+      # # ⚠️ critical: original must exist explicitly
+      # new_logo_data.assets.build(
+      #   variant: :original,
+      #   filename: record.logo.filename,
+      #   asset_manager_id: record.logo.assets.first&.asset_manager_id,
+      # )
+
+      # new_logo = edition.images.build(
+      #   image_data: new_logo_data,
+      #   usage: "logo",
+      # )
+
+    if record.logo
+      # TODO: pull this dynamically from image_kinds?
+      variant_mappings = {
+        # There IS no 'original' variant in the legacy topical events!
+        "original" => "s960",
+        "tablet_2x" => "s960",
+        "tablet" => "s960",
+        "mobile_2x" => "s960",
+        "mobile" => "s960",
+        "desktop_2x" => "s960",
+        "desktop" => "s960",
+      }
+
+      original_variant = record.logo.url(:s960)
+      uploader_identifier = File.basename(original_variant) # e.g. G8_logo.jpg
+      image_data = ImageData.new(
+        image_kind: "topical_event_logo",
+        carrierwave_image: uploader_identifier,
+      )
+      image_data.clear_changes_information
+      byebug
+      image_data.save!(validate: false) # no local file, so have to skip validation
+
+      variant_mappings.each do |new_variant_name, old_source_to_map_to|
+        Asset.create!(
+          variant: new_variant_name,
+          filename: File.basename(record.logo.url(old_source_to_map_to.to_sym)),
+          asset_manager_id: record.logo.url(old_source_to_map_to.to_sym).match(%r{media/([^/]+)}).captures.first, # e.g. 5a71e47ae5274a7f990285b9
+          assetable: image_data,
         )
       end
-
-      # ⚠️ critical: original must exist explicitly
-      new_logo_data.assets.build(
-        variant: :original,
-        filename: record.logo.filename,
-        asset_manager_id: record.logo.assets.first&.asset_manager_id,
-      )
-
-      new_logo = edition.images.build(
-        image_data: new_logo_data,
+  
+      image = Image.create!(
+        caption: nil,
+        edition: edition,
+        image_data: image_data,
+        created_at: record.logo.created_at,
         usage: "logo",
       )
 
-      @artefacts_to_save += [new_logo, new_logo_data]
+      edition.images << image
+
+      # @artefacts_to_save += [new_logo, new_logo_data]
     end
 
     @artefacts_to_save = @artefacts_to_save.flatten
