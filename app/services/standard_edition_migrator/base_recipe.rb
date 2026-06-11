@@ -7,8 +7,8 @@ class StandardEditionMigrator::BaseRecipe
     raise NotImplementedError, "Subclasses must implement build_edition!"
   end
 
-  def save_built_edition!
-    raise NotImplementedError, "Subclasses must implement save_built_edition!"
+  def editorial_remark
+    "Migrated to StandardEdition"
   end
 
   def save_artefacts!(validate:, edition:)

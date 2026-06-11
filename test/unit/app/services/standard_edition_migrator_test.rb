@@ -10,6 +10,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
     @legacy_editionable_document = create(:detailed_guide, :with_document, title: "Detailed Guide", summary: "Old summary", body: "Old body").document
     @legacy_non_editionable_record = create(:organisation, name: "Title")
+    @robot_user = create(:user, name: "Scheduled Publishing Robot")
   end
 
   describe "#preview_migration" do
@@ -136,6 +137,14 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
     end
 
+    test "creates audit trail entry for the migration" do
+      StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
+      edition = StandardEdition.last
+      assert_equal 1, edition.editorial_remarks.count
+      assert_equal @robot_user.id, edition.editorial_remarks.first.author_id
+      assert_equal "Migrated to StandardEdition", edition.editorial_remarks.first.body
+    end
+
     test "raises exception if a Document is passed (we could handle this in theory, but for simplicity we expect all Document conversions to go through the migrate_existing_document route)" do
       document = build(:document)
       error = assert_raises(RuntimeError) do
@@ -168,6 +177,14 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal old_id, edition.document.content_id
       assert_equal "Title", edition.translations.first.title
       assert_equal({ "field_attribute" => old_body }, edition.translations.first.block_content)
+    end
+
+    test "creates audit trail entry for the migration" do
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
+      edition = StandardEdition.last
+      assert_equal 1, edition.editorial_remarks.count
+      assert_equal @robot_user.id, edition.editorial_remarks.first.author_id
+      assert_equal "Migrated legacy editionable document to StandardEdition", edition.editorial_remarks.first.body
     end
 
     test "raises exception if a non-Document is passed" do

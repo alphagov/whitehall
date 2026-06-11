@@ -53,12 +53,8 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     }
     attributes[:public_timestamp] = record.public_timestamp if record.respond_to?(:public_timestamp)
 
-    user = User.find_by(name: "Scheduled Publishing Robot")
-    edition = nil
-    AuditTrail.acting_as(user) do
-      edition = StandardEdition.new(attributes)
-      edition.creator = user
-    end
+    edition = StandardEdition.new(attributes)
+    edition.creator = User.find_by(name: "Scheduled Publishing Robot")
 
     raise WhitehallError, "Topical Events with About pages are not currently supported by the migrator" if record.topical_event_about_page
 

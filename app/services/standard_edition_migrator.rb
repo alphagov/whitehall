@@ -30,9 +30,9 @@ class StandardEditionMigrator
 
   # TODO: tests for all of the `save!` calls.
   def create_new_document(legacy_record, recipe, raise_if_payloads_differ: true)
-    ActiveRecord::Base.transaction do
-      document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
+    document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
 
+    ActiveRecord::Base.transaction do
       recipe_instance = recipe.new
       raise "Cannot pass a Document to create_new_document" if legacy_record.is_a?(Document)
 
@@ -43,15 +43,20 @@ class StandardEditionMigrator
       end
 
       edition.document = document
-      # Save without validation to get all our ducks in a row
-      edition.save!(validate: false)
-      recipe_instance.save_artefacts!(edition: edition, validate: false)
-      document.save!(validate: false)
-      # Then save _with_ validation, now that every interdependent artefact has been created and associated
-      edition.save!(validate: true)
-      recipe_instance.save_artefacts!(edition: edition, validate: true)
-      document.save!(validate: true)
+
+      create_audit_trail(edition, recipe_instance.editorial_remark) do
+        # Save without validation to get all our ducks in a row
+        edition.save!(validate: false)
+        recipe_instance.save_artefacts!(edition: edition, validate: false)
+        document.save!(validate: false)
+        # Then save _with_ validation, now that every interdependent artefact has been created and associated
+        edition.save!(validate: true)
+        recipe_instance.save_artefacts!(edition: edition, validate: true)
+        document.save!(validate: true)
+      end
     end
+
+    document.reload
   end
 
   # TODO: tests for all of the `save!` calls.
@@ -73,15 +78,19 @@ class StandardEditionMigrator
         legacy_edition = legacy_edition.becomes!(StandardEdition)
         legacy_edition.assign_attributes(edition.attributes.except("id", "document_id"))
         legacy_edition.auth_bypass_id ||= edition.auth_bypass_id || [] #  can't be null
-        # Have to cast the legacy edition to a StandardEdition in order to save it to bypass STI
-        # Save without validation to get all our ducks in a row
-        legacy_edition.save!(validate: false)
-        recipe_instance.save_artefacts!(edition: legacy_edition, validate: false)
-        # Then save _with_ validation, now that every interdependent artefact has been created and associated
-        legacy_edition.save!(validate: true)
-        recipe_instance.save_artefacts!(edition: legacy_edition, validate: true)
+
+        create_audit_trail(legacy_edition, recipe_instance.editorial_remark) do
+          # Have to cast the legacy edition to a StandardEdition in order to save it to bypass STI
+          # Save without validation to get all our ducks in a row
+          legacy_edition.save!(validate: false)
+          recipe_instance.save_artefacts!(edition: legacy_edition, validate: false)
+          # Then save _with_ validation, now that every interdependent artefact has been created and associated
+          legacy_edition.save!(validate: true)
+          recipe_instance.save_artefacts!(edition: legacy_edition, validate: true)
+        end
       end
     end
+    legacy_record.reload
   end
 
   def enqueue_bulk_migration(legacy_records, recipe_class, migration_method:, raise_if_payloads_differ: true)
@@ -99,6 +108,21 @@ class StandardEditionMigrator
   end
 
 private
+
+  def create_audit_trail(edition, remark)
+    # Whitehall's in-house 'AuditTrail' is used to populate the timeline in the sidebar
+    robot_user = User.find_by(name: "Scheduled Publishing Robot")
+    AuditTrail.acting_as(robot_user) do
+      yield
+      EditorialRemark.create!(
+        edition: edition,
+        body: remark,
+        author: robot_user,
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now,
+      )
+    end
+  end
 
   def compare_payloads_and_raise(legacy_record, recipe_instance, raise_if_payloads_differ)
     unless raise_if_payloads_differ
