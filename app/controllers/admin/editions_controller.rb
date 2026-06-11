@@ -113,7 +113,12 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    @edition.assign_attributes(edition_params)
+    @edition.assign_attributes(edition_params.except(:access_limiting_organisation_ids))
+
+    if Flipflop.access_limiting_organisations_ui?
+      @edition.access_limiting_organisation_ids =
+        Array(edition_params[:access_limiting_organisation_ids]).reject(&:blank?)
+    end
 
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
@@ -258,6 +263,7 @@ private
         all_nation_applicability: [],
         lead_organisation_ids: [],
         supporting_organisation_ids: [],
+        access_limiting_organisation_ids: [],
         organisation_ids: [],
         role_ids: [],
         world_location_ids: [],
