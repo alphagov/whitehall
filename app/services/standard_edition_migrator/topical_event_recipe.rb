@@ -106,48 +106,47 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       # )
 
     if record.logo
-      # TODO: pull this dynamically from image_kinds?
-      variant_mappings = {
-        # There IS no 'original' variant in the legacy topical events!
-        "original" => "s960",
-        "tablet_2x" => "s960",
-        "tablet" => "s960",
-        "mobile_2x" => "s960",
-        "mobile" => "s960",
-        "desktop_2x" => "s960",
-        "desktop" => "s960",
-      }
-
-      original_variant = record.logo.url(:s960)
-      uploader_identifier = File.basename(original_variant) # e.g. G8_logo.jpg
+      byebug
       image_data = ImageData.new(
         image_kind: "topical_event_logo",
-        carrierwave_image: uploader_identifier,
       )
-      image_data.clear_changes_information
-      byebug
-      image_data.save!(validate: false) # no local file, so have to skip validation
+      image_data.save!(validate: false)
 
-      variant_mappings.each do |new_variant_name, old_source_to_map_to|
-        Asset.create!(
-          variant: new_variant_name,
-          filename: File.basename(record.logo.url(old_source_to_map_to.to_sym)),
-          asset_manager_id: record.logo.url(old_source_to_map_to.to_sym).match(%r{media/([^/]+)}).captures.first, # e.g. 5a71e47ae5274a7f990285b9
-          assetable: image_data,
-        )
-      end
-  
       image = Image.create!(
         caption: nil,
-        edition: edition,
+        # edition: edition,
         image_data: image_data,
         created_at: record.logo.created_at,
         usage: "logo",
       )
+      image.save!(validate: false)
+
+      image_data.image = image
+      image_data.save!(validate: false)
+
+      variant_mappings = {
+        "original" => "original",
+        "s216" => "topical_event_logo_mobile",
+        "s300" => "topical_event_logo_mobile_2x",
+        "s465" => "topical_event_logo_tablet",
+        "s630" => "topical_event_logo_tablet_2x",
+        "s712" => "topical_event_logo_desktop",
+        "s960" => "topical_event_logo_desktop_2x",
+      }
+      # TODO: make the above driven by config, using something like:
+      # Whitehall.image_kinds["topical_event_logo"]
+      #   .versions
+      #   .map(&:prefixed_name)
+
+      record.logo.assets.each do |asset|
+        image_data.assets.create!(
+          variant: variant_mappings[asset.variant].to_sym,
+          asset_manager_id: asset.asset_manager_id,
+          filename: asset.filename
+        )
+      end
 
       edition.images << image
-
-      # @artefacts_to_save += [new_logo, new_logo_data]
     end
 
     @artefacts_to_save = @artefacts_to_save.flatten
