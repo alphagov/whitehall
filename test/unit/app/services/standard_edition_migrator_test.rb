@@ -102,7 +102,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
   describe "#create_new_document" do
     test "performs the migration and saves the new edition on a legacy non-editionable record" do
-      StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+      StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
       edition = StandardEdition.last
       assert edition.persisted?
       assert_equal "test_type", edition.configurable_document_type
@@ -113,7 +113,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     test "raises exception if a Document is passed (we could handle this in theory, but for simplicity we expect all Document conversions to go through the migrate_existing_document route)" do
       document = build(:document)
       error = assert_raises(RuntimeError) do
-        StandardEditionMigrator.create_new_document(document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+        StandardEditionMigrator.create_new_document(document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
       end
 
       assert_equal "Cannot pass a Document to create_new_document", error.message
@@ -135,7 +135,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     test "performs the migration and saves the new edition (and document) on a legacy editionable document" do
       old_id = @legacy_editionable_document.content_id
       old_body = @legacy_editionable_document.editions.last.body
-      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
       edition = StandardEdition.last
       assert edition.persisted?
       assert_equal "test_type", edition.configurable_document_type
@@ -147,7 +147,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     test "raises exception if a non-Document is passed" do
       non_document = build(:organisation)
       error = assert_raises(RuntimeError) do
-        StandardEditionMigrator.migrate_existing_document(non_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+        StandardEditionMigrator.migrate_existing_document(non_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
       end
 
       assert_equal "Cannot pass a non-Document to migrate_existing_document", error.message
@@ -176,6 +176,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         legacy_non_editionable_records,
         StandardEditionMigrator::RecipeForNonEditionableRecord,
         migration_method: "create_new_document",
+        raise_if_payloads_differ: true,
       )
 
       assert_equal 2, StandardEditionMigratorJob.jobs.size
@@ -187,6 +188,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal "Organisation", keyword_args["model_class"]
       assert_equal "StandardEditionMigrator::RecipeForNonEditionableRecord", keyword_args["recipe_class"]
       assert_equal "create_new_document", keyword_args["migration_method"]
+      assert_equal true, keyword_args["raise_if_payloads_differ"]
 
       second_job_args = StandardEditionMigratorJob.jobs.second["args"]
       record_id = second_job_args.first
@@ -195,6 +197,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal "Organisation", keyword_args["model_class"]
       assert_equal "StandardEditionMigrator::RecipeForNonEditionableRecord", keyword_args["recipe_class"]
       assert_equal "create_new_document", keyword_args["migration_method"]
+      assert_equal true, keyword_args["raise_if_payloads_differ"]
     end
   end
 end

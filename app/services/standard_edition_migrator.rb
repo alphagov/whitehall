@@ -29,7 +29,7 @@ class StandardEditionMigrator
   end
 
   # TODO: tests for all of the `save!` calls.
-  def create_new_document(legacy_record, recipe, raise_if_payloads_differ: false)
+  def create_new_document(legacy_record, recipe, raise_if_payloads_differ: true)
     ActiveRecord::Base.transaction do
       document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
 
@@ -55,7 +55,7 @@ class StandardEditionMigrator
   end
 
   # TODO: tests for all of the `save!` calls.
-  def migrate_existing_document(legacy_record, recipe, raise_if_payloads_differ: false)
+  def migrate_existing_document(legacy_record, recipe, raise_if_payloads_differ: true)
     ActiveRecord::Base.transaction do
       recipe_instance = recipe.new
       raise "Cannot pass a non-Document to migrate_existing_document" unless legacy_record.is_a?(Document)
@@ -84,7 +84,7 @@ class StandardEditionMigrator
     end
   end
 
-  def enqueue_bulk_migration(legacy_records, recipe_class, migration_method:)
+  def enqueue_bulk_migration(legacy_records, recipe_class, migration_method:, raise_if_payloads_differ: true)
     legacy_records.each do |legacy_record|
       StandardEditionMigratorJob.perform_async(
         legacy_record.id,
@@ -92,6 +92,7 @@ class StandardEditionMigrator
           "model_class" => legacy_record.class.name,
           "recipe_class" => recipe_class.name,
           "migration_method" => migration_method,
+          "raise_if_payloads_differ" => raise_if_payloads_differ,
         },
       )
     end
