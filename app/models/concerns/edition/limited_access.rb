@@ -43,6 +43,13 @@ module Edition::LimitedAccess
     end
   end
 
+  def prefill_default_access_limiting_organisations
+    return unless Flipflop.access_limiting_organisations_ui?
+    return unless access_limited_by_default? && access_limiting_organisations.empty?
+
+    self.access_limiting_organisations = lead_organisations
+  end
+
   def accessible_to?(user)
     user.present? && Whitehall::Authority::Enforcer.new(user, self).can?(:see)
   end

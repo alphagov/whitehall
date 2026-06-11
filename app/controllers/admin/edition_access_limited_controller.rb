@@ -3,7 +3,9 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
   before_action :enforce_permissions!
   before_action :clean_organisation_params, only: %i[update]
 
-  def edit; end
+  def edit
+    @edition.prefill_default_access_limiting_organisations
+  end
 
   def update
     editorial_remark = edition_params.delete(:editorial_remark)

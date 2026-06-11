@@ -103,6 +103,28 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  # The pre-fill lives in the shared Admin::EditionsController#edit, so it applies to all
+  # access-limited-by-default types; tested here via a NationalStatistics publication.
+  view_test "edit pre-selects organisation access limiting and pre-fills lead organisations for default-access-limited types when access_limiting_organisations_ui flag is on" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    publication = create(
+      :publication,
+      publication_type: PublicationType::NationalStatistics,
+      create_default_organisation: false,
+      lead_organisations: [@organisation],
+    )
+
+    get :edit, params: { id: publication }
+
+    assert_select "form#edit_edition" do
+      assert_select "input[name='edition[access_limiting]'][value='organisations'][checked=checked]"
+      assert_select "select[name='edition[access_limiting_organisation_ids][]']" do
+        assert_select "option[selected='selected'][value='#{@organisation.id}']"
+      end
+    end
+  end
+
   test "update should save modified publication attributes" do
     publication = create(:publication)
 

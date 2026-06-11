@@ -82,6 +82,24 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET :edit should pre-select organisation_access_limiting radio and pre-fill lead organisations for default-access-limited edition types when access_limiting_organisations_ui flag is on" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :statistical_data_set,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+
+    get :edit, params: { id: edition }
+
+    assert_select "input[name='edition[access_limiting]'][value='organisations'][checked=checked]"
+    assert_select "select[name='edition[access_limiting_organisation_ids][]']" do
+      assert_select "option[selected='selected'][value='#{organisation.id}']"
+    end
+  end
+
   test "PATCH :update should be forbidden unless user is a GDS Admin" do
     edition = create(:consultation)
     login_as :gds_editor
