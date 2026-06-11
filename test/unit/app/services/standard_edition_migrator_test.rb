@@ -1,7 +1,7 @@
 require "test_helper"
-require_relative "../../../../app/services/standard_edition_migrator/fixtures/legacy_presenter"
-require_relative "../../../../app/services/standard_edition_migrator/fixtures/recipe_for_legacy_editionable_document"
-require_relative "../../../../app/services/standard_edition_migrator/fixtures/recipe_for_non_editionable_record"
+require_relative "./standard_edition_migrator/fixtures/legacy_presenter"
+require_relative "./standard_edition_migrator/fixtures/recipe_for_legacy_editionable_document"
+require_relative "./standard_edition_migrator/fixtures/recipe_for_non_editionable_record"
 
 class StandardEditionMigratorTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
