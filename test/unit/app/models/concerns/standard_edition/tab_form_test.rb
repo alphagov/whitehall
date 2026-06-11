@@ -116,4 +116,15 @@ class StandardEdition::TabFormTest < ActiveSupport::TestCase
     assert tab_form.valid?
     assert tab_form.errors.where(:body).none?
   end
+
+  test "it does not duplicate block_content errors on the default tab" do
+    edition = build(:standard_edition, :with_organisations,
+                    configurable_document_type: "test_type",
+                    title: "Title", summary: "Summary",
+                    block_content: { body: "" })
+    tab_form = StandardEdition::TabForm.new(edition, edition.default_tab)
+
+    assert tab_form.invalid?
+    assert_equal(1, tab_form.errors.full_messages.count { |message| message == "Body cannot be blank" })
+  end
 end

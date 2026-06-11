@@ -13,6 +13,10 @@ class StandardEdition::TabForm
 
 private
 
+  def default_tab?
+    tab_key == edition.default_tab
+  end
+
   def form_config
     @form_config ||= edition.type_instance.form(tab_key).tap do |config|
       raise ArgumentError, "Unknown tab key '#{tab_key}'" unless config
@@ -62,11 +66,32 @@ private
 
     edition.current_tab_context = tab_key
     edition.valid?(validation_context)
-    edition.current_tab_context = nil
 
+    if default_tab?
+      import_non_block_content_edition_errors
+    else
+      import_scoped_edition_errors
+    end
+    edition.current_tab_context = nil
+  end
+
+  def import_scoped_edition_errors
     edition_attribute_keys.each do |attr|
       edition.errors.where(attr.to_sym).each { |error| errors.import(error, attribute: error.attribute.to_s) }
     end
-    edition.errors.clear # clear unscoped edition errors so only the imported tab-scoped errors reach the controller.
+  end
+
+  def import_non_block_content_edition_errors
+    edition.errors.each do |error|
+      next if block_content_error_attribute?(error.attribute.to_s)
+
+      errors.import(error, attribute: error.attribute.to_s)
+    end
+  end
+
+  def block_content_error_attribute?(attribute)
+    block_content_field_keys.any? do |field_key|
+      attribute == field_key
+    end
   end
 end
