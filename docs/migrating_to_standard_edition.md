@@ -25,7 +25,7 @@ Conceptually, the diff should be empty: converting legacy content types to being
 Your recipe will need to define the following methods:
 
 - `legacy_presenter` - the presenter for the legacy content type, e.g. `PublishingApi::NewsArticlePresenter`
-- `build_edition(legacy_record)` - create a StandardEdition, and assign its attributes based on what is in the legacy_record. This is the main part of the recipe. *Important*: be careful to no persist anything here as this method is also called by the preview_migration method. It is cleaner to build all of this in memory, than to make the actual changes and then rely on rolling back (which can have unexpected side effects such as updating Publishing API).
+- `build_edition(legacy_record)` - create a StandardEdition, and assign its attributes based on what is in the legacy_record. This is the main part of the recipe. *Important*: be careful to no persist anything here as this method is also called by the preview_migration method. It is cleaner to build all of this in memory, than to make the actual changes and then rely on rolling back (which can have unexpected side effects such as updating Publishing API). Any records in memory that need saving in the real migration should be added to a `@artefacts_to_save` array, which gets persisted later on in the migration workflow. Any edition IDs on the artefacts will be automatically filled in later.
 
 Then the following methods are all about normalisation of the payloads, for comparison purposes:
 

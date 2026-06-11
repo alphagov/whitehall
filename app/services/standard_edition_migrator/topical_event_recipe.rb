@@ -4,8 +4,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
   attr_reader :artefacts_to_save
 
   def build_edition(record)
-    @artefacts_to_save = [] # set here just in case we called this once already e.g. for preview
-    document = Document.new(document_type: "StandardEdition", content_id: record.content_id)
+    @artefacts_to_save = []
     feature_lists = [FeatureList.new(locale: "en")]
     features = []
 
@@ -30,7 +29,6 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
 
     feature_lists.first.features = features
     attributes = {
-      document:,
       configurable_document_type: "topical_event",
       state: "published",
       slug: record.slug,
@@ -82,14 +80,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     edition.lead_organisations = record.topical_event_organisations.where(lead: true).map(&:organisation)
     edition.supporting_organisations = record.topical_event_organisations.where(lead: false).map(&:organisation)
 
-    @artefacts_to_save = {
-      document: document,
-      edition: edition,
-      everything_else: edition.translations,
-    }
-    @artefacts_to_save[:everything_else] += features.flat_map(&:image).flat_map(&:assets)
-    @artefacts_to_save[:everything_else] += features
-    @artefacts_to_save[:everything_else] += feature_lists
+    @artefacts_to_save = [features.flat_map(&:image).flat_map(&:assets), features, feature_lists, edition.translations].flatten
 
     if record.logo
       new_logo_data = ImageData.new(
@@ -118,10 +109,10 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
         usage: "logo",
       )
 
-      @artefacts_to_save[:everything_else] += [new_logo, new_logo_data]
+      @artefacts_to_save += [new_logo, new_logo_data]
     end
 
-    @artefacts_to_save[:everything_else] = @artefacts_to_save[:everything_else].flatten
+    @artefacts_to_save = @artefacts_to_save.flatten
     edition
   end
 
