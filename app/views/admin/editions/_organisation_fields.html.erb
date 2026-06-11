@@ -1,18 +1,19 @@
 <% if edition.organisation_association_enabled? %>
   <%= render "govuk_publishing_components/components/fieldset", {
-    legend_text: "Lead organisations",
+    legend_text: "Lead organisations#{edition.lead_organisation_association_required? ? ' (required)' : ''}",
     heading_level: 3,
     heading_size: "m",
     id: "edition_organisations",
     error_message: errors_for_input(edition.errors, :lead_organisation_ids, "Organisations"),
     } do %>
     <div class="govuk-!-margin-bottom-6">
-      <% 0.upto(3) do |index| %>
-        <% lead_organisation_id = lead_organisation_id_at_index(edition, index) %>
+      <% 1.upto(4) do |index| %>
+        <% lead_organisation_id = lead_organisation_id_at_index(edition, index-1) %>
+        <% select_label = "Lead organisation #{index}" %>
         <%= render "govuk_publishing_components/components/select_with_search", {
-            id: "edition_lead_organisation_ids_#{index + 1}",
+            id: "edition_lead_organisation_ids_#{index}",
             name: "edition[lead_organisation_ids][]",
-            label: "Lead organisation #{index + 1}",
+            label: (index == 1 && edition.lead_organisation_association_required?) ? (select_label + " (required)") : select_label,
             heading_size: "s",
             include_blank: true,
             options: taggable_organisations_container([lead_organisation_id]),

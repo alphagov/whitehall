@@ -31,7 +31,8 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
       assert_select "textarea[name='edition[editorial_remark]']"
 
       (1..4).each do |i|
-        assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: "Lead organisation #{i}"
+        select_label = i == 1 && assigns(:edition).lead_organisation_association_required? ? "Lead organisation #{i} (required)" : "Lead organisation #{i}"
+        assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: select_label
         assert_select("#edition_lead_organisation_ids_#{i}")
       end
 
