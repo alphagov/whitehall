@@ -33,6 +33,10 @@ class ImageData < ApplicationRecord
 
   delegate :url, :content_type, to: :file
 
+  def attachable
+    images.first.edition
+  end
+
   def filename
     file&.file&.filename
   end

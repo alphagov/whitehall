@@ -8,6 +8,10 @@ class ConsultationResponseFormData < ApplicationRecord
 
   validates :file, presence: true
 
+  def attachable
+    consultation_response_form.consultation_participation.consultation
+  end
+
   def auth_bypass_ids
     [consultation_response_form.consultation_participation.consultation.auth_bypass_id]
   end

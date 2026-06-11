@@ -9,6 +9,10 @@ class CallForEvidenceResponseFormData < ApplicationRecord
 
   validates :file, presence: true
 
+  def attachable
+    call_for_evidence_response_form.call_for_evidence_participation.call_for_evidence
+  end
+
   def auth_bypass_ids
     [call_for_evidence_response_form.call_for_evidence_participation.call_for_evidence.auth_bypass_id]
   end
