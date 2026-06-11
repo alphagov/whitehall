@@ -18,22 +18,6 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
     end
   end
 
-  describe "#title" do
-    test "returns the title of the topical event" do
-      legacy_topical_event = create(:topical_event, name: "Sample Topical Event")
-      recipe = StandardEditionMigrator::TopicalEventRecipe.new
-      assert_equal "Sample Topical Event", recipe.title(legacy_topical_event)
-    end
-  end
-
-  describe "#summary" do
-    test "returns the summary of the topical event" do
-      legacy_topical_event = create(:topical_event, summary: "Sample Summary")
-      recipe = StandardEditionMigrator::TopicalEventRecipe.new
-      assert_equal "Sample Summary", recipe.summary(legacy_topical_event)
-    end
-  end
-
   describe "#build_edition" do
     test "raises an exception if passed a Topical Event that has an About page - we're not ready to migrate those yet" do
       legacy_topical_event = create(:topical_event)
