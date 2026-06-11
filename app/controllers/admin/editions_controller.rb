@@ -88,7 +88,9 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def new; end
+  def new
+    @edition.prefill_default_access_limiting_organisations
+  end
 
   def create
     if updater.can_perform? && @edition.save
@@ -109,6 +111,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def edit
     @edition.open_for_editing_as(current_user) if @edition.editable?
+    @edition.prefill_default_access_limiting_organisations
     fetch_version_and_remark_trails
   end
 
