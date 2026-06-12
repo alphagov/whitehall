@@ -10,11 +10,14 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
   def update
     editorial_remark = edition_params.delete(:editorial_remark)
 
-    @edition.assign_attributes(edition_params.except(:access_limiting_organisation_ids, :access_limiting))
+    @edition.assign_attributes(edition_params.except(:access_limiting_organisation_ids, :access_limiting, :access_limiting_individual_emails))
     @edition.access_limiting = access_limiting_param
+
     assign_access_limiting_organisations
+    assign_access_limiting_individuals
 
     return render :edit if access_limiting_organisations_invalid?
+    return render :edit if access_limiting_individuals_invalid?
     return render :edit unless @edition.valid?
 
     apply_access_limiting_organisations
@@ -73,9 +76,39 @@ private
     @submitted_org_ids ||= Array(edition_params[:access_limiting_organisation_ids]).reject(&:blank?)
   end
 
+  def assign_access_limiting_individuals
+    return unless Flipflop.access_limiting_individuals_ui?
+
+    @edition.edition_user_accesses = if @edition.access_limiting_individuals?
+                                       submitted_individual_emails.map do |email|
+                                         EditionUserAccess.new(email:)
+                                       end
+                                     else
+                                       []
+                                     end
+  end
+
+  def access_limiting_individuals_invalid?
+    return false unless Flipflop.access_limiting_individuals_ui?
+    return false unless @edition.access_limiting_individuals?
+    return false if submitted_individual_emails.any?
+
+    @edition.errors.add(:access_limiting_individual_emails,
+                        "must include at least one email when individual access limiting is enabled")
+    true
+  end
+
+  def submitted_individual_emails
+    @submitted_individual_emails ||= edition_params[:access_limiting_individual_emails]
+      .to_s
+      .split("\n")
+      .map(&:strip)
+      .reject(&:blank?)
+  end
+
   # TODO: Remove this when we remove the legacy access field
   def access_limiting_param
-    return edition_params[:access_limiting] if %w[organisations none].include?(edition_params[:access_limiting])
+    return edition_params[:access_limiting] if %w[organisations none individuals].include?(edition_params[:access_limiting])
 
     edition_params[:access_limiting] == "1" ? :organisations : :none
   end
@@ -93,6 +126,7 @@ private
       .fetch(:edition, {})
       .permit(
         :access_limiting,
+        :access_limiting_individual_emails,
         :editorial_remark,
         {
           lead_organisation_ids: [],
@@ -124,13 +158,15 @@ private
     access_limiting_changed = @edition.access_limiting != original.access_limiting
     access_limiting_organisations_changed =
       @edition.access_limiting_organisation_ids.sort != original.access_limiting_organisation_ids.sort
-    # Lead/supporting organisations are only relevant when the edition supports them.
+    access_limiting_individuals_changed =
+      @edition.edition_user_accesses.map(&:email).sort != original.edition_user_accesses.map(&:email).sort
     lead_and_supporting_organisations_changed =
       @edition.organisation_association_enabled? &&
       @edition.edition_organisations != original.edition_organisations
 
     access_limiting_changed ||
       access_limiting_organisations_changed ||
+      access_limiting_individuals_changed ||
       lead_and_supporting_organisations_changed
   end
 end

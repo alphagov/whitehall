@@ -5,7 +5,7 @@
     heading_size: "m",
   } do %>
     <%= form.hidden_field :access_limiting, value: "none" %>
-    <% if Flipflop.access_limiting_organisations_ui? %>
+    <% if Flipflop.access_limiting_organisations_ui? || Flipflop.access_limiting_individuals_ui? %>
       <%= render "govuk_publishing_components/components/radio", {
         name: "edition[access_limiting]",
         id_prefix: "edition_access_limiting",
@@ -16,16 +16,27 @@
             text: "No access limiting",
             checked: edition.access_limiting_none?,
           },
-          {
+          Flipflop.access_limiting_organisations_ui? ? {
             value: "organisations",
             text: "Organisation access limiting",
             checked: edition.access_limiting_organisations?,
             conditional: render("admin/editions/access_limiting_organisation_select", form: form, edition: edition),
-          },
-        ],
+          } : nil,
+          Flipflop.access_limiting_individuals_ui? ? {
+            value: "individuals",
+            text: "Individual access limiting",
+            checked: edition.access_limiting_individuals?,
+            conditional: render("govuk_publishing_components/components/textarea", {
+              label: { text: "Add publishers who will have access" },
+              name: "edition[access_limiting_individual_emails]",
+              textarea_id: "edition_access_limiting_individual_emails",
+              hint: "Add the email addresses of publishers who should have access, one per line.",
+              value: edition.edition_user_accesses.map(&:email).join("\n"),
+            }),
+          } : nil,
+        ].compact,
       } %>
     <% else %>
-
       <%= render "govuk_publishing_components/components/checkboxes", {
         name: "edition[access_limiting]",
         id: "edition_access_limiting",

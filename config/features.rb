@@ -36,4 +36,7 @@ Flipflop.configure do
   feature :access_limiting_organisations_ui,
           description: "Replace the access-limiting checkbox with radio + organisation selector UI",
           default: false
+  feature :access_limiting_individuals_ui,
+          description: "Extend the access-limiting radio UI with an individuals option",
+          default: false
 end

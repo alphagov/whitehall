@@ -105,13 +105,13 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition = build(:limited_access_edition)
 
     edition.access_limiting = "organisations"
-    assert_equal true, edition[:access_limited]
+    assert edition[:access_limited]
 
     edition.access_limiting = "individuals"
-    assert_equal true, edition[:access_limited]
+    assert edition[:access_limited]
 
     edition.access_limiting = "none"
-    assert_equal false, edition[:access_limited]
+    assert edition[:access_limited]
   end
 
   test "access_limiting persists across save/reload and keeps both columns in sync" do
@@ -121,14 +121,14 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.reload
     assert edition.access_limited?
     assert_equal "organisations", edition.access_limiting
-    assert_equal true, edition[:access_limited]
+    assert edition[:access_limited]
 
     edition.access_limiting = "individuals"
     edition.save!
     edition.reload
     assert edition.access_limited?
     assert_equal "individuals", edition.access_limiting
-    assert_equal true, edition[:access_limited]
+    assert edition[:access_limited]
   end
 
   test "new instance of default-limited edition has access_limiting = 'organisations'" do

@@ -336,6 +336,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_120000) do
     t.index ["locale"], name: "index_edition_translations_on_locale"
   end
 
+  create_table "edition_user_accesses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "edition_id", null: false
+    t.string "email", null: false
+    t.boolean "locked", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.index ["edition_id", "email"], name: "index_edition_user_accesses_on_edition_id_and_email", unique: true
+    t.index ["edition_id"], name: "index_edition_user_accesses_on_edition_id"
+  end
+
   create_table "edition_world_locations", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.datetime "created_at", precision: nil
     t.integer "edition_id"
@@ -356,7 +366,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_120000) do
   end
 
   create_table "editions", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.boolean "access_limited", default: false, null: false
+    t.integer "access_limited", default: 0, null: false
     t.string "access_limiting", default: "none", null: false
     t.string "additional_related_mainstream_content_title"
     t.string "additional_related_mainstream_content_url"
@@ -1238,6 +1248,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_120000) do
 
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "edition_user_accesses", "editions"
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"

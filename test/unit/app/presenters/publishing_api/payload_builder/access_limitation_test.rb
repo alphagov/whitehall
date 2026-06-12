@@ -3,39 +3,75 @@ require "test_helper"
 module PublishingApi
   module PayloadBuilder
     class AccessLimitationTest < ActiveSupport::TestCase
-      test "returns access limitation data for the item" do
-        organisation = create(:organisation)
-
-        stubbed_item = stub(
+      def build_item(overrides = {})
+        defaults = {
           access_limited?: true,
           publicly_visible?: false,
-          organisations: [organisation],
-        )
-        expected_hash = {
-          access_limited: {
-            organisations: [organisation.content_id],
-          },
+          access_limiting_individuals?: false,
         }
-
-        assert_equal AccessLimitation.for(stubbed_item), expected_hash
+        stub(defaults.merge(overrides))
       end
 
-      test "it returns an empty hash if the item is not access limited" do
-        stubbed_item = stub(access_limited?: false, publicly_visible?: false)
-
-        assert_equal({}, AccessLimitation.for(stubbed_item))
+      def access_limited_result(item)
+        AccessLimitation.for(item)[:access_limited]
       end
 
-      test "it returns an empty hash if the item is publicly visible" do
-        stubbed_item = stub(access_limited?: true, publicly_visible?: true)
+      test "returns organisation content ids for organisation access limiting" do
+        organisation = create(:organisation)
 
-        assert_equal({}, AccessLimitation.for(stubbed_item))
+        item = build_item(
+          organisations: [organisation],
+          access_limiting_individuals?: false,
+        )
+
+        assert_equal(
+          { organisations: [organisation.content_id] },
+          access_limited_result(item),
+        )
       end
 
-      test "it returns an empty hash if the item is publicly visible and not access limited" do
-        stubbed_item = stub(access_limited?: false, publicly_visible?: true)
+      test "returns user uids for individual access limiting" do
+        user = create(:user, email: "user@example.com")
 
-        assert_equal({}, AccessLimitation.for(stubbed_item))
+        item = build_item(
+          access_limiting_individuals?: true,
+          edition_user_accesses: stub(pluck: [user.email]),
+        )
+
+        assert_equal(
+          { users: [user.uid] },
+          access_limited_result(item),
+        )
+      end
+
+      test "returns empty hash when named users resolve to no UIDs" do
+        item = build_item(
+          access_limiting_individuals?: true,
+          edition_user_accesses: stub(pluck: ["unknown@example.com"]),
+        )
+
+        assert_equal({}, AccessLimitation.for(item))
+      end
+
+      test "returns empty hash if not access limited" do
+        item = build_item(access_limited?: false)
+
+        assert_equal({}, AccessLimitation.for(item))
+      end
+
+      test "returns empty hash if publicly visible" do
+        item = build_item(publicly_visible?: true)
+
+        assert_equal({}, AccessLimitation.for(item))
+      end
+
+      test "returns empty hash if publicly visible and not access limited" do
+        item = build_item(
+          access_limited?: false,
+          publicly_visible?: true,
+        )
+
+        assert_equal({}, AccessLimitation.for(item))
       end
     end
   end

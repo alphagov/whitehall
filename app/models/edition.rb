@@ -61,6 +61,8 @@ class Edition < ApplicationRecord
            through: :edition_access_limiting_organisations,
            source: :organisation
 
+  has_many :edition_user_accesses, dependent: :destroy, inverse_of: :edition
+
   # Add validation rules on legacy Edition content types, but opt out of them on StandardEdition
   # types whose validation rules are configured via JSON and applied via StandardEdition::BlockContent.
   validates_with SafeHtmlValidator, unless: ->(record) { record.is_a?(StandardEdition) }
