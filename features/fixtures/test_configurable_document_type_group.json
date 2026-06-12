@@ -39,7 +39,10 @@
       "rendering_app": "frontend",
       "organisations": null,
       "backdating_enabled": false,
-      "taxon_required": false,
+      "taxon": {
+        "enabled": false,
+        "required": false
+      },
       "translations_enabled": true,
       "images": {
         "enabled": true,
@@ -97,7 +100,10 @@
       "organisations": null,
       "backdating_enabled": false,
       "translations_enabled": true,
-      "taxon_required": false,
+      "taxon": {
+        "enabled": false,
+        "required": false
+      },
       "images": {
         "enabled": true,
         "usages": {

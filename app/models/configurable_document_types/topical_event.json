@@ -209,7 +209,10 @@
     "organisations": null,
     "backdating_enabled": false,
     "history_mode_enabled": false,
-    "taxon_required": true,
+    "taxon": {
+      "enabled": true,
+      "required": true
+    },
     "translations_enabled": false
   }
 }

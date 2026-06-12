@@ -58,7 +58,7 @@
     </section>
   <% end %>
 
-  <% if @edition.requires_taxon? %>
+  <% if @edition.supports_taxon? %>
     <section class="app-view-summary__section app-view-summary__taxonomy-topics">
       <%= render "govuk_publishing_components/components/heading", {
         text: "Topic taxonomy tags",

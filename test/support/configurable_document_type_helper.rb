@@ -40,6 +40,10 @@ module ConfigurableDocumentTypeHelper
           "images" => {
             "enabled" => false,
           },
+          "taxon" => {
+            "enabled" => false,
+            "required" => false,
+          },
           "organisations" => nil,
           "backdating_enabled" => false,
           "history_mode_enabled" => false,

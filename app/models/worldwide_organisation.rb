@@ -188,6 +188,10 @@ class WorldwideOrganisation < Edition
     false
   end
 
+  def supports_taxon?
+    false
+  end
+
   def republish_dependent_documents
     documents = StandardEdition
                   .with_news_article_document_type

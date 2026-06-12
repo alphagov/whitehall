@@ -457,9 +457,18 @@
           "type": "boolean",
           "description": "Whether file attachments are allowed for this document type. When enabled, it renders the Attachments tab."
         },
-        "taxon_required": {
-          "type": "boolean",
-          "description": "Whether a taxon (topic or world) is required for this document type."
+        "taxon": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "boolean",
+              "description": "Whether a taxon is required for this document type."
+            },
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether a taxon can be set for this document type."
+            }
+          }
         },
         "translations_enabled": {
           "type": "boolean",
@@ -477,7 +486,7 @@
         "backdating_enabled",
         "history_mode_enabled",
         "file_attachments_enabled",
-        "taxon_required",
+        "taxon",
         "translations_enabled"
       ]
     }
