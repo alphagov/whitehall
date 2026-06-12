@@ -5,11 +5,10 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     PublishingApi::WorldwideOrganisationPresenter.new(...)
   end
 
-  test "presents an empty auth_bypass_ids array when the edition has no token" do
-    worldwide_org = create(:worldwide_organisation)
-    worldwide_org.auth_bypass_id = nil
+  test "presents the auth bypass id" do
+    worldwide_org = create(:worldwide_organisation, :with_auth_bypass_id)
 
-    assert_equal [], present(worldwide_org).content[:auth_bypass_ids]
+    assert_equal [worldwide_org.auth_bypass_id], present(worldwide_org).content[:auth_bypass_ids]
   end
 
   test "presents a Worldwide Organisation ready for adding to the publishing API" do
@@ -52,7 +51,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     public_path = worldwide_org.public_path
 
     expected_hash = {
-      auth_bypass_ids: [worldwide_org.auth_bypass_id],
+      auth_bypass_ids: [],
       base_path: public_path,
       title: worldwide_org.title,
       schema_name: "worldwide_organisation",

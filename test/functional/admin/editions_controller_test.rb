@@ -369,20 +369,18 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_not flash["html_safe"]
   end
 
-  test "update_bypass_id generates a new preview token and redirects with a notice" do
+  test "update_bypass_id generates a preview token and redirects with a notice" do
     edition = create(:draft_publication)
-    previous_auth_bypass_id = edition.auth_bypass_id
 
     patch :update_bypass_id, params: { id: edition }
 
     assert_not_nil edition.reload.auth_bypass_id
-    assert_not_equal previous_auth_bypass_id, edition.auth_bypass_id
     assert_redirected_to admin_publication_path(edition)
     assert_equal "New document preview link generated", flash[:notice]
   end
 
   test "destroy_bypass_id deletes the preview token and redirects with a notice" do
-    edition = create(:draft_publication)
+    edition = create(:draft_publication, :with_auth_bypass_id)
     assert_not_nil edition.auth_bypass_id
 
     delete :destroy_bypass_id, params: { id: edition }

@@ -42,7 +42,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
         first_published_version: html_attachment.attachable.first_published_version?,
         political: true,
       },
-      auth_bypass_ids: [edition.auth_bypass_id],
+      auth_bypass_ids: [],
     }
     presented_item = present(html_attachment)
 
@@ -61,11 +61,11 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     %i[organisations parent primary_publishing_organisation government].each { |k| assert_includes(expected_content[:links].keys, k) }
   end
 
-  test "presents an empty auth_bypass_ids array when the parent edition has no token" do
+  test "presents the parent edition's auth_bypass_id" do
     html_attachment = create(:html_attachment)
-    html_attachment.attachable.auth_bypass_id = nil
+    html_attachment.attachable.auth_bypass_id = "auth-bypass-id"
 
-    assert_equal [], present(html_attachment).content[:auth_bypass_ids]
+    assert_equal %w[auth-bypass-id], present(html_attachment).content[:auth_bypass_ids]
   end
 
   test "it includes auto-numbered headers when headers are present in body" do
@@ -185,14 +185,14 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   end
 
   test "HtmlAttachment presents primary_publishing_organisation from 1st org when lead_organisations is not implemented" do
-    outcome = create(:consultation_outcome, :with_html_attachment)
+    create(:consultation_outcome, :with_html_attachment)
 
     html_attachment = HtmlAttachment.last
     # if an organisation has multiple translations, pluck returns
     # duplicate content_ids because it constructs a left outer join
 
     presenter = present(html_attachment)
-    assert_hash_includes presenter.content, { auth_bypass_ids: [outcome.auth_bypass_id] }
+    assert_hash_includes presenter.content, { auth_bypass_ids: [] }
     assert_equal [html_attachment.attachable.organisations.first.content_id],
                  presenter.links[:primary_publishing_organisation]
   end

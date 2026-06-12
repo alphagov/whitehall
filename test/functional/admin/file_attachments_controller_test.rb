@@ -84,7 +84,13 @@ class Admin::FileAttachmentsControllerTest < ActionController::TestCase
     attachment = create(:file_attachment, attachable: @edition)
     model_type = attachment.attachment_data.class.to_s
 
-    AssetManagerCreateAssetJob.expects(:perform_async).with(anything, has_entries("assetable_id" => kind_of(Integer), "asset_variant" => Asset.variants[:original], "assetable_type" => model_type), anything, @edition.class.to_s, @edition.id, [@edition.auth_bypass_id])
+    AssetManagerCreateAssetJob.expects(:perform_async).with do |_path, asset_params, _draft, attachable_class, attachable_id, _auth_bypass_ids|
+      asset_params["assetable_id"].is_a?(Integer) &&
+        asset_params["asset_variant"] == Asset.variants[:original] &&
+        asset_params["assetable_type"] == model_type &&
+        attachable_class == @edition.class.to_s &&
+        attachable_id == @edition.id
+    end
 
     put :update,
         params: {

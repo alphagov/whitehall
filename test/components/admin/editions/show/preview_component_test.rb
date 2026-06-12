@@ -62,7 +62,7 @@ class Admin::Editions::Show::PreviewComponentTest < ViewComponent::TestCase
   end
 
   test "renders the copy link, regenerate and delete controls when the edition has a preview token" do
-    edition = build_stubbed(:publication, document: @document)
+    edition = build_stubbed(:publication, :with_auth_bypass_id, document: @document)
 
     render_inline(Admin::Editions::Show::PreviewComponent.new(edition:))
 

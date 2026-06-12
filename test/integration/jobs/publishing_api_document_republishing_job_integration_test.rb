@@ -84,9 +84,10 @@ class PublishingApiDocumentRepublishingJobIntegrationTest < ActiveSupport::TestC
       publication_presenter = PublishingApiPresenters.presenter_for(edition, update_type: "republish")
       draft_publication_presenter = PublishingApiPresenters.presenter_for(draft_edition, update_type: "republish")
       html_attachment_presenter = PublishingApiPresenters.presenter_for(edition.attachments.first, update_type: "republish")
-      draft_html_attachment_presenter = PublishingApiPresenters.presenter_for(draft_edition.attachments.first, update_type: "republish")
 
       WebMock.reset!
+
+      html_attachment_content_request = stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content)
 
       requests = [
         stub_publishing_api_patch_links(publication_presenter.content_id, links: publication_presenter.links),
@@ -94,17 +95,16 @@ class PublishingApiDocumentRepublishingJobIntegrationTest < ActiveSupport::TestC
         stub_publishing_api_put_content(publication_presenter.content_id, with_locale(:es) { publication_presenter.content }),
         stub_publishing_api_publish(publication_presenter.content_id, locale: "en", update_type: nil),
         stub_publishing_api_publish(publication_presenter.content_id, locale: "es", update_type: nil),
-        stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content),
         stub_publishing_api_patch_links(html_attachment_presenter.content_id, links: html_attachment_presenter.links),
         stub_publishing_api_publish(html_attachment_presenter.content_id, locale: "en", update_type: nil),
         stub_publishing_api_put_content(draft_publication_presenter.content_id, with_locale(:en) { draft_publication_presenter.content }),
         stub_publishing_api_put_content(draft_publication_presenter.content_id, with_locale(:es) { draft_publication_presenter.content }),
-        stub_publishing_api_put_content(draft_html_attachment_presenter.content_id, draft_html_attachment_presenter.content),
       ]
 
       PublishingApiDocumentRepublishingJob.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
+      assert_requested(html_attachment_content_request, times: 2)
     end
 
     test "Should only publish live edition when document is published with invalid draft" do
@@ -195,9 +195,10 @@ class PublishingApiDocumentRepublishingJobIntegrationTest < ActiveSupport::TestC
       publication_presenter = PublishingApiPresenters.presenter_for(edition, update_type: "republish")
       draft_publication_presenter = PublishingApiPresenters.presenter_for(draft_edition, update_type: "republish")
       html_attachment_presenter = PublishingApiPresenters.presenter_for(edition.attachments.first, update_type: "republish")
-      draft_html_attachment_presenter = PublishingApiPresenters.presenter_for(draft_edition.attachments.first, update_type: "republish")
 
       WebMock.reset!
+
+      html_attachment_content_request = stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content)
 
       requests = [
         stub_publishing_api_put_content(publication_presenter.content_id, publication_presenter.content),
@@ -212,7 +213,6 @@ class PublishingApiDocumentRepublishingJobIntegrationTest < ActiveSupport::TestC
           locale: "es",
           allow_draft: true,
         }),
-        stub_publishing_api_put_content(html_attachment_presenter.content_id, html_attachment_presenter.content),
         stub_publishing_api_patch_links(html_attachment_presenter.content_id, links: html_attachment_presenter.links),
         stub_publishing_api_unpublish(html_attachment_presenter.content_id, body: {
           type: "redirect",
@@ -222,12 +222,12 @@ class PublishingApiDocumentRepublishingJobIntegrationTest < ActiveSupport::TestC
         }),
         stub_publishing_api_put_content(draft_publication_presenter.content_id, with_locale(:en) { draft_publication_presenter.content }),
         stub_publishing_api_put_content(draft_publication_presenter.content_id, with_locale(:es) { draft_publication_presenter.content }),
-        stub_publishing_api_put_content(draft_html_attachment_presenter.content_id, draft_html_attachment_presenter.content),
       ]
 
       PublishingApiDocumentRepublishingJob.new.perform(edition.document.id, false)
 
       assert_all_requested(requests)
+      assert_requested(html_attachment_content_request, times: 2)
     end
 
     test "Should only unpublish live edition when document is unpublished with invalid draft" do

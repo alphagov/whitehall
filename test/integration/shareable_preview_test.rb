@@ -17,7 +17,7 @@ class ShareablePreviewIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     context "for a draft with a preview link" do
-      let(:edition) { create(:draft_publication) }
+      let(:edition) { create(:draft_publication, :with_auth_bypass_id) }
 
       test "it shows the preview link with copy, regenerate and delete controls" do
         open_share_preview_section
