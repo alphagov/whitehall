@@ -10,7 +10,7 @@ class CallForEvidenceResponseFormData < ApplicationRecord
   validates :file, presence: true
 
   def auth_bypass_ids
-    [call_for_evidence_response_form.call_for_evidence_participation.call_for_evidence.auth_bypass_id]
+    [call_for_evidence_response_form.call_for_evidence_participation.call_for_evidence.auth_bypass_id].compact
   end
 
   def all_asset_variants_uploaded?

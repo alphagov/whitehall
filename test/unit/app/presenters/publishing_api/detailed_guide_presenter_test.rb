@@ -24,6 +24,14 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_valid_against_links_schema({ links: presented_item.links }, "detailed_guide")
   end
 
+  test "presents an empty auth_bypass_ids array when the edition has no token" do
+    detailed_guide = create(:detailed_guide)
+    presented_item = present(detailed_guide)
+    detailed_guide.auth_bypass_id = nil
+
+    assert_equal [], presented_item.content[:auth_bypass_ids]
+  end
+
   test "DetailedGuide presents correct information" do
     government = create(:government)
     detailed_guide = create(

@@ -1,4 +1,4 @@
-class EditionAuthBypassUpdater
+class EditionAuthBypassRevoker
   attr_reader :edition, :current_user, :updater
 
   def initialize(edition:, current_user:, updater:)
@@ -8,7 +8,7 @@ class EditionAuthBypassUpdater
   end
 
   def call
-    @edition.set_auth_bypass_id
+    @edition.auth_bypass_id = nil
     @edition.save_as(@current_user)
     @updater.perform!
 
