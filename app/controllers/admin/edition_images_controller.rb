@@ -47,7 +47,7 @@ class Admin::EditionImagesController < Admin::BaseController
       new_image_data.images << image
       new_image_data.to_replace_id = image_data.id
       new_image_data.assign_attributes(image_data_params)
-      new_image_data.file.download! image_data.file_url
+      new_image_data.file.download! "#{image_data.file_url}?token=#{@edition.auth_bypass_token}"
       new_image_data.save!
       image.image_data = new_image_data
     end
