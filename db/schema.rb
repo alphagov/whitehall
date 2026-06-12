@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_04_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_19_130000) do
+  create_table "access_limiting_individuals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "edition_id", null: false
+    t.string "email", null: false
+    t.datetime "updated_at", null: false
+    t.index ["edition_id", "email"], name: "index_access_limiting_individuals_on_edition_id_and_email", unique: true
+    t.index ["edition_id"], name: "index_access_limiting_individuals_on_edition_id"
+  end
+
   create_table "access_limiting_organisations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "edition_id", null: false
@@ -1238,6 +1247,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_120000) do
 
   add_foreign_key "documents", "editions", column: "latest_edition_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "documents", "editions", column: "live_edition_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "access_limiting_individuals", "editions"
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"

@@ -1129,6 +1129,171 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def access_limiting_individuals_ui_on_should_allow_access_limiting_of(edition_type)
+      edition_class = class_for(edition_type)
+
+      view_test "new should preselect the 'none' radio button option for individual access limiting" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        get :new
+
+        assert_select "form#new_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='none'][checked='checked']", count: 1
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']", count: 0
+        end
+      end
+
+      test "create should save with individual access limiting set to 'none'" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 access_limiting: "none",
+               ),
+             }
+
+        created_edition = edition_class.last
+        assert_equal "none", created_edition.access_limiting
+        assert_empty created_edition.access_limiting_individuals
+      end
+
+      test "create should save with access limiting set to 'individuals'" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 lead_organisation_ids: [organisation.id],
+                 access_limiting: "individuals",
+                 access_limiting_individual_emails: controller.current_user.email,
+               ),
+             }
+
+        created_edition = edition_class.last
+        assert_equal "individuals", created_edition.access_limiting
+        assert created_edition.access_limiting_individuals.exists?(email: controller.current_user.email)
+      end
+
+      #  Characterisation test - correct implementation should cause a validation error. Will be done in upcoming work.
+      test "create should save even when the creating user is not among the access limiting individuals" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 lead_organisation_ids: [organisation.id],
+                 access_limiting: "individuals",
+                 access_limiting_individual_emails: "someone-else@example.com",
+               ),
+             }
+
+        created_edition = edition_class.last
+        assert_valid created_edition
+        assert_equal "individuals", created_edition.access_limiting
+        assert created_edition.access_limiting_individuals.exists?(email: "someone-else@example.com")
+      end
+
+      view_test "edit should display persisted individual access limiting value" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
+
+        get :edit, params: { id: edition }
+
+        assert_select "form#edit_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']", count: 1
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='none'][checked='checked']", count: 0
+        end
+      end
+
+      test "update should change access limiting, from 'none' to 'individuals'" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        edition = create(edition_type, access_limiting: "none")
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [organisation.id],
+                access_limiting: "individuals",
+                access_limiting_individual_emails: controller.current_user.email,
+              },
+            }
+
+        assert_equal "individuals", edition.reload.access_limiting
+        assert edition.access_limiting_individuals.exists?(email: controller.current_user.email)
+      end
+
+      test "update should change access limiting, from 'individuals' to 'none', but persist the individual emails in the association" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [organisation.id],
+                access_limiting: "none",
+                access_limiting_individual_emails: controller.current_user.email,
+              },
+            }
+
+        assert_equal "none", edition.reload.access_limiting
+        assert edition.access_limiting_individuals.exists?(email: controller.current_user.email)
+      end
+
+      #  Characterisation test - correct implementation should cause a validation error. Will be done in upcoming work.
+      test "update should save even when the user is not among the access limiting individuals" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        edition = create(edition_type, access_limiting: "none")
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [organisation.id],
+                access_limiting: "individuals",
+                access_limiting_individual_emails: "someone-else@example.com",
+              },
+            }
+
+        assert_equal "individuals", edition.reload.access_limiting
+        assert edition.access_limiting_individuals.exists?(email: "someone-else@example.com")
+      end
+    end
+
     def access_limiting_organisations_ui_off_should_allow_access_limiting_of(edition_type)
       edition_class = class_for(edition_type)
 

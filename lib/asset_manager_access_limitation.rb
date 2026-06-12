@@ -1,6 +1,11 @@
 class AssetManagerAccessLimitation
-  def self.for(item)
+  def self.for_organisations(item)
     access_limitation = PublishingApi::PayloadBuilder::AccessLimitation.for(item)
-    access_limitation[:access_limited][:organisations]
+    access_limitation.dig(:access_limited, :organisations) || []
+  end
+
+  def self.for_individuals(item)
+    access_limitation = PublishingApi::PayloadBuilder::AccessLimitation.for(item)
+    access_limitation.dig(:access_limited, :users) || []
   end
 end

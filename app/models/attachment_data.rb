@@ -149,10 +149,16 @@ class AttachmentData < ApplicationRecord
     end
   end
 
-  def access_limitation
+  def access_limitation_organisation_ids
     return [] unless access_limited?
 
-    AssetManagerAccessLimitation.for(access_limited_object)
+    AssetManagerAccessLimitation.for_organisations(access_limited_object)
+  end
+
+  def access_limited_individual_ids
+    return [] unless access_limited?
+
+    AssetManagerAccessLimitation.for_individuals(access_limited_object)
   end
 
   def keep_existing_file?

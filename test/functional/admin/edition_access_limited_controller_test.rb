@@ -7,7 +7,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  # access_limiting_organisations_ui flag agnostic
+  # flag agnostic
   test "GET :edit should be forbidden unless user is a GDS Admin" do
     edition = create(:consultation)
     login_as :gds_editor
@@ -15,7 +15,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  # access_limiting_organisations_ui flag is off
+  # flag agnostic
   view_test "GET :edit should display the correct fields" do
     organisation = create(:organisation)
 
@@ -29,7 +29,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     get :edit, params: { id: edition }
 
     assert_select "form[action='#{update_access_limited_admin_edition_path(edition.id)}']" do
-      assert_select "input[name='edition[access_limiting]'][type=checkbox][value=organisations][checked=checked]"
+      assert_select "input[name='edition[access_limiting]']"
       assert_select "textarea[name='edition[editorial_remark]']"
 
       (1..4).each do |i|
@@ -47,9 +47,64 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     end
   end
 
-  # access_limiting_organisations_ui is on
-  view_test "GET :edit should show radio buttons instead of checkbox when access_limiting_organisations_ui flag is on" do
+  # access_limiting_organisations_ui flag and access_limiting_individuals_ui are off
+  view_test "GET :edit shows an access limiting checkbox when no flags are on" do
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :none,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+
+    get :edit, params: { id: edition }
+
+    assert_select "input[name='edition[access_limiting]'][type=checkbox]"
+    assert_select "input[name='edition[access_limiting]'][type=radio]", count: 0
+  end
+
+  # access_limiting_organisations_ui flag is on
+  view_test "GET :edit shows access limiting options for organisations, when only access_limiting_organisations_ui flag is on" do
     feature_flags.switch! :access_limiting_organisations_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :none,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+
+    get :edit, params: { id: edition }
+
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=none]"
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=organisations]"
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=individuals]", count: 0
+  end
+
+  # access_limiting_individuals_ui flag is on
+  view_test "GET :edit shows access limiting options for individuals, when only access_limiting_individuals_ui flag is on" do
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :none,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+
+    get :edit, params: { id: edition }
+
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=none]"
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=individuals]"
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=organisations]", count: 0
+  end
+
+  # access_limiting_organisations_ui and access_limiting_individuals_ui are on
+  view_test "GET :edit shows access limiting options for organisations and individuals, when both flags are on" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+    feature_flags.switch! :access_limiting_individuals_ui, true
 
     organisation = create(:organisation)
     edition = create(
@@ -61,8 +116,9 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
 
     get :edit, params: { id: edition }
 
-    assert_select "input[name='edition[access_limiting]'][type=radio]"
-    assert_select "input[name='edition[access_limited]'][type=checkbox]", count: 0
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=none]"
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=organisations]"
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=individuals]"
   end
 
   # access_limiting_organisations_ui is on
@@ -106,7 +162,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     refute_select "select[name='edition[access_limiting_organisation_ids][]']"
   end
 
-  # access_limiting_organisations_ui flag agnostic
+  # flag agnostic
   test "PATCH :update should be forbidden unless user is a GDS Admin" do
     edition = create(:consultation)
     login_as :gds_editor
@@ -114,7 +170,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  # access_limiting_organisations_ui flag agnostic
+  # flag agnostic
   test "PATCH :update should update editions organisations correctly and creates an editorial remark" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
@@ -400,5 +456,151 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_equal [organisation.id, new_organisation.id], edition.reload.access_limiting_organisation_ids
     # Desired behaviour
     # assert_equal [organisation.id], edition.reload.access_limiting_organisation_ids
+  end
+
+  test "PATCH :update clears access_limiting_organisations when switching to individuals" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :organisations,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+      access_limiting_organisation_ids: [organisation.id],
+    )
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "individuals",
+            access_limiting_individual_emails: "user@example.com",
+            editorial_remark: "Switching to individual access limiting",
+          },
+        }
+
+    assert_redirected_to admin_editions_path
+    assert edition.reload.access_limited?
+    assert_empty edition.access_limiting_organisations
+    assert edition.access_limiting_individuals.exists?(email: "user@example.com")
+  end
+
+  test "PATCH :update clears access_limiting_individuals when switching to organisations" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :individuals,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+    edition.access_limiting_individuals.create!(email: "user@example.com")
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "organisations",
+            access_limiting_organisation_ids: [organisation.id.to_s],
+            editorial_remark: "Switching to organisation access limiting",
+          },
+        }
+
+    assert_redirected_to admin_editions_path
+    assert edition.reload.access_limited?
+    assert edition.access_limiting_organisations.exists?(id: organisation.id)
+    assert_empty edition.access_limiting_individuals
+  end
+
+  test "PATCH :update clears both access_limiting_organisations and access_limiting_individuals when switching to none" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :organisations,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+      access_limiting_organisation_ids: [organisation.id],
+    )
+    edition.access_limiting_individuals.create!(email: "user@example.com")
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "none",
+            editorial_remark: "Removing all access limiting",
+          },
+        }
+
+    assert_redirected_to admin_editions_path
+    assert_not edition.reload.access_limited?
+    assert_empty edition.access_limiting_organisations
+    assert_empty edition.access_limiting_individuals
+  end
+
+  test "PATCH :update does not clear access_limiting_individuals in DB when validation fails" do
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :individuals,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+    edition.access_limiting_individuals.create!(email: "user@example.com")
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "individuals",
+            access_limiting_individual_emails: "",
+            editorial_remark: "Test",
+          },
+        }
+
+    assert_template :edit
+    assert_equal "individuals", edition.reload.access_limiting
+    assert edition.access_limiting_individuals.exists?(email: "user@example.com")
+    assert_includes assigns(:edition).errors[:access_limiting_individual_emails],
+                    "must include at least one email when individual access limiting is enabled"
+  end
+
+  test "PATCH :update should render a validation error when individuals is set without any emails" do
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :none,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "individuals",
+            access_limiting_individual_emails: "",
+            editorial_remark: "Test",
+          },
+        }
+
+    assert_template :edit
+    assert_includes assigns(:edition).errors[:access_limiting_individual_emails],
+                    "must include at least one email when individual access limiting is enabled"
   end
 end

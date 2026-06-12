@@ -17,6 +17,7 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :statistical_data_set
   access_limiting_organisations_ui_off_should_allow_access_limiting_of :statistical_data_set
   access_limiting_organisations_ui_on_should_allow_access_limiting_of :statistical_data_set
+  access_limiting_individuals_ui_on_should_allow_access_limiting_of :statistical_data_set
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(

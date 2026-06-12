@@ -9,13 +9,14 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
 
   def update
     editorial_remark = edition_params.delete(:editorial_remark)
-    @edition.assign_attributes(edition_params.except(:access_limiting_organisation_ids))
 
-    # Assign organisations to the in-memory edition for validation.
+    @edition.assign_attributes(edition_params.except(:access_limiting_organisation_ids, :access_limiting_individual_emails))
+
+    # Assign access limiting values to the in-memory edition for validation.
     # Actual persistence is deferred to @edition.save below.
-    sync_access_limiting_organisations
+    sync_access_limiting_values
 
-    return render :edit unless access_limiting_organisations_valid?
+    return render :edit unless access_limiting_organisations_valid? && access_limiting_individuals_valid?
 
     # Unset organisation options if switching away from organisation access limiting.
     # Must happen after validation so we don't wipe organisations on a failed save.
@@ -56,6 +57,7 @@ private
       .fetch(:edition, {})
       .permit(
         :access_limiting,
+        :access_limiting_individual_emails,
         :editorial_remark,
         {
           lead_organisation_ids: [],

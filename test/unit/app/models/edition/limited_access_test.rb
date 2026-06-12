@@ -107,17 +107,66 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert_includes edition.errors[:lead_organisation_ids], "at least one required"
   end
 
+  test "is invalid when access_limiting is set to 'individuals' and no access limiting individuals are selected" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    edition = create(:edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = ""
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_individual_emails],
+                    "must include at least one email when individual access limiting is enabled"
+  end
+
+  test "is valid when access_limiting is set to 'individuals' and access limiting individuals are present" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    edition = create(:edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "user@example.com"
+
+    assert edition.valid?
+  end
+
+  test "is invalid when access_limiting is set to 'individuals' and is not an email address" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    edition = create(:edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "not-an-email"
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_individual_emails],
+                    "must contain valid email addresses"
+    assert_empty edition.errors[:"access_limiting_individuals.email"]
+  end
+
+  test "is valid when access_limiting is set to 'none' regardless of access limiting individuals" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    edition = create(:limited_access_edition, access_limiting: :none)
+    edition.access_limiting_individual_emails = ""
+    assert edition.valid?
+  end
+
+  test "is valid when access_limiting is set to 'individuals' and no access limiting individuals are selected when flag is off" do
+    edition = create(:consultation, access_limiting: :individuals)
+    edition.access_limiting_individual_emails = ""
+    assert edition.valid?
+  end
+
   test "setting access_limiting writes through to the legacy access_limited column" do
     edition = build(:limited_access_edition)
 
     edition.access_limiting = "organisations"
-    assert_equal true, edition[:access_limited]
+    assert edition[:access_limited]
 
     edition.access_limiting = "individuals"
-    assert_equal true, edition[:access_limited]
+    assert edition[:access_limited]
 
     edition.access_limiting = "none"
-    assert_equal false, edition[:access_limited]
+    assert_not edition[:access_limited]
   end
 
   test "access_limiting persists across save/reload and keeps both columns in sync" do
@@ -127,14 +176,14 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.reload
     assert edition.access_limited?
     assert_equal "organisations", edition.access_limiting
-    assert_equal true, edition[:access_limited]
+    assert edition[:access_limited]
 
     edition.access_limiting = "individuals"
     edition.save!
     edition.reload
     assert edition.access_limited?
     assert_equal "individuals", edition.access_limiting
-    assert_equal true, edition[:access_limited]
+    assert edition[:access_limited]
   end
 
   test "new instance of default-limited edition has access_limiting = 'organisations'" do

@@ -12,6 +12,14 @@ class EditionRulesTest < ActiveSupport::TestCase
     )
   end
 
+  def user_with_email(email)
+    OpenStruct.new(
+      id: 1,
+      gds_editor?: false,
+      email:,
+    )
+  end
+
   test "access is enforced against access_limiting_organisations when flag is on and organisations are set" do
     feature_flags.switch! :access_limiting_organisations_ui, true
 
@@ -33,6 +41,28 @@ class EditionRulesTest < ActiveSupport::TestCase
 
     edition = build(:edition, access_limiting: "organisations")
     edition.stubs(:access_limiting_organisations).returns([org])
+
+    assert enforcer_for(user, edition).can?(:see)
+  end
+
+  test "access is enforced against access_limiting_individuals when flag is on and individuals are set" do
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    user = user_with_email("user@example.com")
+
+    edition = build(:edition, access_limiting: "individuals")
+    edition.stubs(:access_limiting_individuals).returns([OpenStruct.new(email: "someone-else@example.com")])
+
+    assert_not enforcer_for(user, edition).can?(:see)
+  end
+
+  test "access is granted when user's email is in access_limiting_individuals and flag is on" do
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    user = user_with_email("user@example.com")
+
+    edition = build(:edition, access_limiting: "individuals")
+    edition.stubs(:access_limiting_individuals).returns([OpenStruct.new(email: "user@example.com")])
 
     assert enforcer_for(user, edition).can?(:see)
   end

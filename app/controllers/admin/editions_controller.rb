@@ -218,6 +218,7 @@ private
       :scheduled_publication,
       :lock_version,
       :access_limiting,
+      :access_limiting_individual_emails,
       :alternative_format_provider_id,
       :opening_at,
       :closing_at,
