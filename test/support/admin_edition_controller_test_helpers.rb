@@ -448,8 +448,11 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
+          assert_select "legend", text: "Lead organisations (required)"
+
           (1..4).each do |i|
-            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: "Lead organisation #{i}"
+            select_label = i == 1 && assigns(:edition).lead_organisation_association_required? ? "Lead organisation #{i} (required)" : "Lead organisation #{i}"
+            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: select_label
 
             assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
               assert_equal 1, elements.length
@@ -460,14 +463,19 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "new should set first lead organisation to users organisation" do
+      view_test "new should set and pre-select the first lead organisation as the user's organisation" do
         editors_org = create(:organisation)
-        @user = login_as create(:departmental_editor, organisation: editors_org)
+        @user = login_as create(:gds_editor, organisation: editors_org)
+
         get :new
 
+        assert assigns(:edition).lead_organisation_association_required?
         assert_equal assigns(:edition).edition_organisations.first.organisation, editors_org
         assert_equal assigns(:edition).edition_organisations.first.lead, true
         assert_equal assigns(:edition).edition_organisations.first.lead_ordering, 0
+        assert_select "select[name='edition[lead_organisation_ids][]']" do
+          assert_select "option[selected='selected']", text: editors_org.name
+        end
       end
 
       test "create should associate organisations with edition" do
@@ -492,8 +500,11 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
+          assert_select "legend", text: "Lead organisations (required)"
+
           (1..4).each do |i|
-            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: "Lead organisation #{i}"
+            select_label = i == 1 && assigns(:edition).lead_organisation_association_required? ? "Lead organisation #{i} (required)" : "Lead organisation #{i}"
+            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: select_label
 
             assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
               assert_equal 1, elements.length
@@ -572,8 +583,11 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
+          assert_select "legend", text: "Lead organisations (required)"
+
           (1..4).each do |i|
-            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: "Lead organisation #{i}"
+            select_label = i == 1 && assigns(:edition).lead_organisation_association_required? ? "Lead organisation #{i} (required)" : "Lead organisation #{i}"
+            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: select_label
 
             assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
               assert_equal 1, elements.length
@@ -584,14 +598,19 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "new should set first lead organisation to users organisation" do
+      view_test "new should set and pre-select the first lead organisation as the user's organisation" do
         editors_org = create(:organisation)
-        @user = login_as create(:departmental_editor, organisation: editors_org)
+        @user = login_as create(:gds_editor, organisation: editors_org)
+
         get :new
 
+        assert assigns(:edition).lead_organisation_association_required?
         assert_equal assigns(:edition).edition_organisations.first.organisation, editors_org
         assert_equal assigns(:edition).edition_organisations.first.lead, true
         assert_equal assigns(:edition).edition_organisations.first.lead_ordering, 0
+        assert_select "select[name='edition[lead_organisation_ids][]']" do
+          assert_select "option[selected='selected']", text: editors_org.name
+        end
       end
 
       test "create should associate organisations with edition" do
@@ -616,8 +635,11 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
+          assert_select "legend", text: "Lead organisations (required)"
+
           (1..4).each do |i|
-            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: "Lead organisation #{i}"
+            select_label = i == 1 && assigns(:edition).lead_organisation_association_required? ? "Lead organisation #{i} (required)" : "Lead organisation #{i}"
+            assert_select "label[for=edition_lead_organisation_ids_#{i}]", text: select_label
 
             assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
               assert_equal 1, elements.length

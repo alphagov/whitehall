@@ -118,6 +118,14 @@ class StandardEdition < Edition
     field_paths.include?(ConfigurableContentBlocks::Path.new("lead_organisation_ids"))
   end
 
+  def lead_organisation_association_required?
+    required_field_paths.include?(ConfigurableContentBlocks::Path.new("lead_organisation_ids"))
+  end
+
+  def supporting_organisation_association_required?
+    required_field_paths.include?(ConfigurableContentBlocks::Path.new("supporting_organisation_ids"))
+  end
+
   def worldwide_organisation_association_required?
     required_field_paths.include?(ConfigurableContentBlocks::Path.new("worldwide_organisation_document_ids"))
   end

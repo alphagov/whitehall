@@ -113,6 +113,10 @@ class CorporateInformationPage < Edition
     PublishingApi::CorporateInformationPagePresenter
   end
 
+  def organisation_association_enabled?
+    false
+  end
+
 private
 
   def string_for_slug
