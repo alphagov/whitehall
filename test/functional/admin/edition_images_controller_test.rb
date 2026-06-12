@@ -698,6 +698,36 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
   end
 
+  test "POST :create passes the edition's auth_bypass_id to the new image assets" do
+    login_authorised_user
+    edition = create(:draft_fatality_notice)
+    file = upload_fixture("images/960x640_jpeg.jpg")
+
+    AssetManagerCreateAssetJob
+      .expects(:perform_async)
+      .with(anything, anything, anything, anything, anything, [edition.auth_bypass_id]).times(7)
+
+    post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
+  end
+
+  test "POST :update passes the edition's auth_bypass_id to the cropped image assets" do
+    login_authorised_user
+    image = build(:image)
+    edition = create(:draft_fatality_notice, images: [image])
+
+    AssetManagerCreateAssetJob
+      .expects(:perform_async)
+      .with(anything, anything, anything, anything, anything, [edition.auth_bypass_id]).times(7)
+
+    post :update, params: {
+      edition_id: edition.id,
+      id: image.id,
+      usage: "govspeak_embed",
+      image_kind: "default",
+      image: { image_data: { image_kind: "default", crop_data: { x: 0, y: 0, width: 960, height: 640 } } },
+    }
+  end
+
   test "POST :create shows success message when all image assets are uploaded" do
     login_authorised_user
     edition = create(:draft_fatality_notice)
