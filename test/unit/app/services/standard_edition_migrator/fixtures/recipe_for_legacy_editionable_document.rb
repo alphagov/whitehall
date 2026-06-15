@@ -22,7 +22,6 @@ class StandardEditionMigrator::RecipeForLegacyEditionableDocument < StandardEdit
         },
       )
     end
-
     edition
   end
 end

@@ -258,4 +258,70 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal expected_diff, diff
     end
   end
+
+  describe "#create_new_document" do
+    it "performs the migration and saves a new document and edition, when given a legacy non-editionable record" do
+      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+      edition = StandardEdition.last
+
+      assert_equal document.content_id, @legacy_non_editionable_record.content_id
+      assert edition.persisted?
+      assert_equal edition, document.editions.last
+      assert_equal "test_type", edition.configurable_document_type
+      assert_equal "Title", edition.translations.first.title
+      assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
+    end
+
+    it "saves the edition, artefacts and document first without validation, then with validation" do
+      capture_save_calls = lambda do |klass|
+        calls = []
+        original_save_bang = klass.instance_method(:save!)
+        klass.define_method(:save!) do |*args, **kwargs, &block|
+          calls << kwargs
+          original_save_bang.bind(self).call(*args, **kwargs, &block)
+        end
+
+        [calls, -> { klass.define_method(:save!, original_save_bang) }]
+      end
+
+      standard_edition_calls, restore_standard_edition = capture_save_calls.call(StandardEdition)
+      sitewide_setting_calls, restore_sitewide_setting = capture_save_calls.call(SitewideSetting)
+      document_calls, restore_document = capture_save_calls.call(Document)
+
+      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+      document.editions.last
+
+      assert_includes standard_edition_calls, { validate: false }
+      assert_includes standard_edition_calls, { validate: true }
+      assert_includes sitewide_setting_calls, { validate: false }
+      assert_includes sitewide_setting_calls, { validate: true }
+      assert_includes document_calls, { validate: false }
+      assert_includes document_calls, { validate: true }
+    ensure
+      restore_document.call
+      restore_sitewide_setting.call
+      restore_standard_edition.call
+    end
+
+    it "rolls back the transaction if a validation issue is encountered" do
+      Document.any_instance.stubs(:save!).returns(true)
+      Document.any_instance.expects(:save!).with(validate: true).raises(WhitehallError.new("Validation failed: Title can't be blank"))
+
+      assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
+        error = assert_raises(WhitehallError) do
+          StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+        end
+        assert_equal "Validation failed: Title can't be blank", error.message
+      end
+    end
+
+    it "raises exception if a Document is passed (we could handle this in theory, but for now, for simplicity we expect only non-Document records)" do
+      document = build(:document)
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.create_new_document(document, StandardEditionMigrator::RecipeForNonEditionableRecord)
+      end
+
+      assert_equal "Cannot pass a Document to create_new_document", error.message
+    end
+  end
 end

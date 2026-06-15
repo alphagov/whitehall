@@ -24,6 +24,7 @@ class StandardEditionMigrator::RecipeForNonEditionableRecord < StandardEditionMi
         },
       )
     end
+    queue_for_saving(SitewideSetting.new(key: "foo")) # Proof of concept
     edition
   end
 end

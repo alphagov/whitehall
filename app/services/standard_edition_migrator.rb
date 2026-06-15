@@ -11,6 +11,10 @@ class StandardEditionMigrator
     new.diff_links_payloads(...)
   end
 
+  def self.create_new_document(...)
+    new.create_new_document(...)
+  end
+
   def preview_migration(legacy_record, recipe)
     if legacy_record.is_a?(Edition)
       raise "An Edition was passed. You must pass the Document instead (so that we can migrate all of its Editions)"
@@ -36,6 +40,29 @@ class StandardEditionMigrator
       recipe.ignore_legacy_links(old_links.deep_dup),
       recipe.ignore_new_links(new_links.deep_dup),
     ).to_s
+  end
+
+  def create_new_document(legacy_record, recipe)
+    document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
+
+    ActiveRecord::Base.transaction do
+      recipe_instance = recipe.new
+      raise "Cannot pass a Document to create_new_document" if legacy_record.is_a?(Document)
+
+      edition = recipe_instance.build_edition(legacy_record)
+      edition.document = document
+
+      # Save without validation first, to get all interdependent artefacts
+      # persisted. Then re-save with validation applied - rolling back if
+      # a validation error is raised.
+      [false, true].each do |validate|
+        edition.save!(validate:)
+        recipe_instance.save_artefacts!(validate:)
+        document.save!(validate:)
+      end
+    end
+
+    document
   end
 
 private
