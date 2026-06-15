@@ -70,9 +70,8 @@ class RoleAppointment < ApplicationRecord
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
-  after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api, if: :ministerial?
-  after_save :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
-  after_destroy :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
+  after_commit :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api, on: %i[create update], if: :ministerial?
+  after_commit :republish_associated_editions_to_publishing_api, :republish_organisation_to_publishing_api, :republish_prime_ministers_index_page_to_publishing_api, :republish_role_to_publishing_api
 
   def republish_associated_editions_to_publishing_api
     role.edition_roles.each do |edition_role|

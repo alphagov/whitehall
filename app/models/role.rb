@@ -57,7 +57,7 @@ class Role < ApplicationRecord
   validates_with SafeHtmlValidator
 
   before_destroy :prevent_destruction_unless_destroyable
-  after_save :republish_associated_editions_to_publishing_api, :republish_organisations_to_publishing_api
+  after_commit :republish_associated_editions_to_publishing_api, :republish_organisations_to_publishing_api, on: %i[create update]
 
   accepts_nested_attributes_for :edition_roles
 

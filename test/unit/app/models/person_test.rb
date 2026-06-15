@@ -249,4 +249,27 @@ class PersonTest < ActiveSupport::TestCase
       person.update(forename: "New first name")
     end
   end
+
+  test "does not patch the ministers index page when a person update is rolled back before commit" do
+    person = create(:person)
+    create(:ministerial_role_appointment, person:)
+
+    PatchLinksPublishingApiJob.expects(:perform_async).never
+
+    ActiveRecord::Base.transaction do
+      person.update!(forename: "New first name")
+      raise ActiveRecord::Rollback
+    end
+  end
+
+  test "does not republish the past prime ministers page when a prime minister update is rolled back before commit" do
+    person = create(:pm)
+
+    PresentPageToPublishingApiJob.expects(:perform_async).with("PublishingApi::HistoricalAccountsIndexPresenter").never
+
+    ActiveRecord::Base.transaction do
+      person.update!(forename: "New first name")
+      raise ActiveRecord::Rollback
+    end
+  end
 end

@@ -6,7 +6,7 @@ class MinisterialRole < Role
   has_many :consultations, -> { where("editions.type" => "Consultation").distinct }, through: :role_appointments
   has_many :speeches, through: :role_appointments
 
-  after_save :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api
+  after_commit :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api, on: %i[create update]
 
   scope :cabinet_members,
         -> { where(cabinet_member: true) }
