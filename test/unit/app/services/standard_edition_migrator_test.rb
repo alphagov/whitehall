@@ -437,4 +437,39 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert error.message.start_with?("The legacy and new edition payloads differ after normalisation."), "Expected output to start with:\n#{error.message}\n\nActual output:\n#{error.message}"
     end
   end
+
+  describe "#bulk_enqueue_migration" do
+    test "enqueues a migration job for each legacy record, with the correct recipe and migration method" do
+      legacy_non_editionable_records = [
+        create(:organisation, name: "My first org"),
+        create(:organisation, name: "My second org"),
+      ]
+      StandardEditionMigrator.new.bulk_enqueue_migration(
+        legacy_non_editionable_records,
+        StandardEditionMigrator::RecipeForNonEditionableRecord,
+        migration_method: "create_new_document",
+        raise_if_payloads_differ: true,
+      )
+
+      assert_equal 2, StandardEditionMigratorJob.jobs.size
+
+      first_job_args = StandardEditionMigratorJob.jobs.first["args"]
+      record_id = first_job_args.first
+      keyword_args = first_job_args.second
+      assert_equal legacy_non_editionable_records.first.id, record_id
+      assert_equal "Organisation", keyword_args["model_class"]
+      assert_equal "StandardEditionMigrator::RecipeForNonEditionableRecord", keyword_args["recipe_class"]
+      assert_equal "create_new_document", keyword_args["migration_method"]
+      assert_equal true, keyword_args["raise_if_payloads_differ"]
+
+      second_job_args = StandardEditionMigratorJob.jobs.second["args"]
+      record_id = second_job_args.first
+      keyword_args = second_job_args.second
+      assert_equal legacy_non_editionable_records.second.id, record_id
+      assert_equal "Organisation", keyword_args["model_class"]
+      assert_equal "StandardEditionMigrator::RecipeForNonEditionableRecord", keyword_args["recipe_class"]
+      assert_equal "create_new_document", keyword_args["migration_method"]
+      assert_equal true, keyword_args["raise_if_payloads_differ"]
+    end
+  end
 end

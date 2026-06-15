@@ -19,6 +19,10 @@ class StandardEditionMigrator
     new.migrate_existing_document(...)
   end
 
+  def self.bulk_enqueue_migration(...)
+    new.bulk_enqueue_migration(...)
+  end
+
   def preview_migration(legacy_record, recipe)
     if legacy_record.is_a?(Edition)
       raise "An Edition was passed. You must pass the Document instead (so that we can migrate all of its Editions)"
@@ -123,6 +127,20 @@ class StandardEditionMigrator
       end
     end
     document
+  end
+
+  def bulk_enqueue_migration(legacy_records, recipe_class, migration_method:, raise_if_payloads_differ: true)
+    legacy_records.each do |legacy_record|
+      StandardEditionMigratorJob.perform_async(
+        legacy_record.id,
+        {
+          "model_class" => legacy_record.class.name,
+          "recipe_class" => recipe_class.name,
+          "migration_method" => migration_method,
+          "raise_if_payloads_differ" => raise_if_payloads_differ,
+        },
+      )
+    end
   end
 
 private
