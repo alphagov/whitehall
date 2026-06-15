@@ -1,4 +1,4 @@
-class StandardEditionMigrator::RecipeForLegacyEditionableDocument
+class StandardEditionMigrator::RecipeForLegacyEditionableDocument < StandardEditionMigrator::BaseRecipe
   def legacy_presenter
     StandardEditionMigrator::HardcodedPresenter
   end

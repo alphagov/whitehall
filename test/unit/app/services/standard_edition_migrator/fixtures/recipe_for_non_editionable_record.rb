@@ -1,4 +1,4 @@
-class StandardEditionMigrator::RecipeForNonEditionableRecord
+class StandardEditionMigrator::RecipeForNonEditionableRecord < StandardEditionMigrator::BaseRecipe
   def legacy_presenter
     StandardEditionMigrator::HardcodedPresenter
   end
