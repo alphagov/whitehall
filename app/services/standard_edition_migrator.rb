@@ -46,14 +46,14 @@ class StandardEditionMigrator
     ).to_s
   end
 
-  def create_new_document(legacy_record, recipe)
+  def create_new_document(legacy_record, recipe, raise_if_payloads_differ: true)
     document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
 
     ActiveRecord::Base.transaction do
       recipe_instance = recipe.new
       raise "Cannot pass a Document to create_new_document" if legacy_record.is_a?(Document)
 
-      edition = recipe_instance.build_edition(legacy_record)
+      edition = build_edition(recipe_instance, legacy_record, raise_if_payloads_differ)
       edition.document = document
 
       # Save without validation first, to get all interdependent artefacts
@@ -69,7 +69,7 @@ class StandardEditionMigrator
     document
   end
 
-  def migrate_existing_document(document, recipe)
+  def migrate_existing_document(document, recipe, raise_if_payloads_differ: true)
     ActiveRecord::Base.transaction do
       recipe_instance = recipe.new
       raise "Cannot pass a non-Document to migrate_existing_document" unless document.is_a?(Document)
@@ -79,7 +79,7 @@ class StandardEditionMigrator
 
       # Update each edition in-place
       editions_to_update.each do |legacy_edition|
-        edition = recipe_instance.build_edition(legacy_edition)
+        edition = build_edition(recipe_instance, legacy_edition, raise_if_payloads_differ)
 
         # Convert the legacy edition instance type in-memory to StandardEdition
         legacy_edition = legacy_edition.becomes!(StandardEdition)
@@ -102,6 +102,31 @@ class StandardEditionMigrator
   end
 
 private
+
+  def build_edition(recipe_instance, legacy_edition, raise_if_payloads_differ)
+    return recipe_instance.build_edition(legacy_edition) unless raise_if_payloads_differ
+
+    old_presenter = recipe_instance.legacy_presenter.new(legacy_edition)
+    edition = recipe_instance.build_edition(legacy_edition)
+    diff = diff_content_payloads(
+      recipe: recipe_instance,
+      old_content: old_presenter.content,
+      new_content: PublishingApi::StandardEditionPresenter.new(edition).content,
+    ) + diff_links_payloads(
+      recipe: recipe_instance,
+      old_links: old_presenter.links,
+      new_links: PublishingApi::StandardEditionPresenter.new(edition).links,
+    )
+    if diff.present?
+      raise <<~ERROR
+        The legacy and new edition payloads differ after normalisation.
+
+        #{diff}
+      ERROR
+    end
+
+    edition
+  end
 
   def compare_payloads(legacy_record, recipe)
     # Grab the payloads from the old presenter _before_ we do any mutation, to ensure we're comparing against the original payload

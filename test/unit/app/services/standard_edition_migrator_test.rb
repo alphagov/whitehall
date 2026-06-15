@@ -261,7 +261,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
   describe "#create_new_document" do
     it "performs the migration and saves a new document and edition, when given a legacy non-editionable record" do
-      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
       edition = StandardEdition.last
 
       assert_equal document.content_id, @legacy_non_editionable_record.content_id
@@ -289,7 +289,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       translation_calls, restore_translation = capture_save_calls.call(Edition::Translation)
       document_calls, restore_document = capture_save_calls.call(Document)
 
-      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
       edition = document.editions.last
 
       assert_includes standard_edition_calls, { validate: false }
@@ -314,7 +314,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
       assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
         error = assert_raises(WhitehallError) do
-          StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+          StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
         end
         assert_equal "Validation failed: Title can't be blank", error.message
       end
@@ -323,16 +323,24 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     it "raises exception if a Document is passed (we could handle this in theory, but for now, for simplicity we expect only non-Document records)" do
       document = build(:document)
       error = assert_raises(RuntimeError) do
-        StandardEditionMigrator.create_new_document(document, StandardEditionMigrator::RecipeForNonEditionableRecord)
+        StandardEditionMigrator.create_new_document(document, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
       end
 
       assert_equal "Cannot pass a Document to create_new_document", error.message
+    end
+
+    it "raises exception if the normalised payloads differ between the legacy record and new edition, if `raise_if_payloads_differ` is true" do
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: true)
+      end
+
+      assert error.message.start_with?("The legacy and new edition payloads differ after normalisation."), "Expected output to start with:\n#{error.message}\n\nActual output:\n#{error.message}"
     end
   end
 
   describe "#migrate_existing_document" do
     it "migrates all of a given Document's Editions (including deleted and superseded ones)" do
-      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
 
       assert_equal "StandardEdition", @legacy_editionable_document.document_type
 
@@ -361,7 +369,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       sitewide_setting_calls, restore_sitewide_setting = capture_save_calls.call(SitewideSetting)
       translation_calls, restore_translation = capture_save_calls.call(Edition::Translation)
 
-      document = StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+      document = StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
       edition = document.editions.last
 
       assert_includes standard_edition_calls, { validate: false }
@@ -384,7 +392,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       Edition.any_instance.expects(:save!).with(validate: true).raises(WhitehallError.new("Validation failed: Title can't be blank"))
 
       error = assert_raises(WhitehallError) do
-        StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+        StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
       end
       assert_equal "Validation failed: Title can't be blank", error.message
       assert_equal "DetailedGuide", document.reload.document_type
@@ -395,10 +403,18 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
     it "raises exception if a non-Document is passed (non-Documents should always use `create_new_document`)" do
       error = assert_raises(RuntimeError) do
-        StandardEditionMigrator.migrate_existing_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+        StandardEditionMigrator.migrate_existing_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
       end
 
       assert_equal "Cannot pass a non-Document to migrate_existing_document", error.message
+    end
+
+    it "raises exception if the normalised payloads differ between the legacy and new edition, if `raise_if_payloads_differ` is true" do
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: true)
+      end
+
+      assert error.message.start_with?("The legacy and new edition payloads differ after normalisation."), "Expected output to start with:\n#{error.message}\n\nActual output:\n#{error.message}"
     end
   end
 end
