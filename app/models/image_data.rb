@@ -10,13 +10,11 @@ class ImageData < ApplicationRecord
 
   include Replaceable
   include ImageKind
+  include AssetData
 
   SVG_CONTENT_TYPE = "image/svg+xml".freeze
 
   has_many :images
-  has_many :assets,
-           as: :assetable,
-           inverse_of: :assetable
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
@@ -32,6 +30,10 @@ class ImageData < ApplicationRecord
   after_validation :prepend_filename_to_errors
 
   delegate :url, :content_type, to: :file
+
+  def attachments
+    images
+  end
 
   def filename
     file&.file&.filename

@@ -12,7 +12,13 @@ class Image < ApplicationRecord
 
   delegate :filename, :content_type, :width, :height, :bitmap?, :svg?, :can_be_cropped?, :requires_crop?, :image_kind, to: :image_data
 
+  delegate :deleted?, to: :edition
+
   default_scope -> { order(:id) }
+
+  def attachable
+    edition
+  end
 
   def url(*args)
     image_data.file_url(*args)
