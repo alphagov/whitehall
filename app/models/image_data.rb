@@ -39,6 +39,40 @@ class ImageData < ApplicationRecord
     images.first.edition
   end
 
+  def access_limited?
+    return unless attachable
+
+    attachable.access_limited?
+  end
+
+  def access_limited_object
+    return unless attachable
+
+    attachable.access_limited_object
+  end
+
+  def access_limitation
+    return [] unless access_limited?
+
+    AssetManagerAccessLimitation.for(access_limited_object)
+  end
+
+  def deleted?
+    false
+  end
+
+  def draft?
+    !attachable.publicly_visible?
+  end
+
+  def replaced?
+    false
+  end
+
+  def attachable_url
+    attachable
+  end
+
   def filename
     file&.file&.filename
   end
@@ -126,4 +160,12 @@ private
       errors.add(:file, message:)
     end
   end
+
+  def url_for(edition)
+    if Edition::PRE_PUBLICATION_STATES.include?(edition.state)
+      edition.public_url(draft: true)
+    elsif edition.publicly_visible?
+      edition.public_url
+    end
+  end  
 end

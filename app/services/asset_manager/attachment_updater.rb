@@ -1,6 +1,8 @@
 class AssetManager::AttachmentUpdater
   def self.call(attachment_data)
-    return if attachment_data.deleted?
+    if attachment_data.respond_to?(:deleted?)
+      return if attachment_data.deleted?
+    end
 
     asset_attributes = {
       "access_limited_organisation_ids" => attachment_data.access_limitation,

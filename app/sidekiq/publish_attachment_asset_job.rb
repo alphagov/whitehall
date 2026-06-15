@@ -1,14 +1,14 @@
 class PublishAttachmentAssetJob < JobBase
   sidekiq_options queue: "asset_manager"
 
-  def perform(attachment_data_id)
-    attachment_data = AttachmentData.find(attachment_data_id)
+  def perform(attachment_data_id, data_type = AttachmentData)
+    attachment_data = data_type.find(attachment_data_id)
 
     asset_attributes = {
       "draft" => false,
     }
 
-    if attachment_data.last_attachable.respond_to?(:public_url)
+    if attachment_data == AttachmentData && attachment_data.last_attachable.respond_to?(:public_url)
       asset_attributes.merge!({ "parent_document_url" => attachment_data.last_attachable.public_url })
     end
 
