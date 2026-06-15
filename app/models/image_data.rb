@@ -34,6 +34,8 @@ class ImageData < ApplicationRecord
   delegate :url, :content_type, to: :file
 
   def attachable
+    return unless images.present?
+
     images.first.edition
   end
 

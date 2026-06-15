@@ -2,7 +2,7 @@ class AssetManagerAttachmentMetadataJob < JobBase
   sidekiq_options queue: "asset_manager"
 
   def perform(attachment_data_id)
-    attachment_data = AttachmentData.find(attachment_data_id)
+    attachment_data = AttachmentData.where(id: attachment_data_id).first
 
     return if attachment_data.blank?
 

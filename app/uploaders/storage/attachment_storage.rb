@@ -5,7 +5,11 @@ class Storage::AttachmentStorage < CarrierWave::Storage::Abstract
 
     logger.info("Saving to Asset Manager for model AttachmentData with ID #{uploader.model&.id || 'nil'}")
 
-    AssetManagerCreateAssetJob.perform_async(temporary_location, uploader.asset_params, true, uploader.model.attachable.class.to_s, uploader.model.attachable.id, uploader.model.auth_bypass_ids || [])
+    if uploader.model.attachable
+      AssetManagerCreateAssetJob.perform_async(temporary_location, uploader.asset_params, true, uploader.model.attachable.class.to_s, uploader.model.attachable.id, uploader.model.auth_bypass_ids || [])
+    else
+      AssetManagerCreateAssetJob.perform_async(temporary_location, uploader.asset_params, true, nil, nil, [])
+    end
 
     Whitehall::AssetManagerStorage::File.new(uploader.store_path(::File.basename(original_file)), uploader.model, uploader.version_name)
   end
