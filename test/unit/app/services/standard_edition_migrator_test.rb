@@ -329,4 +329,76 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal "Cannot pass a Document to create_new_document", error.message
     end
   end
+
+  describe "#migrate_existing_document" do
+    it "migrates all of a given Document's Editions (including deleted and superseded ones)" do
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+
+      assert_equal "StandardEdition", @legacy_editionable_document.document_type
+
+      Edition.unscoped.where(document_id: @legacy_editionable_document.id).find_each do |edition|
+        assert_equal "StandardEdition", edition.type
+        assert_equal "test_type", edition.configurable_document_type
+        assert_equal "Title", edition.translations.first.title
+        assert_equal "Summary", edition.translations.first.summary
+        assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
+      end
+    end
+
+    it "saves the edition, artefacts and document first without validation, then with validation" do
+      capture_save_calls = lambda do |klass|
+        calls = []
+        original_save_bang = klass.instance_method(:save!)
+        klass.define_method(:save!) do |*args, **kwargs, &block|
+          calls << kwargs
+          original_save_bang.bind(self).call(*args, **kwargs, &block)
+        end
+
+        [calls, -> { klass.define_method(:save!, original_save_bang) }]
+      end
+
+      standard_edition_calls, restore_standard_edition = capture_save_calls.call(StandardEdition)
+      sitewide_setting_calls, restore_sitewide_setting = capture_save_calls.call(SitewideSetting)
+      translation_calls, restore_translation = capture_save_calls.call(Edition::Translation)
+
+      document = StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+      edition = document.editions.last
+
+      assert_includes standard_edition_calls, { validate: false }
+      assert_includes standard_edition_calls, { validate: true }
+      assert_includes sitewide_setting_calls, { validate: false }
+      assert_includes sitewide_setting_calls, { validate: true }
+      assert_includes translation_calls, { validate: false }
+      assert_includes translation_calls, { validate: true }
+      assert_equal edition.id, edition.translations.first.edition_id
+    ensure
+      restore_translation.call
+      restore_sitewide_setting.call
+      restore_standard_edition.call
+    end
+
+    test "rolls back the transaction if a validation issue is encountered" do
+      document = create(:document, document_type: "DetailedGuide")
+      create(:draft_detailed_guide, document: document, title: "Detailed Guide", summary: "Summary", body: "Old body")
+      Edition.any_instance.stubs(:save!).returns(true)
+      Edition.any_instance.expects(:save!).with(validate: true).raises(WhitehallError.new("Validation failed: Title can't be blank"))
+
+      error = assert_raises(WhitehallError) do
+        StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+      end
+      assert_equal "Validation failed: Title can't be blank", error.message
+      assert_equal "DetailedGuide", document.reload.document_type
+      Edition.unscoped.where(document_id: document.id).find_each do |edition|
+        assert_not_equal "StandardEdition", edition.type
+      end
+    end
+
+    it "raises exception if a non-Document is passed (non-Documents should always use `create_new_document`)" do
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.migrate_existing_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+      end
+
+      assert_equal "Cannot pass a non-Document to migrate_existing_document", error.message
+    end
+  end
 end

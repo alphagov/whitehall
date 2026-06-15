@@ -9,6 +9,7 @@ class StandardEditionMigrator::RecipeForLegacyEditionableDocument < StandardEdit
       updated_at: legacy_record.updated_at.rfc3339,
       creator: User.last,
       document: legacy_record.document,
+      change_note: legacy_record.change_note,
     }
     edition = StandardEdition.new(edition_attrs)
 
@@ -22,6 +23,7 @@ class StandardEditionMigrator::RecipeForLegacyEditionableDocument < StandardEdit
         },
       )
     end
+    queue_for_saving(SitewideSetting.new(key: SecureRandom.uuid)) # Proof of concept
     edition.translations.each do |translation|
       queue_for_saving(translation)
     end
