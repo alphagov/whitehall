@@ -98,8 +98,27 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
     assert url.valid?
   end
 
-  test "should be invalid when content store returns a 404" do
+  test "should be valid for an unpublished URL found only in the draft content store" do
+    draft_content_id = SecureRandom.uuid
+    Services.content_store.stubs(:content_item).with("/unpublished").raises(GdsApi::ContentStore::ItemNotFound.new(404))
+    Services.draft_content_store.stubs(:content_item).with("/unpublished").returns(
+      "content_id" => draft_content_id,
+      "title" => "Unpublished",
+      "base_path" => "/unpublished",
+      "publishing_app" => "whitehall",
+    )
+
+    url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk/unpublished",
+      document_collection_group: build(:document_collection_group),
+    )
+
+    assert url.valid?
+  end
+
+  test "should be invalid when neither content store has the path" do
     Services.content_store.stubs(:content_item).raises(GdsApi::ContentStore::ItemNotFound.new(404))
+    Services.draft_content_store.stubs(:content_item).raises(GdsApi::ContentStore::ItemNotFound.new(404))
 
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: "https://www.gov.uk/test",

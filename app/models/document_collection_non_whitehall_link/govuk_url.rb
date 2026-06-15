@@ -41,7 +41,7 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
   def content_item_from_content_store
     path = parsed_url.path
 
-    item = Services.content_store.content_item(path).to_h
+    item = content_item_for(path)
 
     if item["base_path"] != path && item["document_type"] != "guide"
       raise GdsApi::HTTPNotFound, 404
@@ -50,5 +50,12 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
     item
   rescue GdsApi::ContentStore::ItemNotFound
     raise GdsApi::HTTPNotFound, 404
+  end
+
+  def content_item_for(path)
+    Services.content_store.content_item(path).to_h
+  rescue GdsApi::ContentStore::ItemNotFound
+    # Fall back to the draft content store for unpublished content
+    Services.draft_content_store.content_item(path).to_h
   end
 end

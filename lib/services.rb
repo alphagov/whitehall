@@ -16,6 +16,13 @@ module Services
     @content_store ||= GdsApi::ContentStore.new(Plek.find("content-store"))
   end
 
+  def self.draft_content_store
+    @draft_content_store ||= GdsApi::ContentStore.new(
+      Plek.find("draft-content-store"),
+      bearer_token: ENV.fetch("DRAFT_CONTENT_STORE_BEARER_TOKEN", "example"),
+    )
+  end
+
   def self.asset_manager
     @asset_manager ||= GdsApi::AssetManager.new(
       Plek.find("asset-manager"),
