@@ -1,4 +1,5 @@
 require "test_helper"
+require_relative "./standard_edition_migrator/fixtures/hardcoded_presenter"
 require_relative "./standard_edition_migrator/fixtures/recipe_for_legacy_editionable_document"
 require_relative "./standard_edition_migrator/fixtures/recipe_for_non_editionable_record"
 
@@ -54,6 +55,29 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
           StandardEditionMigrator::RecipeForNonEditionableRecord,
         )
       end
+
+      it "returns string summary of content and links payloads before-and-after of the record itself" do
+        legacy_presenter = StandardEditionMigrator::RecipeForNonEditionableRecord.new.legacy_presenter.new(@legacy_non_editionable_record)
+        new_presenter = PublishingApi::StandardEditionPresenter.new(
+          StandardEditionMigrator::RecipeForNonEditionableRecord.new.build_edition(@legacy_non_editionable_record),
+        )
+        expected_output = <<~OUTPUT
+          OLD PAYLOAD
+          ===CONTENT
+          #{JSON.pretty_generate(legacy_presenter.content)}
+          ===LINKS
+          #{JSON.pretty_generate(legacy_presenter.links)}
+
+          NEW PAYLOAD
+          ===CONTENT
+          #{JSON.pretty_generate(new_presenter.content)}
+          ===LINKS
+          #{JSON.pretty_generate(new_presenter.links)}
+        OUTPUT
+
+        summary = StandardEditionMigrator.preview_migration(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+        assert summary.start_with?(expected_output), "Expected output to start with:\n#{expected_output}\n\nActual output:\n#{summary}"
+      end
     end
 
     context "when passing an editionable record" do
@@ -88,6 +112,29 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
           @legacy_editionable_document,
           StandardEditionMigrator::RecipeForLegacyEditionableDocument,
         )
+      end
+
+      it "returns string summary of content and links payloads before-and-after of the latest edition" do
+        legacy_presenter = StandardEditionMigrator::RecipeForLegacyEditionableDocument.new.legacy_presenter.new(@legacy_editionable_document)
+        new_presenter = PublishingApi::StandardEditionPresenter.new(
+          StandardEditionMigrator::RecipeForLegacyEditionableDocument.new.build_edition(@legacy_editionable_document.latest_edition),
+        )
+        expected_output = <<~OUTPUT
+          OLD PAYLOAD
+          ===CONTENT
+          #{JSON.pretty_generate(legacy_presenter.content)}
+          ===LINKS
+          #{JSON.pretty_generate(legacy_presenter.links)}
+
+          NEW PAYLOAD
+          ===CONTENT
+          #{JSON.pretty_generate(new_presenter.content)}
+          ===LINKS
+          #{JSON.pretty_generate(new_presenter.links)}
+        OUTPUT
+
+        summary = StandardEditionMigrator.preview_migration(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+        assert summary.start_with?(expected_output), "Expected output to start with:\n#{expected_output}\n\nActual output:\n#{summary}"
       end
     end
   end

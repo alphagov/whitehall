@@ -18,7 +18,30 @@ class StandardEditionMigrator
 
 private
 
-  def compare_payloads(_legacy_record, _recipe)
-    "TODO: Implement payload comparison logic here"
+  def compare_payloads(legacy_record, recipe)
+    # Grab the payloads from the old presenter _before_ we do any mutation, to ensure we're comparing against the original payload
+    old_presenter = recipe.new.legacy_presenter.new(legacy_record)
+    old_content = old_presenter.content
+    old_links = old_presenter.links
+
+    standard_edition = recipe.new.build_edition(legacy_record)
+    new_presenter = PublishingApi::StandardEditionPresenter.new(standard_edition)
+
+    <<~OUTPUT
+      OLD PAYLOAD
+      ===CONTENT
+      #{JSON.pretty_generate(old_content)}
+      ===LINKS
+      #{JSON.pretty_generate(old_links)}
+
+      NEW PAYLOAD
+      ===CONTENT
+      #{JSON.pretty_generate(new_presenter.content)}
+      ===LINKS
+      #{JSON.pretty_generate(new_presenter.links)}
+
+      NORMALISED DIFF
+      ===TODO: fill this in
+    OUTPUT
   end
 end
