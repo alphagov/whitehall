@@ -78,6 +78,24 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         summary = StandardEditionMigrator.preview_migration(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
         assert summary.start_with?(expected_output), "Expected output to start with:\n#{expected_output}\n\nActual output:\n#{summary}"
       end
+
+      it "makes a call to `diff_payloads` for content and links" do
+        StandardEditionMigrator.any_instance.expects(:diff_content_payloads).with(
+          has_entries(
+            recipe: instance_of(StandardEditionMigrator::RecipeForNonEditionableRecord),
+            old_content: anything,
+            new_content: anything,
+          ),
+        )
+        StandardEditionMigrator.any_instance.expects(:diff_links_payloads).with(
+          has_entries(
+            recipe: instance_of(StandardEditionMigrator::RecipeForNonEditionableRecord),
+            old_links: anything,
+            new_links: anything,
+          ),
+        )
+        StandardEditionMigrator.preview_migration(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+      end
     end
 
     context "when passing an editionable record" do
@@ -136,6 +154,108 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         summary = StandardEditionMigrator.preview_migration(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
         assert summary.start_with?(expected_output), "Expected output to start with:\n#{expected_output}\n\nActual output:\n#{summary}"
       end
+
+      it "makes a call to `diff_payloads` for content and links" do
+        StandardEditionMigrator.any_instance.expects(:diff_content_payloads).with(
+          has_entries(
+            recipe: instance_of(StandardEditionMigrator::RecipeForLegacyEditionableDocument),
+            old_content: anything,
+            new_content: anything,
+          ),
+        )
+        StandardEditionMigrator.any_instance.expects(:diff_links_payloads).with(
+          has_entries(
+            recipe: instance_of(StandardEditionMigrator::RecipeForLegacyEditionableDocument),
+            old_links: anything,
+            new_links: anything,
+          ),
+        )
+        StandardEditionMigrator.preview_migration(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+      end
+    end
+  end
+
+  describe "#diff_content_payloads (using `ignore_legacy_content_fields` and `ignore_new_content_fields`)" do
+    it "returns a diff of the two payloads, ignoring any fields specified in the recipe" do
+      old_content = {
+        field_we_are_persisting_and_changing: "value that changed",
+        field_we_are_persisting_unchanged: "foo",
+        field_we_dont_care_about: "some old value we don't care about",
+      }
+      new_content = {
+        field_we_are_persisting_and_changing: "new value",
+        field_we_are_persisting_unchanged: "foo",
+        new_field_that_has_no_legacy_equivalent: "hello",
+      }
+      recipe = Class.new {
+        def ignore_legacy_content_fields(content)
+          content.delete(:field_we_dont_care_about)
+          content
+        end
+
+        def ignore_new_content_fields(content)
+          content.delete(:new_field_that_has_no_legacy_equivalent)
+          content
+        end
+      }.new
+
+      diff = StandardEditionMigrator.diff_content_payloads(
+        recipe: recipe,
+        old_content: old_content,
+        new_content: new_content,
+      )
+
+      expected_diff = <<~DIFF
+         {
+        -  "field_we_are_persisting_and_changing": "value that changed",
+        +  "field_we_are_persisting_and_changing": "new value",
+           "field_we_are_persisting_unchanged": "foo"
+         }
+      DIFF
+
+      assert_equal expected_diff, diff
+    end
+  end
+
+  describe "#diff_links_payloads (using `ignore_legacy_links` and `ignore_new_links`)" do
+    it "returns a diff of the two payloads, ignoring any fields specified in the recipe" do
+      old_links = {
+        link_we_are_persisting_and_changing: "value that changed",
+        link_we_are_persisting_unchanged: "foo",
+        link_we_dont_care_about: "some old value we don't care about",
+      }
+      new_links = {
+        link_we_are_persisting_and_changing: "new value",
+        link_we_are_persisting_unchanged: "foo",
+        new_link_that_has_no_legacy_equivalent: "hello",
+      }
+      recipe = Class.new {
+        def ignore_legacy_links(links)
+          links.delete(:link_we_dont_care_about)
+          links
+        end
+
+        def ignore_new_links(links)
+          links.delete(:new_link_that_has_no_legacy_equivalent)
+          links
+        end
+      }.new
+
+      diff = StandardEditionMigrator.diff_links_payloads(
+        recipe: recipe,
+        old_links: old_links,
+        new_links: new_links,
+      )
+
+      expected_diff = <<~DIFF
+         {
+        -  "link_we_are_persisting_and_changing": "value that changed",
+        +  "link_we_are_persisting_and_changing": "new value",
+           "link_we_are_persisting_unchanged": "foo"
+         }
+      DIFF
+
+      assert_equal expected_diff, diff
     end
   end
 end

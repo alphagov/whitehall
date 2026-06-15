@@ -14,4 +14,16 @@ class BaseRecipeTest < ActiveSupport::TestCase
     end
     assert_equal "Subclasses must implement build_edition!", error.message
   end
+
+  test "defines noop methods for ignore_legacy_content_fields, ignore_new_content_fields, ignore_legacy_links, and ignore_new_links" do
+    recipe = StandardEditionMigrator::BaseRecipe.new
+
+    content = { "field" => "value" }
+    links = { "link" => "value" }
+
+    assert_equal content, recipe.ignore_legacy_content_fields(content)
+    assert_equal content, recipe.ignore_new_content_fields(content)
+    assert_equal links, recipe.ignore_legacy_links(links)
+    assert_equal links, recipe.ignore_new_links(links)
+  end
 end
