@@ -1249,14 +1249,17 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
                      configurable_document_type: "test_type",
                      block_content: { body: "original" })
 
+    edition.translation.update_column(:block_content, { "body" => "updated in db" })
+
+    db_edition = @controller.send(:load_edition_from_database, edition)
+    assert_equal "updated in db", db_edition.block_content["body"]
+
     get :edit, params: { id: edition, current_tab: "documents" }
 
-    # Tab validation runs on a fresh DB copy via edition.reload,
-    # so the in-memory placeholder fields built by build_edition_dependencies eg review_reminder
-    # should never be validated if untouched and should send no errors when loading the edit view.
-    reminder = assigns(:edition).document.review_reminder
-    assert reminder.nil? || reminder.errors.empty?,
-           "Expected no review_reminder errors but found: #{reminder&.errors&.full_messages}"
+    # build_edition_dependencies action on the edit route creates an in-memory review_reminder placeholder.
+    # Tab validation must not call edition.valid? on @edition directly, otherwise
+    # that placeholder gets validated and its errors leak into the rendered form.
+    assert assigns(:edition).document.review_reminder.errors.empty?
   end
 
   view_test "POST create surfaces Publishing API validation error if save_draft fails" do
