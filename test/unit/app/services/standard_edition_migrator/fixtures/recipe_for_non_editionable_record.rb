@@ -1,0 +1,2 @@
+class StandardEditionMigrator::RecipeForNonEditionableRecord
+end

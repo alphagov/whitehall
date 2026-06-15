@@ -1,0 +1,2 @@
+class StandardEditionMigrator::RecipeForLegacyEditionableDocument
+end
