@@ -41,7 +41,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
     super
     return if @current_tab_context.blank?
 
-    tab_form = StandardEdition::TabForm.new(@edition.reload, @current_tab_context)
+    tab_form = StandardEdition::TabForm.new(load_edition_from_database(@edition), @current_tab_context)
     apply_tab_errors_to_edition(tab_form) unless tab_form.valid?
   end
 
@@ -120,6 +120,10 @@ private
     else
       super
     end
+  end
+
+  def load_edition_from_database(edition)
+    LocalisedModel.new(edition_class.find(edition.id), edition.primary_locale)
   end
 
   def apply_tab_errors_to_edition(tab_form)
