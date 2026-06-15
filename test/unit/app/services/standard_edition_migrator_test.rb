@@ -14,6 +14,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     create(:superseded_detailed_guide, document: @legacy_editionable_document, title: "Detailed Guide", summary: "Summary", body: "Old body")
     create(:published_detailed_guide, document: @legacy_editionable_document, title: "Detailed Guide", summary: "Summary", body: "Old body")
     create(:draft_detailed_guide, document: @legacy_editionable_document, title: "Detailed Guide", summary: "Summary", body: "Old body")
+    @robot_user = create(:user, name: "Scheduled Publishing Robot")
   end
 
   describe "#preview_migration" do
@@ -308,6 +309,14 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       restore_standard_edition.call
     end
 
+    it "creates an EditorialRemark associated with the robot user" do
+      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
+      edition = document.editions.last
+
+      assert_equal "Migrated to StandardEdition", edition.editorial_remarks.last.body
+      assert_equal @robot_user, edition.editorial_remarks.last.author
+    end
+
     it "rolls back the transaction if a validation issue is encountered" do
       Document.any_instance.stubs(:save!).returns(true)
       Document.any_instance.expects(:save!).with(validate: true).raises(WhitehallError.new("Validation failed: Title can't be blank"))
@@ -383,6 +392,17 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       restore_translation.call
       restore_sitewide_setting.call
       restore_standard_edition.call
+    end
+
+    it "creates an EditorialRemark associated with the robot user, on the last edition only" do
+      document = StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
+      edition = document.editions.last
+
+      assert_equal "Migrated legacy editionable document to StandardEdition", edition.editorial_remarks.last.body
+      assert_equal @robot_user, edition.editorial_remarks.last.author
+      Edition.unscoped.where(document_id: document.id).where.not(id: edition.id).find_each do |other_edition|
+        assert_empty other_edition.editorial_remarks
+      end
     end
 
     test "rolls back the transaction if a validation issue is encountered" do

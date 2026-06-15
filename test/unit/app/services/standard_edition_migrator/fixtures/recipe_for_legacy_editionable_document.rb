@@ -29,4 +29,8 @@ class StandardEditionMigrator::RecipeForLegacyEditionableDocument < StandardEdit
     end
     edition
   end
+
+  def editorial_remark
+    "Migrated legacy editionable document to StandardEdition"
+  end
 end

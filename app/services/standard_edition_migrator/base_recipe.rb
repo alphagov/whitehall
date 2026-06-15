@@ -23,6 +23,10 @@ class StandardEditionMigrator::BaseRecipe
     @artefacts_to_save << artefact
   end
 
+  def editorial_remark
+    "Migrated to StandardEdition"
+  end
+
   ###
   # The below methods aren't used in Edition creation - they're used only for payload normalisation for comparison purposes
   ###
