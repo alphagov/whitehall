@@ -248,9 +248,41 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_response :ok
     assert_select "label", text: "Title (required)"
     assert_select "label", text: "Summary (required)"
-    assert_select "legend", text: "Limit access"
     assert_select "legend", text: "Schedule publication"
     assert_select "legend", text: "Review date"
+    refute_select "legend", text: "Limit access"
+  end
+
+  view_test "GET edit renders access limiting fields when organisations are enabled" do
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "lead_organisations" => {
+                "title" => "Lead organisations",
+                "required" => false,
+                "block" => "ordered_select_with_search_tagging",
+                "container" => "organisations",
+                "attribute_path" => %w[lead_organisation_ids],
+                "size" => 4,
+                "translatable" => false,
+              },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = build(:standard_edition, :with_organisations)
+    edition.save!
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "legend", text: "Limit access"
   end
 
   view_test "GET edit shows the current GOV.UK URL as a link when the edition has a live edition" do
