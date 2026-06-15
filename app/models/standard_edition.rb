@@ -179,6 +179,16 @@ class StandardEdition < Edition
     options[:base]&.type_instance&.title_for_attribute(attribute.to_s) || super
   end
 
+  def invalid_tab_messages
+    type_instance.form_keys.filter_map do |tab_key|
+      tab_form = StandardEdition::TabForm.new(self, tab_key)
+      unless tab_form.valid?(:publish)
+        tab_label = type_instance.form(tab_key)["label"] || tab_key.humanize
+        "#{tab_label} tab is invalid"
+      end
+    end
+  end
+
 private
 
   def field_paths(&block)
@@ -198,5 +208,16 @@ private
 
   def string_for_slug
     title if primary_locale.to_sym == translation.locale
+  end
+
+  def current_tab_context_includes_field?(attribute_name)
+    return true if current_tab_context.blank? # assume we are checking against the entire edition
+
+    form = type_instance.form(current_tab_context)
+    return true if form.nil?
+
+    (form["fields"] || {}).any? do |_key, field|
+      Array(field["attribute_path"]).include?(attribute_name)
+    end
   end
 end

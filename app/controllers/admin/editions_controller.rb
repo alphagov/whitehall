@@ -21,6 +21,8 @@ class Admin::EditionsController < Admin::BaseController
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :construct_similar_slug_warning_error, only: %i[edit]
 
+  rescue_from ActiveRecord::StaleObjectError, with: :handle_stale_object_error
+
   def enforce_permissions!
     case action_name
     when "index", "topics"
@@ -116,26 +118,13 @@ class Admin::EditionsController < Admin::BaseController
     @edition.assign_attributes(edition_params)
 
     if updater.can_perform? && @edition.save_as(current_user)
-      updater.perform!
 
-      if @edition.link_check_report
-        LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url)
-      end
-
+      after_update_operations
       redirect_to redirect_param(fallback: show_or_edit_path), saved_confirmation_notice
     else
       flash.now[:alert] = updater.failure_reason
-      build_edition_dependencies
-      fetch_version_and_remark_trails
-      construct_similar_slug_warning_error
-      render :edit
+      render_edition_update_failure
     end
-  rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = "This document has been saved since you opened it"
-    @conflicting_edition = Edition.find(params[:id])
-    @edition.lock_version = @conflicting_edition.lock_version
-    build_edition_dependencies
-    render :edit
   end
 
   def revise
@@ -538,5 +527,25 @@ private
     return url if url && URI.parse(url).host.blank? # only allow same-site paths
 
     fallback
+  end
+
+  def after_update_operations
+    updater.perform!
+    LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url) if @edition.link_check_report
+  end
+
+  def render_edition_update_failure
+    build_edition_dependencies
+    fetch_version_and_remark_trails
+    construct_similar_slug_warning_error
+    render :edit
+  end
+
+  def handle_stale_object_error
+    flash.now[:alert] = "This document has been saved since you opened it"
+    @conflicting_edition = Edition.find(params[:id])
+    @edition.lock_version = @conflicting_edition.lock_version
+    build_edition_dependencies
+    render :edit
   end
 end

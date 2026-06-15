@@ -447,6 +447,10 @@ class Edition < ApplicationRecord
     {}
   end
 
+  def invalid_tab_messages
+    []
+  end
+
 private
 
   def date_for_government
@@ -495,5 +499,9 @@ private
                                           .first
 
     first_version_with_state.try(:user)
+  end
+
+  def current_tab_context_includes_field?(_attribute_name)
+    true
   end
 end

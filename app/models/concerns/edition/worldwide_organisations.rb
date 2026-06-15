@@ -15,7 +15,7 @@ module Edition::WorldwideOrganisations
 
     add_trait Trait
 
-    validate :at_least_one_worldwide_organisation, if: :worldwide_organisation_association_required?
+    validate :at_least_one_worldwide_organisation, if: -> { worldwide_organisation_association_required? && current_tab_context_includes_field?("worldwide_organisation_document_ids") }
   end
 
   def worldwide_organisations=(worldwide_organisations)

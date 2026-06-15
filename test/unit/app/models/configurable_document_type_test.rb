@@ -329,6 +329,32 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     assert_equal %w[field_a], result["validations"]["presence"]["attributes"]
   end
 
+  test "#form_keys returns the keys of all forms defined for the document type" do
+    configurable_document_type = build_configurable_document_type(
+      "test_type",
+      {
+        "forms" => {
+          "documents" => {
+            "fields" => {
+              "body" => { "title" => "Body", "block" => "govspeak" },
+            },
+          },
+          "social_media_accounts" => {
+            "label" => "Social media accounts",
+            "dynamic" => true,
+            "fields" => {
+              "social_media_links" => { "title" => "Social media links", "block" => "default_string" },
+            },
+          },
+        },
+      },
+    )
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal %w[documents social_media_accounts], document_type.form_keys
+  end
+
   test "#schema" do
     configurable_document_type = build_configurable_document_type(
       "test_type",
