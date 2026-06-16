@@ -1,4 +1,6 @@
 class Admin::EditionAccessLimitedController < Admin::BaseController
+  include AccessLimitingConcern
+
   before_action :find_edition
   before_action :enforce_permissions!
   before_action :clean_organisation_params, only: %i[update]
@@ -7,29 +9,35 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
 
   def update
     editorial_remark = edition_params.delete(:editorial_remark)
-    @edition.assign_attributes(edition_params)
+    @edition.assign_attributes(edition_params.except(:access_limiting_organisation_ids))
 
-    if changed?
-      if editorial_remark.blank?
-        @edition.errors.add(:editorial_remark, t("errors.messages.blank"))
+    # Assign organisations to the in-memory edition for validation.
+    # Actual persistence is deferred to @edition.save below.
+    sync_access_limiting_organisations
 
-        render :edit
-      else
-        @edition.save!
-        PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
+    return render :edit unless access_limiting_organisations_valid?
 
-        EditorialRemark.create!(
-          edition: @edition,
-          body: "Access options updated by GDS Admin: #{editorial_remark}",
-          author: current_user,
-          created_at: Time.zone.now,
-          updated_at: Time.zone.now,
-        )
+    # Unset organisation options if switching away from organisation access limiting.
+    # Must happen after validation so we don't wipe organisations on a failed save.
+    clear_access_limiting_organisations_unless_organisations_selected
 
-        redirect_to admin_editions_path, notice: "Access updated for #{@edition.title}"
-      end
-    else
+    if editorial_remark.blank?
+      @edition.errors.add(:editorial_remark, t("errors.messages.blank"))
+      return render :edit
+    end
+
+    if @edition.save
+      PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
+      EditorialRemark.create!(
+        edition: @edition,
+        body: "Access options updated by GDS Admin: #{editorial_remark}",
+        author: current_user,
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now,
+      )
       redirect_to admin_editions_path, notice: "Access updated for #{@edition.title}"
+    else
+      render :edit
     end
   end
 
@@ -45,15 +53,16 @@ private
 
   def edition_params
     @edition_params ||= params
-    .fetch(:edition, {})
-    .permit(
-      :access_limiting,
-      :editorial_remark,
-      {
-        lead_organisation_ids: [],
-        supporting_organisation_ids: [],
-      },
-    )
+      .fetch(:edition, {})
+      .permit(
+        :access_limiting,
+        :editorial_remark,
+        {
+          lead_organisation_ids: [],
+          supporting_organisation_ids: [],
+          access_limiting_organisation_ids: [],
+        },
+      )
   end
 
   def clean_organisation_params
@@ -62,14 +71,6 @@ private
     end
     if edition_params[:supporting_organisation_ids]
       edition_params[:supporting_organisation_ids] = edition_params[:supporting_organisation_ids].reject(&:blank?)
-    end
-  end
-
-  def changed?
-    if @edition.organisation_association_enabled?
-      @edition.changed? || @edition.edition_organisations != Edition.find(params[:id]).edition_organisations
-    else
-      @edition.changed?
     end
   end
 end
