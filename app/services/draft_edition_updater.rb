@@ -31,6 +31,14 @@ private
     # Some users may not necessarily belong to an organisation. We should fail-closed for them.
     return true unless @options[:current_user].organisation
 
-    edition.organisation_association_enabled? && edition.edition_organisations.map(&:organisation_id).exclude?(@options[:current_user].organisation.id)
+    if Flipflop.access_limiting_organisations_ui?
+      org_ids = edition.edition_access_limiting_organisations
+                       .reject(&:marked_for_destruction?)
+                       .map(&:organisation_id)
+      org_ids.any? && org_ids.exclude?(@options[:current_user].organisation.id)
+    else
+      edition.organisation_association_enabled? &&
+        edition.edition_organisations.map(&:organisation_id).exclude?(@options[:current_user].organisation.id)
+    end
   end
 end
