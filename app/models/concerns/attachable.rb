@@ -52,6 +52,10 @@ module Attachable
   end
 
   class Null
+    def id
+      nil
+    end
+
     def publicly_visible?
       false
     end
