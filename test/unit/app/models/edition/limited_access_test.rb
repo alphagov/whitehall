@@ -161,4 +161,22 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting = nil
     assert_not edition.access_limited?
   end
+
+  test "access_limiting is reset to none and access_limiting_organisations are not carried over when redrafting" do
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      :submitted,
+      access_limiting: :organisations,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+    edition.edition_access_limiting_organisations.create!(organisation: organisation)
+    EditionPublisher.new(edition).perform!
+
+    new_draft = edition.create_draft(create(:writer))
+
+    assert new_draft.access_limiting_none?
+    assert_empty new_draft.access_limiting_organisations
+  end
 end

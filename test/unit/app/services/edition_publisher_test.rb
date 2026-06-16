@@ -19,6 +19,21 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_not edition.access_limited?
   end
 
+  test "#perform! with an access limited edition clears access_limiting_organisations" do
+    organisation = create(:organisation)
+    edition = create(
+      :submitted_edition,
+      :access_limited,
+      access_limiting_organisation_ids: [organisation.id],
+    )
+
+    assert EditionPublisher.new(edition).perform!
+    assert edition.published?
+    assert_not edition.access_limited?
+    assert_equal "none", edition.access_limiting
+    assert_empty edition.access_limiting_organisations
+  end
+
   %w[published draft rejected superseded].each do |state|
     test "#{state} editions cannot be published" do
       edition = create(:"#{state}_edition")
