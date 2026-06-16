@@ -62,6 +62,51 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert edition.accessible_to?(user)
   end
 
+  test "is invalid when access_limiting is set to 'organisations' and no access limiting organisations are selected" do
+    @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+    edition = create(:edition)
+    edition.access_limiting = :organisations
+    edition.access_limiting_organisation_ids = []
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_organisation_ids],
+                    "must include at least one organisation when access limiting is enabled"
+  end
+
+  test "is valid when access_limiting is set to 'organisations' and access limiting organisations are present" do
+    @feature_flags.switch!(:access_limiting_organisations_ui, true)
+    org = create(:organisation)
+
+    edition = create(:edition)
+    edition.access_limiting = :organisations
+    edition.access_limiting_organisation_ids = [org.id]
+
+    assert edition.valid?
+  end
+
+  test "is valid when access_limiting is set to 'none' regardless of access limiting organisations" do
+    @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+    edition = create(:limited_access_edition, access_limiting: :none)
+    edition.access_limiting_organisation_ids = []
+    assert edition.valid?
+  end
+
+  test "is valid when access_limiting is set to 'organisations' and no access limiting organisations are selected when flag is off" do
+    edition = create(:consultation, access_limiting: :organisations)
+    edition.access_limiting_organisation_ids = []
+    assert edition.valid?
+  end
+
+  test "is invalid when access_limiting is set to 'organisations' and no edition organisations are selected when flag is off" do
+    edition = create(:consultation, access_limiting: :organisations)
+    edition.organisation_ids = []
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:lead_organisation_ids], "at least one required"
+  end
+
   test "setting access_limiting writes through to the legacy access_limited column" do
     edition = build(:limited_access_edition)
 
