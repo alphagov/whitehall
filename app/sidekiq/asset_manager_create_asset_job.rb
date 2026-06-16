@@ -47,7 +47,7 @@ private
         PublishingApiDraftUpdateJob.perform_async(attachable_model_class, attachable_model_id)
       end
 
-      AssetManagerAttachmentMetadataJob.perform_async(assetable_id)
+      AssetManagerAttachmentMetadataJob.perform_async(assetable_id, assetable_type)
     else
       assetable = assetable_type.constantize.find(assetable_id)
       if assetable.respond_to?(:republish_on_assets_ready)

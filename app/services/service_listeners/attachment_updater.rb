@@ -11,10 +11,16 @@ module ServiceListeners
 
         update_attachment_data! attachment.attachment_data
       end
+
+      if attachable.is_a?(Edition)
+        attachable.images.each do |image|
+          update_attachment_data! image.image_data
+        end
+      end
     end
 
     private_class_method def self.update_attachment_data!(attachment_data)
-      AssetManagerAttachmentMetadataJob.perform_async(attachment_data.id)
+      AssetManagerAttachmentMetadataJob.perform_async(attachment_data.id, attachment_data.class.name)
     end
   end
 end

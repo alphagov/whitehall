@@ -122,12 +122,4 @@ private
   def new_filename_blank
     errors.add(:new_filename, :blank) if keep_or_replace == "keep" && new_filename.blank?
   end
-
-  def url_for(edition)
-    if Edition::PRE_PUBLICATION_STATES.include?(edition.state)
-      edition.public_url(draft: true)
-    elsif edition.publicly_visible?
-      edition.public_url
-    end
-  end
 end

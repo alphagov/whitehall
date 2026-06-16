@@ -31,6 +31,12 @@ class ImageData < ApplicationRecord
 
   delegate :url, :content_type, to: :file
 
+  def attachable
+    return Attachable::Null.new if images.empty?
+
+    images.last.edition
+  end
+
   def attachments
     images
   end

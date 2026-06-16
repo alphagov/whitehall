@@ -12,7 +12,7 @@ class Image < ApplicationRecord
 
   delegate :filename, :content_type, :width, :height, :bitmap?, :svg?, :can_be_cropped?, :requires_crop?, :image_kind, to: :image_data
 
-  delegate :deleted?, to: :edition
+  delegate :deleted?, :publicly_visible?, to: :edition
 
   default_scope -> { order(:id) }
 

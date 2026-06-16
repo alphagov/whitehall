@@ -90,4 +90,12 @@ module AssetData
   def needs_discarding?
     attachments.size == 1
   end
+
+  def url_for(edition)
+    if Edition::PRE_PUBLICATION_STATES.include?(edition.state)
+      edition.public_url(draft: true)
+    elsif edition.publicly_visible?
+      edition.public_url
+    end
+  end
 end
