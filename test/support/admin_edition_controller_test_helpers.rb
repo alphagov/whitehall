@@ -962,6 +962,173 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def access_limiting_organisations_ui_on_should_allow_access_limiting_of(edition_type)
+      edition_class = class_for(edition_type)
+
+      view_test "new should preselect the 'none' radio button option for access limiting" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        get :new
+
+        assert_select "form#new_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='none'][checked='checked']", count: 1
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='organisations'][checked='checked']", count: 0
+        end
+      end
+
+      test "create should save with access limiting set to 'none'" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 access_limiting: "none",
+               ),
+             }
+
+        created_edition = edition_class.last
+        assert_equal "none", created_edition.access_limiting
+        assert_empty created_edition.access_limiting_organisations
+      end
+
+      test "create should save with access limiting set to 'organisations'" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 lead_organisation_ids: [organisation.id],
+                 access_limiting: "organisations",
+                 access_limiting_organisation_ids: [organisation.id.to_s],
+               ),
+             }
+
+        created_edition = edition_class.last
+        assert_equal "organisations", created_edition.access_limiting
+        assert created_edition.access_limiting_organisations.exists?(id: organisation.id)
+      end
+
+      #  Characterisation test - correct implementation should cause a validation error. Will be done in upcoming work.
+      test "create should save even when user does not belong to one of the access limiting organisations" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        user_organisation = create(:organisation)
+        controller.current_user.organisation = user_organisation
+        controller.current_user.save!
+        access_limiting_organisation = create(:organisation)
+
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 lead_organisation_ids: [user_organisation.id],
+                 access_limiting: "organisations",
+                 access_limiting_organisation_ids: [access_limiting_organisation.id],
+               ),
+             }
+
+        created_edition = edition_class.last
+        assert_valid created_edition
+        assert_equal "organisations", created_edition.access_limiting
+        assert created_edition.access_limiting_organisations.exists?(id: access_limiting_organisation.id)
+      end
+
+      view_test "edit should display persisted access limiting value" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        edition = create(edition_type, access_limiting: "organisations", access_limiting_organisation_ids: [organisation.id])
+
+        get :edit, params: { id: edition }
+
+        assert_select "form#edit_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='organisations'][checked='checked']", count: 1
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='none'][checked='checked']", count: 0
+        end
+      end
+
+      test "update should change access limiting, from 'none' to 'organisations'" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        edition = create(edition_type, access_limiting: "none")
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [organisation.id],
+                access_limiting: "organisations",
+                access_limiting_organisation_ids: [organisation.id.to_s],
+              },
+            }
+
+        assert_equal "organisations", edition.reload.access_limiting
+        assert edition.access_limiting_organisations.exists?(id: organisation.id)
+      end
+
+      test "update should change access limiting, from 'organisations' to 'none', but retains the organisation IDs in the association" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        organisation = create(:organisation)
+        controller.current_user.organisation = organisation
+        controller.current_user.save!
+
+        edition = create(edition_type, access_limiting: "organisations", access_limiting_organisation_ids: [organisation.id.to_s])
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [organisation.id],
+                access_limiting: "none",
+                access_limiting_organisation_ids: [organisation.id.to_s],
+              },
+            }
+
+        assert_equal "none", edition.reload.access_limiting
+        assert edition.access_limiting_organisations.exists?(id: organisation.id)
+      end
+
+      #  Characterisation test - correct implementation should cause a validation error. Will be done in upcoming work.
+      test "update should save even when user does not belong to one of the access limiting organisations" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        user_organisation = create(:organisation)
+        controller.current_user.organisation = user_organisation
+        controller.current_user.save!
+        access_limiting_organisation = create(:organisation)
+
+        edition = create(edition_type, access_limiting: "none")
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [user_organisation.id],
+                access_limiting: "organisations",
+                access_limiting_organisation_ids: [access_limiting_organisation.id.to_s],
+              },
+            }
+
+        assert_equal "organisations", edition.reload.access_limiting
+        assert edition.access_limiting_organisations.exists?(id: access_limiting_organisation.id)
+      end
+    end
+
     def should_allow_access_limiting_of(edition_type)
       edition_class = class_for(edition_type)
 

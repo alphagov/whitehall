@@ -13,6 +13,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_association_between_world_locations_and :speech
   should_allow_scheduled_publication_of :speech
   should_allow_access_limiting_of :speech
+  access_limiting_organisations_ui_on_should_allow_access_limiting_of :speech
   should_allow_association_with_topical_events :speech
   should_allow_association_with_topical_event_documents :speech
 

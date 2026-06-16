@@ -5,18 +5,39 @@
     heading_size: "m",
   } do %>
     <%= form.hidden_field :access_limiting, value: "none" %>
+    <% if Flipflop.access_limiting_organisations_ui? %>
+      <%= render "govuk_publishing_components/components/radio", {
+        name: "edition[access_limiting]",
+        id_prefix: "edition_access_limiting",
+        error_items: errors_for(edition.errors, :access_limiting_organisation_ids),
+        items: [
+          {
+            value: "none",
+            text: "No access limiting",
+            checked: edition.access_limiting_none?,
+          },
+          {
+            value: "organisations",
+            text: "Organisation access limiting",
+            checked: edition.access_limiting_organisations?,
+            conditional: render("admin/editions/access_limiting_organisation_select", form: form, edition: edition),
+          },
+        ],
+      } %>
+    <% else %>
 
-    <%= render "govuk_publishing_components/components/checkboxes", {
-      name: "edition[access_limiting]",
-      id: "edition_access_limiting",
-      error_items: errors_for(edition.errors, :access_limiting),
-      items: [
-        {
-          label: "Limit access to publishers from organisations associated with this document before you publish",
-          value: "organisations",
-          checked: edition.access_limited?,
-        },
-      ],
-    } %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "edition[access_limiting]",
+        id: "edition_access_limiting",
+        error_items: errors_for(edition.errors, :access_limiting),
+        items: [
+          {
+            label: "Limit access to publishers from organisations associated with this document before you publish",
+            value: "organisations",
+            checked: edition.access_limited?,
+          },
+        ],
+      } %>
+    <% end %>
   <% end %>
 </div>
