@@ -10,6 +10,28 @@ class ConsultationResponseForm < ApplicationRecord
 
   after_destroy :destroy_consultation_response_form_data_if_required
 
+  def publicly_visible?
+    return if consultation_participation.blank?
+
+    return if consultation_participation.consultation.blank?
+
+    consultation_participation.consultation.publicly_visible?
+  end
+
+  def deleted?
+    return if consultation_participation.blank?
+
+    return if consultation_participation.consultation.blank?
+
+    consultation_participation.consultation.deleted?
+  end
+
+  def attachable
+    return if consultation_participation.blank?
+
+    consultation_participation.consultation
+  end  
+
 private
 
   def destroy_consultation_response_form_data_if_required

@@ -1,13 +1,21 @@
 class CallForEvidenceResponseFormData < ApplicationRecord
+  include AssetData
+
   mount_uploader :file, ResponseDocumentUploader, mount_on: :carrierwave_file
 
   has_one :call_for_evidence_response_form
 
-  has_many :assets,
-           as: :assetable,
-           inverse_of: :assetable
-
   validates :file, presence: true
+
+  def attachable
+    return Attachable::Null.new unless call_for_evidence_response_form.present?
+
+    call_for_evidence_response_form
+  end  
+
+  def attachments
+    [call_for_evidence_response_form]
+  end
 
   def auth_bypass_ids
     [call_for_evidence_response_form.call_for_evidence_participation.call_for_evidence.auth_bypass_id]

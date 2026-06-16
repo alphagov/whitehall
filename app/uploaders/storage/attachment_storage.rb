@@ -3,7 +3,7 @@ class Storage::AttachmentStorage < CarrierWave::Storage::Abstract
     original_file = carrierwave_file.to_file
     temporary_location = Whitehall::AssetManagerStorage::TempStorage.store!(original_file)
 
-    logger.info("Saving to Asset Manager for model AttachmentData with ID #{uploader.model&.id || 'nil'}")
+    logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model.id}")
 
     AssetManagerCreateAssetJob.perform_async(temporary_location, uploader.asset_params, true, uploader.model.attachable.class.to_s, uploader.model.attachable.id, uploader.model.auth_bypass_ids || [])
 

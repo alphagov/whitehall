@@ -15,13 +15,13 @@ class Image < ApplicationRecord
   default_scope -> { order(:id) }
 
   def publicly_visible?
-    return unless edition.present?
+    return if edition.blank?
 
     edition.publicly_visible?
   end
 
   def deleted?
-    return unless edition.present?
+    return if edition.blank?
 
     edition.deleted?
   end
