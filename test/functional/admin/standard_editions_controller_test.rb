@@ -1538,6 +1538,77 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "a", text: "Extra tab tab is invalid"
   end
 
+  test "POST :create blocks save when access_limiting_organisations_ui feature flag is on and current user's org is not in access limiting orgs" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    my_org = create(:organisation)
+    other_org = create(:organisation)
+    login_as create(:writer, organisation: my_org)
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    assert_no_difference("StandardEdition.count") do
+      post :create, params: {
+        edition: {
+          configurable_document_type: "test_type",
+          title: "Title",
+          summary: "Summary",
+          access_limiting: "organisations",
+          access_limiting_organisation_ids: [other_org.id.to_s],
+          lead_organisation_ids: [my_org.id],
+        },
+      }
+    end
+
+    assert_template "admin/editions/new"
+    assert_equal "Access can only be limited by users belonging to an organisation tagged to the document", flash[:alert]
+  end
+
+  test "PATCH :update blocks update when access_limiting_organisations_ui feature flag is on and current user's org is not in access limiting orgs" do
+    my_org = create(:organisation)
+    other_org = create(:organisation)
+    login_as create(:writer, organisation: my_org)
+    edition = create(:draft_standard_edition, :with_organisations)
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    patch :update, params: {
+      id: edition,
+      edition: {
+        title: edition.title,
+        summary: edition.summary,
+        access_limiting: "organisations",
+        access_limiting_organisation_ids: [other_org.id.to_s],
+      },
+      save: "save",
+    }
+
+    assert_template :edit
+    assert_equal "Access can only be limited by users belonging to an organisation tagged to the document", flash[:alert]
+    assert_equal "none", edition.reload.access_limiting
+    assert_empty edition.reload.access_limiting_organisations
+  end
+
+  test "PATCH :update allows update when access_limiting_organisations_ui feature flag is on and current user's org is included" do
+    my_org = create(:organisation)
+    login_as create(:writer, organisation: my_org)
+    edition = create(:draft_standard_edition, :with_organisations)
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    patch :update, params: {
+      id: edition,
+      edition: {
+        title: edition.title,
+        summary: edition.summary,
+        access_limiting: "organisations",
+        access_limiting_organisation_ids: [my_org.id.to_s],
+      },
+      save: "save",
+    }
+
+    assert_equal "organisations", edition.reload.access_limiting
+    assert_includes edition.reload.access_limiting_organisation_ids, my_org.id
+  end
+
   def tabbed_document_type(validations: {})
     config = {
       "forms" => {

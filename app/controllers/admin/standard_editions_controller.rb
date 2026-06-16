@@ -46,9 +46,11 @@ class Admin::StandardEditionsController < Admin::EditionsController
   end
 
   def update
-    @edition.assign_attributes(edition_params)
+    @edition.assign_attributes(edition_params.except(:access_limiting_organisation_ids))
 
     if @current_tab_context.present?
+      process_access_limiting_organisations
+
       tab_form = StandardEdition::TabForm.new(@edition, @current_tab_context)
 
       if tab_form.valid?

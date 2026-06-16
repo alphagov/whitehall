@@ -1,6 +1,7 @@
 class Admin::EditionsController < Admin::BaseController
   include HistoricContentConcern
   include Admin::EditionsHelper
+  include AccessLimitingConcern
 
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
@@ -20,6 +21,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :construct_similar_slug_warning_error, only: %i[edit]
+  before_action :prevent_access_limiting_lockout, only: %i[create update]
 
   rescue_from ActiveRecord::StaleObjectError, with: :handle_stale_object_error
 
@@ -93,6 +95,8 @@ class Admin::EditionsController < Admin::BaseController
   def new; end
 
   def create
+    process_access_limiting_organisations
+
     if updater.can_perform? && @edition.save
       updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
@@ -115,7 +119,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    @edition.assign_attributes(edition_params)
+    @edition.assign_attributes(edition_params.except(:access_limiting_organisation_ids))
+    process_access_limiting_organisations
 
     if updater.can_perform? && @edition.save_as(current_user)
 
@@ -548,5 +553,19 @@ private
     @edition.lock_version = @conflicting_edition.lock_version
     build_edition_dependencies
     render :edit
+  end
+
+  def prevent_access_limiting_lockout
+    return unless Flipflop.access_limiting_organisations_ui? && access_limiting_would_lock_out_current_user?
+
+    flash.now[:alert] = "Access can only be limited by users belonging to an organisation tagged to the document"
+
+    if @edition.new_record?
+      build_edition_dependencies
+      render :new
+    else
+      @edition.assign_attributes(edition_params.except(:access_limiting_organisation_ids))
+      render_edition_update_failure
+    end
   end
 end

@@ -41,3 +41,29 @@ end
 Then(/^I should see the validation error "(.+)"$/) do |string|
   expect(page).to have_content string
 end
+
+Given(/^the access_limiting_organisations_ui feature flag is (enabled|disabled)$/) do |state|
+  @test_strategy ||= Flipflop::FeatureSet.current.test!
+  @test_strategy.switch!(:access_limiting_organisations_ui, state == "enabled")
+end
+
+When(/^I choose "([^"]*)"$/) do |option|
+  choose option
+end
+
+When(/^I select the lead organisation as an access limiting organisation$/) do
+  select @org.name, from: "edition_access_limiting_organisation_ids"
+end
+
+Given(/^I create an access limited document$/) do
+  step "I begin drafting a new document"
+  step "I check the \"Limit access to publishers from organisations associated with this document before you publish\" box"
+  step "I click \"Save\""
+end
+
+Then(/^I should still be able to access the document$/) do
+  visit current_url # refresh
+  expect(page).not_to have_content "You do not have permission to access this page."
+  expect(page).to have_content "Test publication"
+  expect(Edition.last.organisations).to eq([@user.organisation])
+end

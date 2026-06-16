@@ -1016,8 +1016,7 @@ module AdminEditionControllerTestHelpers
         assert created_edition.access_limiting_organisations.exists?(id: organisation.id)
       end
 
-      #  Characterisation test - correct implementation should cause a validation error. Will be done in upcoming work.
-      test "create should save even when user does not belong to one of the access limiting organisations" do
+      test "create should save when user belongs to one of the access limiting organisations" do
         feature_flags.switch! :access_limiting_organisations_ui, true
 
         user_organisation = create(:organisation)
@@ -1030,14 +1029,14 @@ module AdminEditionControllerTestHelpers
                edition: controller_attributes_for(edition_type).merge(
                  lead_organisation_ids: [user_organisation.id],
                  access_limiting: "organisations",
-                 access_limiting_organisation_ids: [access_limiting_organisation.id],
+                 access_limiting_organisation_ids: [access_limiting_organisation.id.to_s, user_organisation.id.to_s],
                ),
              }
 
         created_edition = edition_class.last
         assert_valid created_edition
         assert_equal "organisations", created_edition.access_limiting
-        assert created_edition.access_limiting_organisations.exists?(id: access_limiting_organisation.id)
+        assert_equal [access_limiting_organisation.id, user_organisation.id].sort, edition.access_limiting_organisation_ids.sort
       end
 
       view_test "edit should display persisted access limiting value" do
@@ -1103,8 +1102,7 @@ module AdminEditionControllerTestHelpers
         assert edition.access_limiting_organisations.exists?(id: organisation.id)
       end
 
-      #  Characterisation test - correct implementation should cause a validation error. Will be done in upcoming work.
-      test "update should save even when user does not belong to one of the access limiting organisations" do
+      test "update should save when user belongs to one of the access limiting organisations" do
         feature_flags.switch! :access_limiting_organisations_ui, true
 
         user_organisation = create(:organisation)
@@ -1120,12 +1118,12 @@ module AdminEditionControllerTestHelpers
               edition: {
                 lead_organisation_ids: [user_organisation.id],
                 access_limiting: "organisations",
-                access_limiting_organisation_ids: [access_limiting_organisation.id.to_s],
+                access_limiting_organisation_ids: [access_limiting_organisation.id.to_s, user_organisation.id.to_s],
               },
             }
 
         assert_equal "organisations", edition.reload.access_limiting
-        assert edition.access_limiting_organisations.exists?(id: access_limiting_organisation.id)
+        assert_equal [access_limiting_organisation.id, user_organisation.id].sort, edition.access_limiting_organisation_ids.sort
       end
     end
 

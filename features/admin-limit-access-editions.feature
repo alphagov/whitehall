@@ -23,3 +23,13 @@ Feature: Viewing most recent editions in admin
     And I check the "Limit access to publishers from organisations associated with this document before you publish" box
     When I click "Save"
     Then I should see the validation error "Access can only be limited by users belonging to an organisation tagged to the document"
+
+  Scenario: Attempting to access limit a new document against a different org via the new organisations UI
+    Given I am an editor
+    And the access_limiting_organisations_ui feature flag is enabled
+    When I begin drafting a new document
+    And I set the Lead organisation to an org I am not in
+    And I choose "Organisation access limiting"
+    And I select the lead organisation as an access limiting organisation
+    When I click "Save"
+    Then I should see the validation error "Access can only be limited by users belonging to an organisation tagged to the document"

@@ -247,6 +247,71 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select ".app-view-summary__taxonomy-topics .govuk-link", "Add tags"
   end
 
+  test "POST :create blocks save when access_limiting_organisations_ui feature flag is on and current user's org is not in access limiting orgs" do
+    my_org = create(:organisation)
+    other_org = create(:organisation)
+    login_as create(:writer, organisation: my_org)
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    assert_no_difference("Publication.count") do
+      post :create, params: {
+        edition: controller_attributes_for(
+          :publication,
+          first_published_at: Date.parse("2010-10-21"),
+          previously_published: "true",
+          publication_type_id: PublicationType::ResearchAndAnalysis.id,
+          lead_organisation_ids: [my_org.id],
+          access_limiting: "organisations",
+          access_limiting_organisation_ids: [other_org.id.to_s],
+        ),
+      }
+    end
+
+    assert_template "admin/editions/new"
+    assert_equal "Access can only be limited by users belonging to an organisation tagged to the document", flash[:alert]
+  end
+
+  test "PATCH :update blocks update when access_limiting_organisations_ui feature flag is on and current user's org is not in access limiting orgs" do
+    my_org = create(:organisation)
+    other_org = create(:organisation)
+    login_as create(:writer, organisation: my_org)
+    edition = create(:draft_publication, organisations: [my_org])
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    patch :update, params: {
+      id: edition,
+      edition: {
+        access_limiting: "organisations",
+        access_limiting_organisation_ids: [other_org.id.to_s],
+      },
+      save: "save",
+    }
+
+    assert_template :edit
+    assert_equal "Access can only be limited by users belonging to an organisation tagged to the document", flash[:alert]
+    assert_equal "none", edition.reload.access_limiting
+    assert_empty edition.reload.access_limiting_organisations
+  end
+
+  test "PATCH :update allows update when access_limiting_organisations_ui feature flag is on and current user's org is included in access limiting orgs" do
+    my_org = create(:organisation)
+    login_as create(:writer, organisation: my_org)
+    edition = create(:draft_publication, organisations: [my_org])
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    patch :update, params: {
+      id: edition,
+      edition: {
+        access_limiting: "organisations",
+        access_limiting_organisation_ids: [my_org.id.to_s],
+      },
+      save: "save",
+    }
+
+    assert_equal "organisations", edition.reload.access_limiting
+    assert_includes edition.reload.access_limiting_organisation_ids, my_org.id
+  end
+
 private
 
   def publication_has_no_expanded_links(content_id)

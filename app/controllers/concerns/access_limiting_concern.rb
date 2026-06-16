@@ -30,4 +30,28 @@ module AccessLimitingConcern
       @edition.edition_access_limiting_organisations.each(&:mark_for_destruction)
     end
   end
+
+  def assign_access_limiting_organisations
+    return unless Flipflop.access_limiting_organisations_ui?
+    return unless submitted_access_limiting_organisation_ids.any?
+
+    @edition.edition_access_limiting_organisations.each(&:mark_for_destruction)
+    submitted_access_limiting_organisation_ids.each do |org_id|
+      @edition.edition_access_limiting_organisations.build(organisation_id: org_id.to_i)
+    end
+  end
+
+  def access_limiting_would_lock_out_current_user?
+    return false unless current_user.organisation && edition_params[:access_limiting] == "organisations"
+
+    submitted_ids = submitted_access_limiting_organisation_ids.map(&:to_i)
+    submitted_ids.any? && submitted_ids.exclude?(current_user.organisation.id)
+  end
+
+  def process_access_limiting_organisations
+    return unless Flipflop.access_limiting_organisations_ui?
+
+    assign_access_limiting_organisations
+    access_limiting_organisations_valid?
+  end
 end
