@@ -1,6 +1,8 @@
 require "test_helper"
 
 class Edition::LimitedAccessTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
   class LimitedAccessEdition < Edition
     include Edition::LimitedAccess
     include Edition::Organisations
@@ -62,49 +64,126 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert edition.accessible_to?(user)
   end
 
-  test "is invalid when access_limiting is set to 'organisations' and no access limiting organisations are selected" do
-    @feature_flags.switch!(:access_limiting_organisations_ui, true)
+  context "with access_limiting_organisations_ui flag on" do
+    test "is valid when access_limiting is set to 'organisations' and access limiting organisations are present" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      org = create(:organisation)
 
-    edition = create(:edition)
-    edition.access_limiting = :organisations
-    edition.access_limiting_organisation_ids = []
+      edition = build(:edition)
+      edition.access_limiting = :organisations
+      edition.access_limiting_organisation_ids = [org.id]
 
-    assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_organisation_ids],
-                    "must include at least one organisation when access limiting is enabled"
+      assert edition.valid?
+    end
+
+    test "is valid when access_limiting is set to 'none' regardless of access limiting organisations" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+      edition = build(:limited_access_edition, access_limiting: :none)
+      edition.access_limiting_organisation_ids = []
+      assert edition.valid?
+    end
+
+    test "is invalid when access_limiting is set to 'organisations' and no access limiting organisations are present" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+      edition = build(:limited_access_edition, access_limiting: :organisations)
+      edition.access_limiting_organisation_ids = []
+
+      assert_not edition.valid?
+      assert_includes edition.errors[:access_limiting_organisation_ids], "must include at least one organisation"
+    end
+
+    test "create does not persist edition with invalid access_limiting_organisations" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      edition = build(:limited_access_edition, access_limiting: "organisations")
+      edition.access_limiting_organisation_ids = []
+
+      assert_no_changes -> { AccessLimitingOrganisation.count } do
+        assert_not edition.save
+      end
+      assert_equal [], edition.access_limiting_organisation_ids
+    end
+
+    test "create does not persist edition with valid access_limiting_organisations when another field is invalid" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      org = create(:organisation)
+      edition = build(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [org.id])
+      edition.title = ""
+
+      assert_no_changes -> { AccessLimitingOrganisation.count } do
+        assert_not edition.save
+      end
+      assert_equal [org.id], edition.access_limiting_organisation_ids
+    end
+
+    test "creates and updates edition with access limiting organisations" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      original_org = create(:organisation)
+      edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [original_org.id])
+
+      assert_equal [original_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
+
+      new_org = create(:organisation)
+      edition.access_limiting_organisation_ids = [new_org.id]
+      edition.save!
+
+      assert_equal [new_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
+    end
+
+    test "update does not persist valid access_limiting_organisations on assignment" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      original_org = create(:organisation)
+      edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [original_org.id])
+
+      updated_org = create(:organisation)
+      edition.access_limiting_organisation_ids = [updated_org.id]
+
+      assert_equal [original_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
+    end
+
+    test "update does not persist invalid assigned access_limiting_organisations" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+      old_org = create(:organisation)
+      edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [old_org.id])
+      edition.access_limiting_organisation_ids = []
+
+      assert_not edition.save
+      assert_includes edition.errors[:access_limiting_organisation_ids], "must include at least one organisation"
+      assert_equal [], edition.access_limiting_organisation_ids # In-memory should show the cleared value the user set
+      assert_equal [old_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id) # DB should remain unchanged (still the original org)
+    end
+
+    test "update does not persist valid assigned access_limiting_organisations when another field is invalid" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+      old_org = create(:organisation)
+      edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [old_org.id])
+      new_org = create(:organisation)
+      edition.access_limiting_organisation_ids = [new_org.id]
+      edition.title = ""
+
+      assert_not edition.save
+      assert_equal [new_org.id], edition.access_limiting_organisation_ids # In-memory should reflect the newly assigned orgs
+      assert_equal [old_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id) # DB should remain unchanged (still the original org)
+    end
   end
 
-  test "is valid when access_limiting is set to 'organisations' and access limiting organisations are present" do
-    @feature_flags.switch!(:access_limiting_organisations_ui, true)
-    org = create(:organisation)
+  context "with access_limiting_organisations_ui flag off" do
+    test "is valid when access_limiting is set to 'organisations' and no access limiting organisations are selected" do
+      edition = create(:consultation, access_limiting: :organisations)
+      edition.access_limiting_organisation_ids = []
+      assert edition.valid?
+    end
 
-    edition = create(:edition)
-    edition.access_limiting = :organisations
-    edition.access_limiting_organisation_ids = [org.id]
+    test "is invalid when access_limiting is set to 'organisations' and no edition organisations are selected" do
+      edition = create(:consultation, access_limiting: :organisations)
+      edition.organisation_ids = []
 
-    assert edition.valid?
-  end
-
-  test "is valid when access_limiting is set to 'none' regardless of access limiting organisations" do
-    @feature_flags.switch!(:access_limiting_organisations_ui, true)
-
-    edition = create(:limited_access_edition, access_limiting: :none)
-    edition.access_limiting_organisation_ids = []
-    assert edition.valid?
-  end
-
-  test "is valid when access_limiting is set to 'organisations' and no access limiting organisations are selected when flag is off" do
-    edition = create(:consultation, access_limiting: :organisations)
-    edition.access_limiting_organisation_ids = []
-    assert edition.valid?
-  end
-
-  test "is invalid when access_limiting is set to 'organisations' and no edition organisations are selected when flag is off" do
-    edition = create(:consultation, access_limiting: :organisations)
-    edition.organisation_ids = []
-
-    assert_not edition.valid?
-    assert_includes edition.errors[:lead_organisation_ids], "at least one required"
+      assert_not edition.valid?
+      assert_includes edition.errors[:lead_organisation_ids], "at least one required"
+    end
   end
 
   test "setting access_limiting writes through to the legacy access_limited column" do

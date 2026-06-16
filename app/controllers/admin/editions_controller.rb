@@ -247,6 +247,7 @@ private
         all_nation_applicability: [],
         lead_organisation_ids: [],
         supporting_organisation_ids: [],
+        access_limiting_organisation_ids: [],
         organisation_ids: [],
         role_ids: [],
         world_location_ids: [],
@@ -468,6 +469,8 @@ private
     if params[:review_reminder].blank? && edition_params.dig("document_attributes", "review_reminder_attributes").present?
       edition_params["document_attributes"]["review_reminder_attributes"]["_destroy"] = "1"
     end
+
+    edition_params[:access_limiting_organisation_ids] = [] if edition_params[:access_limiting] == "none"
   end
 
   def clear_scheduled_publication_if_not_activated
