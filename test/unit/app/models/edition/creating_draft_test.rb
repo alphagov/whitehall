@@ -156,4 +156,19 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
     assert_equal "logos/flag.jpeg", draft_edition.logo_url
   end
+
+  test "should not set access limiting on new drafts of a live document" do
+    organisation = create(:organisation)
+    published_edition = create(
+      :consultation,
+      :published,
+      access_limiting: :none,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+    new_draft = published_edition.create_draft(create(:writer))
+
+    assert new_draft.access_limiting_none?
+    assert_empty new_draft.access_limiting_organisations
+  end
 end
