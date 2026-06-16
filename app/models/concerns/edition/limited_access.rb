@@ -8,6 +8,16 @@ module Edition::LimitedAccess
       individuals: "individuals",
     }, prefix: true, default: nil
 
+    has_many :edition_access_limiting_organisations,
+             class_name: "AccessLimitingOrganisation",
+             dependent: :destroy,
+             autosave: true,
+             validate: false
+
+    has_many :access_limiting_organisations,
+             through: :edition_access_limiting_organisations,
+             source: :organisation
+
     after_initialize :set_access_limited
   end
 
