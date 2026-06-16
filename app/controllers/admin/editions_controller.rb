@@ -1,6 +1,7 @@
 class Admin::EditionsController < Admin::BaseController
   include HistoricContentConcern
   include Admin::EditionsHelper
+  include AccessLimitingConcern
 
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
@@ -114,6 +115,8 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     @edition.assign_attributes(edition_params)
+
+    sync_access_limiting_organisations if Flipflop.access_limiting_organisations_ui?
 
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
@@ -258,6 +261,7 @@ private
         all_nation_applicability: [],
         lead_organisation_ids: [],
         supporting_organisation_ids: [],
+        access_limiting_organisation_ids: [],
         organisation_ids: [],
         role_ids: [],
         world_location_ids: [],
