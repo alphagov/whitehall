@@ -101,10 +101,14 @@ module Whitehall::Authority::Rules
     end
 
     def access_limit_enforced?
-      if subject.access_limited?
-        organisations = subject.organisations
-        organisations += subject.edition_organisations.map(&:organisation) if subject.respond_to?(:edition_organisations)
-        organisations.exclude?(actor.organisation)
+      if subject.access_limiting_organisations?
+        if Flipflop.access_limiting_organisations_ui?
+          subject.access_limiting_organisations.any? && subject.access_limiting_organisations.exclude?(actor.organisation)
+        else
+          organisations = subject.organisations
+          organisations += subject.edition_organisations.map(&:organisation) if subject.respond_to?(:edition_organisations)
+          organisations.exclude?(actor.organisation)
+        end
       else
         false
       end
