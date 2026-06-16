@@ -6,7 +6,7 @@ module Edition::LimitedAccess
       none: "none",
       organisations: "organisations",
       individuals: "individuals",
-    }, prefix: true
+    }, prefix: true, default: nil
 
     after_initialize :set_access_limited
   end
@@ -34,11 +34,9 @@ module Edition::LimitedAccess
   delegate :access_limited_by_default?, to: :class
 
   def set_access_limited
-    return if access_limited_by_default?.nil?
+    return unless new_record? && access_limiting.nil?
 
-    if new_record? && access_limited_by_default? && access_limiting_none?
-      self.access_limiting = :organisations
-    end
+    self.access_limiting = access_limited_by_default? ? :organisations : :none
   end
 
   def accessible_to?(user)

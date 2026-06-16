@@ -113,11 +113,11 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test "new instances are access_limited based on their publication_type" do
-    limit_by_default, dont_limit_by_default = PublicationType.all.partition(&:access_limited_by_default?).map(&:first)
-    e = build(:draft_publication, publication_type: limit_by_default)
-    assert e.access_limited?
-    e = build(:draft_publication, publication_type: dont_limit_by_default)
-    assert_not e.access_limited?
+    limit_by_default, dont_limit_by_default =
+      PublicationType.all.partition(&:access_limited_by_default?).map(&:first)
+
+    assert Publication.new(publication_type: limit_by_default).access_limited?
+    assert_not Publication.new(publication_type: dont_limit_by_default).access_limited?
   end
 
   test "new instances respect local access_limiting over their publication_type" do
