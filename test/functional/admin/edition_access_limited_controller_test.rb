@@ -14,6 +14,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  # access_limiting_organisations_ui flag is off
   view_test "GET :edit should display the correct fields" do
     organisation = create(:organisation)
 
@@ -41,6 +42,43 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
 
       refute_select "#edition_lead_organisation_ids_5"
       assert_select("#edition_supporting_organisation_ids")
+    end
+  end
+
+  view_test "GET :edit should show radio buttons instead of checkbox when access_limiting_organisations_ui flag is on" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :none,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+
+    get :edit, params: { id: edition }
+
+    assert_select "input[name='edition[access_limiting]'][type=radio]"
+    assert_select "input[name='edition[access_limited]'][type=checkbox]", count: 0
+  end
+
+  view_test "GET :edit persists user selection of 'organisations' access limiting when flag is on" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :organisations,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+      access_limiting_organisation_ids: [organisation.id],
+    )
+
+    get :edit, params: { id: edition }
+
+    assert_select "input[name='edition[access_limiting]'][value='organisations'][checked=checked]"
+    assert_select "select[name='edition[access_limiting_organisation_ids][]']" do
+      assert_select "option[selected='selected'][value='#{organisation.id}']"
     end
   end
 
@@ -86,6 +124,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_equal "Access options updated by GDS Admin: #{editorial_remark}", edition.editorial_remarks.last.body
   end
 
+  # access_limiting_organisations_ui flag is off
   test "PATCH :update allows access_limited to be updated and creates an editorial remark" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
@@ -119,6 +158,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_equal "Access options updated by GDS Admin: #{editorial_remark}", edition.editorial_remarks.last.body
   end
 
+  # access_limiting_organisations_ui flag is off
   test "PATCH :update re-renders edit template if editorial remark is not provided" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
@@ -147,6 +187,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert edition.reload.access_limited?
   end
 
+  # access_limiting_organisations_ui flag is off
   test "PATCH :update doesn't create an editorial remark or re-render with an error when nothing has changed" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
@@ -173,5 +214,142 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_redirected_to admin_editions_path
     assert_equal "Access updated for #{edition.title}", flash[:notice]
     assert_equal 0, edition.editorial_remarks.count
+  end
+
+  test "PATCH :update remains access limited when flag is off and access_limiting_organisations were previously set" do
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :organisations,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+      access_limiting_organisation_ids: [organisation.id],
+    )
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "organisations",
+            editorial_remark: "No change to access limiting",
+          },
+        }
+
+    assert_redirected_to admin_editions_path
+    assert edition.reload.access_limited?
+    assert edition.access_limiting_organisations.exists?(id: organisation.id)
+  end
+
+  test "PATCH :update should save access_limiting_organisation_ids and set access_limited when access_limiting_organisations_ui flag is on" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :none,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "organisations",
+            access_limiting_organisation_ids: [organisation.id.to_s],
+            editorial_remark: "Test",
+          },
+        }
+
+    assert_redirected_to admin_editions_path
+    assert edition.reload.access_limited?
+    assert edition.access_limiting_organisations.exists?(id: organisation.id)
+  end
+
+  test "PATCH :update renders a validation error when access_limiting is set to organisations but no organisations provided" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :none,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+    )
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "organisations",
+            access_limiting_organisation_ids: [],
+            editorial_remark: "Test",
+          },
+        }
+
+    assert_template :edit
+    assert_includes assigns(:edition).errors[:access_limiting_organisation_ids],
+                    "must include at least one organisation when access limiting is enabled"
+  end
+
+  test "PATCH :update does not clear access_limiting_organisations in DB when validation fails" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :organisations,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+      access_limiting_organisation_ids: [organisation.id],
+    )
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "organisations",
+            access_limiting_organisation_ids: [],
+            editorial_remark: "Test",
+          },
+        }
+
+    assert_template :edit
+    assert edition.reload.access_limited?
+    assert edition.access_limiting_organisations.exists?(id: organisation.id)
+    assert_includes assigns(:edition).errors[:access_limiting_organisation_ids],
+                    "must include at least one organisation when access limiting is enabled"
+  end
+
+  test "PATCH :update clears access_limiting_organisations when access_limiting is set to none" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :organisations,
+      create_default_organisation: false,
+      lead_organisations: [organisation],
+      access_limiting_organisation_ids: [organisation.id],
+    )
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+            access_limiting: "none",
+            access_limiting_organisation_ids: [],
+            editorial_remark: "Removing access limiting",
+          },
+        }
+
+    assert_redirected_to admin_editions_path
+    assert_not edition.reload.access_limited?
+    assert_empty edition.access_limiting_organisations
   end
 end
