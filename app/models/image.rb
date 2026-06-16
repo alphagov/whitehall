@@ -12,9 +12,19 @@ class Image < ApplicationRecord
 
   delegate :filename, :content_type, :width, :height, :bitmap?, :svg?, :can_be_cropped?, :requires_crop?, :image_kind, to: :image_data
 
-  delegate :deleted?, :publicly_visible?, to: :edition
-
   default_scope -> { order(:id) }
+
+  def publicly_visible?
+    return unless edition.present?
+
+    edition.publicly_visible?
+  end
+
+  def deleted?
+    return unless edition.present?
+
+    edition.deleted?
+  end
 
   def attachable
     edition
