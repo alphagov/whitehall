@@ -54,5 +54,28 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
 
       assert_equal("Sample body content", edition.block_content.to_h["body"])
     end
+
+    it "carries over social media links to block_content" do
+      legacy_topical_event = create(:topical_event)
+      legacy_topical_event.social_media_accounts = [
+        create(
+          :social_media_account,
+          social_media_service: SocialMediaService.new(name: "Facebook"),
+          url: "https://www.facebook.com",
+          title: "Facebook link",
+        ),
+      ]
+      legacy_topical_event.save!
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      assert_equal([
+        {
+          "social_media_service_name" => "Facebook",
+          "url" => "https://www.facebook.com",
+          "title" => "Facebook link",
+        },
+      ], edition.block_content.to_h["social_media_links"])
+    end
   end
 end

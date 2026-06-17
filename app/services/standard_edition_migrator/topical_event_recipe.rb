@@ -12,6 +12,13 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       summary: record.summary,
       block_content: {
         "body" => record.description,
+        "social_media_links" => record.social_media_accounts.map do |account|
+          {
+            "social_media_service_name" => account.service_name,
+            "url" => account.url,
+            "title" => account.display_name,
+          }
+        end,
       },
     )
   end
