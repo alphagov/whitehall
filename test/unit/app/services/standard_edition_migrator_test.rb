@@ -286,19 +286,24 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
       standard_edition_calls, restore_standard_edition = capture_save_calls.call(StandardEdition)
       sitewide_setting_calls, restore_sitewide_setting = capture_save_calls.call(SitewideSetting)
+      translation_calls, restore_translation = capture_save_calls.call(Edition::Translation)
       document_calls, restore_document = capture_save_calls.call(Document)
 
       document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
-      document.editions.last
+      edition = document.editions.last
 
       assert_includes standard_edition_calls, { validate: false }
       assert_includes standard_edition_calls, { validate: true }
       assert_includes sitewide_setting_calls, { validate: false }
       assert_includes sitewide_setting_calls, { validate: true }
+      assert_includes translation_calls, { validate: false }
+      assert_includes translation_calls, { validate: true }
       assert_includes document_calls, { validate: false }
       assert_includes document_calls, { validate: true }
+      assert_equal edition.id, edition.translations.first.edition_id
     ensure
       restore_document.call
+      restore_translation.call
       restore_sitewide_setting.call
       restore_standard_edition.call
     end

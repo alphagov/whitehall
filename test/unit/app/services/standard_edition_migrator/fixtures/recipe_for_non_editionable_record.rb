@@ -25,6 +25,10 @@ class StandardEditionMigrator::RecipeForNonEditionableRecord < StandardEditionMi
       )
     end
     queue_for_saving(SitewideSetting.new(key: "foo")) # Proof of concept
+    edition.translations.each do |translation|
+      # More realistic proof of concept - and we can test that edition_id is set properly
+      queue_for_saving(translation)
+    end
     edition
   end
 end

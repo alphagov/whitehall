@@ -22,6 +22,9 @@ class StandardEditionMigrator::RecipeForLegacyEditionableDocument < StandardEdit
         },
       )
     end
+    edition.translations.each do |translation|
+      queue_for_saving(translation)
+    end
     edition
   end
 end

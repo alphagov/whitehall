@@ -57,7 +57,7 @@ class StandardEditionMigrator
       # a validation error is raised.
       [false, true].each do |validate|
         edition.save!(validate:)
-        recipe_instance.save_artefacts!(validate:)
+        recipe_instance.save_artefacts!(validate:, edition:)
         document.save!(validate:)
       end
     end
