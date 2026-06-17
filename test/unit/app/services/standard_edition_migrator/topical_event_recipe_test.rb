@@ -77,5 +77,25 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
         },
       ], edition.block_content.to_h["social_media_links"])
     end
+
+    it "carries over lead and supporting organisations" do
+      legacy_topical_event = create(:topical_event)
+      lead_organisation = create(:organisation)
+      supporting_organisation = create(:organisation)
+      legacy_topical_event.topical_event_organisations = [
+        create(:topical_event_organisation, lead: true, organisation: lead_organisation),
+        create(:topical_event_organisation, lead: false, organisation: supporting_organisation),
+      ]
+      legacy_topical_event.save!
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+      edition.document = create(:document)
+      edition.save!(validate: false)
+      edition.reload
+
+      assert_equal [lead_organisation], edition.lead_organisations
+      assert_equal [supporting_organisation], edition.supporting_organisations
+    end
   end
 end
