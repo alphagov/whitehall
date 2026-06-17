@@ -10,6 +10,9 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       configurable_document_type: "topical_event",
       title: record.name,
       summary: record.summary,
+      block_content: {
+        "body" => record.description,
+      },
     )
   end
 end
