@@ -29,5 +29,19 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
         recipe.build_edition(legacy_topical_event)
       end
     end
+
+    it "maps the basic legacy fields" do
+      legacy_topical_event = create(
+        :topical_event,
+        name: "Topical event title",
+        summary: "Sample summary",
+      )
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      assert_equal "topical_event", edition.configurable_document_type
+      assert_equal "Topical event title", edition.title
+      assert_equal "Sample summary", edition.summary
+    end
   end
 end
