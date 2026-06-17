@@ -15,7 +15,7 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   should_allow_alternative_format_provider_for :statistical_data_set
   should_allow_overriding_of_first_published_at_for :statistical_data_set
   should_allow_scheduled_publication_of :statistical_data_set
-  should_allow_access_limiting_of :statistical_data_set
+  access_limiting_organisations_ui_off_should_allow_access_limiting_of :statistical_data_set
   access_limiting_organisations_ui_on_should_allow_access_limiting_of :statistical_data_set
 
   def controller_attributes_for(edition_type, attributes = {})
