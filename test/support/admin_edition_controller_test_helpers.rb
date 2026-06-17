@@ -1129,7 +1129,7 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_access_limiting_of(edition_type)
+    def access_limiting_organisations_ui_off_should_allow_access_limiting_of(edition_type)
       edition_class = class_for(edition_type)
 
       test "create should record the access_limiting flag" do

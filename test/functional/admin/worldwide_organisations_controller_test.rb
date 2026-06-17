@@ -11,7 +11,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   should_allow_editing_of :worldwide_organisation
   should_allow_only_lead_organisations_for :worldwide_organisation
   should_allow_scheduled_publication_of :worldwide_organisation
-  should_allow_access_limiting_of :worldwide_organisation
+  access_limiting_organisations_ui_off_should_allow_access_limiting_of :worldwide_organisation
   access_limiting_organisations_ui_on_should_allow_access_limiting_of :worldwide_organisation
   should_allow_association_between_roles_and :worldwide_organisation
   should_allow_association_between_world_locations_and :worldwide_organisation

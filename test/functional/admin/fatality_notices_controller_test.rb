@@ -18,7 +18,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_allow_overriding_of_first_published_at_for :fatality_notice
   should_have_summary :fatality_notice
   should_allow_scheduled_publication_of :fatality_notice
-  should_allow_access_limiting_of :fatality_notice
+  access_limiting_organisations_ui_off_should_allow_access_limiting_of :fatality_notice
   access_limiting_organisations_ui_on_should_allow_access_limiting_of :fatality_notice
   should_render_govspeak_history_and_fact_checking_tabs_for :fatality_notice
 
