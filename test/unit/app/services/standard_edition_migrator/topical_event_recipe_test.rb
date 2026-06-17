@@ -97,5 +97,41 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal [lead_organisation], edition.lead_organisations
       assert_equal [supporting_organisation], edition.supporting_organisations
     end
+
+    it "carries over Features (legacy term: Featurings) and their thumbnails" do
+      legacy_topical_event = create(:topical_event)
+      legacy_govuk_content_featuring = create(:topical_event_featuring, ordering: 1)
+      legacy_offsite_link_featuring = create(:offsite_topical_event_featuring, ordering: 2)
+      legacy_topical_event.topical_event_featurings = [
+        legacy_govuk_content_featuring,
+        legacy_offsite_link_featuring,
+      ]
+      legacy_topical_event.save!
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      # Needed to persist the Features and create IDs etc
+      edition.document = create(:document)
+      edition.save!(validate: false)
+      recipe.save_artefacts!(validate: false, edition: edition)
+      edition.reload # to ensure everything has persisted
+      govuk_content_feature = edition.feature_lists.first.features.first
+      offsite_link_feature = edition.feature_lists.first.features.second
+
+      # TopicalEventFeaturing -> Featurable
+      assert_equal legacy_govuk_content_featuring.edition.document, govuk_content_feature.document
+      assert_equal legacy_govuk_content_featuring.alt_text, govuk_content_feature.alt_text
+      assert_equal legacy_govuk_content_featuring.ordering, govuk_content_feature.ordering
+      assert_equal legacy_offsite_link_featuring.offsite_link, offsite_link_feature.offsite_link
+      assert_equal legacy_offsite_link_featuring.alt_text, offsite_link_feature.alt_text
+      assert_equal legacy_offsite_link_featuring.ordering, offsite_link_feature.ordering
+
+      # TopicalEventFeaturingImageData -> FeaturedImageData
+      assert_equal legacy_govuk_content_featuring.image.filename, govuk_content_feature.image.filename
+      assert_equal legacy_offsite_link_featuring.image.filename, offsite_link_feature.image.filename
+      assert_equal 7, govuk_content_feature.image.assets.size
+      assert_equal 7, offsite_link_feature.image.assets.size
+    end
   end
 end

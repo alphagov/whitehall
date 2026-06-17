@@ -22,7 +22,39 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       },
       lead_organisations: record.topical_event_organisations.where(lead: true).map(&:organisation),
       supporting_organisations: record.topical_event_organisations.where(lead: false).map(&:organisation),
+      feature_lists: [feature_list(record)],
     }
     StandardEdition.new(attributes)
+  end
+
+private
+
+  def feature_list(record)
+    feature_list = FeatureList.new(locale: "en")
+    feature_list.features = record.topical_event_featurings.map do |featuring|
+      featured_image = FeaturedImageData.new(
+        carrierwave_image: featuring.image.carrierwave_image,
+      )
+      featuring.image.assets.each do |asset|
+        duplicated_asset = asset.dup
+        duplicated_asset.assetable = featured_image
+        featured_image.assets << duplicated_asset
+      end
+
+      attrs = {
+        image: featured_image,
+        alt_text: featuring.alt_text,
+        ordering: featuring.ordering,
+      }
+      if featuring.offsite_link
+        attrs[:offsite_link] = featuring.offsite_link
+      else
+        attrs[:document] = featuring.edition.document
+      end
+      Feature.new(attrs)
+    end
+
+    queue_for_saving(feature_list)
+    feature_list
   end
 end
