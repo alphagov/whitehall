@@ -723,11 +723,35 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "First published date must be after the start of the current government (11/11/2009)", edition.errors.full_messages.first
   end
 
+  test "an edition from a previous government can still be redrafted if it's first published at date hasn't changed" do
+    create(:previous_government, start_date: 10.years.ago, end_date: 5.years.ago)
+
+    first_published_at = 6.years.ago
+
+    first_edition = create(:published_edition, first_published_at: first_published_at)
+    create(:current_government, start_date: 5.years.ago)
+    second_edition = first_edition.create_draft(create(:writer))
+    second_edition.minor_change = true
+
+    # simulate what happens when the draft edition form is saved - ie the seconds part of first_published_at is lost
+    second_edition.first_published_at = first_published_at.change(sec: 0)
+
+    assert second_edition.valid?
+  end
+
   test "political editions can have their first_published_at date set before the current government " do
     create(:current_government)
     political_edition = create(:edition, political: true, first_published_at: 10.years.ago)
 
     assert political_edition.valid?
+  end
+
+  test "non-polictial, published editions with first_published_at date set before the current government can be redrafted" do
+    create(:current_government)
+    first_edition = create(:published_edition, political: false, first_published_at: 10.years.ago)
+    second_edition = first_edition.create_draft(create(:writer))
+    second_edition.minor_change = true
+    assert second_edition.valid?
   end
 
   test "political editions can have their first_published_at date after the earliest change note" do
@@ -1138,6 +1162,41 @@ class EditionTest < ActiveSupport::TestCase
     political_edition = create(:edition, political: true, first_published_at: 9.years.ago, government_id: prev_government.id)
 
     assert political_edition.valid?
+  end
+
+  test "#first_published_at_date_changed? returns true when first_published_at has been added" do
+    edition = create(:edition, first_published_at: nil)
+    edition.first_published_at = Time.zone.now
+    assert edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns true when first_published_at has been removed" do
+    edition = create(:edition, first_published_at: Time.zone.now)
+    edition.first_published_at = nil
+    assert edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns true when the date has changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    edition.first_published_at = Time.zone.today
+    assert edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns false when the date has not changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    assert_not edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns true when the time (excl seconds) has changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    edition.first_published_at = edition.first_published_at.change(hour: 1.hour.ago.hour, min: 1.minute.ago.min)
+    assert edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns false when only the seconds have changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    edition.first_published_at = edition.first_published_at.change(sec: 10.seconds.ago.sec)
+    assert_not edition.first_published_at_date_changed?
   end
 
   def decoded_token_payload(token)

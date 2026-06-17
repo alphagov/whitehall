@@ -69,8 +69,8 @@ class Edition < ApplicationRecord
   validates :political, inclusion: { in: [true, false] }
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }
 
-  validate :first_published_precedes_change_notes, if: -> { draft? && first_published_at_changed? }
-  validate :first_published_within_current_govt, if: -> { draft? && first_published_at_changed? }
+  validate :first_published_precedes_change_notes, if: -> { draft? && first_published_at_date_changed? }
+  validate :first_published_within_current_govt, if: -> { draft? && first_published_at_date_changed? }
   validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
   validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: -> { draft? && errors.attribute_names.exclude?(:first_published_at) }, allow_blank: true
 
@@ -457,7 +457,6 @@ class Edition < ApplicationRecord
   end
 
   def first_published_precedes_change_notes
-    return if first_published_at.blank?
     return if other_editions.empty?
     return if political?
 
@@ -480,6 +479,19 @@ class Edition < ApplicationRecord
     if first_published_at.to_date <= current_govt.start_date
       errors.add(:first_published_at, :before_current_govt, earliest: current_govt.start_date.strftime("%d/%m/%Y"))
     end
+  end
+
+  def first_published_at_date_changed?
+    return false if first_published_at_change.nil?
+
+    old_date, new_date = first_published_at_change
+
+    return true if new_date.nil? || old_date.nil?
+
+    # When a first edition is published, seconds and milliseconds are set for `first_published_at`.  The edition form doesn't allow user to specific seconds or milliseconds,
+    # so these are lost when an edition is redrafted.
+    # We need to ignore changes in seconds and milliseconds when considering whether the date has changed for validation purposes.
+    new_date.change(sec: 0) != old_date.change(sec: 0)
   end
 
 private
