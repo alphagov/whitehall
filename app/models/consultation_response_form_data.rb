@@ -7,6 +7,10 @@ class ConsultationResponseFormData < ApplicationRecord
 
   validates :file, presence: true
 
+  def replaced?
+    false
+  end
+
   def attachable
     return Attachable::Null.new unless consultation_response_form.present?
 

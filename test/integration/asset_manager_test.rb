@@ -165,10 +165,25 @@ class AssetManagerIntegrationTest
       @filename = "greenpaper.pdf"
       @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
       ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
+
+      consultation = FactoryBot.build(
+        :consultation
+      )
+
+      consultation.consultation_participation = FactoryBot.build(
+        :consultation_participation,
+      )
+
+      consultation.consultation_participation.consultation_response_form = FactoryBot.build(
+        :consultation_response_form
+      )
+
       @consultation_response_form_data = FactoryBot.build(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(@filename)),
       )
+
+      consultation.consultation_participation.consultation_response_form.consultation_response_form_data = @consultation_response_form_data
     end
 
     test "sends the consultation response form data file to Asset Manager" do

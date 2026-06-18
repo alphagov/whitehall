@@ -1,4 +1,4 @@
-class AssetManager::AssetUpdater
+ class AssetManager::AssetUpdater
   include AssetManager::ServiceHelper
 
   class AssetAttributesEmpty < StandardError
