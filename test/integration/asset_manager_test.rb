@@ -167,7 +167,7 @@ class AssetManagerIntegrationTest
       ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
 
       consultation = FactoryBot.build(
-        :consultation
+        :consultation,
       )
 
       consultation.consultation_participation = FactoryBot.build(
@@ -175,7 +175,7 @@ class AssetManagerIntegrationTest
       )
 
       consultation.consultation_participation.consultation_response_form = FactoryBot.build(
-        :consultation_response_form
+        :consultation_response_form,
       )
 
       @consultation_response_form_data = FactoryBot.build(

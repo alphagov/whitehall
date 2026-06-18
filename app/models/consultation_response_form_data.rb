@@ -12,7 +12,7 @@ class ConsultationResponseFormData < ApplicationRecord
   end
 
   def attachable
-    return Attachable::Null.new unless consultation_response_form.present?
+    return Attachable::Null.new if consultation_response_form.blank?
 
     consultation_response_form
   end

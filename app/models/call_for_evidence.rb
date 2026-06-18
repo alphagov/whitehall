@@ -28,7 +28,9 @@ class CallForEvidence < Edition
     def process_associations_after_save(edition)
       if @edition.call_for_evidence_participation.present?
         attributes = @edition.call_for_evidence_participation.attributes.except("id", "edition_id")
-        edition.create_call_for_evidence_participation(attributes)
+        new_call_for_evidence_participation = edition.build_call_for_evidence_participation(attributes)
+        new_call_for_evidence_participation.call_for_evidence_response_form = @edition.call_for_evidence_participation.call_for_evidence_response_form.deep_clone
+        new_call_for_evidence_participation.save!
       end
 
       if @edition.outcome.present?

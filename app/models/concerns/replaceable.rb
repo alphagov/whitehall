@@ -8,6 +8,10 @@ module Replaceable
     attr_accessor :to_replace_id
   end
 
+  def is_replaceable?
+    true
+  end
+
   def cant_be_replaced_by_self
     return if replaced_by.nil?
 

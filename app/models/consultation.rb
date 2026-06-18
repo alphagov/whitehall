@@ -30,7 +30,9 @@ class Consultation < Edition
     def process_associations_after_save(edition)
       if @edition.consultation_participation.present?
         attributes = @edition.consultation_participation.attributes.except("id", "edition_id")
-        edition.create_consultation_participation(attributes)
+        new_consultation_participation = edition.build_consultation_participation(attributes)
+        new_consultation_participation.consultation_response_form = @edition.consultation_participation.consultation_response_form.deep_clone
+        new_consultation_participation.save!
       end
 
       if @edition.outcome.present?

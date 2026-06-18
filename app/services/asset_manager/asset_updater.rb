@@ -1,4 +1,4 @@
- class AssetManager::AssetUpdater
+class AssetManager::AssetUpdater
   include AssetManager::ServiceHelper
 
   class AssetAttributesEmpty < StandardError
@@ -38,10 +38,10 @@ private
     raise AssetDeleted, asset_manager_id if attributes["deleted"] && !attributes["draft"]
 
     begin
-      keys = new_attributes.keys
-      unless attributes.slice(*keys) == new_attributes.slice(*keys)
-        asset_manager.update_asset(asset_manager_id, new_attributes)
-      end
+      new_attributes.keys
+      # unless attributes.slice(*keys) == new_attributes.slice(*keys)
+      asset_manager.update_asset(asset_manager_id, new_attributes)
+      # end
     rescue GdsApi::HTTPUnprocessableEntity
       return Rails.logger.info("Attempted to update Asset with asset_manager_id: '#{asset_manager_id}' that is live, with a draft 'parent_document_url'") if new_attributes["parent_document_url"]&.include?("draft-origin") && attributes["draft"] == false
 

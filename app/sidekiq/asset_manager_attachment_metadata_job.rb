@@ -10,10 +10,12 @@ class AssetManagerAttachmentMetadataJob < JobBase
 
     AssetManager::AttachmentUpdater.call(asset_data)
 
-    assetable_type.constantize.where(replaced_by: asset_data).find_each do |replaced_attachment_data|
-      AssetManager::AttachmentUpdater.replace(replaced_attachment_data)
-    rescue AssetManager::ServiceHelper::AssetNotFound => e
-      logger.warn("AssetManagerAttachmentMetadataJob: #{e}")
+    if asset_data.respond_to?(:is_replaceable?) && asset_data.is_replaceable?
+      assetable_type.constantize.where(replaced_by: asset_data).find_each do |replaced_attachment_data|
+        AssetManager::AttachmentUpdater.replace(replaced_attachment_data)
+      rescue AssetManager::ServiceHelper::AssetNotFound => e
+        logger.warn("AssetManagerAttachmentMetadataJob: #{e}")
+      end
     end
   end
 end

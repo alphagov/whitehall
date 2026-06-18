@@ -18,9 +18,10 @@ module ServiceListeners
         end
 
         if attachable.respond_to?(:consultation_participation) && attachable&.consultation_participation&.consultation_response_form&.consultation_response_form_data
-          PublishAttachmentAssetJob.perform_async(attachable&.consultation_participation&.consultation_response_form&.consultation_response_form_data.id, "ConsultationResponseFormData")
-        end        
-      end    
+
+          PublishAttachmentAssetJob.perform_async(attachable&.consultation_participation&.consultation_response_form&.consultation_response_form_data&.id, "ConsultationResponseFormData")
+        end
+      end
     end
   end
 end

@@ -30,7 +30,7 @@ class ConsultationResponseForm < ApplicationRecord
     return if consultation_participation.blank?
 
     consultation_participation.consultation
-  end  
+  end
 
 private
 

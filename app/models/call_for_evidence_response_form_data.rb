@@ -7,11 +7,15 @@ class CallForEvidenceResponseFormData < ApplicationRecord
 
   validates :file, presence: true
 
+  def replaced?
+    false
+  end
+
   def attachable
-    return Attachable::Null.new unless call_for_evidence_response_form.present?
+    return Attachable::Null.new if call_for_evidence_response_form.blank?
 
     call_for_evidence_response_form
-  end  
+  end
 
   def attachments
     [call_for_evidence_response_form]

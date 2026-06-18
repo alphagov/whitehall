@@ -30,7 +30,7 @@ class CallForEvidenceResponseForm < ApplicationRecord
     return if call_for_evidence_participation.blank?
 
     call_for_evidence_participation.call_for_evidence
-  end    
+  end
 
 private
 
