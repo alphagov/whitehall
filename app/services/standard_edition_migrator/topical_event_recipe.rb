@@ -42,6 +42,13 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       content[:details].delete(:end_date)
     end
 
+    if content[:details] && content[:details][:ordered_featured_documents]
+      content[:details][:ordered_featured_documents].each do |featured_document|
+        # Deleting as the value is changed in the StandardEdition equivalent
+        featured_document[:image].delete(:url)
+      end
+    end
+
     content
   end
 

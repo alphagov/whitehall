@@ -181,6 +181,38 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       expected_content = { details: { some: "content" } }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
+
+    it "ignores 'URL' field inside ordered_featured_documents as the value is changed in the StandardEdition equivalent" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = {
+        details: {
+          some: "content",
+          ordered_featured_documents: [
+            {
+              title: "Featured document",
+              image: {
+                url: "http://example.com/image.jpg",
+                foo: "bar",
+              },
+            },
+          ],
+        },
+      }
+      expected_content = {
+        details: {
+          some: "content",
+          ordered_featured_documents: [
+            {
+              title: "Featured document",
+              image: {
+                foo: "bar",
+              },
+            },
+          ],
+        },
+      }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
   end
 
   describe "#ignore_new_content_fields" do
