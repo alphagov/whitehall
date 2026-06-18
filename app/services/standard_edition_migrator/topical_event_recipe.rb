@@ -1,4 +1,6 @@
 class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::BaseRecipe
+  include GovspeakHelper
+
   def legacy_presenter
     PublishingApi::TopicalEventPresenter
   end
@@ -44,8 +46,17 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
 
     if content[:details] && content[:details][:ordered_featured_documents]
       content[:details][:ordered_featured_documents].each do |featured_document|
-        # Deleting as the value is changed in the StandardEdition equivalent
-        featured_document[:image].delete(:url)
+        if featured_document[:summary]
+          # Remove stray spaces from end of the summary as that is what the StandardEdition equivalent does
+          featured_document[:summary] = featured_document[:summary].gsub(/\s+$/, "")
+          # Put through govspeak_to_html as that's what the StandardEdition equivalent does
+          featured_document[:summary] = ActionView::Base.full_sanitizer.sanitize(govspeak_to_html(featured_document[:summary])).strip
+        end
+
+        if featured_document[:image]
+          # Deleting as the value is changed in the StandardEdition equivalent
+          featured_document[:image].delete(:url)
+        end
       end
     end
 

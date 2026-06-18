@@ -213,6 +213,29 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
+
+    it "sanitizes the summary field inside ordered_featured_documents, like the StandardEdition equivalent" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = {
+        details: {
+          ordered_featured_documents: [
+            {
+              summary: "The UK's G8 is committed to support ", # NOTE: the trailing space
+            },
+          ],
+        },
+      }
+      expected_content = {
+        details: {
+          ordered_featured_documents: [
+            {
+              summary: "The UK’s G8 is committed to support", # NOTE: the stripped space and the non-ascii quote
+            },
+          ],
+        },
+      }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
   end
 
   describe "#ignore_new_content_fields" do
