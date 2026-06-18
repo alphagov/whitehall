@@ -35,6 +35,13 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     if content[:routes]
       content[:routes] = content[:routes].reject { |route| route[:path].end_with?(".atom") }
     end
+
+    if content[:details]
+      # we're not carrying over duration fields to new topical events
+      content[:details].delete(:start_date)
+      content[:details].delete(:end_date)
+    end
+
     content
   end
 
