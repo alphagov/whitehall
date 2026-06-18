@@ -30,6 +30,14 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     StandardEdition.new(attributes)
   end
 
+  def ignore_legacy_content_fields(content)
+    # drop .atom routes - they're not supported anymore
+    if content[:routes]
+      content[:routes] = content[:routes].reject { |route| route[:path].end_with?(".atom") }
+    end
+    content
+  end
+
 private
 
   def feature_list(record)

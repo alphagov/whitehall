@@ -159,4 +159,13 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal 7, offsite_link_feature.image.assets.size
     end
   end
+
+  describe "#ignore_legacy_content_fields" do
+    it "removes .atom route as these are not present on StandardEdition documents and we have made a business decision to drop support for them" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = { details: {}, routes: [{ path: "/government/topical-events/example" }, { path: "/government/topical-events/example.atom" }] }
+      expected_content = { details: {}, routes: [{ path: "/government/topical-events/example" }] }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
+  end
 end
