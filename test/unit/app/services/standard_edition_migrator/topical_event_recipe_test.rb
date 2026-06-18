@@ -44,6 +44,19 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal "Sample summary", edition.summary
     end
 
+    it "carries over the created_at and updated_at timestamps" do
+      legacy_topical_event = create(
+        :topical_event,
+        created_at: 1.day.ago,
+        updated_at: 1.hour.ago,
+      )
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      assert_equal legacy_topical_event.created_at, edition.created_at
+      assert_equal legacy_topical_event.updated_at, edition.updated_at
+    end
+
     it "maps the slug to slug_override" do
       legacy_topical_event = create(
         :topical_event,
