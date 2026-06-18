@@ -44,6 +44,18 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal "Sample summary", edition.summary
     end
 
+    it "maps the slug to slug_override" do
+      legacy_topical_event = create(
+        :topical_event,
+        name: "Topical event title",
+        slug: "topical-event-slug-that-is-different-from-the-title",
+      )
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      assert_equal "topical-event-slug-that-is-different-from-the-title", edition.slug_override
+    end
+
     it "maps the body to block_content" do
       legacy_topical_event = create(
         :topical_event,

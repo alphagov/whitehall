@@ -10,6 +10,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       configurable_document_type: "topical_event",
       title: record.name,
       summary: record.summary,
+      slug_override: record.slug,
       block_content: {
         "body" => record.description,
         "social_media_links" => record.social_media_accounts.map do |account|
