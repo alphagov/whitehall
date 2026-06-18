@@ -55,6 +55,19 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
   def ignore_new_content_fields(content)
     content.delete(:auth_bypass_ids) # these were not present on legacy topical events and are included by default on StandardEdition
     content.delete(:links) # legacy Topical Events had no edition links, but StandardEdition ones will
+
+    if content[:details] && content[:details][:ordered_featured_documents]
+      # Delete medium_resolution_url and high_resolution_url in each feature in ordered_featured_documents - these are new optional extra image variants in the StandardEdition featuring equivalent
+      content[:details][:ordered_featured_documents].each do |featured_document|
+        # Deleting as these are new values in the StandardEdition equivalent
+        featured_document[:image].delete(:medium_resolution_url)
+        featured_document[:image].delete(:high_resolution_url)
+
+        # Deleting as the value is changed in the StandardEdition equivalent
+        featured_document[:image].delete(:url)
+      end
+    end
+
     content
   end
 
