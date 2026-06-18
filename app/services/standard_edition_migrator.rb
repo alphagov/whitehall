@@ -172,40 +172,56 @@ private
 
   def compare_payloads(legacy_record, recipe)
     # Grab the payloads from the old presenter _before_ we do any mutation, to ensure we're comparing against the original payload
-    old_presenter = recipe.new.legacy_presenter.new(legacy_record)
+    initialized_recipe = recipe.new
+    old_presenter = initialized_recipe.legacy_presenter.new(legacy_record)
     old_content = old_presenter.content
     old_links = old_presenter.links
 
-    standard_edition = recipe.new.build_edition(legacy_record)
-    new_presenter = PublishingApi::StandardEditionPresenter.new(standard_edition)
+    output = ""
+    ActiveRecord::Base.connection.transaction do
+      standard_edition = initialized_recipe.build_edition(legacy_record)
+      # The presenter calls methods on the Edition that assume its dependencies
+      #  are persisted already, so we do need to go and save them all (and the Edition's doc)
+      # before we call the presenter. Then we roll everything back.
+      if standard_edition.document.nil?
+        standard_edition.document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
+      end
+      standard_edition.save!(validate: false)
+      initialized_recipe.save_artefacts!(validate: false, edition: standard_edition)
+      standard_edition.reload
 
-    <<~OUTPUT
-      OLD PAYLOAD
-      ===CONTENT
-      #{JSON.pretty_generate(old_content)}
-      ===LINKS
-      #{JSON.pretty_generate(old_links)}
+      new_presenter = PublishingApi::StandardEditionPresenter.new(standard_edition)
+      output = <<~OUTPUT
+        OLD PAYLOAD
+        ===CONTENT
+        #{JSON.pretty_generate(old_content)}
+        ===LINKS
+        #{JSON.pretty_generate(old_links)}
 
-      NEW PAYLOAD
-      ===CONTENT
-      #{JSON.pretty_generate(new_presenter.content)}
-      ===LINKS
-      #{JSON.pretty_generate(new_presenter.links)}
+        NEW PAYLOAD
+        ===CONTENT
+        #{JSON.pretty_generate(new_presenter.content)}
+        ===LINKS
+        #{JSON.pretty_generate(new_presenter.links)}
 
-      NORMALISED DIFF
-      ===CONTENT
-      #{diff_content_payloads(
-        old_content: old_content,
-        new_content: new_presenter.content,
-        recipe: recipe.new,
-      )}
-      ===LINKS
-      #{diff_links_payloads(
-        old_links: old_links,
-        new_links: new_presenter.links,
-        recipe: recipe.new,
-      )}
-    OUTPUT
+        NORMALISED DIFF
+        ===CONTENT
+        #{diff_content_payloads(
+          old_content: old_content,
+          new_content: new_presenter.content,
+          recipe: initialized_recipe,
+        )}
+        ===LINKS
+        #{diff_links_payloads(
+          old_links: old_links,
+          new_links: new_presenter.links,
+          recipe: initialized_recipe,
+        )}
+      OUTPUT
+
+      raise ActiveRecord::Rollback
+    end
+    output
   end
 
   def diff_values(left_val, right_val)

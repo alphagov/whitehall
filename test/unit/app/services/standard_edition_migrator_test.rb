@@ -58,10 +58,14 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       end
 
       it "returns string summary of content and links payloads before-and-after of the record itself" do
-        legacy_presenter = StandardEditionMigrator::RecipeForNonEditionableRecord.new.legacy_presenter.new(@legacy_non_editionable_record)
-        new_presenter = PublishingApi::StandardEditionPresenter.new(
-          StandardEditionMigrator::RecipeForNonEditionableRecord.new.build_edition(@legacy_non_editionable_record),
-        )
+        SecureRandom.stubs(:uuid).returns("fixed-auth-bypass-id")
+        recipe = StandardEditionMigrator::RecipeForNonEditionableRecord.new
+        legacy_presenter = recipe.legacy_presenter.new(@legacy_non_editionable_record)
+        edition = recipe.build_edition(@legacy_non_editionable_record)
+        edition.save!(validate: false)
+        recipe.save_artefacts!(validate: false, edition: edition)
+        edition.reload
+        new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
         expected_output = <<~OUTPUT
           OLD PAYLOAD
           ===CONTENT
@@ -134,10 +138,21 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       end
 
       it "returns string summary of content and links payloads before-and-after of the latest edition" do
-        legacy_presenter = StandardEditionMigrator::RecipeForLegacyEditionableDocument.new.legacy_presenter.new(@legacy_editionable_document)
-        new_presenter = PublishingApi::StandardEditionPresenter.new(
-          StandardEditionMigrator::RecipeForLegacyEditionableDocument.new.build_edition(@legacy_editionable_document.latest_edition),
-        )
+        SecureRandom.stubs(:uuid).returns("fixed-auth-bypass-id")
+        recipe = StandardEditionMigrator::RecipeForLegacyEditionableDocument.new
+        legacy_presenter = recipe.legacy_presenter.new(@legacy_editionable_document)
+        edition = recipe.build_edition(@legacy_editionable_document.latest_edition)
+        edition.save!(validate: false)
+        recipe.save_artefacts!(validate: false, edition: edition)
+        edition.reload
+        new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
+        new_presenter.content
+        new_presenter.links
+        # Now need to delete the edition, otherwise it's now the "latest edition"
+        # and will become the thing that is compared against in the `preview_migration`
+        # method.
+        edition.destroy!
+
         expected_output = <<~OUTPUT
           OLD PAYLOAD
           ===CONTENT
