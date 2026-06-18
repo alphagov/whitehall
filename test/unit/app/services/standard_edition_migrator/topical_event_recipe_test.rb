@@ -158,6 +158,49 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal 7, govuk_content_feature.image.assets.size
       assert_equal 7, offsite_link_feature.image.assets.size
     end
+
+    it "carries over the Logo" do
+      legacy_topical_event = create(:topical_event)
+      legacy_logo = create(:featured_image_data, featured_imageable: legacy_topical_event)
+      legacy_topical_event.logo = legacy_logo
+      legacy_topical_event.save!
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      # Needed to persist the Logo and create IDs etc
+      edition.document = create(:document)
+      edition.save!(validate: false)
+      recipe.save_artefacts!(validate: false, edition: edition)
+      edition.reload # to ensure everything has persisted
+
+      assert_equal [
+        ["asset_manager_id_original", "original", "minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s960", "s960", "s960_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s712", "s712", "s712_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s630", "s630", "s630_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s465", "s465", "s465_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s300", "s300", "s300_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s216", "s216", "s216_minister-of-funk.960x640.jpg"],
+      ], legacy_logo.assets.pluck(:asset_manager_id, :variant, :filename)
+
+      assert_equal [
+        ["asset_manager_id_s960", "original", "s960_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s960", "topical_event_logo_mobile", "s960_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s960", "topical_event_logo_mobile_2x", "s960_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s960", "topical_event_logo_tablet", "s960_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s960", "topical_event_logo_tablet_2x", "s960_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s960", "topical_event_logo_desktop", "s960_minister-of-funk.960x640.jpg"],
+        ["asset_manager_id_s960", "topical_event_logo_desktop_2x", "s960_minister-of-funk.960x640.jpg"],
+      ], edition.images.first.image_data.assets.pluck(:asset_manager_id, :variant, :filename)
+
+      assert_equal "logo", edition.images.first.usage
+      assert_equal "topical_event_logo", edition.images.first.image_data.image_kind
+      dimensions = { "width" => 1506, "height" => 960 }
+      crop_data = { "x" => 0, "y" => 0, "width" => 1506, "height" => 1004 }
+      assert_equal dimensions, edition.images.first.image_data.dimensions
+      assert_equal crop_data, edition.images.first.image_data.crop_data
+    end
   end
 
   describe "#ignore_legacy_content_fields" do
