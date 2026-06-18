@@ -227,6 +227,17 @@ class RoleTest < ActiveSupport::TestCase
     role.update!(organisations: [])
   end
 
+  test "does not republish associated content to publishing api when a role create is rolled back before commit" do
+    organisation = create(:organisation)
+
+    Whitehall::PublishingApi.expects(:republish_async).never
+
+    ActiveRecord::Base.transaction do
+      create(:role, organisations: [organisation])
+      raise ActiveRecord::Rollback
+    end
+  end
+
   test "republishes a worldwide organisation when a role is updated" do
     worldwide_organisation = create(:worldwide_organisation)
     role = create(:role_without_organisations)

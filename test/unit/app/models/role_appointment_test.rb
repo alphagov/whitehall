@@ -510,6 +510,18 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     end
   end
 
+  test "does not patch the ministers index page when the appointment is rolled back before commit" do
+    role = create(:ministerial_role)
+    person = create(:person)
+
+    PatchLinksPublishingApiJob.expects(:perform_async).never
+
+    ActiveRecord::Base.transaction do
+      create(:role_appointment, person:, role:)
+      raise ActiveRecord::Rollback
+    end
+  end
+
   test "should not send the related pages to publishing api when someone is appointed to a non-ministerial role" do
     role = create(:non_ministerial_role_without_organisations)
 
@@ -566,6 +578,29 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, role:)
     Whitehall::PublishingApi.expects(:republish_async).with(role)
     role_appointment.update!(ended_at: Time.zone.now)
+  end
+
+  test "does not republish related content to publishing api when a role appointment create is rolled back before commit" do
+    role = create(:role_without_organisations)
+
+    Whitehall::PublishingApi.expects(:republish_async).never
+
+    ActiveRecord::Base.transaction do
+      create(:role_appointment, role:)
+      raise ActiveRecord::Rollback
+    end
+  end
+
+  test "does not republish related content to publishing api when a role appointment destroy is rolled back before commit" do
+    role = create(:role_without_organisations)
+    role_appointment = create(:role_appointment, role:)
+
+    Whitehall::PublishingApi.expects(:republish_async).never
+
+    ActiveRecord::Base.transaction do
+      role_appointment.destroy!
+      raise ActiveRecord::Rollback
+    end
   end
 
   test "republishes a role when a role appointment is destroyed" do

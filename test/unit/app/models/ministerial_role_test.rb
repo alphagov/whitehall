@@ -77,6 +77,17 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     end
   end
 
+  test "does not patch the ministers index page when a ministerial role update is rolled back before commit" do
+    role = create(:ministerial_role)
+
+    PatchLinksPublishingApiJob.expects(:perform_async).never
+
+    ActiveRecord::Base.transaction do
+      role.update!(name: "New name")
+      raise ActiveRecord::Rollback
+    end
+  end
+
   test "does not send the ministerial index pages to publishing api when a non-ministerial role is updated" do
     role = create(:non_ministerial_role_without_organisations)
     create(:role_appointment, role:)
