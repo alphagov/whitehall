@@ -198,4 +198,13 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal expected_content, recipe.ignore_new_content_fields(content)
     end
   end
+
+  describe "#ignore_new_links" do
+    it "ignores 'emphasised_organisations' as these are not present on legacy topical events and are included by default on StandardEdition" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      links = { lead_organisations: [1, 2], emphasised_organisations: [3, 4] }
+      expected_links = { lead_organisations: [1, 2] }
+      assert_equal expected_links, recipe.ignore_new_links(links)
+    end
+  end
 end

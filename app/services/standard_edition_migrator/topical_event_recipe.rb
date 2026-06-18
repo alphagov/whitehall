@@ -51,6 +51,11 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     content
   end
 
+  def ignore_new_links(links)
+    links.delete(:emphasised_organisations) # these are not present on legacy topical events and are included by default on StandardEdition
+    links
+  end
+
 private
 
   def feature_list(record)
