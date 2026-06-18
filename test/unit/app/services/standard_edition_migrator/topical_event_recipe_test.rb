@@ -236,6 +236,13 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
+
+    it "converts public_updated_at to a string in the same format as the StandardEdition equivalent" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = { public_updated_at: Time.zone.local(2024, 1, 1, 12, 0, 0) }
+      expected_content = { public_updated_at: "2024-01-01T12:00:00+00:00" }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
   end
 
   describe "#ignore_new_content_fields" do

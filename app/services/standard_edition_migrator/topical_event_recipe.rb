@@ -60,6 +60,8 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       end
     end
 
+    # convert public_timestamp to a string in the same format as the StandardEdition equivalent
+    content[:public_updated_at] = content[:public_updated_at].rfc3339 if content[:public_updated_at].respond_to?(:rfc3339)
     content
   end
 
