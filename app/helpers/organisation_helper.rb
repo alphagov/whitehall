@@ -9,6 +9,7 @@ module OrganisationHelper
     /homes england/,
     /british wool/,
     /building law and hygiene/,
+    /skills england/,
   ].freeze
 
   SPONSORED_ORGANISATION_TYPE_KEYS = %i[

@@ -108,6 +108,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_definite_article_skipped "HM Treasury"
     assert_definite_article_skipped "Ordnance Survey"
     assert_definite_article_skipped "Homes England"
+    assert_definite_article_skipped "Skills England"
   end
 
   test "definite article added for certain organisations" do
