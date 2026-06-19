@@ -57,7 +57,8 @@ class ImageData < ApplicationRecord
   end
 
   def requires_crop?
-    too_large? && crop_data.blank?
+    false
+    #too_large? && crop_data.blank?
   end
 
   def can_be_cropped?
@@ -91,7 +92,7 @@ class ImageData < ApplicationRecord
 private
 
   def set_dimensions
-    if file&.file && bitmap?
+    if file&.file && bitmap? && image_kind_config.valid_width && image_kind_config.valid_height
       begin
         self.width = file.width
         self.height = file.height
