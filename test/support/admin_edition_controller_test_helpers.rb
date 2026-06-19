@@ -1036,7 +1036,7 @@ module AdminEditionControllerTestHelpers
         created_edition = edition_class.last
         assert_valid created_edition
         assert_equal "organisations", created_edition.access_limiting
-        assert_equal [access_limiting_organisation.id, user_organisation.id].sort, edition.access_limiting_organisation_ids.sort
+        assert_equal [access_limiting_organisation.id, user_organisation.id].sort, created_edition.access_limiting_organisation_ids.sort
       end
 
       view_test "edit should display persisted access limiting value" do
