@@ -55,6 +55,6 @@ module Edition::LimitedAccess
   end
 
   def access_limiting_organisations_required
-    errors.add(:access_limiting_organisation_ids, "must include at least one organisation when access limiting is enabled") if access_limiting_organisations.empty?
+    errors.add(:access_limiting_organisation_ids, "must include at least one organisation when access limiting is enabled") if edition_access_limiting_organisations.empty?
   end
 end
