@@ -24,6 +24,7 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def update
+    recast_role_to_selected_type
     if @role.update(role_params)
       redirect_to index_or_edit_path, notice: %("#{@role.name}" updated.)
     else
@@ -74,5 +75,12 @@ private
 
   def sti_type
     RoleTypePresenter.role_attributes_from(params[:role][:role_type])[:type]
+  end
+
+  def recast_role_to_selected_type
+    klass = Role.descendants.find { |descendant| descendant.name == sti_type }
+    return if klass.nil? || @role.instance_of?(klass)
+
+    @role = @role.becomes!(klass)
   end
 end
