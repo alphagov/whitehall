@@ -26,8 +26,8 @@ module Whitehall
     def initialize(name, config)
       @name = name
       @display_name = config.fetch("display_name")
-      @valid_width = config.fetch("valid_width")
-      @valid_height = config.fetch("valid_height")
+      @valid_width = config.dig("valid_width")
+      @valid_height = config.dig("valid_height")
       @allowed_formats = config.fetch("allowed_formats")
       @embed_version = config.fetch("embed_version", nil)
       version_prefix = config.fetch("version_prefix", false) ? name : nil

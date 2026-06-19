@@ -161,8 +161,6 @@ topical_event_header:
     # Deliberately no SVG - see WHIT-3206
 topical_event_logo:
   display_name: "Logo"
-  valid_width: 1506
-  valid_height: 1004
   version_prefix: true
   versions:
     - name: tablet_2x
