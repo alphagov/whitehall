@@ -44,6 +44,14 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal "Sample summary", edition.summary
     end
 
+    it "sets the creator as the Scheduled Publishing Robot" do
+      create(:user, name: "Scheduled Publishing Robot")
+      legacy_topical_event = create(:topical_event)
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+      assert_equal "Scheduled Publishing Robot", edition.creator.name
+    end
+
     it "carries over the created_at and updated_at timestamps" do
       legacy_topical_event = create(
         :topical_event,

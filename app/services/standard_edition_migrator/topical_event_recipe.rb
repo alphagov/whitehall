@@ -9,6 +9,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     raise WhitehallError, "Topical Events with About pages are not currently supported by the migrator" if record.topical_event_about_page
 
     attributes = {
+      creator: User.find_by(name: "Scheduled Publishing Robot"),
       created_at: record.created_at,
       updated_at: record.updated_at,
       configurable_document_type: "topical_event",
