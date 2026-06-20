@@ -71,7 +71,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         ActiveRecord::Base.transaction do
           edition = recipe.build_edition(@legacy_non_editionable_record)
           edition.save!(validate: false)
-          recipe.save_artefacts!(validate: false, edition: edition)
+          recipe.after_save_edition(edition, @legacy_non_editionable_record)
           edition.reload
           new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
           new_presenter_content = new_presenter.content
@@ -163,7 +163,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         new_presenter_links = nil
         ActiveRecord::Base.transaction do
           edition.save!(validate: false)
-          recipe.save_artefacts!(validate: false, edition: edition)
+          recipe.after_save_edition(edition, @legacy_editionable_document.latest_edition)
           edition.reload
           new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
           new_presenter_content = new_presenter.content
@@ -310,39 +310,9 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
     end
 
-    it "saves the document without validation. Saves edition and artefacts first without validation, then with validation" do
-      capture_save_calls = lambda do |klass|
-        calls = []
-        original_save_bang = klass.instance_method(:save!)
-        klass.define_method(:save!) do |*args, **kwargs, &block|
-          calls << kwargs
-          original_save_bang.bind(self).call(*args, **kwargs, &block)
-        end
-
-        [calls, -> { klass.define_method(:save!, original_save_bang) }]
-      end
-
-      standard_edition_calls, restore_standard_edition = capture_save_calls.call(StandardEdition)
-      sitewide_setting_calls, restore_sitewide_setting = capture_save_calls.call(SitewideSetting)
-      translation_calls, restore_translation = capture_save_calls.call(Edition::Translation)
-      document_calls, restore_document = capture_save_calls.call(Document)
-
-      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
-      edition = document.editions.last
-
-      assert_includes document_calls, { validate: false }
-      assert_includes standard_edition_calls, { validate: false }
-      assert_includes standard_edition_calls, { validate: true }
-      assert_includes sitewide_setting_calls, { validate: false }
-      assert_includes sitewide_setting_calls, { validate: true }
-      assert_includes translation_calls, { validate: false }
-      assert_includes translation_calls, { validate: true }
-      assert_equal edition.id, edition.translations.first.edition_id
-    ensure
-      restore_document.call
-      restore_translation.call
-      restore_sitewide_setting.call
-      restore_standard_edition.call
+    it "calls after_save_edition after saving the edition" do
+      StandardEditionMigrator::RecipeForNonEditionableRecord.any_instance.expects(:after_save_edition).once
+      StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
     end
 
     it "creates an EditorialRemark associated with the robot user" do
@@ -416,36 +386,9 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       end
     end
 
-    it "saves the edition, artefacts and document first without validation, then with validation" do
-      capture_save_calls = lambda do |klass|
-        calls = []
-        original_save_bang = klass.instance_method(:save!)
-        klass.define_method(:save!) do |*args, **kwargs, &block|
-          calls << kwargs
-          original_save_bang.bind(self).call(*args, **kwargs, &block)
-        end
-
-        [calls, -> { klass.define_method(:save!, original_save_bang) }]
-      end
-
-      standard_edition_calls, restore_standard_edition = capture_save_calls.call(StandardEdition)
-      sitewide_setting_calls, restore_sitewide_setting = capture_save_calls.call(SitewideSetting)
-      translation_calls, restore_translation = capture_save_calls.call(Edition::Translation)
-
-      document = StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
-      edition = document.editions.last
-
-      assert_includes standard_edition_calls, { validate: false }
-      assert_includes standard_edition_calls, { validate: true }
-      assert_includes sitewide_setting_calls, { validate: false }
-      assert_includes sitewide_setting_calls, { validate: true }
-      assert_includes translation_calls, { validate: false }
-      assert_includes translation_calls, { validate: true }
-      assert_equal edition.id, edition.translations.first.edition_id
-    ensure
-      restore_translation.call
-      restore_sitewide_setting.call
-      restore_standard_edition.call
+    it "calls after_save_edition after saving the edition" do
+      StandardEditionMigrator::RecipeForLegacyEditionableDocument.any_instance.expects(:after_save_edition).times(4) # once for each state of the legacy editionable document (deleted, superseded, published, draft)
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
     end
 
     it "creates an EditorialRemark associated with the robot user, on the last edition only" do

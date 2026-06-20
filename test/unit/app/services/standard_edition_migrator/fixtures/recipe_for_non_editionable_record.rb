@@ -1,4 +1,9 @@
 class StandardEditionMigrator::RecipeForNonEditionableRecord < StandardEditionMigrator::BaseRecipe
+  def initialize
+    @artefacts_to_save = []
+    super
+  end
+
   def legacy_presenter
     StandardEditionMigrator::HardcodedPresenter
   end
@@ -24,11 +29,19 @@ class StandardEditionMigrator::RecipeForNonEditionableRecord < StandardEditionMi
         },
       )
     end
-    queue_for_saving(SitewideSetting.new(key: "foo")) # Proof of concept
+    @artefacts_to_save << SitewideSetting.new(key: "foo") # Proof of concept
     edition.translations.each do |translation|
       # More realistic proof of concept - and we can test that edition_id is set properly
-      queue_for_saving(translation)
+      @artefacts_to_save << translation
     end
     edition
+  end
+
+  def after_save_edition(edition, _legacy_record)
+    @artefacts_to_save.each do |artefact|
+      # Set the edition_id on any artefacts that need it, and save them
+      artefact.edition_id = edition.id if artefact.respond_to?(:edition_id=)
+      artefact.save!
+    end
   end
 end

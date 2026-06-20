@@ -7,20 +7,8 @@ class StandardEditionMigrator::BaseRecipe
     raise NotImplementedError, "Subclasses must implement build_edition!"
   end
 
-  def save_artefacts!(validate:, edition:)
-    # This is where the Recipe can handle saving any associated artefacts (e.g. Features, Organisations, etc.).
-    (@artefacts_to_save || []).each do |artefact|
-      # Translations etc need to be associated with the edition before they can be saved
-      if artefact.respond_to?(:edition_id=)
-        artefact.edition_id = edition.id
-      end
-      artefact.save!(validate: validate)
-    end
-  end
-
-  def queue_for_saving(artefact)
-    @artefacts_to_save ||= []
-    @artefacts_to_save << artefact
+  def after_save_edition(_edition, _legacy_record)
+    # This is where the Recipe can handle any post-save actions (e.g. creating associations between artefacts).
   end
 
   def editorial_remark

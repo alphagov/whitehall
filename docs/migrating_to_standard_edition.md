@@ -25,7 +25,8 @@ Conceptually, the diff should be empty: converting legacy content types to being
 Your recipe will need to define the following methods:
 
 - `legacy_presenter` - the presenter for the legacy content type, e.g. `PublishingApi::NewsArticlePresenter`
-- `build_edition(legacy_record)` - create a StandardEdition, and assign its attributes based on what is in the legacy_record. This is the main part of the recipe. *Important*: be careful to no persist anything here as this method is also called by the preview_migration method. It is cleaner to build all of this in memory, than to make the actual changes and then rely on rolling back (which can have unexpected side effects such as updating Publishing API). For any dependent records that also require saving (e.g. Edition::Translation), these need to be declared via the `queue_for_saving` method.
+- `build_edition(legacy_record)` - create a StandardEdition, and assign its attributes based on what is in the legacy_record. This is the main part of the recipe.
+- `after_save_edition(edition, legacy_record)` - a hook for saving any additional tables once the Edition has been persisted. E.g. you may need to carry over some associations that could not be carried over in the `build_edition` step because there was no `edition_id` at that point.
 
 Then the following methods are all about normalisation of the payloads, for comparison purposes:
 

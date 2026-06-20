@@ -120,10 +120,9 @@ class StandardEditionMigrator
           # Save without validation first, to get all interdependent artefacts
           # persisted. Then re-save with validation applied - rolling back if
           # a validation error is raised.
-          [false, true].each do |validate|
-            legacy_edition.save!(validate:)
-            recipe_instance.save_artefacts!(validate:, edition: legacy_edition)
-          end
+          legacy_edition.save!(validate: false)
+          recipe_instance.after_save_edition(edition, legacy_edition)
+          legacy_edition.save!(validate: true)
 
           # Add an editorial remark to the last edition only
           next unless index == editions_to_update.size - 1
@@ -242,10 +241,9 @@ private
     # Save without validation first, to get all interdependent artefacts
     # persisted. Then re-save with validation applied - rolling back if
     # a validation error is raised.
-    [false, true].each do |validate|
-      standard_edition.save!(validate: validate)
-      recipe_instance.save_artefacts!(validate: validate, edition: standard_edition)
-    end
+    standard_edition.save!(validate: false)
+    recipe_instance.after_save_edition(standard_edition, legacy_edition)
+    standard_edition.save!(validate: true)
     standard_edition.reload
   end
 
