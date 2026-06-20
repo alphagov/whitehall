@@ -286,6 +286,13 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       expected_content = { public_updated_at: "2024-01-01T12:00:00+00:00" }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
+
+    it "ignores 'image' property - now replaced by 'images' array" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = { details: { some: "content", image: { url: "http://example.com/image.jpg" } } }
+      expected_content = { details: { some: "content" } }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
   end
 
   describe "#ignore_new_content_fields" do

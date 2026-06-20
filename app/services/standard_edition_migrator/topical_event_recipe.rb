@@ -43,6 +43,9 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       # we're not carrying over duration fields to new topical events
       content[:details].delete(:start_date)
       content[:details].delete(:end_date)
+
+      # 'image' (logo) is replaced by 'images'
+      content[:details].delete(:image)
     end
 
     if content[:details] && content[:details][:ordered_featured_documents]
