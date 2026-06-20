@@ -1,6 +1,11 @@
 class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::BaseRecipe
   include GovspeakHelper
 
+  def initialize
+    @artefacts_to_save = []
+    super
+  end
+
   def legacy_presenter
     PublishingApi::TopicalEventPresenter
   end
@@ -36,6 +41,24 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       major_change_published_at: record.created_at,
     }
     StandardEdition.new(attributes)
+  end
+
+  def after_save_edition(edition, legacy_record)
+    # Save the in-memory artefacts that were built during edition creation (e.g. FeatureList, Image, etc.)
+    @artefacts_to_save.each do |artefact|
+      if artefact.respond_to?(:edition_id=)
+        artefact.edition_id = edition.id
+      end
+      artefact.save!
+    end
+    # Create and save the associations that rely on Edition being a persisted record.
+    legacy_record.topical_event_memberships.each do |membership|
+      EditionLink.create!(
+        edition_id: membership.edition_id,
+        document_id: edition.document_id,
+        link_type: "topical_event",
+      )
+    end
   end
 
   def ignore_legacy_content_fields(content)
@@ -127,7 +150,7 @@ private
       Feature.new(attrs)
     end
 
-    queue_for_saving(feature_list)
+    @artefacts_to_save << feature_list
     feature_list
   end
 
@@ -189,7 +212,7 @@ private
     # Assets and ImageData are already persisted above; re-saving ImageData can
     # clobber the mounted uploader identifier and lead to nil URLs in payloads.
     # So deliberately don't save ImageData or its Assets again.
-    queue_for_saving(image)
+    @artefacts_to_save << image
     image
   end
 end

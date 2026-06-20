@@ -155,7 +155,7 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       # Needed to persist the Features and create IDs etc
       edition.document = create(:document)
       edition.save!(validate: false)
-      recipe.save_artefacts!(validate: false, edition: edition)
+      recipe.after_save_edition(edition, legacy_topical_event)
       edition.reload # to ensure everything has persisted
       govuk_content_feature = edition.feature_lists.first.features.first
       offsite_link_feature = edition.feature_lists.first.features.second
@@ -175,6 +175,50 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal 7, offsite_link_feature.image.assets.size
     end
 
+    it "carries over legacy topical_event_memberships as topical_event_links" do
+      # In addition to the new topical_event StandardEdition type, we
+      # need to define a document type that has the Edition::TopicalEvent concern included.
+      test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
+        {
+          "key" => "topical_event_documents",
+        },
+      ] })
+
+      topical_event_definition = JSON.parse(File.read(Rails.root.join("app/models/configurable_document_types/topical_event.json")))
+      ConfigurableDocumentType.setup_test_types({
+        "topical_event" => topical_event_definition,
+      }.merge(test_type_with_topical_event_association))
+
+      associated_edition = create(:standard_edition, :with_document)
+      associated_document = associated_edition.document
+      legacy_topical_event = create(:topical_event)
+      create(
+        :topical_event_membership,
+        topical_event_id: legacy_topical_event.id,
+        edition_id: associated_edition.id,
+      )
+      legacy_topical_event.save!
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      standard_edition_topical_event = recipe.build_edition(legacy_topical_event)
+
+      # Needed to create and save the document before we can create the EditionLink association
+      standard_edition_topical_event.document = create(:document)
+      standard_edition_topical_event.save!(validate: false)
+      recipe.after_save_edition(standard_edition_topical_event, legacy_topical_event)
+
+      # The `edition` is the linked document. The `document` is the topical event.
+      # #<EditionLink:0x0000ffff624f8fc8
+      #  edition_id: 1708834,
+      #  document_id: 619491,
+      #  link_type: "topical_event">
+
+      assert_equal 1, associated_document.latest_edition.topical_event_links.count
+      assert_equal "topical_event", associated_document.latest_edition.topical_event_links.first.link_type
+      assert_equal standard_edition_topical_event.document.id, associated_document.latest_edition.topical_event_links.first.document.id
+      assert_equal standard_edition_topical_event.document.id, associated_document.latest_edition.topical_event_documents.first.id
+    end
+
     it "carries over the Logo" do
       legacy_topical_event = create(:topical_event)
       legacy_logo = create(:featured_image_data, featured_imageable: legacy_topical_event)
@@ -187,7 +231,7 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       # Needed to persist the Logo and create IDs etc
       edition.document = create(:document)
       edition.save!(validate: false)
-      recipe.save_artefacts!(validate: false, edition: edition)
+      recipe.after_save_edition(edition, legacy_topical_event)
       edition.reload # to ensure everything has persisted
 
       assert_equal [
