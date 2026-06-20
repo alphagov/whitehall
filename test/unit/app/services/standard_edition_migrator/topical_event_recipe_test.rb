@@ -52,6 +52,14 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal "Scheduled Publishing Robot", edition.creator.name
     end
 
+    it "sets the state to published and major_change_published_at to the legacy created_at" do
+      legacy_topical_event = create(:topical_event, created_at: 1.day.ago)
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+      assert_equal "published", edition.state
+      assert_equal legacy_topical_event.created_at, edition.major_change_published_at
+    end
+
     it "carries over the created_at and updated_at timestamps" do
       legacy_topical_event = create(
         :topical_event,

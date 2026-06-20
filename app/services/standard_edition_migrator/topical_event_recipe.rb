@@ -30,6 +30,10 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       supporting_organisations: record.topical_event_organisations.where(lead: false).map(&:organisation),
       feature_lists: [feature_list(record)],
       images: [logo(record)].compact,
+      state: "published",
+      # we can't know that the `updated_at` was a major change; all we can guarantee
+      # is that the initial publication was a major change.
+      major_change_published_at: record.created_at,
     }
     StandardEdition.new(attributes)
   end
