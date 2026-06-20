@@ -85,6 +85,8 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       end
     end
 
+    # Delete the 'images' array (replacing old 'image' property)
+    content[:details].delete(:images) if content[:details]
     content
   end
 

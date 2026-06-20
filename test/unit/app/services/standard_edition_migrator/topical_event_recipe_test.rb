@@ -309,6 +309,13 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       expected_content = { details: { some: "content" } }
       assert_equal expected_content, recipe.ignore_new_content_fields(content)
     end
+
+    it "ignores 'details.images' array (replacing old 'image' property)" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = { details: { some: "content", images: [{ url: "http://example.com/image.jpg" }] } }
+      expected_content = { details: { some: "content" } }
+      assert_equal expected_content, recipe.ignore_new_content_fields(content)
+    end
   end
 
   describe "#ignore_new_links" do
