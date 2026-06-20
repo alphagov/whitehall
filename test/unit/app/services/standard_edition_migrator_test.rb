@@ -61,11 +61,23 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         SecureRandom.stubs(:uuid).returns("fixed-auth-bypass-id")
         recipe = StandardEditionMigrator::RecipeForNonEditionableRecord.new
         legacy_presenter = recipe.legacy_presenter.new(@legacy_non_editionable_record)
-        edition = recipe.build_edition(@legacy_non_editionable_record)
-        edition.save!(validate: false)
-        recipe.save_artefacts!(validate: false, edition: edition)
-        edition.reload
-        new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
+        new_presenter_content = nil
+        new_presenter_links = nil
+
+        # Wrap this in a transaction so we can grab the actual expected payloads
+        # and then roll back, otherwise we hit a "Key has already been taken"
+        # error when the `preview_migration` method tries to build and save the
+        # edition again.
+        ActiveRecord::Base.transaction do
+          edition = recipe.build_edition(@legacy_non_editionable_record)
+          edition.save!(validate: false)
+          recipe.save_artefacts!(validate: false, edition: edition)
+          edition.reload
+          new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
+          new_presenter_content = new_presenter.content
+          new_presenter_links = new_presenter.links
+          raise ActiveRecord::Rollback
+        end
         expected_output = <<~OUTPUT
           OLD PAYLOAD
           ===CONTENT
@@ -75,9 +87,9 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
           NEW PAYLOAD
           ===CONTENT
-          #{JSON.pretty_generate(new_presenter.content)}
+          #{JSON.pretty_generate(new_presenter_content)}
           ===LINKS
-          #{JSON.pretty_generate(new_presenter.links)}
+          #{JSON.pretty_generate(new_presenter_links)}
         OUTPUT
 
         summary = StandardEditionMigrator.preview_migration(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
@@ -142,16 +154,26 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         recipe = StandardEditionMigrator::RecipeForLegacyEditionableDocument.new
         legacy_presenter = recipe.legacy_presenter.new(@legacy_editionable_document)
         edition = recipe.build_edition(@legacy_editionable_document.latest_edition)
-        edition.save!(validate: false)
-        recipe.save_artefacts!(validate: false, edition: edition)
-        edition.reload
-        new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
-        new_presenter.content
-        new_presenter.links
-        # Now need to delete the edition, otherwise it's now the "latest edition"
-        # and will become the thing that is compared against in the `preview_migration`
-        # method.
-        edition.destroy!
+
+        # Wrap this in a transaction so we can grab the actual expected payloads
+        # and then roll back, otherwise we hit a "Key has already been taken"
+        # error when the `preview_migration` method tries to build and save the
+        # edition again.
+        new_presenter_content = nil
+        new_presenter_links = nil
+        ActiveRecord::Base.transaction do
+          edition.save!(validate: false)
+          recipe.save_artefacts!(validate: false, edition: edition)
+          edition.reload
+          new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
+          new_presenter_content = new_presenter.content
+          new_presenter_links = new_presenter.links
+          # Now need to delete the edition, otherwise it's now the "latest edition"
+          # and will become the thing that is compared against in the `preview_migration`
+          # method.
+          edition.destroy!
+          raise ActiveRecord::Rollback
+        end
 
         expected_output = <<~OUTPUT
           OLD PAYLOAD
@@ -162,9 +184,9 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
 
           NEW PAYLOAD
           ===CONTENT
-          #{JSON.pretty_generate(new_presenter.content)}
+          #{JSON.pretty_generate(new_presenter_content)}
           ===LINKS
-          #{JSON.pretty_generate(new_presenter.links)}
+          #{JSON.pretty_generate(new_presenter_links)}
         OUTPUT
 
         summary = StandardEditionMigrator.preview_migration(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
@@ -288,7 +310,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
     end
 
-    it "saves the edition, artefacts and document first without validation, then with validation" do
+    it "saves the document without validation. Saves edition and artefacts first without validation, then with validation" do
       capture_save_calls = lambda do |klass|
         calls = []
         original_save_bang = klass.instance_method(:save!)
@@ -308,14 +330,13 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
       document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
       edition = document.editions.last
 
+      assert_includes document_calls, { validate: false }
       assert_includes standard_edition_calls, { validate: false }
       assert_includes standard_edition_calls, { validate: true }
       assert_includes sitewide_setting_calls, { validate: false }
       assert_includes sitewide_setting_calls, { validate: true }
       assert_includes translation_calls, { validate: false }
       assert_includes translation_calls, { validate: true }
-      assert_includes document_calls, { validate: false }
-      assert_includes document_calls, { validate: true }
       assert_equal edition.id, edition.translations.first.edition_id
     ensure
       restore_document.call
@@ -333,8 +354,8 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
     end
 
     it "rolls back the transaction if a validation issue is encountered" do
-      Document.any_instance.stubs(:save!).returns(true)
-      Document.any_instance.expects(:save!).with(validate: true).raises(WhitehallError.new("Validation failed: Title can't be blank"))
+      Edition.any_instance.stubs(:save!).returns(true)
+      Edition.any_instance.expects(:save!).with(validate: true).raises(WhitehallError.new("Validation failed: Title can't be blank"))
 
       assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
         error = assert_raises(WhitehallError) do
@@ -374,6 +395,24 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         assert_equal "Title", edition.translations.first.title
         assert_equal "Summary", edition.translations.first.summary
         assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
+      end
+    end
+
+    it "migrates all of a given Document's Editions (including deleted and superseded ones) - after checking the normalised payloads have no diff - and doesn't create new editions as part of the transient payload check" do
+      StandardEditionMigrator.any_instance.stubs(:diff_links_payloads).returns("")
+      StandardEditionMigrator.any_instance.stubs(:diff_content_payloads).returns("")
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: true)
+
+      assert_equal "StandardEdition", @legacy_editionable_document.document_type
+
+      assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
+        Edition.unscoped.where(document_id: @legacy_editionable_document.id).find_each do |edition|
+          assert_equal "StandardEdition", edition.type
+          assert_equal "test_type", edition.configurable_document_type
+          assert_equal "Title", edition.translations.first.title
+          assert_equal "Summary", edition.translations.first.summary
+          assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
+        end
       end
     end
 

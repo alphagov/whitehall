@@ -51,7 +51,7 @@ class StandardEditionMigrator
   end
 
   def create_new_document(legacy_record, recipe, raise_if_payloads_differ: true)
-    document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
+    document = nil
 
     ActiveRecord::Base.transaction do
       recipe_instance = recipe.new
@@ -60,18 +60,13 @@ class StandardEditionMigrator
       # Whitehall's in-house 'AuditTrail' is used to populate the timeline in the sidebar
       robot_user = User.find_by(name: "Scheduled Publishing Robot")
       AuditTrail.acting_as(robot_user) do
-        edition = build_edition(recipe_instance, legacy_record, raise_if_payloads_differ)
-        edition.document = document
+        edition = if raise_if_payloads_differ
+                    build_edition_and_raise_if_payloads_differ(recipe_instance, legacy_record)
+                  else
+                    build_and_save_edition(recipe_instance, legacy_record)
+                  end
 
-        # Save without validation first, to get all interdependent artefacts
-        # persisted. Then re-save with validation applied - rolling back if
-        # a validation error is raised.
-        [false, true].each do |validate|
-          edition.save!(validate:)
-          recipe_instance.save_artefacts!(validate:, edition:)
-          document.save!(validate:)
-        end
-
+        document = edition.document
         EditorialRemark.create!(
           edition: edition,
           body: recipe_instance.editorial_remark,
@@ -97,7 +92,22 @@ class StandardEditionMigrator
       AuditTrail.acting_as(robot_user) do
         # Update each edition in-place
         editions_to_update.each_with_index do |legacy_edition, index|
-          edition = build_edition(recipe_instance, legacy_edition, raise_if_payloads_differ)
+          if raise_if_payloads_differ
+            ActiveRecord::Base.transaction(requires_new: true) do
+              # The following line raises an exception if the payloads differ,
+              # which will then roll back this transaction and end the migration.
+              build_edition_and_raise_if_payloads_differ(recipe_instance, legacy_edition)
+
+              # If we get this far, the payloads are identical, so we want to proceed.
+              # We don't want to persist _this_ edition though, as we want to overwrite the legacy
+              # edition with its attributes, so we roll back this transaction.
+              raise ActiveRecord::Rollback
+            end
+          end
+
+          # This builds the Edition in memory only. We'll use its attributes
+          # to overwrite the legacy edition's attributes
+          edition = recipe_instance.build_edition(legacy_edition)
 
           # Convert the legacy edition instance type in-memory to StandardEdition
           legacy_edition = legacy_edition.becomes!(StandardEdition)
@@ -145,31 +155,6 @@ class StandardEditionMigrator
 
 private
 
-  def build_edition(recipe_instance, legacy_edition, raise_if_payloads_differ)
-    return recipe_instance.build_edition(legacy_edition) unless raise_if_payloads_differ
-
-    old_presenter = recipe_instance.legacy_presenter.new(legacy_edition)
-    edition = recipe_instance.build_edition(legacy_edition)
-    diff = diff_content_payloads(
-      recipe: recipe_instance,
-      old_content: old_presenter.content,
-      new_content: PublishingApi::StandardEditionPresenter.new(edition).content,
-    ) + diff_links_payloads(
-      recipe: recipe_instance,
-      old_links: old_presenter.links,
-      new_links: PublishingApi::StandardEditionPresenter.new(edition).links,
-    )
-    if diff.present?
-      raise <<~ERROR
-        The legacy and new edition payloads differ after normalisation.
-
-        #{diff}
-      ERROR
-    end
-
-    edition
-  end
-
   def compare_payloads(legacy_record, recipe)
     # Grab the payloads from the old presenter _before_ we do any mutation, to ensure we're comparing against the original payload
     initialized_recipe = recipe.new
@@ -179,17 +164,7 @@ private
 
     output = ""
     ActiveRecord::Base.connection.transaction do
-      standard_edition = initialized_recipe.build_edition(legacy_record)
-      # The presenter calls methods on the Edition that assume its dependencies
-      #  are persisted already, so we do need to go and save them all (and the Edition's doc)
-      # before we call the presenter. Then we roll everything back.
-      if standard_edition.document.nil?
-        standard_edition.document = Document.new(document_type: "StandardEdition", content_id: legacy_record.content_id)
-      end
-      standard_edition.save!(validate: false)
-      initialized_recipe.save_artefacts!(validate: false, edition: standard_edition)
-      standard_edition.reload
-
+      standard_edition = build_and_save_edition(initialized_recipe, legacy_record)
       new_presenter = PublishingApi::StandardEditionPresenter.new(standard_edition)
       output = <<~OUTPUT
         OLD PAYLOAD
@@ -222,6 +197,56 @@ private
       raise ActiveRecord::Rollback
     end
     output
+  end
+
+  def build_edition_and_raise_if_payloads_differ(initialized_recipe, legacy_record)
+    # Grab the payloads from the old presenter _before_ we do any mutation, to ensure we're comparing against the original payload
+    old_presenter = initialized_recipe.legacy_presenter.new(legacy_record)
+    old_content = old_presenter.content
+    old_links = old_presenter.links
+
+    standard_edition = build_and_save_edition(initialized_recipe, legacy_record)
+    new_presenter = PublishingApi::StandardEditionPresenter.new(standard_edition)
+    diff = diff_content_payloads(
+      old_content: old_content,
+      new_content: new_presenter.content,
+      recipe: initialized_recipe,
+    ) + diff_links_payloads(
+      old_links: old_links,
+      new_links: new_presenter.links,
+      recipe: initialized_recipe,
+    )
+
+    if diff.present?
+      raise <<~ERROR
+        The legacy and new edition payloads differ after normalisation.
+
+        #{diff}
+      ERROR
+    end
+
+    standard_edition
+  end
+
+  def build_and_save_edition(recipe_instance, legacy_edition)
+    standard_edition = recipe_instance.build_edition(legacy_edition)
+
+    # The presenter calls methods on the Edition that assume its dependencies
+    # are persisted already, so we do need to go and save them all (and the Edition's doc)
+    # before we call the presenter. Then we roll everything back.
+    if standard_edition.document&.id.nil?
+      standard_edition.document = Document.new(document_type: "StandardEdition", content_id: legacy_edition.content_id)
+      standard_edition.document.save!(validate: false)
+    end
+
+    # Save without validation first, to get all interdependent artefacts
+    # persisted. Then re-save with validation applied - rolling back if
+    # a validation error is raised.
+    [false, true].each do |validate|
+      standard_edition.save!(validate: validate)
+      recipe_instance.save_artefacts!(validate: validate, edition: standard_edition)
+    end
+    standard_edition.reload
   end
 
   def diff_values(left_val, right_val)
