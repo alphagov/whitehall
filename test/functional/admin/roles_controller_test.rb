@@ -299,6 +299,49 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal [org_two], role.organisations
   end
 
+  test "update publishes the role as its new type when the type changes" do
+    stub_any_publishing_api_call
+    role = create(:ministerial_role, name: "role-name")
+
+    Whitehall::PublishingApi.expects(:publish).with(instance_of(BoardMemberRole))
+
+    put :update,
+        params: { id: role,
+                  role: {
+                    name: "role-name",
+                    role_type: "permanent_secretary",
+                  } }
+  end
+
+  test "update publishes the role with its existing type when the type is unchanged" do
+    stub_any_publishing_api_call
+    role = create(:board_member_role, name: "role-name", permanent_secretary: true)
+
+    Whitehall::PublishingApi.expects(:publish).with(instance_of(BoardMemberRole))
+
+    put :update,
+        params: { id: role,
+                  role: {
+                    name: "new-name",
+                    role_type: "permanent_secretary",
+                  } }
+  end
+
+  view_test "update with an unrecognised role type displays an error" do
+    stub_any_publishing_api_call
+    role = create(:ministerial_role, name: "role-name")
+
+    put :update,
+        params: { id: role,
+                  role: {
+                    name: "role-name",
+                    role_type: "not-a-real-role-type",
+                  } }
+
+    assert_select ".govuk-error-summary"
+    assert_equal MinisterialRole, Role.find(role.id).class
+  end
+
   test "update redirects to the index on success" do
     role = create(:role)
 
