@@ -23,7 +23,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       slug_override: record.slug,
       block_content: {
         # A body is now required, and we don't want to loosen the validation on new topical events
-        "body" => record.description || ".",
+        "body" => record.description || "&nbsp;",
         "social_media_links" => record.social_media_accounts.map do |account|
           {
             "social_media_service_name" => account.service_name,
@@ -75,6 +75,10 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
 
       # 'image' (logo) is replaced by 'images'
       content[:details].delete(:image)
+    end
+
+    if content[:details] && content[:details][:body] == "<div class=\"govspeak\">\n</div>"
+      content[:details][:body] = "<div class=\"govspeak\"><p>.</p>\n</div>"
     end
 
     if content[:details] && content[:details][:ordered_featured_documents]

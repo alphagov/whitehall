@@ -107,7 +107,7 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       recipe = StandardEditionMigrator::TopicalEventRecipe.new
       edition = recipe.build_edition(legacy_topical_event)
 
-      assert_equal ".", edition.block_content.to_h["body"]
+      assert_equal "&nbsp;", edition.block_content.to_h["body"]
     end
 
     it "carries over social media links to block_content" do
@@ -365,6 +365,13 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       recipe = StandardEditionMigrator::TopicalEventRecipe.new
       content = { details: { some: "content", image: { url: "http://example.com/image.jpg" } } }
       expected_content = { details: { some: "content" } }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
+
+    it "ignores where we have defaulted the body to a value of '.'" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = { details: { body: "<div class=\"govspeak\">\n</div>" } }
+      expected_content = { details: { body: "<div class=\"govspeak\"><p>.</p>\n</div>" } }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
   end
