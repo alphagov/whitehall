@@ -26,7 +26,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
         "body" => record.description || "&nbsp;",
         "social_media_links" => social_media_links(record),
       },
-      lead_organisations: record.topical_event_organisations.where(lead: true).map(&:organisation),
+      lead_organisations: record.topical_event_organisations.where(lead: true).order(:lead_ordering).map(&:organisation),
       supporting_organisations: record.topical_event_organisations.where(lead: false).map(&:organisation),
       feature_lists: [feature_list(record)],
       images: [logo(record)].compact,

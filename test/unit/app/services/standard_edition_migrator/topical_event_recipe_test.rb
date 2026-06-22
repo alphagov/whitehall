@@ -168,12 +168,14 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       ], edition.block_content.to_h["social_media_links"])
     end
 
-    it "carries over lead and supporting organisations" do
+    it "carries over lead and supporting organisations in the correct order" do
       legacy_topical_event = create(:topical_event)
-      lead_organisation = create(:organisation)
+      primary_lead_organisation = create(:organisation)
+      secondary_lead_organisation = create(:organisation)
       supporting_organisation = create(:organisation)
       legacy_topical_event.topical_event_organisations = [
-        create(:topical_event_organisation, lead: true, organisation: lead_organisation),
+        create(:topical_event_organisation, lead: true, organisation: secondary_lead_organisation, lead_ordering: 2),
+        create(:topical_event_organisation, lead: true, organisation: primary_lead_organisation, lead_ordering: 1),
         create(:topical_event_organisation, lead: false, organisation: supporting_organisation),
       ]
       legacy_topical_event.save!
@@ -184,7 +186,7 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       edition.save!(validate: false)
       edition.reload
 
-      assert_equal [lead_organisation], edition.lead_organisations
+      assert_equal [primary_lead_organisation, secondary_lead_organisation], edition.lead_organisations
       assert_equal [supporting_organisation], edition.supporting_organisations
     end
 
