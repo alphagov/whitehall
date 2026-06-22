@@ -226,6 +226,30 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal 7, offsite_link_feature.image.assets.size
     end
 
+    it "auto-increments the ordering of Features if the legacy TopicalEventFeaturing uses `order: 1` for each of them" do
+      legacy_topical_event = create(:topical_event)
+      legacy_topical_event.topical_event_featurings = [
+        create(:topical_event_featuring, alt_text: "Should be first", ordering: 1),
+        create(:topical_event_featuring, alt_text: "Should be third", ordering: 2),
+        create(:topical_event_featuring, alt_text: "Should be second", ordering: 1),
+        create(:topical_event_featuring, alt_text: "Should be fourth", ordering: 3),
+      ]
+      legacy_topical_event.save!
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+      # Needed to persist the Features and create IDs etc
+      edition.document = create(:document)
+      edition.save!(validate: false)
+      recipe.after_save_edition(edition, legacy_topical_event)
+      edition.reload # to ensure everything has persisted
+
+      assert_equal ["Should be first", 1], [edition.feature_lists.first.features.first.alt_text, edition.feature_lists.first.features.first.ordering]
+      assert_equal ["Should be second", 2], [edition.feature_lists.first.features.second.alt_text, edition.feature_lists.first.features.second.ordering]
+      assert_equal ["Should be third", 3], [edition.feature_lists.first.features.third.alt_text, edition.feature_lists.first.features.third.ordering]
+      assert_equal ["Should be fourth", 4], [edition.feature_lists.first.features.fourth.alt_text, edition.feature_lists.first.features.fourth.ordering]
+    end
+
     it "carries over legacy topical_event_memberships as topical_event_links" do
       # In addition to the new topical_event StandardEdition type, we
       # need to define a document type that has the Edition::TopicalEvent concern included.

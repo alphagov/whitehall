@@ -147,7 +147,7 @@ private
 
   def feature_list(record)
     feature_list = FeatureList.new(locale: "en")
-    feature_list.features = record.topical_event_featurings.map do |featuring|
+    feature_list.features = record.topical_event_featurings.order(:ordering).map.with_index do |featuring, index|
       featured_image = FeaturedImageData.new(
         carrierwave_image: featuring.image.carrierwave_image,
       )
@@ -160,7 +160,7 @@ private
       attrs = {
         image: featured_image,
         alt_text: featuring.alt_text,
-        ordering: featuring.ordering,
+        ordering: index + 1,
       }
       if featuring.offsite_link
         attrs[:offsite_link] = featuring.offsite_link
