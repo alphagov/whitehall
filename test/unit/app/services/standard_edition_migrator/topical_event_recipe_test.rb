@@ -133,6 +133,41 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       ], edition.block_content.to_h["social_media_links"])
     end
 
+    it "increments the social media title if more than one link is present for the same service" do
+      legacy_topical_event = create(:topical_event)
+      legacy_topical_event.social_media_accounts = [
+        create(
+          :social_media_account,
+          social_media_service: SocialMediaService.new(name: "Facebook"),
+          url: "https://www.facebook.com",
+          title: "Facebook link",
+        ),
+        create(
+          :social_media_account,
+          social_media_service: SocialMediaService.new(name: "Facebook"),
+          url: "https://www.facebook.com/2",
+          title: "Facebook link",
+        ),
+      ]
+      legacy_topical_event.save!
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      assert_equal([
+        {
+          "social_media_service_name" => "Facebook",
+          "url" => "https://www.facebook.com",
+          "title" => "Facebook link",
+        },
+        {
+          "social_media_service_name" => "Facebook",
+          "url" => "https://www.facebook.com/2",
+          "title" => "Facebook link (2)",
+        },
+      ], edition.block_content.to_h["social_media_links"])
+    end
+
     it "carries over lead and supporting organisations" do
       legacy_topical_event = create(:topical_event)
       lead_organisation = create(:organisation)
@@ -368,10 +403,10 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
 
-    it "ignores where we have defaulted the body to a value of '.'" do
+    it "ignores where we have defaulted the body to a value of '&nbsp;'" do
       recipe = StandardEditionMigrator::TopicalEventRecipe.new
       content = { details: { body: "<div class=\"govspeak\">\n</div>" } }
-      expected_content = { details: { body: "<div class=\"govspeak\"><p>.</p>\n</div>" } }
+      expected_content = { details: { body: "<div class=\"govspeak\"><p>&nbsp;</p>\n</div>" } }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
   end

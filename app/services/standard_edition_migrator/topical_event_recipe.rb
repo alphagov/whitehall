@@ -24,13 +24,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       block_content: {
         # A body is now required, and we don't want to loosen the validation on new topical events
         "body" => record.description || "&nbsp;",
-        "social_media_links" => record.social_media_accounts.map do |account|
-          {
-            "social_media_service_name" => account.service_name,
-            "url" => account.url,
-            "title" => account.display_name,
-          }
-        end,
+        "social_media_links" => social_media_links(record),
       },
       lead_organisations: record.topical_event_organisations.where(lead: true).map(&:organisation),
       supporting_organisations: record.topical_event_organisations.where(lead: false).map(&:organisation),
@@ -78,7 +72,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     end
 
     if content[:details] && content[:details][:body] == "<div class=\"govspeak\">\n</div>"
-      content[:details][:body] = "<div class=\"govspeak\"><p>.</p>\n</div>"
+      content[:details][:body] = "<div class=\"govspeak\"><p>&nbsp;</p>\n</div>"
     end
 
     if content[:details] && content[:details][:ordered_featured_documents]
@@ -129,6 +123,21 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
   end
 
 private
+
+  def social_media_links(record)
+    services = {}
+    record.social_media_accounts.map do |account|
+      services[account.service_name] ||= []
+      services[account.service_name] << account.url
+      title = services[account.service_name].count > 1 ? "#{account.display_name} (#{services[account.service_name].count})" : account.display_name
+
+      {
+        "social_media_service_name" => account.service_name,
+        "url" => account.url,
+        "title" => title,
+      }
+    end
+  end
 
   def feature_list(record)
     feature_list = FeatureList.new(locale: "en")
