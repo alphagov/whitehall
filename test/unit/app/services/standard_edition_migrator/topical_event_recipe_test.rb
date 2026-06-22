@@ -96,6 +96,20 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal("Sample body content", edition.block_content.to_h["body"])
     end
 
+    it "creates a non-empty body for the new edition, even if the legacy record has no body" do
+      legacy_topical_event = create(
+        :topical_event,
+        description: "Sample body content",
+      )
+      legacy_topical_event.description = nil
+      legacy_topical_event.save!(validate: false)
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      assert_equal ".", edition.block_content.to_h["body"]
+    end
+
     it "carries over social media links to block_content" do
       legacy_topical_event = create(:topical_event)
       legacy_topical_event.social_media_accounts = [

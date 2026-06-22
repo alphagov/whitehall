@@ -22,7 +22,8 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       summary: record.summary,
       slug_override: record.slug,
       block_content: {
-        "body" => record.description,
+        # A body is now required, and we don't want to loosen the validation on new topical events
+        "body" => record.description || ".",
         "social_media_links" => record.social_media_accounts.map do |account|
           {
             "social_media_service_name" => account.service_name,
