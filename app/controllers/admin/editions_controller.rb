@@ -15,6 +15,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :detect_other_active_editors, only: %i[edit update]
   before_action :set_edition_defaults, only: :new
   before_action :build_edition_dependencies, only: %i[new edit]
+  before_action :set_current_user_for_validation, only: %i[create update]
   before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise]
   before_action :enforce_permissions!
   before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
@@ -346,6 +347,10 @@ private
     I18n.with_locale(edition_locale) do
       @edition = LocalisedModel.new(new_edition, edition_locale)
     end
+  end
+
+  def set_current_user_for_validation
+    @edition.current_user_for_validation = current_user
   end
 
   def find_edition

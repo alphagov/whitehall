@@ -94,6 +94,30 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
       assert_includes edition.errors[:access_limiting_organisation_ids], "must include at least one organisation"
     end
 
+    test "is invalid when user does not have an organisation" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      user = build(:user, organisation: nil)
+      edition = build(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [create(:organisation).id])
+      edition.current_user_for_validation = user
+
+      assert_invalid edition
+      assert_includes edition.errors[:access_limiting_organisation_ids], "must include your own organisation"
+    end
+
+    test "is invalid when the user's organisation is not included in the access limiting organisations" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      user_org = create(:organisation)
+      access_limiting_org = create(:organisation)
+      user = build(:user, organisation: user_org)
+
+      edition = build(:limited_access_edition, access_limiting: "organisations")
+      edition.access_limiting_organisation_ids = [access_limiting_org.id]
+      edition.current_user_for_validation = user
+
+      assert_not edition.valid?
+      assert_includes edition.errors[:access_limiting_organisation_ids], "must include your own organisation"
+    end
+
     test "create does not persist edition with invalid access_limiting_organisations" do
       @feature_flags.switch!(:access_limiting_organisations_ui, true)
       edition = build(:limited_access_edition, access_limiting: "organisations")
@@ -131,7 +155,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
       assert_equal [new_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
     end
 
-    test "update does not persist valid access_limiting_organisations on assignment" do
+    test "update: does not persist valid access_limiting_organisations on assignment" do
       @feature_flags.switch!(:access_limiting_organisations_ui, true)
       original_org = create(:organisation)
       edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [original_org.id])
@@ -183,6 +207,26 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
       assert_not edition.valid?
       assert_includes edition.errors[:lead_organisation_ids], "at least one required"
+    end
+
+    test "is invalid when user does not have an organisation" do
+      user = build(:user, organisation: nil)
+      edition = build(:limited_access_edition, access_limiting: "organisations")
+      edition.lead_organisation_ids = [create(:organisation).id]
+      edition.current_user_for_validation = user
+
+      assert_invalid edition
+      assert_includes edition.errors[:base], "Lead or supporting organisations must include your own organisation"
+    end
+
+    test "is invalid when the user's organisation is not included in the edition organisations" do
+      user_org = create(:organisation)
+      user = build(:user, organisation: user_org)
+      edition = build(:limited_access_edition, access_limiting: "organisations", lead_organisation_ids: [create(:organisation).id])
+      edition.current_user_for_validation = user
+
+      assert_not edition.valid?
+      assert_includes edition.errors[:base], "Lead or supporting organisations must include your own organisation"
     end
   end
 

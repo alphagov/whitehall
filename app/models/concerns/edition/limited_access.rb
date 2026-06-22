@@ -2,6 +2,8 @@ module Edition::LimitedAccess
   extend ActiveSupport::Concern
 
   included do
+    attr_accessor :current_user_for_validation
+
     enum :access_limiting, {
       none: "none",
       organisations: "organisations",
@@ -22,6 +24,7 @@ module Edition::LimitedAccess
     after_save :clear_pending_access_limiting_organisation_ids
 
     validate :access_limiting_organisations_required, if: -> { Flipflop.access_limiting_organisations_ui? && access_limiting_organisations? }
+    validate :access_limiting_must_include_current_user_organisation
   end
 
   module ClassMethods
@@ -84,5 +87,21 @@ private
 
   def clear_pending_access_limiting_organisation_ids
     remove_instance_variable(:@pending_access_limiting_organisation_ids) if defined?(@pending_access_limiting_organisation_ids)
+  end
+
+  def access_limiting_must_include_current_user_organisation
+    return unless current_user_for_validation.present? && access_limited?
+
+    if Flipflop.access_limiting_organisations_ui? && access_limiting_organisations?
+      org_ids = edition_access_limiting_organisations
+                  .reject(&:marked_for_destruction?)
+                  .map(&:organisation_id)
+
+      if org_ids.any? && org_ids.exclude?(current_user_for_validation.organisation&.id)
+        errors.add(:access_limiting_organisation_ids, "must include your own organisation")
+      end
+    elsif organisation_association_enabled? && edition_organisations.map(&:organisation_id).exclude?(current_user_for_validation.organisation&.id)
+      errors.add(:base, "Lead or supporting organisations must include your own organisation")
+    end
   end
 end

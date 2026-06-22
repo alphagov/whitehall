@@ -1072,6 +1072,35 @@ module AdminEditionControllerTestHelpers
         end
       end
 
+      view_test "create fails and rerenders with submitted access limiting organisations, when user does not belong to one of the access limiting organisations" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        user_organisation = create(:organisation)
+        controller.current_user.organisation = user_organisation
+        controller.current_user.save!
+        access_limiting_organisation = create(:organisation)
+
+        assert_no_difference -> { edition_class.count } do
+          post :create,
+               params: {
+                 edition: controller_attributes_for(edition_type).merge(
+                   lead_organisation_ids: [user_organisation.id],
+                   access_limiting: "organisations",
+                   access_limiting_organisation_ids: [access_limiting_organisation.id],
+                 ),
+               }
+        end
+
+        assert_template :new
+        assert_select ".govuk-error-summary a", text: "Access limiting organisation ids must include your own organisation", href: "#access_limiting_organisation_ids"
+        assert_select "form#new_edition" do
+          assert_select "input[name='edition[access_limiting]'][value='organisations'][checked=checked]"
+          assert_select "select[name='edition[access_limiting_organisation_ids][]']" do
+            assert_select "option[selected='selected'][value='#{access_limiting_organisation.id}']"
+          end
+        end
+      end
+
       view_test "edit should display persisted access limiting value" do
         feature_flags.switch! :access_limiting_organisations_ui, true
 
@@ -1197,6 +1226,35 @@ module AdminEditionControllerTestHelpers
         end
         assert_equal [organisation.id], edition.reload.access_limiting_organisation_ids
       end
+
+      view_test "update fails and rerenders with submitted access limiting organisations, when user does not belong to one of the access limiting organisations" do
+        feature_flags.switch! :access_limiting_organisations_ui, true
+
+        user_organisation = create(:organisation)
+        controller.current_user.organisation = user_organisation
+        controller.current_user.save!
+        access_limiting_organisation = create(:organisation)
+
+        edition = create(edition_type, access_limiting: "organisations", access_limiting_organisation_ids: [user_organisation.id])
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                lead_organisation_ids: [user_organisation.id],
+                access_limiting: "organisations",
+                access_limiting_organisation_ids: [access_limiting_organisation.id],
+              },
+            }
+
+        assert_template :edit
+        assert_select "form#edit_edition" do
+          assert_select "select[name='edition[access_limiting_organisation_ids][]']" do
+            assert_select "option[selected='selected'][value='#{access_limiting_organisation.id}']"
+          end
+        end
+        assert_equal user_organisation.id, edition.reload.access_limiting_organisation_ids.first
+      end
     end
 
     def should_allow_access_limiting_of(edition_type)
@@ -1263,7 +1321,7 @@ module AdminEditionControllerTestHelpers
             }
 
         assert_not edition.reload.access_limited?
-        assert_select "div[role='alert']", text: "Access can only be limited by users belonging to an organisation tagged to the document"
+        assert_select ".gem-c-error-summary__list-item", text: "Lead or supporting organisations must include your own organisation"
       end
     end
 
