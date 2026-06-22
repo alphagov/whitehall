@@ -332,7 +332,7 @@ GEM
       sprockets-rails
     govuk_schemas (6.3.1)
       json-schema (>= 2.8, < 6.3)
-    govuk_sidekiq (10.1.0)
+    govuk_sidekiq (11.1.2)
       gds-api-adapters (>= 19.1.0)
       govuk_app_config (>= 1.1)
       redis-client (>= 0.22.2)
