@@ -112,6 +112,12 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       end
     end
 
+    if content[:details] && content[:details][:social_media_links]
+      content[:details][:social_media_links].each do |social_media_link|
+        social_media_link[:title] = social_media_link[:title].gsub(/\s+\(\d+\)$/, "") # Remove the "(1)" or "(2)" suffixes that are added in the StandardEdition equivalent
+      end
+    end
+
     # Delete the 'images' array (replacing old 'image' property)
     content[:details].delete(:images) if content[:details]
     content

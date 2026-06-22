@@ -432,6 +432,35 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       expected_content = { details: { some: "content" } }
       assert_equal expected_content, recipe.ignore_new_content_fields(content)
     end
+
+    it "ignores appended suffixes on social media links" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = {
+        details: {
+          some: "content",
+          social_media_links: [
+            {
+              social_media_service_name: "Facebook",
+              url: "https://www.facebook.com",
+              title: "Facebook link (2)",
+            },
+          ],
+        },
+      }
+      expected_content = {
+        details: {
+          some: "content",
+          social_media_links: [
+            {
+              social_media_service_name: "Facebook",
+              url: "https://www.facebook.com",
+              title: "Facebook link",
+            },
+          ],
+        },
+      }
+      assert_equal expected_content, recipe.ignore_new_content_fields(content)
+    end
   end
 
   describe "#ignore_new_links" do
