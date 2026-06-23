@@ -10,8 +10,6 @@ class DraftEditionUpdater < EditionService
   def failure_reason
     if !edition.pre_publication?
       "A #{edition.state} edition may not be updated."
-    elsif should_check_current_user_will_retain_access? && access_limit_excludes_current_user?
-      "Access can only be limited by users belonging to an organisation tagged to the document"
     elsif !edition.valid?
       "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
     end
@@ -19,18 +17,5 @@ class DraftEditionUpdater < EditionService
 
   def verb
     "update_draft"
-  end
-
-private
-
-  def should_check_current_user_will_retain_access?
-    @options[:current_user].present? && edition.access_limited?
-  end
-
-  def access_limit_excludes_current_user?
-    # Some users may not necessarily belong to an organisation. We should fail-closed for them.
-    return true unless @options[:current_user].organisation
-
-    edition.organisation_association_enabled? && edition.edition_organisations.map(&:organisation_id).exclude?(@options[:current_user].organisation.id)
   end
 end

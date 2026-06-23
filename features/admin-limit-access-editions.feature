@@ -22,4 +22,4 @@ Feature: Viewing most recent editions in admin
     And I set the Lead organisation to an org I am not in
     And I check the "Limit access to publishers from organisations associated with this document before you publish" box
     When I click "Save"
-    Then I should see the validation error "Access can only be limited by users belonging to an organisation tagged to the document"
+    Then I should see the validation error "Lead or supporting organisations must include your own organisation"

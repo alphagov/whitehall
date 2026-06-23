@@ -15,6 +15,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :detect_other_active_editors, only: %i[edit update]
   before_action :set_edition_defaults, only: :new
   before_action :build_edition_dependencies, only: %i[new edit]
+  before_action :set_current_user_for_validation, only: %i[create update]
   before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise]
   before_action :enforce_permissions!
   before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
@@ -247,6 +248,7 @@ private
         all_nation_applicability: [],
         lead_organisation_ids: [],
         supporting_organisation_ids: [],
+        access_limiting_organisation_ids: [],
         organisation_ids: [],
         role_ids: [],
         world_location_ids: [],
@@ -345,6 +347,10 @@ private
     I18n.with_locale(edition_locale) do
       @edition = LocalisedModel.new(new_edition, edition_locale)
     end
+  end
+
+  def set_current_user_for_validation
+    @edition.current_user_for_validation = current_user
   end
 
   def find_edition
@@ -468,6 +474,8 @@ private
     if params[:review_reminder].blank? && edition_params.dig("document_attributes", "review_reminder_attributes").present?
       edition_params["document_attributes"]["review_reminder_attributes"]["_destroy"] = "1"
     end
+
+    edition_params[:access_limiting_organisation_ids] = [] if edition_params[:access_limiting] == "none"
   end
 
   def clear_scheduled_publication_if_not_activated

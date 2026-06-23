@@ -6,30 +6,26 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
   def edit; end
 
   def update
-    editorial_remark = edition_params.delete(:editorial_remark)
+    @editorial_remark = edition_params.delete(:editorial_remark)
     @edition.assign_attributes(edition_params)
 
-    if changed?
-      if editorial_remark.blank?
-        @edition.errors.add(:editorial_remark, t("errors.messages.blank"))
+    if @editorial_remark.blank?
+      @edition.errors.add(:editorial_remark, t("errors.messages.blank"))
+      return render :edit
+    end
 
-        render :edit
-      else
-        @edition.save!
-        PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
-
-        EditorialRemark.create!(
-          edition: @edition,
-          body: "Access options updated by GDS Admin: #{editorial_remark}",
-          author: current_user,
-          created_at: Time.zone.now,
-          updated_at: Time.zone.now,
-        )
-
-        redirect_to admin_editions_path, notice: "Access updated for #{@edition.title}"
-      end
-    else
+    if @edition.save
+      PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
+      EditorialRemark.create!(
+        edition: @edition,
+        body: "Access options updated by GDS Admin: #{@editorial_remark}",
+        author: current_user,
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now,
+      )
       redirect_to admin_editions_path, notice: "Access updated for #{@edition.title}"
+    else
+      render :edit
     end
   end
 
@@ -45,15 +41,16 @@ private
 
   def edition_params
     @edition_params ||= params
-    .fetch(:edition, {})
-    .permit(
-      :access_limiting,
-      :editorial_remark,
-      {
-        lead_organisation_ids: [],
-        supporting_organisation_ids: [],
-      },
-    )
+      .fetch(:edition, {})
+      .permit(
+        :access_limiting,
+        :editorial_remark,
+        {
+          lead_organisation_ids: [],
+          supporting_organisation_ids: [],
+          access_limiting_organisation_ids: [],
+        },
+      )
   end
 
   def clean_organisation_params
@@ -63,13 +60,7 @@ private
     if edition_params[:supporting_organisation_ids]
       edition_params[:supporting_organisation_ids] = edition_params[:supporting_organisation_ids].reject(&:blank?)
     end
-  end
 
-  def changed?
-    if @edition.organisation_association_enabled?
-      @edition.changed? || @edition.edition_organisations != Edition.find(params[:id]).edition_organisations
-    else
-      @edition.changed?
-    end
+    edition_params[:access_limiting_organisation_ids] = [] if edition_params[:access_limiting] == "none"
   end
 end
