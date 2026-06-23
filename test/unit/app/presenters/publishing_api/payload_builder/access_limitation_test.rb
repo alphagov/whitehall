@@ -20,6 +20,39 @@ module PublishingApi
         assert_equal AccessLimitation.for(stubbed_item), expected_hash
       end
 
+      test "it returns access limiting organisations if access limiting is set to 'organisations', when feature flag is on" do
+        @feature_flags.switch!(:access_limiting_organisations_ui, true)
+        organisation = create(:organisation)
+
+        stubbed_item = stub(
+          access_limited?: true,
+          publicly_visible?: false,
+          access_limiting_organisations?: true,
+          access_limiting_organisations: [organisation],
+        )
+        expected_hash = {
+          access_limited: {
+            organisations: [organisation.content_id],
+          },
+        }
+
+        assert_equal AccessLimitation.for(stubbed_item), expected_hash
+      end
+
+      test "it returns an empty hash if access limiting is set to 'none', when feature flag is on" do
+        @feature_flags.switch!(:access_limiting_organisations_ui, true)
+        organisation = create(:organisation)
+
+        stubbed_item = stub(
+          access_limited?: false,
+          publicly_visible?: false,
+          access_limiting_organisations?: false,
+          access_limiting_organisations: [organisation],
+        )
+
+        assert_equal({}, AccessLimitation.for(stubbed_item))
+      end
+
       test "it returns an empty hash if the item is not access limited" do
         stubbed_item = stub(access_limited?: false, publicly_visible?: false)
 
