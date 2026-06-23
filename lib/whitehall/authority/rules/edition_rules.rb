@@ -103,6 +103,8 @@ module Whitehall::Authority::Rules
     def access_limit_enforced?
       if subject.access_limiting_organisations?
         if Flipflop.access_limiting_organisations_ui?
+          return true if subject.access_limiting_organisations.empty?
+
           subject.access_limiting_organisations.any? && subject.access_limiting_organisations.exclude?(actor.organisation)
         else
           organisations = subject.organisations

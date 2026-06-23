@@ -88,4 +88,17 @@ class EditionRulesTest < ActiveSupport::TestCase
 
     assert_not enforcer_for(user, edition).can?(:see)
   end
+
+  test "revokes access when access_limiting it set to 'organisations', but there are no access_limiting_organisations on the edition, and flag is on" do
+    #  Special case to cover migration issues. In the latest validation this scenario is not really feasible.
+    feature_flags.switch! :access_limiting_organisations_ui, true
+
+    org1 = build(:organisation)
+    user = user_in(org1)
+
+    edition = build(:edition, access_limiting: "organisations")
+    edition.stubs(:access_limiting_organisations).returns([])
+
+    assert_not enforcer_for(user, edition).can?(:see)
+  end
 end
