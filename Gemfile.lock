@@ -104,7 +104,7 @@ GEM
     bigdecimal (3.3.1)
     binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
-    bootsnap (1.24.0)
+    bootsnap (1.24.6)
       msgpack (~> 1.2)
     brakeman (8.0.4)
       racc
@@ -461,7 +461,7 @@ GEM
     minitest-stub-const (0.6)
     mocha (3.1.0)
       ruby2_keywords (>= 0.0.5)
-    msgpack (1.8.0)
+    msgpack (1.8.1)
     multi_json (1.20.1)
     multi_test (1.1.0)
     multi_xml (0.8.1)
