@@ -342,6 +342,46 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
+  test "is invalid when access_limiting is set to 'individuals' and the current user's email is not included" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    user = build(:user, email: "user@example.com")
+    edition = create(:limited_access_edition)
+    edition.current_user_for_validation = user
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "another_user@example.com"
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_individual_emails], "must include your own email"
+  end
+
+  test "recognizes the users's email as valid when mixed in with other badly formatted emails" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    user = build(:user, email: "user@example.com")
+    edition = create(:limited_access_edition)
+    edition.current_user_for_validation = user
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "user@example.com, gibberish"
+
+    assert_not edition.valid?
+    assert_not_includes edition.errors[:access_limiting_individual_emails], "must include your own email"
+  end
+
+  test "does not recognize the users's email as valid when the email separator is space" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    user = build(:user, email: "user@example.com")
+    edition = create(:limited_access_edition)
+    edition.current_user_for_validation = user
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "test@test.com example@example.com"
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_individual_emails], "must include your own email"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses"
+  end
+
   test "is valid when access_limiting is set to 'individuals' and no access limiting individuals are selected when flag is off" do
     edition = create(:consultation, access_limiting: :individuals)
     edition.access_limiting_individual_emails = ""

@@ -31,6 +31,7 @@ module Edition::LimitedAccess
 
     validate :access_limiting_organisations_required, if: -> { Flipflop.access_limiting_organisations_ui? && access_limiting_organisations? }
     validate :access_limiting_must_include_current_user_organisation
+    validate :access_limiting_must_include_current_user_email
     validate :access_limiting_individual_emails_required, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
     validate :access_limiting_individual_emails_format, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
   end
@@ -138,6 +139,18 @@ private
       end
     elsif organisation_association_enabled? && edition_organisations.map(&:organisation_id).exclude?(current_user_for_validation.organisation&.id)
       errors.add(:base, "Lead or supporting organisations must include your own organisation")
+    end
+  end
+
+  def access_limiting_must_include_current_user_email
+    return unless current_user_for_validation.present? && Flipflop.access_limiting_individuals_ui? && access_limiting_individuals?
+
+    emails = access_limiting_individuals
+               .reject(&:marked_for_destruction?)
+               .map { |individual| individual.email.to_s.downcase }
+
+    if emails.any? && emails.exclude?(current_user_for_validation.email.to_s.downcase)
+      errors.add(:access_limiting_individual_emails, "must include your own email")
     end
   end
 
