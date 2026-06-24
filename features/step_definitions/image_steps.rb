@@ -30,13 +30,17 @@ def upload_file(width = nil, height = nil, image_usage_key = "govspeak_embed", f
   within "##{image_usage_key}_image_upload_form" do
     click_on "Upload"
   end
+
+  response = OpenStruct.new
+  response.body = File.read(File.open(file))
+
+  Services.asset_manager.stubs(:media).returns(response)
 end
 
 Given("a draft document with images exists") do
   svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
   image = build(:image, image_data: svg_image_data)
   images = [build(:image), image]
-
   @edition = create(:draft_publication, body: "!!2", images:)
 end
 
@@ -162,6 +166,7 @@ When("I update the image details and save") do
   stub_request(:get, %r{.*/media/.*/960x960_jpeg.jpg}).to_return(status: 200, body: io_object, headers: {})
 
   fill_in "image[caption]", with: "Test caption" if page.has_field?("image[caption]")
+
   find("button", text: "Save").click
 end
 
