@@ -33,8 +33,6 @@ class Admin::EditionImagesController < Admin::BaseController
   def destroy
     filename = image.image_data.carrierwave_image
     image.destroy!
-    PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
-
     redirect_to admin_edition_images_path(@edition), notice: "#{filename} has been deleted"
   end
 
@@ -57,7 +55,8 @@ class Admin::EditionImagesController < Admin::BaseController
     image.image_data.validate_on_image = image
 
     if image.save
-      PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
+      Whitehall.edition_services.draft_updater(@edition)
+      ServiceListeners::AttachmentUpdater.call(attachment_data: image.image_data)
       redirect_to admin_edition_images_path(@edition), notice: "#{image.image_data.carrierwave_image} details updated"
     else
       render :edit
@@ -105,7 +104,8 @@ class Admin::EditionImagesController < Admin::BaseController
     if @images.any? && @images.map(&:valid?).all?
       @images.each(&:save)
       @edition.update!(image_display_option: nil) if @image_usage.key == "lead"
-      PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
+      Whitehall.edition_services.draft_updater(@edition)
+      @images.each { |image| ServiceListeners::AttachmentUpdater.call(attachment_data: image.image_data) }
       flash.notice = "Images successfully uploaded"
     else
       # Remove images from @edition.images array, otherwise the view will render it in the 'Uploaded images' list

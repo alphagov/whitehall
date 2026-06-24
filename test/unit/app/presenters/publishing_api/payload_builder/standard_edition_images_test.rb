@@ -128,11 +128,12 @@ module PublishingApi
           },
         }))
 
-        usage_one_image = create(:image, usage: "non_embeddable_usage_one")
-        another_usage_one_image = create(:image, usage: "non_embeddable_usage_one")
-        usage_two_image = create(:image, usage: "non_embeddable_usage_two")
-        another_usage_two_image = create(:image, usage: "non_embeddable_usage_two")
-        page = create(:standard_edition, images: [usage_one_image, another_usage_one_image, usage_two_image, another_usage_two_image])
+        page = create(:standard_edition)
+
+        usage_one_image = create(:image, usage: "non_embeddable_usage_one", edition_id: page.id)
+        another_usage_one_image = create(:image, usage: "non_embeddable_usage_one", edition_id: page.id)
+        usage_two_image = create(:image, usage: "non_embeddable_usage_two", edition_id: page.id)
+        another_usage_two_image = create(:image, usage: "non_embeddable_usage_two", edition_id: page.id)
 
         result = PayloadBuilder::StandardEditionImages.for(page)[:images]
 

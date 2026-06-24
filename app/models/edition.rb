@@ -146,6 +146,10 @@ class Edition < ApplicationRecord
     PUBLICLY_VISIBLE_STATES.include?(state)
   end
 
+  def post_published_state?
+    POST_PUBLICATION_STATES.include?(state)
+  end
+
   def versioning_completed?
     return true unless change_note_required?
 

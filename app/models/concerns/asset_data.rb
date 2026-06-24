@@ -84,7 +84,7 @@ module AssetData
   end
 
   def draft?
-    !significant_attachable.publicly_visible?
+    (significant_attachable.respond_to?(:post_published_state) && !significant_attachable.post_published_state?) || !significant_attachable.publicly_visible?
   end
 
   def needs_publishing?
