@@ -23,6 +23,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :publication
   access_limiting_organisations_ui_off_should_allow_access_limiting_of :publication
   access_limiting_organisations_ui_on_should_allow_access_limiting_of :publication
+  access_limiting_individuals_ui_on_should_allow_access_limiting_of :publication
   should_render_govspeak_history_and_fact_checking_tabs_for :publication
   should_allow_overriding_of_first_published_at_for :publication
 
