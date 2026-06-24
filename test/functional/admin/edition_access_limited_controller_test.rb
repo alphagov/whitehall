@@ -7,7 +7,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  # access_limiting_organisations_ui flag agnostic
+  # flag agnostic
   test "GET :edit should be forbidden unless user is a GDS Admin" do
     edition = create(:consultation)
     login_as :gds_editor
@@ -15,7 +15,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  # access_limiting_organisations_ui flag is off
+  # flag agnostic
   view_test "GET :edit should display the correct fields" do
     organisation = create(:organisation)
 
@@ -47,9 +47,10 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     end
   end
 
-  # access_limiting_organisations_ui is on
+  # access_limiting_organisations_ui and access_limiting_individuals_ui are on
   view_test "GET :edit should show radio buttons instead of checkbox when access_limiting_organisations_ui flag is on" do
     feature_flags.switch! :access_limiting_organisations_ui, true
+    feature_flags.switch! :access_limiting_individuals_ui, true
 
     organisation = create(:organisation)
     edition = create(
@@ -61,7 +62,9 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
 
     get :edit, params: { id: edition }
 
-    assert_select "input[name='edition[access_limiting]'][type=radio]"
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=none]"
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=organisations]"
+    assert_select "input[name='edition[access_limiting]'][type=radio][value=individuals]"
     assert_select "input[name='edition[access_limited]'][type=checkbox]", count: 0
   end
 
@@ -106,7 +109,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     refute_select "select[name='edition[access_limiting_organisation_ids][]']"
   end
 
-  # access_limiting_organisations_ui flag agnostic
+  # flag agnostic
   test "PATCH :update should be forbidden unless user is a GDS Admin" do
     edition = create(:consultation)
     login_as :gds_editor
@@ -114,7 +117,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  # access_limiting_organisations_ui flag agnostic
+  # flag agnostic
   test "PATCH :update should update editions organisations and create an editorial remark" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
@@ -374,5 +377,124 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     end
     assert_select "textarea[name='edition[editorial_remark]']", text: "Test"
     assert_equal [organisation.id], edition.reload.access_limiting_organisation_ids
+  end
+
+  # both flags on
+  test "PATCH :update clears access_limiting_organisations when switching to individuals" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :organisations,
+      access_limiting_organisation_ids: [organisation.id],
+    )
+
+    # The form resubmits the values of the other radio buttons. They get cleared in the controller.
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            access_limiting: "individuals",
+            access_limiting_individual_emails: "user@example.com",
+            access_limiting_organisation_ids: [organisation.id],
+            editorial_remark: "Switching to individual access limiting",
+          },
+        }
+
+    assert_redirected_to admin_editions_path
+    assert edition.reload.access_limited?
+    assert_empty edition.access_limiting_organisations
+    assert edition.access_limiting_individuals.exists?(email: "user@example.com")
+  end
+
+  # both flags on
+  test "PATCH :update clears access_limiting_individuals when switching to organisations" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :individuals,
+      access_limiting_individual_emails: "user@example.com",
+    )
+
+    # The form resubmits the values of the other radio buttons. They get cleared in the controller.
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            access_limiting: "organisations",
+            access_limiting_individual_emails: "user@example.com",
+            access_limiting_organisation_ids: [organisation.id.to_s],
+            editorial_remark: "Switching to organisation access limiting",
+          },
+        }
+
+    assert_redirected_to admin_editions_path
+    assert edition.reload.access_limited?
+    assert edition.access_limiting_organisations.exists?(id: organisation.id)
+    assert_empty edition.access_limiting_individuals
+  end
+
+  # both flags on
+  test "PATCH :update clears both access_limiting_organisations and access_limiting_individuals when switching to none" do
+    feature_flags.switch! :access_limiting_organisations_ui, true
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    organisation = create(:organisation)
+    edition = create(
+      :consultation,
+      access_limiting: :individuals,
+      access_limiting_individual_emails: "user@example.com",
+    )
+
+    # The form resubmits the values of the other radio buttons. They get cleared in the controller.
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            access_limiting: "none",
+            access_limiting_individual_emails: "user@example.com",
+            access_limiting_organisation_ids: [organisation.id],
+            editorial_remark: "Removing all access limiting",
+          },
+        }
+
+    assert_redirected_to admin_editions_path
+    assert_not edition.reload.access_limited?
+    assert_empty edition.access_limiting_organisations
+    assert_empty edition.access_limiting_individuals
+  end
+
+  # access_limiting_individuals_ui flag is on
+  view_test "PATCH :update re-renders the edit template with error and the submitted values, but does not persist the association, when access limiting individuals invalid" do
+    feature_flags.switch! :access_limiting_individuals_ui, true
+
+    edition = create(
+      :consultation,
+      access_limiting: :individuals,
+      access_limiting_individual_emails: "user@example.com",
+    )
+
+    put :update,
+        params: {
+          id: edition,
+          edition: {
+            access_limiting: "individuals",
+            access_limiting_individual_emails: "user@example.com, another_user@example.com, notanemail",
+            editorial_remark: "Test",
+          },
+        }
+
+    assert_template :edit
+    assert_select ".govuk-error-summary a", text: "Access limiting individual emails must contain valid email addresses", href: "#access_limiting_individuals_emails"
+    assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: "user@example.com, another_user@example.com, notanemail"
+    assert_select "textarea[name='edition[editorial_remark]']", text: "Test"
+
+    assert edition.reload.access_limiting_individuals.exists?(email: "user@example.com")
+    assert_not edition.access_limiting_individuals.exists?(email: "another_user@example.com")
   end
 end

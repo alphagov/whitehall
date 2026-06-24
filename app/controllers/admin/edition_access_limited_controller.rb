@@ -44,6 +44,7 @@ private
       .fetch(:edition, {})
       .permit(
         :access_limiting,
+        :access_limiting_individual_emails,
         :editorial_remark,
         {
           lead_organisation_ids: [],
@@ -61,6 +62,7 @@ private
       edition_params[:supporting_organisation_ids] = edition_params[:supporting_organisation_ids].reject(&:blank?)
     end
 
-    edition_params[:access_limiting_organisation_ids] = [] if edition_params[:access_limiting] == "none"
+    edition_params[:access_limiting_organisation_ids] = [] unless edition_params[:access_limiting] == "organisations"
+    edition_params[:access_limiting_individual_emails] = [] unless edition_params[:access_limiting] == "individuals"
   end
 end
