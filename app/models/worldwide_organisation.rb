@@ -24,7 +24,7 @@ class WorldwideOrganisation < Edition
   alias_method :name, :title
 
   class CloneOfficesTrait < Edition::Traits::Trait
-    def process_associations_after_save(new_edition)
+    def process_associations_after_draft_creation(new_edition)
       @edition.offices.each do |office|
         new_office = new_edition.offices.build(office.attributes.except("id", "edition_id"))
 
@@ -55,7 +55,7 @@ class WorldwideOrganisation < Edition
   add_trait CloneOfficesTrait
 
   class CloneDefaultImageTrait < Edition::Traits::Trait
-    def process_associations_before_save(new_edition)
+    def process_associations_before_draft_creation(new_edition)
       return if @edition.default_news_image.blank?
 
       new_edition.build_default_news_image(@edition.default_news_image.attributes.except("id"))
@@ -69,7 +69,7 @@ class WorldwideOrganisation < Edition
   add_trait CloneDefaultImageTrait
 
   class ClonePagesTrait < Edition::Traits::Trait
-    def process_associations_before_save(new_edition)
+    def process_associations_before_draft_creation(new_edition)
       @edition.pages.each do |page|
         new_page = page.dup
 

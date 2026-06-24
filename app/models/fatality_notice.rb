@@ -10,7 +10,7 @@ class FatalityNotice < Edition
   belongs_to :operational_field
 
   class CasualtiesTrait < Edition::Traits::Trait
-    def process_associations_after_save(new_edition)
+    def process_associations_after_draft_creation(new_edition)
       @edition.fatality_notice_casualties.each do |casualty|
         new_edition.fatality_notice_casualties.create(casualty.attributes.except("id"))
       end
