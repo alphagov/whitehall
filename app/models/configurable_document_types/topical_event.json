@@ -211,7 +211,7 @@
     "history_mode_enabled": false,
     "taxon": {
       "enabled": true,
-      "required": true
+      "required": false
     },
     "translations_enabled": false
   }

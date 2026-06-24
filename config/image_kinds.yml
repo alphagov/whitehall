@@ -161,6 +161,9 @@ topical_event_header:
     # Deliberately no SVG - see WHIT-3206
 topical_event_logo:
   display_name: "Logo"
+  # Temporarily lower the limit for the source image while we migrate topical events.
+  # Older topical events have much smaller logos, e.g. https://assets.publishing.service.gov.uk/media/5a71e47ae5274a7f990285b9/G8_logo.jpg
+  # for https://www.gov.uk/government/topical-events/g8-2013.
   valid_width: 1506
   valid_height: 1004
   version_prefix: true
