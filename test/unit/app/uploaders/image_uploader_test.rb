@@ -12,8 +12,8 @@ class ImageUploaderTest < ActiveSupport::TestCase
     ImageUploader.enable_processing = false
   end
 
-  test "uses the previewable asset manager storage engine" do
-    assert_equal Storage::PreviewableStorage, ImageUploader.storage
+  test "uses the attachment asset manager storage engine" do
+    assert_equal Storage::AttachmentStorage, ImageUploader.storage
   end
 
   test "should only allow the image file types configured for the image kind" do

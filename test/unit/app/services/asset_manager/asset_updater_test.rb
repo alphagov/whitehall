@@ -26,13 +26,13 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     end
   end
 
-  test "raises exception if attempting to update a live deleted asset" do
+  test "rescues and logs if attempting to update a live deleted asset" do
     @asset_updater.stubs(:find_asset_by_id).with(@asset_manager_id)
            .returns("id" => @asset_manager_id, "deleted" => true, "draft" => false)
 
-    assert_raises(AssetManager::AssetUpdater::AssetDeleted) do
-      @asset_updater.call(@asset_manager_id, { "redirect_url" => @redirect_url })
-    end
+    Rails.logger.expects(:info).with("Attempting to update Asset with asset_manager_id: '#{@asset_manager_id}' that is live and deleted")
+
+    @asset_updater.call(@asset_manager_id, { "redirect_url" => @redirect_url })
   end
 
   test "rescues and logs if attempting to update a live asset with a draft `parent_document_url`" do

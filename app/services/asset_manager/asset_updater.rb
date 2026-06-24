@@ -7,12 +7,6 @@ class AssetManager::AssetUpdater
     end
   end
 
-  class AssetDeleted < StandardError
-    def initialize(asset_manager_id)
-      super("Attempting to update Asset with asset_manager_id: '#{asset_manager_id}' that is live and deleted")
-    end
-  end
-
   def self.call(*args)
     new.call(*args)
   end
@@ -34,8 +28,9 @@ private
     # This is particularly important for ensuring replacements work correctly when followed by a deletion.
     # Publishing the deleted state ensured that the original asset redirects to its deleted replacement, and thus 404s as well.
 
-    # Asset Manager will raise a 404 when trying to fetch a deleted live asset for update. We raise here to make those cases explicit.
-    raise AssetDeleted, asset_manager_id if attributes["deleted"] && !attributes["draft"]
+    if attributes["deleted"] && !attributes["draft"]
+      return Rails.logger.info("Attempting to update Asset with asset_manager_id: '#{asset_manager_id}' that is live and deleted")
+    end
 
     begin
       keys = new_attributes.keys

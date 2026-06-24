@@ -6,6 +6,14 @@ module ServiceListeners
 
         DeleteAttachmentAssetJob.perform_async(attachment_data.id) if attachment_data&.needs_discarding?
       end
+
+      if attachable.is_a?(Edition)
+        Image.includes(:image_data).where(edition: attachable.attachables).find_each do |image|
+          image_data = image.image_data
+
+          DeleteAttachmentAssetJob.perform_async(image_data.id) if image_data&.needs_discarding?
+        end
+      end
     end
   end
 end
