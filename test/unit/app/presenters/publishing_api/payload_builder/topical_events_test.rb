@@ -17,6 +17,13 @@ module PublishingApi
         actual_result = PublishingApi::PayloadBuilder::TopicalEvents.for(@publication)
         assert_equal expected_result, actual_result
       end
+
+      test "filters out duplicate content_ids" do
+        @publication.topical_event_documents << @topical_event_document
+        expected_result = { topical_events: [@topical_event.content_id, @topical_event_document.content_id] }
+        actual_result = PublishingApi::PayloadBuilder::TopicalEvents.for(@publication)
+        assert_equal expected_result, actual_result
+      end
     end
   end
 end
