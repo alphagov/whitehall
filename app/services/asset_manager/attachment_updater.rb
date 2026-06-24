@@ -3,7 +3,8 @@ class AssetManager::AttachmentUpdater
     return if attachment_data.deleted?
 
     asset_attributes = {
-      "access_limited_organisation_ids" => attachment_data.access_limitation,
+      "access_limited_organisation_ids" => attachment_data.access_limitation_organisation_ids,
+      "access_limited_user_ids" => attachment_data.access_limited_individual_ids,
       "draft" => attachment_data.draft? && !(attachment_data.replaced? || attachment_data.unpublished?),
     }
 
