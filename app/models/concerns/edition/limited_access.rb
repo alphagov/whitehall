@@ -20,6 +20,12 @@ module Edition::LimitedAccess
              through: :edition_access_limiting_organisations,
              source: :organisation
 
+    has_many :access_limiting_individuals,
+             dependent: :destroy,
+             autosave: true,
+             validate: false,
+             inverse_of: :edition
+
     after_initialize :set_access_limited
     after_save :clear_pending_access_limiting_organisation_ids
 
@@ -81,6 +87,34 @@ module Edition::LimitedAccess
     end
 
     super
+  end
+
+  def access_limiting_individual_emails=(value)
+    parsed_emails = Array(value)
+                      .flat_map { |entry| entry.to_s.split(/[\n,;]+/) }
+                      .map { |email| email.strip.downcase }
+                      .reject(&:blank?)
+                      .uniq
+
+    current_emails = access_limiting_individuals.reject(&:marked_for_destruction?).map { |i| i.email.downcase }
+
+    emails_to_remove = current_emails - parsed_emails
+    emails_to_add = parsed_emails - current_emails
+
+    access_limiting_individuals.each do |individual|
+      individual.mark_for_destruction if emails_to_remove.include?(individual.email.downcase)
+    end
+
+    emails_to_add.each do |email|
+      access_limiting_individuals.build(email: email)
+    end
+  end
+
+  def access_limiting_individual_emails
+    access_limiting_individuals
+      .reject(&:marked_for_destruction?)
+      .map(&:email)
+      .join(", ")
   end
 
 private

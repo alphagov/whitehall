@@ -230,6 +230,42 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     end
   end
 
+  test "saves access_limiting_individuals with lowercased emails when access_limiting is set to 'individuals'" do
+    edition = build(:limited_access_edition)
+    edition.access_limiting = "individuals"
+    edition.access_limiting_individual_emails = "TEST@test.com, Example@example.com"
+    edition.save!
+
+    assert edition.reload.access_limiting_individuals.exists?(email: "test@test.com")
+    assert edition.reload.access_limiting_individuals.exists?(email: "example@example.com")
+  end
+
+  test "saves and reads access_limiting_individuals when the email separators are comma, semicolon, or newline" do
+    edition = build(:edition)
+    edition.access_limiting = "individuals"
+    edition.access_limiting_individual_emails =
+      "test@test.com,     example@example.com;\n  some_other_test@test.com\n another_example@example.com"
+
+    edition.save!
+
+    expected_emails = %w[test@test.com example@example.com some_other_test@test.com another_example@example.com]
+    actual_emails = edition.access_limiting_individuals.pluck(:email)
+    assert_equal actual_emails.sort, expected_emails.sort
+    assert_equal "test@test.com, example@example.com, some_other_test@test.com, another_example@example.com", edition.access_limiting_individual_emails
+  end
+
+  test "does not persist access_limiting_individuals on assignment" do
+    edition = build(:limited_access_edition)
+    edition.access_limiting = "individuals"
+    edition.access_limiting_individual_emails = "test@test.com"
+    edition.save!
+
+    edition.access_limiting_individual_emails = "example@example.com"
+
+    assert edition.reload.access_limiting_individuals.exists?(email: "test@test.com")
+    assert_not edition.reload.access_limiting_individuals.exists?(email: "example@example.com")
+  end
+
   test "setting access_limiting writes through to the legacy access_limited column" do
     edition = build(:limited_access_edition)
 
