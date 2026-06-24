@@ -14,6 +14,22 @@ class Image < ApplicationRecord
 
   default_scope -> { order(:id) }
 
+  def publicly_visible?
+    return if edition.blank?
+
+    edition.publicly_visible?
+  end
+
+  def deleted?
+    return if edition.blank?
+
+    edition.deleted?
+  end
+
+  def attachable
+    edition
+  end
+
   def url(*args)
     image_data.file_url(*args)
   end

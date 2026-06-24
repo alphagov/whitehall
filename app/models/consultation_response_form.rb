@@ -4,11 +4,17 @@ class ConsultationResponseForm < ApplicationRecord
 
   delegate :url, :file, to: :consultation_response_form_data
 
+  delegate :deleted?, :publicly_visible?, to: :attachable
+
   validates :title, :consultation_response_form_data, presence: true
 
   accepts_nested_attributes_for :consultation_response_form_data
 
   after_destroy :destroy_consultation_response_form_data_if_required
+
+  def attachable
+    consultation_participation&.consultation || Attachable::Null.new
+  end
 
 private
 
