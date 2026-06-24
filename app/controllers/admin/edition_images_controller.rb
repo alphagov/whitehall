@@ -44,9 +44,10 @@ class Admin::EditionImagesController < Admin::BaseController
     if image_data_params["crop_data"].present?
       image_data = image.image_data
       new_image_data = ImageData.new
+      new_image_data.images << image
       new_image_data.to_replace_id = image_data.id
       new_image_data.assign_attributes(image_data_params)
-      new_image_data.file.download! image_data.file.url
+      new_image_data.file = image_data_to_file(image_data)
       # so that auth_bypass_id is discoverable by AssetManagerStorage
       new_image_data.images << image
       new_image_data.save!
@@ -61,6 +62,10 @@ class Admin::EditionImagesController < Admin::BaseController
     else
       render :edit
     end
+  rescue GdsApi::HTTPNotFound
+    image.image_data.errors.add(:file, "could not be fetched from Asset Manager.")
+
+    render :edit
   end
 
   def create
@@ -128,6 +133,15 @@ class Admin::EditionImagesController < Admin::BaseController
   end
 
 private
+
+  def image_data_to_file(image_data, variant = "original")
+    asset = image_data.assets.find_by(variant:)
+    asset_manager_response = Services.asset_manager.media(asset.asset_manager_id, asset.filename)
+    tmp_file_path = "#{Whitehall.asset_manager_tmp_dir}/#{asset.filename}"
+    File.open(tmp_file_path, "w+") { |f| f.write(asset_manager_response.body.force_encoding("UTF-8")) }
+
+    CarrierWave::SanitizedFile.new(File.open(tmp_file_path))
+  end
 
   def usage_not_permitted
     return false if @image_usage.present?
