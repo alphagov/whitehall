@@ -1,146 +1,472 @@
 require "test_helper"
+require_relative "./standard_edition_migrator/fixtures/hardcoded_presenter"
+require_relative "./standard_edition_migrator/fixtures/recipe_for_legacy_editionable_document"
+require_relative "./standard_edition_migrator/fixtures/recipe_for_non_editionable_record"
 
 class StandardEditionMigratorTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  describe "#initialize" do
-    setup do
-      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-    end
+  setup do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    @legacy_non_editionable_record = create(:organisation, name: "Title")
+    @legacy_editionable_document = create(:document, document_type: "DetailedGuide")
+    create(:deleted_detailed_guide, document: @legacy_editionable_document, title: "Detailed Guide", summary: "Summary", body: "Old body")
+    create(:superseded_detailed_guide, document: @legacy_editionable_document, title: "Detailed Guide", summary: "Summary", body: "Old body")
+    create(:published_detailed_guide, document: @legacy_editionable_document, title: "Detailed Guide", summary: "Summary", body: "Old body")
+    create(:draft_detailed_guide, document: @legacy_editionable_document, title: "Detailed Guide", summary: "Summary", body: "Old body")
+    @robot_user = create(:user, name: "Scheduled Publishing Robot")
+  end
 
-    test "takes a scope" do
-      assert_nothing_raised do
-        StandardEditionMigrator.new(scope: Document.all)
+  describe "#preview_migration" do
+    it "raises exception if an Edition is passed" do
+      edition = build(:edition)
+      assert_raises(RuntimeError, "An Edition was passed. You must pass the Document instead (so that we can migrate all of its Editions)") do
+        StandardEditionMigrator.preview_migration(edition, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
       end
     end
 
-    test "raises exception if no scope provided" do
-      assert_raises(ArgumentError) do
-        StandardEditionMigrator.new
+    context "when passing a non-editionable record" do
+      let(:preview_migration) do
+        StandardEditionMigrator.preview_migration(
+          @legacy_non_editionable_record,
+          StandardEditionMigrator::RecipeForNonEditionableRecord,
+        )
+      end
+
+      it "doesn't create any StandardEdition or Document, and doesn't persist any changes to the legacy record" do
+        before_attributes = @legacy_non_editionable_record.attributes
+
+        assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
+          preview_migration
+        end
+
+        assert_equal(
+          before_attributes,
+          @legacy_non_editionable_record.reload.attributes,
+        )
+      end
+
+      it "passes the record to `compare_payloads`" do
+        StandardEditionMigrator.any_instance.expects(:compare_payloads).with(
+          @legacy_non_editionable_record,
+          StandardEditionMigrator::RecipeForNonEditionableRecord,
+        )
+        StandardEditionMigrator.preview_migration(
+          @legacy_non_editionable_record,
+          StandardEditionMigrator::RecipeForNonEditionableRecord,
+        )
+      end
+
+      it "returns string summary of content and links payloads before-and-after of the record itself" do
+        SecureRandom.stubs(:uuid).returns("fixed-auth-bypass-id")
+        recipe = StandardEditionMigrator::RecipeForNonEditionableRecord.new
+        legacy_presenter = recipe.legacy_presenter.new(@legacy_non_editionable_record)
+        new_presenter_content = nil
+        new_presenter_links = nil
+
+        # Wrap this in a transaction so we can grab the actual expected payloads
+        # and then roll back, otherwise we hit a "Key has already been taken"
+        # error when the `preview_migration` method tries to build and save the
+        # edition again.
+        ActiveRecord::Base.transaction do
+          edition = recipe.build_edition(@legacy_non_editionable_record)
+          edition.save!(validate: false)
+          recipe.after_save_edition(edition, @legacy_non_editionable_record)
+          edition.reload
+          new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
+          new_presenter_content = new_presenter.content
+          new_presenter_links = new_presenter.links
+          raise ActiveRecord::Rollback
+        end
+        expected_output = <<~OUTPUT
+          OLD PAYLOAD
+          ===CONTENT
+          #{JSON.pretty_generate(legacy_presenter.content)}
+          ===LINKS
+          #{JSON.pretty_generate(legacy_presenter.links)}
+
+          NEW PAYLOAD
+          ===CONTENT
+          #{JSON.pretty_generate(new_presenter_content)}
+          ===LINKS
+          #{JSON.pretty_generate(new_presenter_links)}
+        OUTPUT
+
+        summary = StandardEditionMigrator.preview_migration(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+        assert summary.start_with?(expected_output), "Expected output to start with:\n#{expected_output}\n\nActual output:\n#{summary}"
+      end
+
+      it "makes a call to `diff_payloads` for content and links" do
+        StandardEditionMigrator.any_instance.expects(:diff_content_payloads).with(
+          has_entries(
+            recipe: instance_of(StandardEditionMigrator::RecipeForNonEditionableRecord),
+            old_content: anything,
+            new_content: anything,
+          ),
+        )
+        StandardEditionMigrator.any_instance.expects(:diff_links_payloads).with(
+          has_entries(
+            recipe: instance_of(StandardEditionMigrator::RecipeForNonEditionableRecord),
+            old_links: anything,
+            new_links: anything,
+          ),
+        )
+        StandardEditionMigrator.preview_migration(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord)
+      end
+    end
+
+    context "when passing an editionable record" do
+      let(:preview_migration) do
+        StandardEditionMigrator.preview_migration(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+      end
+
+      it "doesn't create any StandardEdition or Document, and doesn't persist any changes to the legacy record" do
+        before_attributes = @legacy_editionable_document.attributes
+        before_attributes_on_edition = @legacy_editionable_document.editions.last.attributes
+
+        assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
+          preview_migration
+        end
+
+        assert_equal(
+          before_attributes,
+          @legacy_editionable_document.reload.attributes,
+        )
+        assert_equal(
+          before_attributes_on_edition,
+          @legacy_editionable_document.editions.last.reload.attributes,
+        )
+      end
+
+      it "passes the latest edition to `compare_payloads`" do
+        StandardEditionMigrator.any_instance.expects(:compare_payloads).with(
+          @legacy_editionable_document.editions.last,
+          StandardEditionMigrator::RecipeForLegacyEditionableDocument,
+        )
+        StandardEditionMigrator.preview_migration(
+          @legacy_editionable_document,
+          StandardEditionMigrator::RecipeForLegacyEditionableDocument,
+        )
+      end
+
+      it "returns string summary of content and links payloads before-and-after of the latest edition" do
+        SecureRandom.stubs(:uuid).returns("fixed-auth-bypass-id")
+        recipe = StandardEditionMigrator::RecipeForLegacyEditionableDocument.new
+        legacy_presenter = recipe.legacy_presenter.new(@legacy_editionable_document)
+        edition = recipe.build_edition(@legacy_editionable_document.latest_edition)
+
+        # Wrap this in a transaction so we can grab the actual expected payloads
+        # and then roll back, otherwise we hit a "Key has already been taken"
+        # error when the `preview_migration` method tries to build and save the
+        # edition again.
+        new_presenter_content = nil
+        new_presenter_links = nil
+        ActiveRecord::Base.transaction do
+          edition.save!(validate: false)
+          recipe.after_save_edition(edition, @legacy_editionable_document.latest_edition)
+          edition.reload
+          new_presenter = PublishingApi::StandardEditionPresenter.new(edition)
+          new_presenter_content = new_presenter.content
+          new_presenter_links = new_presenter.links
+          # Now need to delete the edition, otherwise it's now the "latest edition"
+          # and will become the thing that is compared against in the `preview_migration`
+          # method.
+          edition.destroy!
+          raise ActiveRecord::Rollback
+        end
+
+        expected_output = <<~OUTPUT
+          OLD PAYLOAD
+          ===CONTENT
+          #{JSON.pretty_generate(legacy_presenter.content)}
+          ===LINKS
+          #{JSON.pretty_generate(legacy_presenter.links)}
+
+          NEW PAYLOAD
+          ===CONTENT
+          #{JSON.pretty_generate(new_presenter_content)}
+          ===LINKS
+          #{JSON.pretty_generate(new_presenter_links)}
+        OUTPUT
+
+        summary = StandardEditionMigrator.preview_migration(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
+        assert summary.start_with?(expected_output), "Expected output to start with:\n#{expected_output}\n\nActual output:\n#{summary}"
+      end
+
+      it "makes a call to `diff_payloads` for content and links" do
+        StandardEditionMigrator.any_instance.expects(:diff_content_payloads).with(
+          has_entries(
+            recipe: instance_of(StandardEditionMigrator::RecipeForLegacyEditionableDocument),
+            old_content: anything,
+            new_content: anything,
+          ),
+        )
+        StandardEditionMigrator.any_instance.expects(:diff_links_payloads).with(
+          has_entries(
+            recipe: instance_of(StandardEditionMigrator::RecipeForLegacyEditionableDocument),
+            old_links: anything,
+            new_links: anything,
+          ),
+        )
+        StandardEditionMigrator.preview_migration(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument)
       end
     end
   end
 
-  describe "#preview" do
-    setup do
-      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-    end
-
-    test "summarises how many documents and editions will be migrated" do
-      editor = create(:departmental_editor)
-      some_doc = build(:standard_edition)
-      some_doc.save!
-      some_doc.first_published_at = Time.zone.now
-      some_doc.major_change_published_at = Time.zone.now
-      force_publish(some_doc)
-      some_doc.create_draft(editor)
-
-      migrator = StandardEditionMigrator.new(scope: Document.where(id: some_doc.document.id))
-      summary = {
-        unique_documents: 1,
-        total_editions: 2,
+  describe "#diff_content_payloads (using `ignore_legacy_content_fields` and `ignore_new_content_fields`)" do
+    it "returns a diff of the two payloads, ignoring any fields specified in the recipe" do
+      old_content = {
+        field_we_are_persisting_and_changing: "value that changed",
+        field_we_are_persisting_unchanged: "foo",
+        field_we_dont_care_about: "some old value we don't care about",
       }
-
-      assert_equal summary, migrator.preview
-    end
-
-    test "includes superseded editions in the scope" do
-      editor = create(:departmental_editor)
-      some_doc = build(:standard_edition)
-      some_doc.save!
-      some_doc.first_published_at = Time.zone.now
-      some_doc.major_change_published_at = Time.zone.now
-      force_publish(some_doc)
-      draft = some_doc.create_draft(editor)
-      draft.change_note = "Superseding edition"
-      draft.save!
-      force_publish(draft)
-
-      migrator = StandardEditionMigrator.new(scope: Document.where(id: some_doc.document.id))
-      summary = {
-        unique_documents: 1,
-        total_editions: 2,
+      new_content = {
+        field_we_are_persisting_and_changing: "new value",
+        field_we_are_persisting_unchanged: "foo",
+        new_field_that_has_no_legacy_equivalent: "hello",
       }
+      recipe = Class.new {
+        def ignore_legacy_content_fields(content)
+          content.delete(:field_we_dont_care_about)
+          content
+        end
 
-      assert_equal summary, migrator.preview
-    end
+        def ignore_new_content_fields(content)
+          content.delete(:new_field_that_has_no_legacy_equivalent)
+          content
+        end
+      }.new
 
-    test "includes deleted editions in the scope" do
-      editor = create(:departmental_editor)
-      some_doc = create(:published_standard_edition)
-      draft = some_doc.create_draft(editor)
-      draft.change_note = "Superseding edition"
-      draft.save!
-      draft.delete!(editor)
+      diff = StandardEditionMigrator.diff_content_payloads(
+        recipe: recipe,
+        old_content: old_content,
+        new_content: new_content,
+      )
 
-      migrator = StandardEditionMigrator.new(scope: Document.where(id: some_doc.document.id))
-      summary = {
-        unique_documents: 1,
-        total_editions: 2,
-      }
+      expected_diff = <<~DIFF
+         {
+        -  "field_we_are_persisting_and_changing": "value that changed",
+        +  "field_we_are_persisting_and_changing": "new value",
+           "field_we_are_persisting_unchanged": "foo"
+         }
+      DIFF
 
-      assert_equal summary, migrator.preview
-    end
-
-    test "summarises how many non-editionable records will be migrated" do
-      org1 = create(:organisation)
-      org2 = create(:organisation)
-
-      migrator = StandardEditionMigrator.new(scope: Organisation.where(id: [org1.id, org2.id]))
-
-      assert_equal({ unique_records: 2 }, migrator.preview)
+      assert_equal expected_diff, diff
     end
   end
 
-  describe "#migrate!" do
-    setup do
-      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+  describe "#diff_links_payloads (using `ignore_legacy_links` and `ignore_new_links`)" do
+    it "returns a diff of the two payloads, ignoring any fields specified in the recipe" do
+      old_links = {
+        link_we_are_persisting_and_changing: "value that changed",
+        link_we_are_persisting_unchanged: "foo",
+        link_we_dont_care_about: "some old value we don't care about",
+      }
+      new_links = {
+        link_we_are_persisting_and_changing: "new value",
+        link_we_are_persisting_unchanged: "foo",
+        new_link_that_has_no_legacy_equivalent: "hello",
+      }
+      recipe = Class.new {
+        def ignore_legacy_links(links)
+          links.delete(:link_we_dont_care_about)
+          links
+        end
+
+        def ignore_new_links(links)
+          links.delete(:new_link_that_has_no_legacy_equivalent)
+          links
+        end
+      }.new
+
+      diff = StandardEditionMigrator.diff_links_payloads(
+        recipe: recipe,
+        old_links: old_links,
+        new_links: new_links,
+      )
+
+      expected_diff = <<~DIFF
+         {
+        -  "link_we_are_persisting_and_changing": "value that changed",
+        +  "link_we_are_persisting_and_changing": "new value",
+           "link_we_are_persisting_unchanged": "foo"
+         }
+      DIFF
+
+      assert_equal expected_diff, diff
+    end
+  end
+
+  describe "#create_new_document" do
+    it "performs the migration and saves a new document and edition, when given a legacy non-editionable record" do
+      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
+      edition = StandardEdition.last
+
+      assert_equal document.content_id, @legacy_non_editionable_record.content_id
+      assert edition.persisted?
+      assert_equal edition, document.editions.last
+      assert_equal "test_type", edition.configurable_document_type
+      assert_equal "Title", edition.translations.first.title
+      assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
     end
 
-    test "enqueues a migration job for each unique document in the scope" do
-      editor = create(:departmental_editor)
-      some_doc_1 = build(:standard_edition)
-      some_doc_1.save!
-      some_doc_1.first_published_at = Time.zone.now
-      some_doc_1.major_change_published_at = Time.zone.now
-      force_publish(some_doc_1)
-      some_doc_1.create_draft(editor)
-
-      some_doc_2 = build(:standard_edition)
-      some_doc_2.save!
-      some_doc_2.first_published_at = Time.zone.now
-      some_doc_2.major_change_published_at = Time.zone.now
-      force_publish(some_doc_2)
-
-      migrator = StandardEditionMigrator.new(scope: Document.all)
-
-      StandardEditionMigratorJob.expects(:perform_async).with(some_doc_1.document.id, { "republish" => false, "compare_payloads" => true, "model_class" => "Document" }).once
-      StandardEditionMigratorJob.expects(:perform_async).with(some_doc_2.document.id, { "republish" => false, "compare_payloads" => true, "model_class" => "Document" }).once
-
-      migrator.migrate!
+    it "calls after_save_edition after saving the edition" do
+      StandardEditionMigrator::RecipeForNonEditionableRecord.any_instance.expects(:after_save_edition).once
+      StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
     end
 
-    test "allows republish and compare_payloads options to be passed to the job" do
-      some_doc = create(:standard_edition)
+    it "creates an EditorialRemark associated with the robot user" do
+      document = StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
+      edition = document.editions.last
 
-      migrator = StandardEditionMigrator.new(scope: Document.all)
-
-      StandardEditionMigratorJob.expects(:perform_async).with(some_doc.document.id, { "republish" => true, "compare_payloads" => false, "model_class" => "Document" }).once
-      migrator.migrate!(republish: true, compare_payloads: false)
+      assert_equal "Migrated to StandardEdition", edition.editorial_remarks.last.body
+      assert_equal @robot_user, edition.editorial_remarks.last.author
     end
 
-    test "enqueues a migration job for each non-editionable record, passing the model class" do
-      org1 = create(:organisation)
-      org2 = create(:organisation)
+    it "rolls back the transaction if a validation issue is encountered" do
+      Edition.any_instance.stubs(:save!).returns(true)
+      Edition.any_instance.expects(:save!).with(validate: true).raises(WhitehallError.new("Validation failed: Title can't be blank"))
 
-      migrator = StandardEditionMigrator.new(scope: Organisation.where(id: [org1.id, org2.id]))
+      assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
+        error = assert_raises(WhitehallError) do
+          StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
+        end
+        assert_equal "Validation failed: Title can't be blank", error.message
+      end
+    end
 
-      StandardEditionMigratorJob.expects(:perform_async)
-        .with(org1.id, { "republish" => false, "compare_payloads" => true, "model_class" => "Organisation" }).once
-      StandardEditionMigratorJob.expects(:perform_async)
-        .with(org2.id, { "republish" => false, "compare_payloads" => true, "model_class" => "Organisation" }).once
+    it "raises exception if a Document is passed (we could handle this in theory, but for now, for simplicity we expect only non-Document records)" do
+      document = build(:document)
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.create_new_document(document, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: false)
+      end
 
-      migrator.migrate!
+      assert_equal "Cannot pass a Document to create_new_document", error.message
+    end
+
+    it "raises exception if the normalised payloads differ between the legacy record and new edition, if `raise_if_payloads_differ` is true" do
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.create_new_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForNonEditionableRecord, raise_if_payloads_differ: true)
+      end
+
+      assert error.message.start_with?("The legacy and new edition payloads differ after normalisation."), "Expected output to start with:\n#{error.message}\n\nActual output:\n#{error.message}"
+    end
+  end
+
+  describe "#migrate_existing_document" do
+    it "migrates all of a given Document's Editions (including deleted and superseded ones)" do
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
+
+      assert_equal "StandardEdition", @legacy_editionable_document.document_type
+
+      Edition.unscoped.where(document_id: @legacy_editionable_document.id).find_each do |edition|
+        assert_equal "StandardEdition", edition.type
+        assert_equal "test_type", edition.configurable_document_type
+        assert_equal "Title", edition.translations.first.title
+        assert_equal "Summary", edition.translations.first.summary
+        assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
+      end
+    end
+
+    it "migrates all of a given Document's Editions (including deleted and superseded ones) - after checking the normalised payloads have no diff - and doesn't create new editions as part of the transient payload check" do
+      StandardEditionMigrator.any_instance.stubs(:diff_links_payloads).returns("")
+      StandardEditionMigrator.any_instance.stubs(:diff_content_payloads).returns("")
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: true)
+
+      assert_equal "StandardEdition", @legacy_editionable_document.document_type
+
+      assert_no_difference [StandardEdition.method(:count), Document.method(:count)] do
+        Edition.unscoped.where(document_id: @legacy_editionable_document.id).find_each do |edition|
+          assert_equal "StandardEdition", edition.type
+          assert_equal "test_type", edition.configurable_document_type
+          assert_equal "Title", edition.translations.first.title
+          assert_equal "Summary", edition.translations.first.summary
+          assert_equal({ "field_attribute" => "Old body" }, edition.translations.first.block_content)
+        end
+      end
+    end
+
+    it "calls after_save_edition after saving the edition" do
+      StandardEditionMigrator::RecipeForLegacyEditionableDocument.any_instance.expects(:after_save_edition).times(4) # once for each state of the legacy editionable document (deleted, superseded, published, draft)
+      StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
+    end
+
+    it "creates an EditorialRemark associated with the robot user, on the last edition only" do
+      document = StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
+      edition = document.editions.last
+
+      assert_equal "Migrated legacy editionable document to StandardEdition", edition.editorial_remarks.last.body
+      assert_equal @robot_user, edition.editorial_remarks.last.author
+      Edition.unscoped.where(document_id: document.id).where.not(id: edition.id).find_each do |other_edition|
+        assert_empty other_edition.editorial_remarks
+      end
+    end
+
+    test "rolls back the transaction if a validation issue is encountered" do
+      document = create(:document, document_type: "DetailedGuide")
+      create(:draft_detailed_guide, document: document, title: "Detailed Guide", summary: "Summary", body: "Old body")
+      Edition.any_instance.stubs(:save!).returns(true)
+      Edition.any_instance.expects(:save!).with(validate: true).raises(WhitehallError.new("Validation failed: Title can't be blank"))
+
+      error = assert_raises(WhitehallError) do
+        StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
+      end
+      assert_equal "Validation failed: Title can't be blank", error.message
+      assert_equal "DetailedGuide", document.reload.document_type
+      Edition.unscoped.where(document_id: document.id).find_each do |edition|
+        assert_not_equal "StandardEdition", edition.type
+      end
+    end
+
+    it "raises exception if a non-Document is passed (non-Documents should always use `create_new_document`)" do
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.migrate_existing_document(@legacy_non_editionable_record, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: false)
+      end
+
+      assert_equal "Cannot pass a non-Document to migrate_existing_document", error.message
+    end
+
+    it "raises exception if the normalised payloads differ between the legacy and new edition, if `raise_if_payloads_differ` is true" do
+      error = assert_raises(RuntimeError) do
+        StandardEditionMigrator.migrate_existing_document(@legacy_editionable_document, StandardEditionMigrator::RecipeForLegacyEditionableDocument, raise_if_payloads_differ: true)
+      end
+
+      assert error.message.start_with?("The legacy and new edition payloads differ after normalisation."), "Expected output to start with:\n#{error.message}\n\nActual output:\n#{error.message}"
+    end
+  end
+
+  describe "#bulk_enqueue_migration" do
+    test "enqueues a migration job for each legacy record, with the correct recipe and migration method" do
+      legacy_non_editionable_records = [
+        create(:organisation, name: "My first org"),
+        create(:organisation, name: "My second org"),
+      ]
+      StandardEditionMigrator.new.bulk_enqueue_migration(
+        legacy_non_editionable_records,
+        StandardEditionMigrator::RecipeForNonEditionableRecord,
+        migration_method: "create_new_document",
+        raise_if_payloads_differ: true,
+      )
+
+      assert_equal 2, StandardEditionMigratorJob.jobs.size
+
+      first_job_args = StandardEditionMigratorJob.jobs.first["args"]
+      record_id = first_job_args.first
+      keyword_args = first_job_args.second
+      assert_equal legacy_non_editionable_records.first.id, record_id
+      assert_equal "Organisation", keyword_args["model_class"]
+      assert_equal "StandardEditionMigrator::RecipeForNonEditionableRecord", keyword_args["recipe_class"]
+      assert_equal "create_new_document", keyword_args["migration_method"]
+      assert_equal true, keyword_args["raise_if_payloads_differ"]
+
+      second_job_args = StandardEditionMigratorJob.jobs.second["args"]
+      record_id = second_job_args.first
+      keyword_args = second_job_args.second
+      assert_equal legacy_non_editionable_records.second.id, record_id
+      assert_equal "Organisation", keyword_args["model_class"]
+      assert_equal "StandardEditionMigrator::RecipeForNonEditionableRecord", keyword_args["recipe_class"]
+      assert_equal "create_new_document", keyword_args["migration_method"]
+      assert_equal true, keyword_args["raise_if_payloads_differ"]
     end
   end
 end

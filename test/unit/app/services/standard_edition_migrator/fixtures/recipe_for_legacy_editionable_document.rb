@@ -1,0 +1,49 @@
+class StandardEditionMigrator::RecipeForLegacyEditionableDocument < StandardEditionMigrator::BaseRecipe
+  def initialize
+    @artefacts_to_save = []
+    super
+  end
+
+  def legacy_presenter
+    StandardEditionMigrator::HardcodedPresenter
+  end
+
+  def build_edition(legacy_record)
+    edition_attrs = {
+      configurable_document_type: "test_type",
+      updated_at: legacy_record.updated_at.rfc3339,
+      creator: User.last,
+      document: legacy_record.document,
+      change_note: legacy_record.change_note,
+    }
+    edition = StandardEdition.new(edition_attrs)
+
+    legacy_record.translations.each do |translation|
+      # Still operating on the newly initialized Edition in memory - careful use of `find_or_initialize_by`
+      edition.translations.find_or_initialize_by(locale: translation.locale).update(
+        title: "Title",
+        summary: "Summary",
+        block_content: {
+          "field_attribute" => translation.body.to_s,
+        },
+      )
+    end
+    @artefacts_to_save << SitewideSetting.new(key: SecureRandom.uuid) # Proof of concept
+    edition.translations.each do |translation|
+      @artefacts_to_save << translation
+    end
+    edition
+  end
+
+  def after_save_edition(edition, _legacy_record)
+    @artefacts_to_save.each do |artefact|
+      # Set the edition_id on any artefacts that need it, and save them
+      artefact.edition_id = edition.id if artefact.respond_to?(:edition_id=)
+      artefact.save!
+    end
+  end
+
+  def editorial_remark
+    "Migrated legacy editionable document to StandardEdition"
+  end
+end
