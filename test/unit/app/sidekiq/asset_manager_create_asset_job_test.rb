@@ -125,7 +125,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
 
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 
-    AssetManagerAttachmentMetadataJob.expects(:perform_async).with(@model_without_assets.id).once
+    AssetManagerAttachmentMetadataJob.expects(:perform_async).with(@model_without_assets.id, @model_without_assets.class.name).once
 
     @job.perform(@file.path, @asset_params, true, policy_group.class.to_s, policy_group.id)
   end
