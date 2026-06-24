@@ -1,6 +1,8 @@
 require "test_helper"
 
 class Admin::StandardEditionsControllerTest < ActionController::TestCase
+  include TaxonomyHelper
+
   should_be_an_admin_controller
 
   setup do
@@ -1536,6 +1538,44 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     get :show, params: { id: edition }
 
     assert_select "a", text: "Extra tab tab is invalid"
+  end
+
+  view_test "GET :show renders warning when document is not tagged to the new taxonomy, and when taxons are required" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "taxon" => {
+          "enabled" => true,
+          "required" => true,
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition)
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+    get :show, params: { id: edition }
+
+    assert_select ".govuk-warning-text", /You need to add topic tags before you can publish this document./
+  end
+
+  view_test "GET :show does not render warning when document is not tagged to the new taxonomy, and when taxons are optional" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "taxon" => {
+          "enabled" => true,
+          "required" => false,
+        },
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    edition = create(:draft_standard_edition)
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+    get :show, params: { id: edition }
+
+    refute_select ".govuk-warning-text", text: /You need to add topic tags before you can publish this document./
   end
 
   def tabbed_document_type(validations: {})

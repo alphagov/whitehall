@@ -80,7 +80,7 @@
           </ol>
         </div>
       <% end %>
-      <% unless @edition_taxons.any? %>
+      <% if @edition.requires_taxon? && @edition_taxons.none? %>
         <%= render "govuk_publishing_components/components/warning_text", {
           text: "You need to add topic tags before you can publish this document.",
         } %>
