@@ -31,4 +31,18 @@ class CallForEvidenceResponseFormTest < ActiveSupport::TestCase
     call_for_evidence_response_form_data.expects(:destroy!)
     call_for_evidence_response_form.destroy!
   end
+
+  test ".attachable returns associated CallForEvidence if it is exists" do
+    call_for_evidence = build(:call_for_evidence)
+    call_for_evidence_participation = build(:call_for_evidence_participation, call_for_evidence:)
+    call_for_evidence_response_form = build(:call_for_evidence_response_form, call_for_evidence_participation:)
+
+    assert call_for_evidence_response_form.attachable, call_for_evidence
+  end
+
+  test ".attachable returns Attachable::Null if no associated CallForEvidence" do
+    call_for_evidence_response_form = build(:call_for_evidence_response_form)
+
+    assert call_for_evidence_response_form.attachable, Attachable::Null
+  end
 end

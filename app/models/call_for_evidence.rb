@@ -48,6 +48,10 @@ class CallForEvidence < Edition
     schedule_republishing_jobs
   end
 
+  def response_form_data
+    call_for_evidence_participation&.call_for_evidence_response_form&.call_for_evidence_response_form_data
+  end
+
   def schedule_republishing_jobs
     if opening_at.try(:future?)
       PublishingApiDocumentRepublishingJob

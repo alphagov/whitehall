@@ -58,6 +58,10 @@ class Consultation < Edition
     schedule_republishing_jobs
   end
 
+  def response_form_data
+    consultation_participation&.consultation_response_form&.consultation_response_form_data
+  end
+
   def schedule_republishing_jobs
     if opening_at.try(:future?)
       PublishingApiDocumentRepublishingJob

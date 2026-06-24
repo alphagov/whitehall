@@ -451,6 +451,10 @@ class Edition < ApplicationRecord
     []
   end
 
+  def response_form_data
+    nil
+  end
+
 private
 
   def date_for_government
