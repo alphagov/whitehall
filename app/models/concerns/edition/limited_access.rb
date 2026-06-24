@@ -31,6 +31,8 @@ module Edition::LimitedAccess
 
     validate :access_limiting_organisations_required, if: -> { Flipflop.access_limiting_organisations_ui? && access_limiting_organisations? }
     validate :access_limiting_must_include_current_user_organisation
+    validate :access_limiting_individual_emails_required, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
+    validate :access_limiting_individual_emails_format, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
   end
 
   module ClassMethods
@@ -63,10 +65,6 @@ module Edition::LimitedAccess
 
   def accessible_to?(user)
     user.present? && Whitehall::Authority::Enforcer.new(user, self).can?(:see)
-  end
-
-  def access_limiting_organisations_required
-    errors.add(:access_limiting_organisation_ids, "must include at least one organisation") if edition_access_limiting_organisations.reject(&:marked_for_destruction?).empty?
   end
 
   def access_limiting_organisation_ids=(new_ids)
@@ -123,6 +121,10 @@ private
     remove_instance_variable(:@pending_access_limiting_organisation_ids) if defined?(@pending_access_limiting_organisation_ids)
   end
 
+  def access_limiting_organisations_required
+    errors.add(:access_limiting_organisation_ids, "must include at least one organisation") if edition_access_limiting_organisations.reject(&:marked_for_destruction?).empty?
+  end
+
   def access_limiting_must_include_current_user_organisation
     return unless current_user_for_validation.present? && access_limited?
 
@@ -137,5 +139,17 @@ private
     elsif organisation_association_enabled? && edition_organisations.map(&:organisation_id).exclude?(current_user_for_validation.organisation&.id)
       errors.add(:base, "Lead or supporting organisations must include your own organisation")
     end
+  end
+
+  def access_limiting_individual_emails_required
+    errors.add(:access_limiting_individual_emails, "must include at least one email when individual access limiting is enabled") if access_limiting_individuals.reject(&:marked_for_destruction?).empty?
+  end
+
+  def access_limiting_individual_emails_format
+    invalid = access_limiting_individuals
+                .reject(&:marked_for_destruction?)
+                .reject { |individual| ValidatesEmailFormatOf.validate_email_format(individual.email.to_s).nil? }
+
+    errors.add(:access_limiting_individual_emails, "must contain valid email addresses") if invalid.any?
   end
 end
