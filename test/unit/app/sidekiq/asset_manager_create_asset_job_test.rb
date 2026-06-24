@@ -203,6 +203,19 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
       @job.perform(@file.path, asset_params(assetable), true, attachable.class.to_s, attachable.id)
     end
 
+    test "marks attachments belonging to an edition attachable as access limited to individuals, when flag is on" do
+      @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+      user = FactoryBot.create(:user)
+      attachable = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "individuals", access_limiting_individual_emails: user.email)
+      file = FactoryBot.create(:file_attachment, attachable:)
+      assetable = file.attachment_data
+
+      Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_user_ids: [user.uid])).returns(@asset_manager_response)
+
+      @job.perform(@file.path, asset_params(assetable), true, attachable.class.to_s, attachable.id)
+    end
+
     test "marks attachments belonging to an outcome attachable as access limited to organisations" do
       consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "organisations")
       attachable = FactoryBot.create(:consultation_outcome, consultation:)
@@ -224,6 +237,20 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
       assetable = file.attachment_data
 
       Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [access_limiting_organisation.content_id])).returns(@asset_manager_response)
+
+      @job.perform(@file.path, asset_params(assetable), true, attachable.class.to_s, attachable.id)
+    end
+
+    test "marks attachments belonging to an outcome attachable as access limited to individuals, when flag is on" do
+      @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+      user = FactoryBot.create(:user)
+      consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "individuals", access_limiting_individual_emails: user.email)
+      attachable = FactoryBot.create(:consultation_outcome, consultation:)
+      file = FactoryBot.create(:file_attachment, attachable:)
+      assetable = file.attachment_data
+
+      Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_user_ids: [user.uid])).returns(@asset_manager_response)
 
       @job.perform(@file.path, asset_params(assetable), true, attachable.class.to_s, attachable.id)
     end

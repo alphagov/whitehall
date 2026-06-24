@@ -12,6 +12,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
         expected_attribute_hash = {
           "draft" => true,
           "access_limited_organisation_ids" => [],
+          "access_limited_user_ids" => [],
           "parent_document_url" => edition.public_url(draft: true),
         }
 
@@ -35,6 +36,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
           expected_attribute_hash = {
             "access_limited_organisation_ids" => [],
+            "access_limited_user_ids" => [],
             "draft" => false,
           }
 
@@ -47,7 +49,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       end
     end
 
-    context "when the attachment's attachable is a draft and is access limited" do
+    context "when the attachment's attachable is a draft and is access limited to organisations" do
       it "sets the expected attributes for all assets" do
         edition = create(:draft_publication, :access_limited)
         attachment = create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition))
@@ -56,6 +58,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           "draft" => true,
           "parent_document_url" => edition.public_url(draft: true),
           "access_limited_organisation_ids" => edition.organisations.map(&:content_id),
+          "access_limited_user_ids" => [],
         }
 
         attachment.attachment_data.assets.each do |asset|
@@ -81,6 +84,29 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           "draft" => true,
           "parent_document_url" => edition.public_url(draft: true),
           "access_limited_organisation_ids" => [organisation.content_id],
+          "access_limited_user_ids" => [],
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
+      end
+    end
+
+    context "when the attachment's attachable is a draft and is access limited to individuals" do
+      it "sends the individual user uids for all assets when the access_limiting_individuals_ui flag is on" do
+        @feature_flags.switch!(:access_limiting_individuals_ui, true)
+        user = create(:user)
+        edition = create(:draft_publication, access_limiting: "individuals", access_limiting_individual_emails: user.email)
+        attachment = create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition))
+
+        expected_attribute_hash = {
+          "draft" => true,
+          "parent_document_url" => edition.public_url(draft: true),
+          "access_limited_organisation_ids" => [],
+          "access_limited_user_ids" => [user.uid],
         }
 
         attachment.attachment_data.assets.each do |asset|
@@ -100,6 +126,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           "draft" => true,
           "parent_document_url" => scheduled_edition.public_url(draft: true),
           "access_limited_organisation_ids" => [],
+          "access_limited_user_ids" => [],
         }
 
         attachment.attachment_data.assets.each do |asset|
@@ -119,6 +146,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           "draft" => true,
           "parent_document_url" => submitted_edition.public_url(draft: true),
           "access_limited_organisation_ids" => [],
+          "access_limited_user_ids" => [],
         }
 
         attachment.attachment_data.assets.each do |asset|
@@ -138,6 +166,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           "draft" => true,
           "parent_document_url" => rejected_edition.public_url(draft: true),
           "access_limited_organisation_ids" => [],
+          "access_limited_user_ids" => [],
         }
 
         attachment.attachment_data.assets.each do |asset|
@@ -157,6 +186,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           "draft" => false,
           "parent_document_url" => edition.public_url,
           "access_limited_organisation_ids" => [],
+          "access_limited_user_ids" => [],
         }
 
         attachment.attachment_data.assets.each do |asset|
@@ -176,6 +206,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           "draft" => false,
           "parent_document_url" => nil,
           "access_limited_organisation_ids" => [],
+          "access_limited_user_ids" => [],
         }
         attachment.attachment_data.assets.each do |asset|
           AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, expected_attribute_hash)
@@ -198,7 +229,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
         before do
           Services.asset_manager.expects(:asset).with(asset_manager_id).returns("id" => asset_manager_id, "parent_document_url" => nil, "draft" => false)
-          Services.asset_manager.expects(:update_asset).with(asset_manager_id, { "parent_document_url" => draft_edition.public_url(draft: true), "draft" => false, "access_limited_organisation_ids" => [] }).raises(GdsApi::HTTPUnprocessableEntity, "Parent document url must be a public GOV.UK URL")
+          Services.asset_manager.expects(:update_asset).with(asset_manager_id, { "parent_document_url" => draft_edition.public_url(draft: true), "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [] }).raises(GdsApi::HTTPUnprocessableEntity, "Parent document url must be a public GOV.UK URL")
         end
 
         it "attempts to update, and does not raise" do
@@ -269,6 +300,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           {
             "draft" => true,
             "access_limited_organisation_ids" => [],
+            "access_limited_user_ids" => [],
             "parent_document_url" => consultation.public_url(draft: true),
           },
         )
@@ -296,6 +328,35 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           {
             "draft" => true,
             "access_limited_organisation_ids" => [organisation.content_id],
+            "access_limited_user_ids" => [],
+            "parent_document_url" => consultation.public_url(draft: true),
+          },
+        )
+
+        AssetManager::AttachmentUpdater.call(attachment_data)
+      end
+
+      it "sets access limiting to individuals when the access_limiting_individuals_ui flag is on" do
+        @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+        user = create(:user)
+        consultation = create(
+          :draft_consultation,
+          create_default_organisation: true,
+          access_limiting: "individuals",
+          access_limiting_individual_emails: user.email,
+        )
+        outcome = create(:consultation_outcome, consultation:)
+        attachment = create(:file_attachment, attachable: outcome, attachment_data: create(:attachment_data, attachable: outcome))
+        attachment_data = attachment.attachment_data
+        asset_manager_id = attachment_data.assets.first.asset_manager_id
+
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          {
+            "draft" => true,
+            "access_limited_organisation_ids" => [],
+            "access_limited_user_ids" => [user.uid],
             "parent_document_url" => consultation.public_url(draft: true),
           },
         )
@@ -316,6 +377,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           {
             "draft" => false,
             "access_limited_organisation_ids" => [],
+            "access_limited_user_ids" => [],
             "parent_document_url" => consultation.public_url,
           },
         )
@@ -335,6 +397,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           {
             "draft" => false,
             "access_limited_organisation_ids" => [],
+            "access_limited_user_ids" => [],
             "parent_document_url" => policy_group.public_url,
           },
         )

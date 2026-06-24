@@ -23,6 +23,10 @@ class ConsultationResponse < ApplicationRecord
 
   delegate :access_limiting_organisations, to: :parent_attachable
 
+  delegate :access_limiting_individuals?, to: :parent_attachable
+
+  delegate :access_limiting_individuals, to: :parent_attachable
+
   delegate :lead_organisations, to: :parent_attachable
 
   delegate :supporting_organisations, to: :parent_attachable

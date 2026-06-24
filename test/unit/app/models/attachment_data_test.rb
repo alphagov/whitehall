@@ -235,8 +235,20 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test "#access_limited_object returns nil if there is no last attachable" do
     attachment_data = build(:attachment_data)
-    attachment_data.stubs(:attachments).returns([])
+    assert_nil attachment_data.attachable
     assert_nil attachment_data.access_limited_object
+  end
+
+  test "#access_limitation_organisation_ids returns an empty array if there is no last attachable" do
+    attachment_data = build(:attachment_data)
+    assert_nil attachment_data.attachable
+    assert_empty attachment_data.access_limitation_organisation_ids
+  end
+
+  test "#access_limitation_individual_ids returns an empty array if there is no last attachable" do
+    attachment_data = build(:attachment_data)
+    assert_nil attachment_data.attachable
+    assert_empty attachment_data.access_limitation_individual_ids
   end
 
   test "#access_limited_object delegates to the last attachable" do
@@ -244,6 +256,26 @@ class AttachmentDataTest < ActiveSupport::TestCase
     attachment_data = build(:attachment_data)
     attachment_data.stubs(:last_attachable).returns(attachable)
     assert_equal "access-limited-object", attachment_data.access_limited_object
+  end
+
+  test "#access_limitation_organisation_ids returns the last attachable's access limiting organisations" do
+    attachable = stub("attachable", access_limited?: true, access_limited_object: "access-limited-object")
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:last_attachable).returns(attachable)
+
+    AssetManagerAccessLimitation.expects(:for_organisations).with("access-limited-object").returns(%w[content-id-1 content-id-2])
+
+    assert_equal %w[content-id-1 content-id-2], attachment_data.access_limitation_organisation_ids
+  end
+
+  test "#access_limitation_individual_ids returns the last attachable's access limiting individuals" do
+    attachable = stub("attachable", access_limited?: true, access_limited_object: "access-limited-object")
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:last_attachable).returns(attachable)
+
+    AssetManagerAccessLimitation.expects(:for_individuals).with("access-limited-object").returns(%w[user-uid-1 user-uid-2])
+
+    assert_equal %w[user-uid-1 user-uid-2], attachment_data.access_limitation_individual_ids
   end
 
   test "#last_publicly_visible_attachment returns publicly visible attachable" do
