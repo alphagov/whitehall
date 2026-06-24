@@ -126,9 +126,9 @@ private
   end
 
   def access_limiting_must_include_current_user_organisation
-    return unless current_user_for_validation.present? && access_limited?
+    return unless current_user_for_validation.present? && access_limiting_organisations?
 
-    if Flipflop.access_limiting_organisations_ui? && access_limiting_organisations?
+    if Flipflop.access_limiting_organisations_ui?
       org_ids = edition_access_limiting_organisations
                   .reject(&:marked_for_destruction?)
                   .map(&:organisation_id)
