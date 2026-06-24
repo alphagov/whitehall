@@ -14,7 +14,7 @@ class ImageData < ApplicationRecord
 
   SVG_CONTENT_TYPE = "image/svg+xml".freeze
 
-  has_many :images
+  has_many :images, -> { all_images }, class_name: "Image"
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
