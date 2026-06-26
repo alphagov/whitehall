@@ -113,6 +113,10 @@ class Organisation < ApplicationRecord
   has_many :offsite_link_parents, as: :parent
   has_many :offsite_links, through: :offsite_link_parents
 
+  def attachable
+    self
+  end
+
   def featured_documents_display_limit
     return 7 if slug == "prime-ministers-office-10-downing-street"
 

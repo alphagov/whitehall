@@ -25,6 +25,8 @@ module ImageKind
     end
 
     def crop
+      return unless can_be_cropped?
+
       return if crop_data.blank?
 
       @crop ||= Crop.new(*crop_data.values, crop_data_width.to_f / image_kind_config.valid_width)

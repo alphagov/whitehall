@@ -1,6 +1,7 @@
 class FeaturedImageData < ApplicationRecord
   mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
   include ImageKind
+  include AssetData
 
   belongs_to :featured_imageable, polymorphic: true
 
@@ -12,6 +13,28 @@ class FeaturedImageData < ApplicationRecord
   validates :featured_imageable, presence: true
 
   delegate :url, :content_type, to: :file
+
+  def requires_crop?
+    false
+  end
+
+  def can_be_cropped?
+    false
+  end
+
+  def attachable
+    return Attachable::Null.new if featured_imageable.blank?
+
+    featured_imageable
+  end
+
+  def attachments
+    [featured_imageable]
+  end
+
+  def auth_bypass_ids
+    []
+  end  
 
   def filename
     file&.file&.filename

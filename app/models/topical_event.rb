@@ -66,6 +66,10 @@ class TopicalEvent < ApplicationRecord
 
   alias_method :display_name, :to_s
 
+  def attachable
+    self
+  end  
+
   def published_editions
     editions.published
   end

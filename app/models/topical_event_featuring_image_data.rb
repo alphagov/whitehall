@@ -1,6 +1,7 @@
 # Legacy
 class TopicalEventFeaturingImageData < ApplicationRecord
   mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
+  include AssetData
 
   include ImageKind
 
@@ -12,6 +13,28 @@ class TopicalEventFeaturingImageData < ApplicationRecord
   validates :file, presence: true
 
   delegate :url, to: :file
+
+  def requires_crop?
+    false
+  end
+
+  def can_be_cropped?
+    false
+  end
+
+  def attachable
+    return Attachable::Null.new if topical_event_featuring.blank?
+
+    topical_event_featuring
+  end
+
+  def attachments
+    [topical_event_featuring]
+  end
+
+  def auth_bypass_ids
+    []
+  end   
 
   def filename
     file&.file&.filename
