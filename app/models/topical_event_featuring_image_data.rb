@@ -34,7 +34,7 @@ class TopicalEventFeaturingImageData < ApplicationRecord
 
   def auth_bypass_ids
     []
-  end   
+  end
 
   def filename
     file&.file&.filename

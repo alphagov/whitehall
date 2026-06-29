@@ -75,6 +75,7 @@ class FeaturedImageDataTest < ActiveSupport::TestCase
 
     filename = "big-cheese.960x640.jpg"
     response = { "id" => "http://asset-manager/assets/asset-id", "name" => filename }
+
     Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{filename}/ }.returns(response)
     FeaturedImageUploader.versions.each_key do |version_prefix|
       Services.asset_manager.expects(:create_asset).with { |args| args[:file].path =~ /#{version_prefix}_#{filename}/ }.returns(response)

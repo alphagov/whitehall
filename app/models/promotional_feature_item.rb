@@ -49,7 +49,7 @@ class PromotionalFeatureItem < ApplicationRecord
 
   def auth_bypass_ids
     []
-  end   
+  end
 
   def youtube_video_id
     return if youtube_video_url.blank?

@@ -68,7 +68,7 @@ class TopicalEvent < ApplicationRecord
 
   def attachable
     self
-  end  
+  end
 
   def published_editions
     editions.published

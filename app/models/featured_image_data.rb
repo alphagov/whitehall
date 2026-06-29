@@ -34,7 +34,7 @@ class FeaturedImageData < ApplicationRecord
 
   def auth_bypass_ids
     []
-  end  
+  end
 
   def filename
     file&.file&.filename
@@ -42,11 +42,9 @@ class FeaturedImageData < ApplicationRecord
 
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)
-    required_variants = FeaturedImageUploader.versions.keys.push(:original)
+    required_variants = file.active_version_names + [:original]
 
-    return false if (required_variants - asset_variants).any?
-
-    assets_match_updated_image_filename
+    (required_variants - asset_variants).empty?
   end
 
   def publishing_api_details
