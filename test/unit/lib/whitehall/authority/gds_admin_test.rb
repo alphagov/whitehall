@@ -52,4 +52,36 @@ class GDSAdminTest < ActiveSupport::TestCase
   test "can delete social media accounts" do
     assert enforcer_for(gds_admin, build(:social_media_account)).can?(:delete)
   end
+
+  test "cannot do anything to an access-limited historic edition if not in the limiting org" do
+    org = build(:organisation)
+    other_org = build(:organisation)
+    user = gds_admin
+    user.stubs(:organisation).returns(org)
+
+    edition = build(:publication, :published)
+    edition.stubs(:historic?).returns(true)
+    edition.stubs(:access_limiting_organisations?).returns(true)
+    edition.stubs(:access_limiting_organisations).returns([other_org])
+    edition.stubs(:organisations).returns([other_org])
+
+    Whitehall::Authority::Rules::EditionRules.actions.each do |action|
+      assert_not enforcer_for(user, edition).can?(action),
+                 "expected gds_admin outside limiting org to be denied :#{action} on access-limited historic edition"
+    end
+  end
+
+  test "can :see an access-limited historic edition if in the limiting org" do
+    org = build(:organisation)
+    user = gds_admin
+    user.stubs(:organisation).returns(org)
+
+    edition = build(:publication, :published)
+    edition.stubs(:historic?).returns(true)
+    edition.stubs(:access_limiting_organisations?).returns(true)
+    edition.stubs(:access_limiting_organisations).returns([org])
+    edition.stubs(:organisations).returns([org])
+
+    assert enforcer_for(user, edition).can?(:see)
+  end
 end
