@@ -98,6 +98,17 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     @job.perform(path, @asset_params)
   end
 
+  test "does not raise if the temp file is removed before cleanup" do
+    Services.asset_manager.stubs(:create_asset).with { |args|
+      FileUtils.rm_rf(File.dirname(args[:file].path))
+      true
+    }.returns(@asset_manager_response)
+
+    assert_nothing_raised do
+      @job.perform(@file.path, @asset_params, false, @attachable.class.to_s, @attachable.id)
+    end
+  end
+
   test "stores corresponding asset_manager_id and filename for current file attachment" do
     Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
 

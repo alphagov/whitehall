@@ -28,8 +28,7 @@ class AssetManagerCreateAssetJob < JobBase
     enqueue_downstream_service_updates(assetable_id, assetable_type, attachable_model_class, attachable_model_id)
 
     file.close
-    FileUtils.rm(file)
-    FileUtils.rmdir(File.dirname(file))
+    FileUtils.rm_rf(File.dirname(temporary_location))
   end
 
 private
