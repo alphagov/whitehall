@@ -2651,6 +2651,11 @@ jake@^10.8.5:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
+jasmine-ajax@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/jasmine-ajax/-/jasmine-ajax-5.0.0.tgz#c7ecaeca3d8e076493d314ef088af8bbaf289d9e"
+  integrity sha512-Jj6p3fOEeyKW7NMXz8luvJjneqOUU6WClQAa9SYnulfdUjJSTujGzAKozDOdFq2Oib/EBQd7sBmF0g6WtWMYpA==
+
 jasmine-browser-runner@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/jasmine-browser-runner/-/jasmine-browser-runner-4.0.0.tgz#86724b3a6a63159e4ecc8801b93e1019f8de0583"
