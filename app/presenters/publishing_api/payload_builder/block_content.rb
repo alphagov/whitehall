@@ -2,6 +2,7 @@ module PublishingApi
   module PayloadBuilder
     class BlockContent
       include GovspeakHelper
+      include Presenters::PublishingApi::PayloadHeadingsHelper
 
       def self.for(item)
         new(item).call
@@ -16,7 +17,26 @@ module PublishingApi
         return {} unless mapping
 
         mapping.each_with_object({}) { |(attribute, builder), details|
-          details[attribute.to_sym] = send(builder, attribute)
+          if builder["type"]
+            details[attribute.to_sym] = send(builder["type"], item.block_content&.public_send(attribute))
+          else # this is a nested hash
+            # TODO: again, we want to support recursion for infinite depths
+            # And probably handle possible namespace clash of field/type/hardcoded_value keys better
+            child_hash = {}
+            builder.keys.each do |part_attribute|
+              part_builder_type = builder[part_attribute]
+              if part_builder_type["hardcoded_value"]
+                child_hash[part_attribute.to_sym] = part_builder_type["hardcoded_value"]
+              elsif part_builder_type["field"].include?(".")
+                namespace = part_builder_type["field"].split(".").first
+                field = part_builder_type["field"].split(".").last
+                child_hash[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(namespace)&.[](field))
+              else
+                child_hash[part_attribute.to_sym] = send(part_builder_type["type"], item.block_content&.public_send(part_builder_type["field"]))
+              end
+            end
+            details[attribute.to_sym] = child_hash
+          end
         }.compact
       end
 
@@ -25,22 +45,35 @@ module PublishingApi
       attr_reader :item
 
       def raw(attribute)
-        item.block_content&.public_send(attribute)
+        attribute
       end
 
-      def govspeak(attribute)
-        content = item.block_content&.public_send(attribute)
+      def compiled_govspeak(content)
         return nil if content.nil?
 
         govspeak_to_html(content, images: item.images, attachments: item.attachments)
       end
 
-      def rfc3339_date(attribute)
-        item.block_content&.public_send(attribute)&.rfc3339
+      def compiled_and_raw_govspeak(content)
+        return nil if content.nil?
+
+        [
+          {
+            content_type: "text/html",
+            content: compiled_govspeak(content),
+          },
+          {
+            content_type: "text/govspeak",
+            content: content,
+          },
+        ]
       end
 
-      def social_media_links(attribute)
-        content = item.block_content&.public_send(attribute)
+      def rfc3339_date(attribute)
+        attribute&.rfc3339
+      end
+
+      def social_media_links(content)
         return [] if content.blank?
 
         content.map do |item|
@@ -54,6 +87,12 @@ module PublishingApi
             href: service_url,
           }
         end
+      end
+
+      def headings_from(attribute)
+        return nil if attribute.nil?
+
+        extract_headings(attribute)[:headers]
       end
     end
   end

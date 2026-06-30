@@ -12,7 +12,12 @@ module PublishingApi
       end
 
       def call
-        { base_path: }.merge(PayloadBuilder::Routes.for(base_path))
+        routes = if item.additional_routes.any?
+                   PayloadBuilder::Routes.for(base_path, additional_routes: item.additional_routes)
+                 else
+                   PayloadBuilder::Routes.for(base_path)
+                 end
+        { base_path: }.merge(routes)
       end
 
     private

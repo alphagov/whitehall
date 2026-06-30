@@ -17,7 +17,7 @@ module PublishingApi
         routes = []
         routes << { path: base_path, type: }
         additional_routes.each do |additional_route|
-          routes << { path: "#{base_path}.#{additional_route}", type: "exact" }
+          routes << { path: "#{base_path}#{additional_route}", type: "exact" }
         end
         { routes: }
       end

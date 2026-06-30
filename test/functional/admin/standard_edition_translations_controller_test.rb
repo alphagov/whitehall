@@ -27,7 +27,7 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
       "presenters" => {
         "publishing_api" => {
           "details" => {
-            "body" => "govspeak",
+            "body" => { "field" => "body", "type" => "compiled_govspeak" },
           },
         },
       },
