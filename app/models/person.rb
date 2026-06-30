@@ -39,6 +39,26 @@ class Person < ApplicationRecord
   after_update :republish_past_prime_ministers_page_to_publishing_api
   after_update :patch_links_ministers_index_page_to_publishing_api, :republish_how_government_works_page_to_publishing_api, if: :has_ministerial_appointments?
 
+  def attachable
+    self
+  end
+
+  def publicly_visible?
+    true
+  end
+
+  def deleted?
+    false
+  end
+
+  def access_limited?
+    false
+  end
+
+  def replaced?
+    false
+  end
+
   def biography_without_markup
     Govspeak::Document.new(biography).to_text
   end

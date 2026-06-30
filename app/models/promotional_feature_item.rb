@@ -1,6 +1,7 @@
 class PromotionalFeatureItem < ApplicationRecord
   VALID_YOUTUBE_URL_FORMAT = /\A(?:https:\/\/youtu\.be\/|https:\/\/www\.youtube\.com\/watch\?v=)([0-9A-Za-z_-]*)(?:(?:\?|&).*)?\z/
 
+  include AssetData
   include ImageKind
 
   belongs_to :promotional_feature, inverse_of: :promotional_feature_items
@@ -27,6 +28,28 @@ class PromotionalFeatureItem < ApplicationRecord
 
   after_save :republish_organisation
   after_destroy :republish_organisation
+
+  def requires_crop?
+    false
+  end
+
+  def can_be_cropped?
+    false
+  end
+
+  def attachable
+    return Attachable::Null.new if promotional_feature.blank?
+
+    promotional_feature
+  end
+
+  def attachments
+    [promotional_feature]
+  end
+
+  def auth_bypass_ids
+    []
+  end
 
   def youtube_video_id
     return if youtube_video_url.blank?

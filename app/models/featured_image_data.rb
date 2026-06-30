@@ -1,6 +1,7 @@
 class FeaturedImageData < ApplicationRecord
   mount_uploader :file, FeaturedImageUploader, mount_on: :carrierwave_image
   include ImageKind
+  include AssetData
 
   belongs_to :featured_imageable, polymorphic: true
 
@@ -13,17 +14,41 @@ class FeaturedImageData < ApplicationRecord
 
   delegate :url, :content_type, to: :file
 
+  def requires_crop?
+    false
+  end
+
+  def can_be_cropped?
+    false
+  end
+
+  def replaced?
+    false
+  end
+
+  def attachable
+    return Attachable::Null.new if featured_imageable.blank?
+
+    featured_imageable
+  end
+
+  def attachments
+    [featured_imageable]
+  end
+
+  def auth_bypass_ids
+    []
+  end
+
   def filename
     file&.file&.filename
   end
 
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)
-    required_variants = FeaturedImageUploader.versions.keys.push(:original)
+    required_variants = file.active_version_names + [:original]
 
-    return false if (required_variants - asset_variants).any?
-
-    assets_match_updated_image_filename
+    (required_variants - asset_variants).empty?
   end
 
   def publishing_api_details

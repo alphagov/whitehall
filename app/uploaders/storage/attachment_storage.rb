@@ -5,7 +5,7 @@ class Storage::AttachmentStorage < CarrierWave::Storage::Abstract
 
     logger.info("Saving to Asset Manager for model #{uploader.model.class} with ID #{uploader.model.id}")
 
-    AssetManagerCreateAssetJob.perform_async(temporary_location, uploader.asset_params, true, uploader.model.attachable.class.to_s, uploader.model.attachable.id, uploader.model.auth_bypass_ids || [])
+    AssetManagerCreateAssetJob.perform_async(temporary_location, uploader.asset_params, draft?(uploader.model.class), uploader.model.attachable.class.to_s, uploader.model.attachable.id, uploader.model.auth_bypass_ids || [])
 
     Whitehall::AssetManagerStorage::File.new(uploader.store_path(::File.basename(original_file)), uploader.model, uploader.version_name)
   end
@@ -13,5 +13,9 @@ class Storage::AttachmentStorage < CarrierWave::Storage::Abstract
   def retrieve!(identifier)
     asset_path = uploader.store_path(identifier)
     Whitehall::AssetManagerStorage::File.new(asset_path, uploader.model, uploader.version_name)
+  end
+
+  def draft?(klass)
+    klass == Person
   end
 end
