@@ -22,6 +22,10 @@ class FeaturedImageData < ApplicationRecord
     false
   end
 
+  def replaced?
+    false
+  end
+
   def attachable
     return Attachable::Null.new if featured_imageable.blank?
 

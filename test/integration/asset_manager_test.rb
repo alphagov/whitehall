@@ -174,9 +174,11 @@ class AssetManagerIntegrationTest
   class CreatingAPersonImage < ActiveSupport::TestCase
     setup do
       @filename = "minister-of-funk.960x640.jpg"
-      @person = FactoryBot.build(:person, :with_image)
-      @expected_number_of_versions = @person.image.file.versions.keys.push(:original).size
       @response = { "id" => "http://asset-manager/assets/asset-id", "name" => @filename }
+      Services.asset_manager.stubs(:create_asset).returns(@response)
+      Services.asset_manager.stubs(:asset).returns(@response)
+      @person = FactoryBot.build(:person, :with_image)
+      @expected_number_of_versions = @person.image.image_kind_config.versions.count
     end
 
     test "sends original and all versions of the image to Asset Manager" do
