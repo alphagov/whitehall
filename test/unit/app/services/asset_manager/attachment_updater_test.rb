@@ -64,6 +64,31 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
         AssetManager::AttachmentUpdater.call(attachment.attachment_data)
       end
+
+      it "sets the expected asset attributes when the access_limiting_organisations_ui flag is on" do
+        @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+        organisation = create(:organisation)
+        edition = create(
+          :publication,
+          access_limiting: "organisations",
+          create_default_organisation: true,
+          access_limiting_organisation_ids: [organisation.id],
+        )
+        attachment = create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition))
+
+        expected_attribute_hash = {
+          "draft" => true,
+          "parent_document_url" => edition.public_url(draft: true),
+          "access_limited_organisation_ids" => [organisation.content_id],
+        }
+
+        attachment.attachment_data.assets.each do |asset|
+          AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, expected_attribute_hash)
+        end
+
+        AssetManager::AttachmentUpdater.call(attachment.attachment_data)
+      end
     end
 
     context "when attachment belongs to a scheduled edition" do
@@ -244,6 +269,33 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
           {
             "draft" => true,
             "access_limited_organisation_ids" => [],
+            "parent_document_url" => consultation.public_url(draft: true),
+          },
+        )
+
+        AssetManager::AttachmentUpdater.call(attachment_data)
+      end
+
+      it "sets access limiting to organisations when the access_limiting_organisations_ui flag is on" do
+        @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+        organisation = create(:organisation)
+        consultation = create(
+          :draft_consultation,
+          access_limiting: "organisations",
+          create_default_organisation: true,
+          access_limiting_organisation_ids: [organisation.id],
+        )
+        outcome = create(:consultation_outcome, consultation:)
+        attachment = create(:file_attachment, attachable: outcome, attachment_data: create(:attachment_data, attachable: outcome))
+        attachment_data = attachment.attachment_data
+        asset_manager_id = attachment_data.assets.first.asset_manager_id
+
+        AssetManager::AssetUpdater.expects(:call).with(
+          asset_manager_id,
+          {
+            "draft" => true,
+            "access_limited_organisation_ids" => [organisation.content_id],
             "parent_document_url" => consultation.public_url(draft: true),
           },
         )
