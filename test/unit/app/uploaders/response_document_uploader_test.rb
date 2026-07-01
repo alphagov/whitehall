@@ -13,6 +13,6 @@ class ResponseDocumentUploaderTest < ActiveSupport::TestCase
   end
 
   test "uses the previewable asset manager storage engine" do
-    assert_equal Storage::PreviewableStorage, ResponseDocumentUploader.storage
+    assert_equal Storage::AttachmentStorage, ResponseDocumentUploader.storage
   end
 end
