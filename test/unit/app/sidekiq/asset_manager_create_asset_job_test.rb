@@ -47,25 +47,47 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     assert_not Dir.exist?(File.dirname(@file))
   end
 
-  test "marks attachments belonging to consultations as access limited" do
+  test "marks attachments belonging to consultations as access limited to organisations" do
     consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "organisations")
-    attachment = FactoryBot.create(:file_attachment, attachable: consultation)
-    attachment.attachment_data.attachable = consultation
+    FactoryBot.create(:file_attachment, attachable: consultation)
 
     Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
 
     @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 
-  test "marks attachments belonging to consultation responses as access limited" do
+  test "marks attachments belonging to consultations as access limited to organisations, when flag is on" do
+    @feature_flags.switch!(:access_limiting_organisations_ui, true)
+
+    access_limiting_organisation = create(:organisation)
+    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "organisations", access_limiting_organisation_ids: [access_limiting_organisation.id])
+    FactoryBot.create(:file_attachment, attachable: consultation)
+
+    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [access_limiting_organisation.content_id])).returns(@asset_manager_response)
+
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+  end
+
+  test "marks attachments belonging to consultations as access limited to individuals, when flag is on" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    user = FactoryBot.create(:user)
+    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "individuals", access_limiting_individual_emails: user.email)
+    FactoryBot.create(:file_attachment, attachable: consultation)
+
+    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_user_ids: [user.uid])).returns(@asset_manager_response)
+
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+  end
+
+  test "marks attachments belonging to consultation responses as access limited to organisations" do
     consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "organisations")
     response = FactoryBot.create(:consultation_outcome, consultation:)
-    attachment = FactoryBot.create(:file_attachment, attachable: response)
-    attachment.attachment_data.attachable = consultation
+    FactoryBot.create(:file_attachment, attachable: response)
 
     Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [@organisation.content_id])).returns(@asset_manager_response)
 
-    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+    @job.perform(@file.path, @asset_params, true, response.class.to_s, response.id)
   end
 
   test "does not mark attachments belonging to policy groups as access limited" do
