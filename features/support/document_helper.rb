@@ -115,7 +115,7 @@ module DocumentHelper
     fill_in "Logo formatted name", with: "Logo\r\nformatted\r\nname\r\n"
   end
 
-  def fill_in_publication_fields(first_published: "2010-01-01", publication_type: "Research and analysis")
+  def fill_in_publication_fields(first_published: Time.zone.now, publication_type: "Research and analysis")
     checkbox_label = "This document has previously been published on another website"
     check checkbox_label
     within_conditional_reveal checkbox_label do

@@ -703,6 +703,82 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "First published date must be between 1/1/1900 and the present", edition.errors.full_messages.first
   end
 
+  test "a changed first_published_at cannot be after the date of the first change note" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
+    edition = create(:edition, document: edition_with_change_note.document, first_published_at: 3.days.ago)
+
+    edition.first_published_at = 1.day.ago
+
+    assert edition.invalid?
+    assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
+  end
+
+  test "a changed first_published_at cannot be before the start of the current government" do
+    create(:current_government)
+    edition = create(:edition, first_published_at: Time.zone.now)
+
+    edition.first_published_at = 11.years.ago
+
+    assert edition.invalid?
+    assert_equal "First published date must be after the start of the current government (11/11/2009)", edition.errors.full_messages.first
+  end
+
+  test "an edition from a previous government can still be redrafted if it's first published at date hasn't changed" do
+    create(:previous_government, start_date: 10.years.ago, end_date: 5.years.ago)
+
+    first_published_at = 6.years.ago
+
+    first_edition = create(:published_edition, first_published_at: first_published_at)
+    create(:current_government, start_date: 5.years.ago)
+    second_edition = first_edition.create_draft(create(:writer))
+    second_edition.minor_change = true
+
+    # simulate what happens when the draft edition form is saved - ie the seconds part of first_published_at is lost
+    second_edition.first_published_at = first_published_at.change(sec: 0)
+
+    assert second_edition.valid?
+  end
+
+  test "political editions can have their first_published_at date set before the current government " do
+    create(:current_government)
+    political_edition = create(:edition, political: true, first_published_at: 10.years.ago)
+
+    assert political_edition.valid?
+  end
+
+  test "non-polictial, published editions with first_published_at date set before the current government can be redrafted" do
+    create(:current_government)
+    first_edition = create(:published_edition, political: false, first_published_at: 10.years.ago)
+    second_edition = first_edition.create_draft(create(:writer))
+    second_edition.minor_change = true
+    assert second_edition.valid?
+  end
+
+  test "political editions can have their first_published_at date after the earliest change note" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
+    edition = build(:edition, political: true, document: edition_with_change_note.document, first_published_at: 1.day.ago)
+
+    assert edition.valid?
+  end
+
+  test "historical editions can have their first_published_at date set after the earliest change note" do
+    prev_government = create(:previous_government, start_date: 10.years.ago, end_date: 1.year.ago)
+    create(:current_government, start_date: 1.year.ago)
+    historic_edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 9.years.ago)
+    historic_edition = create(:edition, political: true, first_published_at: 8.years.ago, government_id: prev_government.id, document: historic_edition_with_change_note.document)
+
+    assert historic_edition.valid?
+  end
+
+  test "after_change_notes' error message takes priority if multiple validation errors on first_published_at" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 2.days.ago)
+    edition = build(:edition, document: edition_with_change_note.document, first_published_at: 10.years.from_now)
+    edition.validate
+
+    assert_equal [:first_published_at], edition.errors.attribute_names
+    assert_equal "First published date must be before the first change note (09/11/2011 11:11)", edition.errors.full_messages.first
+  end
+
   test "#government returns the associated government when the edition has a specific government_id" do
     create(:current_government)
     previous_government = create(:previous_government)
@@ -731,7 +807,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#government returns the historic government for a previously published edition" do
     previous_government = create(:previous_government)
     create(:current_government)
-    edition = create(:edition, first_published_at: 4.years.ago)
+    edition = build(:edition, first_published_at: 4.years.ago)
     assert_equal previous_government, edition.government
   end
 
@@ -753,13 +829,13 @@ class EditionTest < ActiveSupport::TestCase
 
     previous_government = create(:previous_government)
 
-    edition = create(:edition, political: false, first_published_at: previous_government.start_date)
+    edition = build(:edition, political: false, first_published_at: previous_government.start_date)
     assert_not edition.historic?
 
-    edition = create(:edition, political: false, first_published_at: current_government.start_date)
+    edition = build(:edition, political: false, first_published_at: current_government.start_date)
     assert_not edition.historic?
 
-    edition = create(:edition, political: true, first_published_at: current_government.start_date)
+    edition = build(:edition, political: true, first_published_at: current_government.start_date)
     assert_not edition.historic?
   end
 
@@ -1010,6 +1086,117 @@ class EditionTest < ActiveSupport::TestCase
   test "#invalid_tab_reasons returns an empty array" do
     publication = create(:publication)
     assert_equal [], publication.invalid_tab_messages
+  end
+
+  test "#other_editions returns an empty array if there is no associated document" do
+    edition = build(:edition)
+
+    assert_equal edition.other_editions, []
+  end
+
+  test "first_published_at cannot be at the (same) time of the first change note" do
+    change_note_date = 3.days.ago
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: change_note_date)
+    edition = build(:edition, document: edition_with_change_note.document, first_published_at: change_note_date)
+    assert edition.invalid?
+  end
+
+  test "first_published_at can be after the date of the first change note" do
+    edition_with_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 3.days.ago)
+    edition = create(:edition, document: edition_with_change_note.document, first_published_at: 4.days.ago)
+
+    assert edition.valid?
+  end
+
+  test "a first edition with no related editions can have the first published at date changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    edition.first_published_at = 2.days.ago
+
+    assert edition.valid?
+  end
+
+  test "edition with many related editions with change notes chooses oldest change note for first published at validation" do
+    edition_with_oldest_change_note = create(:edition_with_document, :published, change_note: "changed", major_change_published_at: 10.days.ago) # 01/11/2011
+    create(:edition, :published, document: edition_with_oldest_change_note.document, change_note: "changed", major_change_published_at: 9.days.ago)
+    edition = build(:edition, document: edition_with_oldest_change_note.document, first_published_at: 1.day.ago)
+
+    assert edition.invalid?
+    assert edition.errors.full_messages.first == "First published date must be before the first change note (01/11/2011 11:11)"
+  end
+
+  test "edition with many related editions without change notes can have first published at changed" do
+    first_edition = create(:edition_with_document, :published, minor_change: true)
+    create(:edition, :published, document: first_edition.document, minor_change: true)
+    edition = create(:edition, document: first_edition.document, first_published_at: 2.days.ago)
+    edition.first_published_at = 3.days.ago
+
+    assert edition.valid?
+  end
+
+  test "editions can have their first_published_at date changed after the current government" do
+    create(:current_government, start_date: 1.month.ago)
+    edition = create(:edition, first_published_at: 1.week.ago)
+    edition.first_published_at = 1.day.ago
+
+    assert edition.valid?
+  end
+
+  test "editions can have their first_published_at date changed in the absence of a current government" do
+    edition = create(:edition, first_published_at: 1.week.ago)
+    edition.first_published_at = 1.day.ago
+
+    assert edition.valid?
+  end
+
+  test "editions cannot have their first_published_at date changed to the start of the current govt" do
+    govt = create(:current_government, start_date: 1.month.ago)
+    edition = create(:edition, first_published_at: 1.day.ago)
+    edition.first_published_at = govt.start_date
+
+    assert edition.invalid?
+  end
+
+  test "historical editions can have their first_published_at date set before the current government" do
+    prev_government = create(:previous_government, start_date: 10.years.ago, end_date: 1.year.ago)
+    create(:current_government, start_date: 1.year.ago)
+    political_edition = create(:edition, political: true, first_published_at: 9.years.ago, government_id: prev_government.id)
+
+    assert political_edition.valid?
+  end
+
+  test "#first_published_at_date_changed? returns true when first_published_at has been added" do
+    edition = create(:edition, first_published_at: nil)
+    edition.first_published_at = Time.zone.now
+    assert edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns true when first_published_at has been removed" do
+    edition = create(:edition, first_published_at: Time.zone.now)
+    edition.first_published_at = nil
+    assert edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns true when the date has changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    edition.first_published_at = Time.zone.today
+    assert edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns false when the date has not changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    assert_not edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns true when the time (excl seconds) has changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    edition.first_published_at = edition.first_published_at.change(hour: 1.hour.ago.hour, min: 1.minute.ago.min)
+    assert edition.first_published_at_date_changed?
+  end
+
+  test "#first_published_at_date_changed? returns false when only the seconds have changed" do
+    edition = create(:edition, first_published_at: 1.day.ago)
+    edition.first_published_at = edition.first_published_at.change(sec: 10.seconds.ago.sec)
+    assert_not edition.first_published_at_date_changed?
   end
 
   def decoded_token_payload(token)

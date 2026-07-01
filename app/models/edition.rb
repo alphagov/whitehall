@@ -65,11 +65,14 @@ class Edition < ApplicationRecord
   validates :body, presence: true, if: :body_required?, length: { maximum: 16_777_215 }, unless: ->(record) { record.is_a?(StandardEdition) }
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65_535 }
   validates :previously_published, inclusion: { in: [true, false], message: "You must specify whether the document has been published before" }
-  validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
-  validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: :draft?, allow_blank: true
   validates :scheduled_publication, inclusion: { in: proc { Time.zone.now.. }, message: "must be in the future" }, if: :draft?, allow_blank: true
   validates :political, inclusion: { in: [true, false] }
   validates :image_display_option, inclusion: { in: ["no_image", "organisation_image", "custom_image", nil] }
+
+  validate :first_published_precedes_change_notes, if: -> { draft? && first_published_at_date_changed? }
+  validate :first_published_within_current_govt, if: -> { draft? && first_published_at_date_changed? }
+  validates :first_published_at, presence: true, if: -> { previously_published || published_major_version }
+  validates :first_published_at, inclusion: { in: proc { Date.parse("1900-01-01")..Time.zone.now } }, if: -> { draft? && errors.attribute_names.exclude?(:first_published_at) }, allow_blank: true
 
   UNMODIFIABLE_STATES = %w[scheduled published superseded deleted unpublished].freeze
   FROZEN_STATES = %w[superseded deleted].freeze
@@ -234,6 +237,8 @@ class Edition < ApplicationRecord
   end
 
   def other_editions
+    return Edition.none if document.nil?
+
     if persisted?
       document.editions.where(self.class.arel_table[:id].not_eq(id))
     else
@@ -449,6 +454,44 @@ class Edition < ApplicationRecord
 
   def invalid_tab_messages
     []
+  end
+
+  def first_published_precedes_change_notes
+    return if other_editions.empty?
+    return if political?
+
+    change_note_dates = other_editions.pluck(:major_change_published_at).compact.sort
+
+    return if change_note_dates.empty?
+
+    if first_published_at >= change_note_dates.first
+      errors.add(:first_published_at, :after_change_notes, latest: change_note_dates.first.strftime("%d/%m/%Y %H:%M"))
+    end
+  end
+
+  def first_published_within_current_govt
+    current_govt = Government.current
+
+    return if first_published_at.blank?
+    return if current_govt.blank?
+    return if political?
+
+    if first_published_at.to_date <= current_govt.start_date
+      errors.add(:first_published_at, :before_current_govt, earliest: current_govt.start_date.strftime("%d/%m/%Y"))
+    end
+  end
+
+  def first_published_at_date_changed?
+    return false if first_published_at_change.nil?
+
+    old_date, new_date = first_published_at_change
+
+    return true if new_date.nil? || old_date.nil?
+
+    # When a first edition is published, seconds and milliseconds are set for `first_published_at`.  The edition form doesn't allow user to specific seconds or milliseconds,
+    # so these are lost when an edition is redrafted.
+    # We need to ignore changes in seconds and milliseconds when considering whether the date has changed for validation purposes.
+    new_date.change(sec: 0) != old_date.change(sec: 0)
   end
 
 private

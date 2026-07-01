@@ -1,5 +1,5 @@
 module GovernmentsHelper
-  def create_government(name:, start_date: Time.zone.today, end_date: nil)
+  def create_government(name:, start_date: 1.day.ago, end_date: nil)
     visit admin_governments_path
 
     click_on "Create new government"
