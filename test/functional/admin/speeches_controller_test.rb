@@ -14,6 +14,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :speech
   access_limiting_organisations_ui_off_should_allow_access_limiting_of :speech
   access_limiting_organisations_ui_on_should_allow_access_limiting_of :speech
+  access_limiting_individuals_ui_on_should_allow_access_limiting_of :speech
   should_allow_association_with_topical_events :speech
   should_allow_association_with_topical_event_documents :speech
 

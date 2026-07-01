@@ -1257,6 +1257,237 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def access_limiting_individuals_ui_on_should_allow_access_limiting_of(edition_type)
+      edition_class = class_for(edition_type)
+
+      view_test "new should preselect the 'none' radio button option for individual access limiting" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        get :new
+
+        assert_select "form#new_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='none'][checked='checked']", count: 1
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']", count: 0
+        end
+      end
+
+      test "create should save with individual access limiting set to 'none'" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 access_limiting: "none",
+               ),
+             }
+
+        created_edition = edition_class.last
+        assert_equal "none", created_edition.access_limiting
+        assert_empty created_edition.access_limiting_individuals
+      end
+
+      test "create should save with access limiting set to 'individuals'" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        post :create,
+             params: {
+               edition: controller_attributes_for(edition_type).merge(
+                 access_limiting: "individuals",
+                 access_limiting_individual_emails: controller.current_user.email,
+               ),
+             }
+
+        created_edition = edition_class.last
+        assert_equal "individuals", created_edition.access_limiting
+        assert created_edition.access_limiting_individuals.exists?(email: controller.current_user.email)
+      end
+
+      view_test "create fails and rerenders with submitted access limiting emails, when access limiting emails invalid" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        assert_no_difference -> { edition_class.count } do
+          post :create,
+               params: {
+                 edition: controller_attributes_for(edition_type).merge(
+                   access_limiting: "individuals",
+                   access_limiting_individual_emails: "gibberish",
+                 ),
+               }
+        end
+
+        assert_template :new
+        assert_select ".govuk-error-summary a", text: "Access limiting individual emails must contain valid email addresses", href: "#access_limiting_individual_emails"
+        assert_select "form#new_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']"
+          assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: "gibberish"
+        end
+      end
+
+      view_test "create fails and rerenders with submitted access limiting emails, when failing validation of unrelated field" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        assert_no_difference -> { edition_class.count } do
+          post :create,
+               params: {
+                 edition: controller_attributes_for(edition_type).merge(
+                   access_limiting: "individuals",
+                   access_limiting_individual_emails: "someone-else@example.com",
+                   title: "",
+                 ),
+               }
+        end
+
+        assert_template :new
+        assert_select "form#new_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']"
+          assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: "someone-else@example.com"
+        end
+      end
+
+      view_test "create fails and rerenders with submitted access limiting emails, when user is not one of the access limiting individuals" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        assert_no_difference -> { edition_class.count } do
+          post :create,
+               params: {
+                 edition: controller_attributes_for(edition_type).merge(
+                   access_limiting: "individuals",
+                   access_limiting_individual_emails: "someone-else@example.com",
+                 ),
+               }
+        end
+
+        assert_template :new
+        assert_select ".govuk-error-summary a", text: "Access limiting individual emails must include your own email", href: "#access_limiting_individual_emails"
+        assert_select "form#new_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']"
+          assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: "someone-else@example.com"
+        end
+      end
+
+      view_test "edit should display persisted individual access limiting value" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
+
+        get :edit, params: { id: edition }
+
+        assert_select "form#edit_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']", count: 1
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='none'][checked='checked']", count: 0
+          assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: controller.current_user.email
+        end
+      end
+
+      test "update should change access limiting, from 'none' to 'individuals'" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        edition = create(edition_type, access_limiting: "none")
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                access_limiting: "individuals",
+                access_limiting_individual_emails: controller.current_user.email,
+              },
+            }
+
+        assert_equal "individuals", edition.reload.access_limiting
+        assert edition.access_limiting_individuals.exists?(email: controller.current_user.email)
+      end
+
+      test "update should change access limiting, from 'individuals' to 'none', and clear the individuals association" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                access_limiting: "none",
+                access_limiting_individual_emails: controller.current_user.email,
+              },
+            }
+
+        assert_equal "none", edition.reload.access_limiting
+        assert_empty edition.access_limiting_individuals
+      end
+
+      view_test "update fails and rerenders with submitted access limiting individuals, when access limiting individuals invalid" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                access_limiting: "individuals",
+                access_limiting_individual_emails: "",
+              },
+            }
+
+        assert_template :edit
+        assert_select "form#edit_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']"
+          assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: ""
+        end
+        assert_select ".govuk-error-summary a", text: "Access limiting individual emails must include at least one email when individual access limiting is enabled", href: "#access_limiting_individual_emails"
+        assert edition.reload.access_limiting_individuals.exists?(email: controller.current_user.email)
+      end
+
+      view_test "update fails and re-renders with the submitted access limiting individuals, when unrelated field fails validation" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
+        new_user = create(:user, email: "new_user@email.com")
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                title: "",
+                access_limiting: "individuals",
+                access_limiting_individual_emails: "#{controller.current_user.email}, #{new_user.email}",
+              },
+            }
+
+        assert_template :edit
+        assert_select "form#edit_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']"
+          assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: "#{controller.current_user.email}, #{new_user.email}"
+        end
+        assert_equal 1, edition.reload.access_limiting_individuals.count
+        assert edition.access_limiting_individuals.exists?(email: controller.current_user.email)
+      end
+
+      view_test "update fails and rerenders with submitted access limiting individuals, when the user is not one of the access limiting individuals" do
+        feature_flags.switch! :access_limiting_individuals_ui, true
+
+        edition = create(edition_type, access_limiting: "none")
+
+        put :update,
+            params: {
+              id: edition,
+              edition: {
+                access_limiting: "individuals",
+                access_limiting_individual_emails: "someone-else@example.com",
+              },
+            }
+
+        assert_template :edit
+        assert_select "form#edit_edition" do
+          assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']"
+          assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: "someone-else@example.com"
+        end
+        assert_select ".govuk-error-summary a", text: "Access limiting individual emails must include your own email", href: "#access_limiting_individual_emails"
+        assert_equal "none", edition.reload.access_limiting
+        assert_empty edition.reload.access_limiting_individuals
+      end
+    end
+
     def access_limiting_organisations_ui_off_should_allow_access_limiting_of(edition_type)
       edition_class = class_for(edition_type)
 

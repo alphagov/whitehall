@@ -29,6 +29,7 @@ private
     flag_if_political_content!
     edition.access_limiting = :none
     edition.access_limiting_organisations.clear
+    edition.access_limiting_individuals.destroy_all
     edition.major_change_published_at = Time.zone.now unless edition.minor_change?
     edition.make_public_at(edition.major_change_published_at)
     edition.increment_version_number

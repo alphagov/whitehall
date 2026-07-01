@@ -219,6 +219,7 @@ private
       :scheduled_publication,
       :lock_version,
       :access_limiting,
+      :access_limiting_individual_emails,
       :alternative_format_provider_id,
       :opening_at,
       :closing_at,
@@ -475,7 +476,10 @@ private
       edition_params["document_attributes"]["review_reminder_attributes"]["_destroy"] = "1"
     end
 
-    edition_params[:access_limiting_organisation_ids] = [] if edition_params[:access_limiting] == "none"
+    if edition_params[:access_limiting].present?
+      edition_params[:access_limiting_organisation_ids] = [] unless edition_params[:access_limiting] == "organisations"
+      edition_params[:access_limiting_individual_emails] = [] unless edition_params[:access_limiting] == "individuals"
+    end
   end
 
   def clear_scheduled_publication_if_not_activated
