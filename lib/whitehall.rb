@@ -124,4 +124,9 @@ module Whitehall
     website_root = ENV.fetch("GOVUK_WEBSITE_ROOT", "")
     %w[integration staging].any? { |environment| website_root.include?(environment) }
   end
+
+  def self.integration?
+    website_root = ENV.fetch("GOVUK_WEBSITE_ROOT", "")
+    %w[integration].any? { |environment| website_root.include?(environment) }
+  end
 end
