@@ -59,6 +59,12 @@ private
     if attachable_model_class && attachable_model_id
       attachable_model = attachable_model_class.constantize.find(attachable_model_id)
       if attachable_model.respond_to?(:access_limited?) && attachable_model.access_limited?
+        Rails.logger.warn "*************************"
+        Rails.logger.warn "FF #{Flipflop.access_limiting_organisations_ui?}"
+        Rails.logger.warn "item orgs setting #{attachable_model.access_limiting_organisations?}"
+        Rails.logger.warn "AL org IDs #{attachable_model.access_limiting_organisation_ids}"
+        Rails.logger.warn "regular org IDs #{attachable_model.organisations.pluck(:id)}"
+        Rails.logger.warn "result of the call itself #{AssetManagerAccessLimitation.for(attachable_model)}"
         AssetManagerAccessLimitation.for(attachable_model)
       end
     end

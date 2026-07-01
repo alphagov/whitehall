@@ -57,6 +57,19 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
   end
 
+  test "marks attachments belonging to consultations as access limited to organisations when flag is on" do
+    @feature_flags.switch!(:access_limiting_organisations_ui, true)
+    al_organisation = create(:organisation)
+    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "organisations", access_limiting_organisation_ids: [al_organisation.id])
+    attachment = FactoryBot.create(:file_attachment, attachable: consultation)
+    attachment.attachment_data.attachable = consultation
+
+    Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_organisation_ids: [al_organisation.content_id])).returns(@asset_manager_response)
+
+    @job.perform(@file.path, @asset_params, true, consultation.class.to_s, consultation.id)
+  end
+
+
   test "marks attachments belonging to consultation responses as access limited" do
     consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "organisations")
     response = FactoryBot.create(:consultation_outcome, consultation:)
