@@ -332,7 +332,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
           }
 
     assert_template :edit
-    assert_select ".govuk-error-summary a", text: "Access limiting organisation ids must include at least one organisation", href: "#access_limiting_organisation_ids"
+    assert_select ".govuk-error-summary a", text: "Access limiting organisations must include at least one organisation", href: "#access_limiting_organisation_ids"
     assert_select "form#edit_edition" do
       assert_select "input[name='edition[access_limiting]'][value='organisations'][checked=checked]"
       assert_select "select[name='edition[access_limiting_organisation_ids][]']" do
