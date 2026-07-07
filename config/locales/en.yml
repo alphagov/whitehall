@@ -18,6 +18,7 @@ en:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file: The attached file
       edition:
+        access_limiting_organisation_ids: Access limiting organisations
         html_attachments: HTML attachments
         nation_inapplicabilities: Excluded nations
       standard_edition:

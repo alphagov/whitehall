@@ -1035,7 +1035,7 @@ module AdminEditionControllerTestHelpers
         end
 
         assert_template :new
-        assert_select ".govuk-error-summary a", text: "Access limiting organisation ids must include at least one organisation", href: "#access_limiting_organisation_ids"
+        assert_select ".govuk-error-summary a", text: "Access limiting organisations must include at least one organisation", href: "#access_limiting_organisation_ids"
         assert_select "form#new_edition" do
           assert_select "input[name='edition[access_limiting]'][value='organisations'][checked=checked]"
           assert_select "select[name='edition[access_limiting_organisation_ids][]']" do
@@ -1092,7 +1092,7 @@ module AdminEditionControllerTestHelpers
         end
 
         assert_template :new
-        assert_select ".govuk-error-summary a", text: "Access limiting organisation ids must include your own organisation", href: "#access_limiting_organisation_ids"
+        assert_select ".govuk-error-summary a", text: "Access limiting organisations must include your own organisation", href: "#access_limiting_organisation_ids"
         assert_select "form#new_edition" do
           assert_select "input[name='edition[access_limiting]'][value='organisations'][checked=checked]"
           assert_select "select[name='edition[access_limiting_organisation_ids][]']" do
@@ -1191,7 +1191,7 @@ module AdminEditionControllerTestHelpers
             refute_select "option[selected='selected'][value='#{organisation.id}']"
           end
         end
-        assert_select ".govuk-error-summary a", text: "Access limiting organisation ids must include at least one organisation", href: "#access_limiting_organisation_ids"
+        assert_select ".govuk-error-summary a", text: "Access limiting organisations must include at least one organisation", href: "#access_limiting_organisation_ids"
         assert_equal "organisations", edition.reload.access_limiting
         assert edition.reload.access_limiting_organisations.exists?(id: organisation.id)
       end
