@@ -7,21 +7,6 @@ class StatisticalDataSetTest < ActiveSupport::TestCase
     assert StatisticalDataSet.ancestors.include?(Edition::HasDocumentCollections)
   end
 
-  test "specifically limit access" do
-    data_set = build(:statistical_data_set, access_limiting: "organisations")
-    assert data_set.access_limited?
-  end
-
-  test "specifically do not limit access" do
-    data_set = build(:statistical_data_set, access_limiting: "none")
-    assert_not data_set.access_limited?
-  end
-
-  test "limit access by default" do
-    data_set = build(:statistical_data_set)
-    assert data_set.access_limited?
-  end
-
   test "specifies rendering app to be frontend" do
     statistical_data_set = StatisticalDataSet.new
     assert statistical_data_set.rendering_app.include?(Whitehall::RenderingApp::FRONTEND)

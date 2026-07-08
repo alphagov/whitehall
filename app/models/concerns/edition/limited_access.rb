@@ -8,7 +8,7 @@ module Edition::LimitedAccess
       none: "none",
       organisations: "organisations",
       individuals: "individuals",
-    }, prefix: true, default: nil
+    }, prefix: true
 
     has_many :edition_access_limiting_organisations,
              class_name: "AccessLimitingOrganisation",
@@ -26,7 +26,6 @@ module Edition::LimitedAccess
              validate: false,
              inverse_of: :edition
 
-    after_initialize :set_access_limited
     after_save :clear_pending_access_limiting_organisation_ids
 
     validate :access_limiting_organisations_required, if: -> { Flipflop.access_limiting_organisations_ui? && access_limiting_organisations? }
@@ -34,12 +33,6 @@ module Edition::LimitedAccess
     validate :access_limiting_must_include_current_user_email
     validate :access_limiting_individual_emails_required, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
     validate :access_limiting_individual_emails_format, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
-  end
-
-  module ClassMethods
-    def access_limited_by_default?
-      false
-    end
   end
 
   def access_limited_object
@@ -54,14 +47,6 @@ module Edition::LimitedAccess
   def access_limiting=(value)
     super
     self.access_limited = !access_limiting_none?
-  end
-
-  delegate :access_limited_by_default?, to: :class
-
-  def set_access_limited
-    return unless new_record? && access_limiting.nil?
-
-    self.access_limiting = access_limited_by_default? ? :organisations : :none
   end
 
   def accessible_to?(user)

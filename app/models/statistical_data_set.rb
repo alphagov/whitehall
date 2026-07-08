@@ -15,10 +15,6 @@ class StatisticalDataSet < Edition
     true
   end
 
-  def self.access_limited_by_default?
-    true
-  end
-
   def rendering_app
     Whitehall::RenderingApp::FRONTEND
   end

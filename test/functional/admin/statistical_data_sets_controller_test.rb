@@ -2,7 +2,6 @@ require "test_helper"
 
 class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   setup do
-    StatisticalDataSet.stubs(access_limited_by_default?: false)
     login_as :writer
   end
 

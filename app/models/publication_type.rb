@@ -30,11 +30,7 @@ class PublicationType
     1000 => "<p>DO NOT USE. This is a holding category for content that has been imported automatically.</p>",
   }.to_json.freeze
 
-  attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key
-
-  def self.access_limitable
-    all.select(&:access_limited_by_default?)
-  end
+  attr_accessor :id, :singular_name, :plural_name, :prevalence, :key
 
   def self.by_prevalence
     all.group_by(&:prevalence)
@@ -76,17 +72,13 @@ class PublicationType
     plural_name.downcase.gsub(/[^a-z]+/, "-")
   end
 
-  def access_limited_by_default?
-    access_limited_by_default == true
-  end
-
   PolicyPaper            = create!(id: 1, key: "policy_paper", singular_name: "Policy paper", plural_name: "Policy papers", prevalence: :primary)
   ImpactAssessment       = create!(id: 2, key: "impact_assessment", singular_name: "Impact assessment", plural_name: "Impact assessments", prevalence: :primary)
   Guidance               = create!(id: 3, key: "guidance", singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary)
   StatutoryGuidance      = create!(id: 19, key: "statutory_guidance", singular_name: "Statutory guidance", plural_name: "Statutory guidance", prevalence: :primary)
   Form                   = create!(id: 4, key: "form", singular_name: "Form", plural_name: "Forms", prevalence: :primary)
-  OfficialStatistics     = create!(id: 5, key: "official_statistics", singular_name: "Official Statistics", plural_name: "Official Statistics", prevalence: :primary, access_limited_by_default: true)
-  NationalStatistics     = create!(id: 15, key: "national_statistics", singular_name: "Accredited Official Statistics", plural_name: "Accredited Official Statistics", prevalence: :primary, access_limited_by_default: true)
+  OfficialStatistics     = create!(id: 5, key: "official_statistics", singular_name: "Official Statistics", plural_name: "Official Statistics", prevalence: :primary)
+  NationalStatistics     = create!(id: 15, key: "national_statistics", singular_name: "Accredited Official Statistics", plural_name: "Accredited Official Statistics", prevalence: :primary)
   ResearchAndAnalysis    = create!(id: 6, key: "research", singular_name: "Research and analysis", plural_name: "Research and analysis", prevalence: :primary)
   CorporateReport        = create!(id: 7, key: "corporate_report", singular_name: "Corporate report", plural_name: "Corporate reports", prevalence: :primary)
   Map                    = create!(id: 17, key: "map", singular_name: "Map", plural_name: "Maps", prevalence: :primary)

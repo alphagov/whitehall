@@ -25,10 +25,6 @@ class PlanForChangeLandingPage < Edition
     slug
   end
 
-  def self.access_limited_by_default?
-    true
-  end
-
   def permitted_image_usages
     super + [
       ImageUsage.new(
