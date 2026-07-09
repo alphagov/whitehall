@@ -23,6 +23,9 @@ class SocialMediaAccount < ApplicationRecord
   end
 
   def display_name
-    title.presence || service_name
+    return title if title.present?
+    return "Follow us on X" if service_name == "X"
+
+    service_name
   end
 end

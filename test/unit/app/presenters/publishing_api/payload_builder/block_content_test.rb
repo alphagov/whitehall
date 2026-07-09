@@ -162,7 +162,7 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
 
     test "social_media_links returns array of social media links" do
       value_of_links = [
-        { "social_media_service_name" => "Twitter", "url" => "https://twitter.com" },
+        { "social_media_service_name" => "Facebook", "url" => "https://facebook.com" },
         { "social_media_service_name" => "Other", "title" => "Other 1", "url" => "https://example.com" },
         { "social_media_service_name" => "Other", "title" => "Other 2", "url" => "https://personal.com" },
       ]
@@ -172,9 +172,9 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
 
       expected_payload = [
         {
-          title: "Twitter",
-          service_type: "twitter",
-          href: "https://twitter.com",
+          title: "Facebook",
+          service_type: "facebook",
+          href: "https://facebook.com",
         },
         {
           title: "Other 1",
@@ -191,15 +191,31 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
     end
 
     test "social_media_links defaults title to service name when no title provided" do
-      value_of_links = [{ "social_media_service_name" => "twitter", "url" => "https://example.com" }]
+      value_of_links = [{ "social_media_service_name" => "Facebook", "url" => "https://example.com" }]
       @block_content.stubs(:some_attribute).returns(value_of_links)
 
       builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
 
       expected_payload = [
         {
-          title: "twitter",
-          service_type: "twitter",
+          title: "Facebook",
+          service_type: "facebook",
+          href: "https://example.com",
+        },
+      ]
+      assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
+    end
+
+    test "social_media_links defaults custom title to service name when no title provided for X" do
+      value_of_links = [{ "social_media_service_name" => "X", "url" => "https://example.com" }]
+      @block_content.stubs(:some_attribute).returns(value_of_links)
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+
+      expected_payload = [
+        {
+          title: "Follow us on X",
+          service_type: "x",
           href: "https://example.com",
         },
       ]
