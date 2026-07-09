@@ -158,12 +158,63 @@ class ManagingEditorTest < ActiveSupport::TestCase
     assert enforcer_for(managing_editor, normal_edition).can?(:mark_political)
   end
 
-  test "cannot modify historic editions" do
+  test "can modify historic editions for the Starmer government only" do
+    government = create(:government, name: "2024 Starmer Labour government", start_date: 2.years.ago, end_date: 1.day.ago)
+    historic_edition.stubs(:government).returns(government)
+    assert enforcer_for(managing_editor, historic_edition).can?(:update)
+  end
+
+  test "can publish historic editions for the Starmer government only" do
+    government = create(:government, name: "2024 Starmer Labour government", start_date: 2.years.ago, end_date: 1.day.ago)
+    historic_edition.stubs(:government).returns(government)
+    assert enforcer_for(managing_editor, historic_edition).can?(:publish)
+  end
+
+  test "can mark historic editions as political for the Starmer government only" do
+    government = create(:government, name: "2024 Starmer Labour government", start_date: 2.years.ago, end_date: 1.day.ago)
+    historic_edition.stubs(:government).returns(government)
+    assert enforcer_for(managing_editor, historic_edition).can?(:mark_political)
+  end
+
+  test "cannot select government for historic editions under the Starmer government" do
+    government = create(:government, name: "2024 Starmer Labour government", start_date: 2.years.ago, end_date: 1.day.ago)
+    historic_edition.stubs(:government).returns(government)
+    assert_not enforcer_for(managing_editor, historic_edition).can?(:select_government_for_history_mode)
+  end
+
+  test "cannot modify historic editions for governments other than the Starmer government" do
+    government = create(:government, name: "2023 Other government", start_date: 2.years.ago, end_date: 1.day.ago)
+    historic_edition.stubs(:government).returns(government)
     assert_not enforcer_for(managing_editor, historic_edition).can?(:update)
   end
 
-  test "cannot publish historic editions" do
+  test "cannot publish historic editions for governments other than the Starmer government" do
+    government = create(:government, name: "2023 Other government", start_date: 2.years.ago, end_date: 1.day.ago)
+    historic_edition.stubs(:government).returns(government)
     assert_not enforcer_for(managing_editor, historic_edition).can?(:publish)
+  end
+
+  test "cannot mark historic editions as political for governments other than the Starmer government" do
+    government = create(:government, name: "2023 Other government", start_date: 2.years.ago, end_date: 1.day.ago)
+    historic_edition.stubs(:government).returns(government)
+    assert_not enforcer_for(managing_editor, historic_edition).can?(:mark_political)
+  end
+
+  test "cannot select government for historic editions under any government" do
+    government = create(:government, name: "2023 Other government", start_date: 2.years.ago, end_date: 1.day.ago)
+    historic_edition.stubs(:government).returns(government)
+    assert_not enforcer_for(managing_editor, historic_edition).can?(:select_government_for_history_mode)
+  end
+
+  test "cannot modify a historic edition that is access-limited" do
+    organisation1 = "organisation_1"
+    organisation2 = "organisation_2"
+    user = managing_editor
+    user.stubs(:organisation).returns(organisation1)
+    edition = limited_publication([organisation2])
+    edition.stubs(:historic?).returns(true)
+
+    assert_not enforcer_for(managing_editor, edition).can?(:update)
   end
 
   test "can create social media accounts" do
