@@ -8,32 +8,9 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     include Edition::Organisations
   end
 
-  class LimitedByDefaultEdition < LimitedAccessEdition
-    def self.access_limited_by_default?
-      true
-    end
-  end
-
   FactoryBot.define do
     factory :limited_access_edition, class: LimitedAccessEdition, parent: :edition_with_organisations do
     end
-    factory :limited_by_default_edition, class: LimitedByDefaultEdition, parent: :limited_access_edition do
-    end
-  end
-
-  test "sets access_limit on new instances according to class.access_limited_by_default?" do
-    assert_not build(:limited_access_edition).access_limited?
-    assert build(:limited_by_default_edition).access_limited?
-  end
-
-  test "can persist limited access flag (regardless of <class>.access_limited_by_default?)" do
-    e = build(:limited_by_default_edition)
-    e.access_limiting = "organisations"
-    e.save!
-    assert e.reload.access_limited?
-    e.access_limiting = "none"
-    e.save!
-    assert_not e.reload.access_limited?
   end
 
   test "#access_limited_object returns self" do
@@ -416,10 +393,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert edition.access_limited?
     assert_equal "individuals", edition.access_limiting
     assert_equal true, edition[:access_limited]
-  end
-
-  test "new instance of default-limited edition has access_limiting = 'organisations'" do
-    assert_equal "organisations", build(:limited_by_default_edition).access_limiting
   end
 
   test "access_limited? reads from access_limiting, not the legacy boolean" do

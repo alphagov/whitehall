@@ -94,13 +94,11 @@ class Publication < Edition
 
   def publication_type=(publication_type)
     self.publication_type_id = (publication_type && publication_type.id)
-    set_access_limited
     self.publication_type
   end
 
   def publication_type_id=(publication_type_id)
     super
-    set_access_limited
     self.publication_type_id
   end
 
@@ -114,14 +112,6 @@ class Publication < Edition
 
   def statistics?
     PublicationType.statistical.include?(publication_type)
-  end
-
-  def access_limited_by_default?
-    # Without a publication_type we can't correctly work out if we should
-    # be access_limited or not.  When we get a publication_type, we'll
-    # sort this out.  Happily, abesence of a publication_type invalidates
-    # us, so returning nil is ok even though it would break the SQL insert
-    publication_type.presence&.access_limited_by_default?
   end
 
   def translatable?

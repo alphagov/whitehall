@@ -16,7 +16,6 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   end
 
   view_test "should render the editorial remark form for a statistical data set" do
-    StatisticalDataSet.stubs(access_limited_by_default?: false)
     edition = create(:draft_statistical_data_set, title: "edition-title", body: "edition-body")
     get :new, params: { edition_id: edition }
     assert_select "form#new_editorial_remark"
