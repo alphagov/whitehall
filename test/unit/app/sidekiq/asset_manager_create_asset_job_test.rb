@@ -180,6 +180,57 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
   end
 
   context "access limiting" do
+    test "does not set access limited if attachable is not access limited" do
+      attachable = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "none")
+      file = FactoryBot.create(:file_attachment, attachable:)
+      assetable = file.attachment_data
+
+      Services.asset_manager.expects(:create_asset).with { |args| !args.key?(:access_limited_organisation_ids) && !args.key?(:access_limited_user_ids) }.returns(@asset_manager_response)
+
+      @job.perform(@file.path, asset_params(assetable), true, attachable.class.to_s, attachable.id)
+    end
+
+    test "does not set organisations access limiting if attachable is not access limited to organisations" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+      attachable = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "individuals", access_limiting_individual_emails: create(:user).email)
+      file = FactoryBot.create(:file_attachment, attachable:)
+      assetable = file.attachment_data
+
+      Services.asset_manager.expects(:create_asset).with { |args| !args.key?(:access_limited_organisation_ids) }.returns(@asset_manager_response)
+
+      @job.perform(@file.path, asset_params(assetable), true, attachable.class.to_s, attachable.id)
+    end
+
+    test "does not set individuals access limiting if attachable is not access limited to individuals" do
+      @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+      attachable = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "organisations", access_limiting_organisation_ids: [create(:organisation).id])
+      file = FactoryBot.create(:file_attachment, attachable:)
+      assetable = file.attachment_data
+
+      Services.asset_manager.expects(:create_asset).with { |args| !args.key?(:access_limited_user_ids) }.returns(@asset_manager_response)
+
+      @job.perform(@file.path, asset_params(assetable), true, attachable.class.to_s, attachable.id)
+    end
+
+    test "sets access limiting to any non nil value returned by the payload builder" do
+      @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+      attachable = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "individuals", access_limiting_individual_emails: "some.gibberish@example.com")
+      file = FactoryBot.create(:file_attachment, attachable:)
+      assetable = file.attachment_data
+
+      AssetManagerAccessLimitation.expects(:for).with(attachable, :organisations).returns(nil)
+      AssetManagerAccessLimitation.expects(:for).with(attachable, :users).returns([])
+
+      Services.asset_manager.expects(:create_asset).with(has_entry(access_limited_user_ids: [])).returns(@asset_manager_response)
+
+      @job.perform(@file.path, asset_params(assetable), true, attachable.class.to_s, attachable.id)
+    end
+
     test "marks attachments belonging to an edition attachable as access limited to organisations" do
       attachable = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "organisations")
       file = FactoryBot.create(:file_attachment, attachable:)

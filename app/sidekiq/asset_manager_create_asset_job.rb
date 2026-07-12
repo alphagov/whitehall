@@ -21,9 +21,9 @@ class AssetManagerCreateAssetJob < JobBase
 
     asset_options = { file:, auth_bypass_ids:, draft: }
     authorised_organisation_uids = get_authorised_organisation_ids(attachable_model_class, attachable_model_id)
-    asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids&.any?
+    asset_options[:access_limited_organisation_ids] = authorised_organisation_uids if authorised_organisation_uids
     authorised_individual_uids = get_authorised_individual_ids(attachable_model_class, attachable_model_id)
-    asset_options[:access_limited_user_ids] = authorised_individual_uids if authorised_individual_uids&.any?
+    asset_options[:access_limited_user_ids] = authorised_individual_uids if authorised_individual_uids
 
     create_asset(asset_options, asset_variant, assetable_id, assetable_type)
 
@@ -61,7 +61,7 @@ private
     if attachable_model_class && attachable_model_id
       attachable_model = attachable_model_class.constantize.find(attachable_model_id)
       if attachable_model.respond_to?(:access_limited?) && attachable_model.access_limited?
-        AssetManagerAccessLimitation.for_organisations(attachable_model)
+        AssetManagerAccessLimitation.for(attachable_model, :organisations)
       end
     end
   end
@@ -70,7 +70,7 @@ private
     if attachable_model_class && attachable_model_id
       attachable_model = attachable_model_class.constantize.find(attachable_model_id)
       if attachable_model.respond_to?(:access_limited?) && attachable_model.access_limited?
-        AssetManagerAccessLimitation.for_individuals(attachable_model)
+        AssetManagerAccessLimitation.for(attachable_model, :users)
       end
     end
   end
