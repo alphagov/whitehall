@@ -30,6 +30,36 @@
         }
       }
     },
+    "about": {
+      "dynamic": true,
+      "label": "About page",
+      "fields": {
+        "about": {
+          "block": "default_object",
+          "attribute_path": ["block_content", "about"],
+          "fields": {
+            "title": {
+              "title": "Title",
+              "block": "default_string",
+              "attribute_path": ["title"],
+              "translatable": true
+            },
+            "summary": {
+              "title": "Summary",
+              "block": "default_textarea",
+              "attribute_path": ["summary"],
+              "translatable": true
+            },
+            "body": {
+              "title": "Body",
+              "block": "govspeak",
+              "attribute_path": ["body"],
+              "translatable": true
+            }
+          }
+        }
+      }
+    },
     "social_media_accounts": {
       "dynamic": true,
       "label": "Social media accounts",
@@ -128,6 +158,20 @@
       "body": {
         "type": "string"
       },
+      "about": {
+        "type": "object",
+        "attributes": {
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      },
       "social_media_links": {
         "type": "array",
         "attributes": {
@@ -174,8 +218,14 @@
   "presenters": {
     "publishing_api": {
       "details": {
-        "body": "govspeak",
-        "social_media_links": "social_media_links"
+        "body": { "field": "body", "type": "compiled_govspeak" },
+        "social_media_links": { "field": "social_media_links", "type": "social_media_links" },
+        "about": {
+          "title": { "field": "about.title", "type": "raw" },
+          "summary": { "field": "about.summary", "type": "raw" },
+          "body": { "field": "about.body", "type": "compiled_govspeak" },
+          "headers": { "field": "about.body", "type": "headings_from" }
+        }
       },
       "links": [
         "organisations"
@@ -184,6 +234,7 @@
   },
   "settings": {
     "base_path_prefix": "/government/topical-events",
+    "additional_routes": ["/about"],
     "publishing_api_schema_name": "topical_event",
     "publishing_api_document_type": "topical_event",
     "rendering_app": "frontend",
