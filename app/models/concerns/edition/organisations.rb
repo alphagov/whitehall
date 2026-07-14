@@ -2,7 +2,7 @@ module Edition::Organisations
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(edition)
+    def process_associations_before_draft_creation(edition)
       @edition.edition_organisations.each do |association|
         edition.edition_organisations.build(association.attributes.except("id"))
       end
