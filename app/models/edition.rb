@@ -381,6 +381,8 @@ class Edition < ApplicationRecord
 
   # For more info, see https://docs.publishing.service.gov.uk/manual/content-preview.html#authentication
   def auth_bypass_token
+    raise "Edition #{id} has no auth_bypass_id, cannot generate an auth bypass token" if auth_bypass_id.blank?
+
     JWT.encode(
       {
         "sub" => auth_bypass_id,

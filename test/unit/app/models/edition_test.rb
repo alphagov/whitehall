@@ -53,6 +53,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal payload["exp"], 1.month.from_now.to_i
   end
 
+  test "refuses to generate an auth bypass token without an auth bypass id" do
+    edition = create(:edition)
+    edition.update_column(:auth_bypass_id, nil)
+
+    error = assert_raises(RuntimeError) { edition.auth_bypass_token }
+    assert_match(/no auth_bypass_id/, error.message)
+  end
+
   test "edition has shareable preview enabled if it is in the pre-publication state and the type is not excluded" do
     draft_edition = create(:draft_fatality_notice)
     submitted_edition = create(:submitted_fatality_notice)
