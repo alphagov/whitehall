@@ -62,10 +62,10 @@ class OrganisationBrandColour
     title: "Department of Energy & Climate Change",
     class_name: "department-of-energy-climate-change",
   )
-  DepartmentOfHealth = create!(
+  DepartmentOfHealthAndSocialCare = create!(
     id: 12,
-    title: "Department of Health",
-    class_name: "department-of-health",
+    title: "Department of Health & Social Care",
+    class_name: "department-of-health-social-care",
   )
   ForeignCommonwealthOffice = create!(
     id: 13,
