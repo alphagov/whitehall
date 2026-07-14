@@ -14,8 +14,9 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
       return render :edit
     end
 
-    if @edition.save
-      PublishingApiDocumentRepublishingJob.perform_async(@edition.document_id, false)
+    if updater.can_perform? && @edition.save
+      updater.perform!
+
       EditorialRemark.create!(
         edition: @edition,
         body: "Access options updated by GDS Admin: #{@editorial_remark}",
@@ -25,6 +26,7 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
       )
       redirect_to admin_editions_path, notice: "Access updated for #{@edition.title}"
     else
+      flash.now[:alert] = updater.failure_reason
       render :edit
     end
   end
@@ -64,5 +66,9 @@ private
 
     edition_params[:access_limiting_organisation_ids] = [] unless edition_params[:access_limiting] == "organisations"
     edition_params[:access_limiting_individual_emails] = [] unless edition_params[:access_limiting] == "individuals"
+  end
+
+  def updater
+    @updater ||= Whitehall.edition_services.draft_updater(@edition)
   end
 end

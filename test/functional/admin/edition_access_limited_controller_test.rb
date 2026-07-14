@@ -131,8 +131,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
       supporting_organisations: [second_organisation],
     )
 
-    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false)
-
     editorial_remark = "Updating the organisations at the users request."
 
     patch :update,
@@ -496,5 +494,80 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
 
     assert edition.reload.access_limiting_individuals.exists?(email: "user@example.com")
     assert_not edition.access_limiting_individuals.exists?(email: "another_user@example.com")
+  end
+
+  # flags agnostic
+  test "PATCH :update should enqueue the edition draft updater" do
+    first_organisation = create(:organisation)
+    second_organisation = create(:organisation)
+
+    edition = create(
+      :consultation,
+      access_limiting: "organisations",
+      create_default_organisation: false,
+      lead_organisations: [first_organisation],
+    )
+
+    draft_updater = mock("draft_updater")
+    Whitehall.edition_services.expects(:draft_updater).with(edition).returns(draft_updater)
+    draft_updater.expects(:can_perform?).returns(true)
+    draft_updater.expects(:perform!).once
+
+    patch :update,
+          params: {
+            id: edition,
+            edition: {
+              lead_organisation_ids: [first_organisation.id, second_organisation.id],
+              editorial_remark: "Updating lead organisations.",
+            },
+          }
+
+    assert_equal [first_organisation, second_organisation], edition.reload.lead_organisations
+  end
+
+  # flags agnostic
+  test "PATCH :update should enqueue the attachment updater" do
+    first_organisation = create(:organisation)
+    second_organisation = create(:organisation)
+
+    edition = create(
+      :consultation,
+      :with_file_attachment,
+      access_limiting: "organisations",
+      create_default_organisation: false,
+      lead_organisations: [first_organisation],
+    )
+
+    AssetManager::AttachmentUpdater.expects(:call).with(edition.attachments.first.attachment_data)
+
+    patch :update,
+          params: {
+            id: edition,
+            edition: {
+              lead_organisation_ids: [first_organisation.id, second_organisation.id],
+              editorial_remark: "Updating lead organisations.",
+            },
+          }
+
+    assert_equal [first_organisation, second_organisation], edition.reload.lead_organisations
+
+    AssetManagerAttachmentMetadataJob.drain
+  end
+
+  # flags agnostic
+  test "PATCH :update does not change edition if in unmodifiable state" do
+    edition = create(:published_consultation, create_default_organisation: true)
+
+    patch :update,
+          params: {
+            id: edition,
+            edition: {
+              lead_organisation_ids: [create(:organisation).id],
+              editorial_remark: "Updating lead organisations.",
+            },
+          }
+
+    assert_template :edit
+    assert_equal "A published edition may not be updated.", flash[:alert]
   end
 end
