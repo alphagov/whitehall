@@ -58,6 +58,8 @@ class EditionRulesTest < ActiveSupport::TestCase
   end
 
   test "grants access based on lead/supporting organisations when flag is OFF" do
+    feature_flags.switch! :access_limiting_organisations_ui, false
+
     user = user_in(org)
     edition = build(:consultation, access_limiting: "organisations")
     edition.stubs(:historic?).returns(false)
@@ -69,6 +71,8 @@ class EditionRulesTest < ActiveSupport::TestCase
   end
 
   test "revokes access based on lead/supporting organisations when flag is OFF" do
+    feature_flags.switch! :access_limiting_organisations_ui, false
+
     user = user_in(org)
     edition = build(:consultation, access_limiting: "organisations")
     edition.stubs(:historic?).returns(false)
@@ -89,6 +93,8 @@ class EditionRulesTest < ActiveSupport::TestCase
   end
 
   test "revokes access when the user does not have an organisation, and flag is OFF" do
+    feature_flags.switch! :access_limiting_organisations_ui, false
+
     user = user_in(nil)
     edition = build(:consultation, access_limiting: "organisations")
     edition.stubs(:historic?).returns(false)
@@ -180,7 +186,6 @@ class EditionRulesTest < ActiveSupport::TestCase
   end
 
   test "revokes access when access_limiting it set to 'individuals', but there are no access_limiting_individuals on the edition, and flag is ON" do
-    #  Special case to cover migration issues. In the latest validation this scenario is not really feasible.
     feature_flags.switch! :access_limiting_individuals_ui, true
 
     org1 = build(:organisation)
@@ -298,6 +303,8 @@ class EditionRulesTest < ActiveSupport::TestCase
   end
 
   test "a user outside the limiting org cannot perform ANY action on a non-historic access-limited edition when flag is OFF" do
+    feature_flags.switch! :access_limiting_organisations_ui, false
+
     user = user_in(other_org)
     edition = build(:consultation, access_limiting: "organisations")
     edition.stubs(:historic?).returns(false)
@@ -341,6 +348,8 @@ class EditionRulesTest < ActiveSupport::TestCase
   end
 
   test "when the access_limiting_individuals_ui flag is OFF, individuals mode does not enforce access" do
+    feature_flags.switch! :access_limiting_individuals_ui, false
+
     user = user_with_email("anyone@example.com")
     edition = build(:edition, access_limiting: "individuals")
     edition.stubs(:historic?).returns(false)
