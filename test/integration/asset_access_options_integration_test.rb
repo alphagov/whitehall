@@ -62,7 +62,8 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           add_file_attachment_with_asset("sample.docx", to: edition)
           edition.save!
           visit edit_admin_edition_path(edition)
-          check "Limit access"
+          choose "Limit access to publishers from organisations associated with this document"
+          select organisation.name, from: "edition_access_limiting_organisation_ids"
           click_button "Save"
           assert_text "Your document has been saved"
         end
@@ -83,7 +84,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           add_file_attachment_with_asset("sample.docx", to: edition)
           edition.save!
           visit edit_admin_edition_path(edition)
-          uncheck "Limit access"
+          choose "No - This document should be available to all publishers"
           click_button "Save"
           assert_text "Your document has been saved"
         end

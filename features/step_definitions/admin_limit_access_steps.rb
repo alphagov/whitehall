@@ -30,8 +30,12 @@ When(/^I set the Lead organisation to an org I am not in$/) do
   select @org.name, from: "edition_lead_organisation_ids_1"
 end
 
-When(/^I check the "(.+)" box$/) do |box_name|
-  check box_name
+When(/^I choose organisation access limiting$/) do
+  choose "Limit access to publishers from organisations associated with this document"
+end
+
+When(/^I select "([^"]*)" as an access limiting organisation$/) do |org_name|
+  select org_name, from: "edition_access_limiting_organisation_ids"
 end
 
 When(/^I click "(.+)"$/) do |button_name|
