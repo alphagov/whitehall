@@ -13,24 +13,24 @@
         items: [
           {
             value: "none",
-            text: "No access limiting",
+            text: "No - This document should be available to all publishers",
             checked: edition.access_limiting_none?,
           },
           Flipflop.access_limiting_organisations_ui? ? {
             value: "organisations",
-            text: "Organisation access limiting",
+            text: "Limit access to publishers from organisations associated with this document",
             checked: edition.access_limiting_organisations?,
             conditional: render("admin/editions/access_limiting_organisation_select", form: form, edition: edition),
           } : nil,
           Flipflop.access_limiting_individuals_ui? ? {
             value: "individuals",
-            text: "Individual access limiting",
+            text: "Limit access to named publishers",
             checked: edition.access_limiting_individuals?,
             conditional: render("govuk_publishing_components/components/textarea", {
-              label: { text: "Add publishers who will have access" },
+              label: { text: "Add the emails of the publishers who will have access (separated by commas)" },
               name: "edition[access_limiting_individual_emails]",
               textarea_id: "edition_access_limiting_individual_emails",
-              hint: "Add the emails of the publishers who will have access to this document before publishing, separated by commas. After publishing the document will be available to all publishers in the organisation associated with this document.",
+              hint: "Include at least 2 names - one should be your managing editor if possible. After publishing, the document will be available to all publishers, until a new draft is created and access is limited on that draft edition.",
               value: edition.access_limiting_individual_emails,
             }),
           } : nil,
