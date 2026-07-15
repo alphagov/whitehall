@@ -51,7 +51,7 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
     context "when the attachment's attachable is a draft and is access limited to organisations" do
       it "sets the expected attributes for all assets" do
-        edition = create(:draft_publication, :access_limited)
+        edition = create(:draft_publication, :access_limited_by_organisations)
         attachment = create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition))
 
         expected_attribute_hash = {

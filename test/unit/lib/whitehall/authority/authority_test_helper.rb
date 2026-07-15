@@ -32,6 +32,7 @@ module AuthorityTestHelper
     define_method("limited_#{edition_type}") do |orgs|
       le = FactoryBot.build(edition_type, access_limiting: "organisations")
       le.stubs(:organisations).returns(orgs)
+      le.stubs(:access_limiting_organisations).returns(orgs)
       le
     end
     define_method("scheduled_#{edition_type}") do
