@@ -61,6 +61,19 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     assert_response :redirect
   end
 
+  view_test "lets managing editors edit historic documents only under the Starmer government" do
+    login_as :managing_editor
+    create(:previous_government, name: "2024 Starmer Labour government")
+    create(:current_government, name: "new")
+
+    published_edition = create(:published_publication, first_published_at: 3.years.ago)
+    new_draft = create(:publication, political: true, first_published_at: 3.years.ago, document: published_edition.document)
+
+    get :edit, params: { id: new_draft }
+
+    assert_response :success
+  end
+
   view_test "lets GDS editors edit historic documents" do
     login_as :gds_editor
     edit_historic_document
