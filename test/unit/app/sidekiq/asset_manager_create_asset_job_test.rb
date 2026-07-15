@@ -169,7 +169,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
   end
 
   test "should not process the file if the attachable has been deleted" do
-    consultation = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "organisations")
+    consultation = FactoryBot.create(:consultation, :access_limited_by_organisations, organisations: [@organisation])
     consultation.delete
     consultation.save!(validate: false)
 

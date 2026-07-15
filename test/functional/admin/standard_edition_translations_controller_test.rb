@@ -235,7 +235,7 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
         },
       },
     }))
-    protected_edition = create(:draft_standard_edition, :access_limited, configurable_document_type: "test_type")
+    protected_edition = create(:draft_standard_edition, :access_limited_by_organisations, configurable_document_type: "test_type")
 
     get :edit, params: { standard_edition_id: protected_edition.id, id: "en" }
     assert_response :forbidden

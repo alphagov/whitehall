@@ -123,7 +123,15 @@ FactoryBot.define do
       scheduled_publication { 7.days.from_now }
     end
 
-    trait(:access_limited) { access_limiting { "organisations" } }
+    trait(:access_limited_by_organisations) do
+      access_limiting { "organisations" }
+      after(:build) do |edition|
+        next if edition.edition_access_limiting_organisations.any?
+
+        edition.access_limiting_organisations =
+          edition.try(:edition_organisations)&.map(&:organisation).presence || [FactoryBot.build(:organisation)]
+      end
+    end
 
     trait(:with_alternative_format_provider) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
@@ -187,6 +195,6 @@ FactoryBot.define do
   factory :force_published_edition, parent: :edition, traits: [:force_published]
   factory :unpublished_edition, parent: :edition, traits: [:unpublished]
   factory :withdrawn_edition, parent: :edition, traits: [:withdrawn]
-  factory :protected_edition, parent: :edition, traits: [:access_limited]
+  factory :protected_edition, parent: :edition, traits: [:access_limited_by_organisations]
   factory :edition_with_organisations, parent: :edition, traits: [:with_organisations]
 end

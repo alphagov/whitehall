@@ -7,10 +7,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "should return limited access editions when the edition is published by the users organisation" do
     user = create(:user)
-    edition = create(
-      :publication,
-      access_limiting: "organisations",
-    )
+    edition = create(:publication, :access_limited_by_organisations)
     edition.organisations.first.users << user
 
     filter = Admin::EditionFilter.new(Edition, user)
@@ -18,14 +15,14 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "should not return editions which have limited access for other orgs for non-gds admins" do
-    create(:publication, access_limiting: "organisations")
+    create(:publication, :access_limited_by_organisations)
 
     filter = Admin::EditionFilter.new(Edition, build(:user))
     assert_equal 0, filter.editions.count
   end
 
   test "should return limited access editions for GDS admins" do
-    edition = create(:publication, access_limiting: "organisations")
+    edition = create(:publication, :access_limited_by_organisations)
 
     filter = Admin::EditionFilter.new(Edition, build(:gds_admin))
     assert_equal edition, filter.editions.first
