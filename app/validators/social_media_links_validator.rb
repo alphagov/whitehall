@@ -11,9 +11,6 @@ class SocialMediaLinksValidator < ActiveModel::Validator
   def validate(record)
     @attributes.each do |attribute_name|
       arr = record.send(attribute_name.to_sym) || []
-      @channels_seen = []
-      @urls_seen = []
-      @titles_seen = []
 
       arr.each_with_index do |social_media_account, index|
         channel_name = social_media_account[@channel_field]
@@ -22,7 +19,7 @@ class SocialMediaLinksValidator < ActiveModel::Validator
         channel = { channel_name: channel_name, title: title }
 
         validate_social_media_channel(channel, index, record, attribute_name)
-        validate_social_media_title(title, index, record, attribute_name)
+        validate_social_media_title(title, channel_name, index, record, attribute_name)
         validate_social_media_url(url, index, record, attribute_name)
       end
     end
@@ -31,31 +28,28 @@ class SocialMediaLinksValidator < ActiveModel::Validator
 private
 
   def validate_social_media_channel(channel, index, record, attribute_name)
+    @channels_seen ||= []
     if channel[:channel_name].blank?
       record.errors.add(
-        :"#{attribute_name}.#{index}.#{@channel_field}",
-        :blank,
-        message: "cannot be blank",
+        attribute_name.to_sym,
+        :invalid_social_media_link,
+        message: "Social media channel #{index + 1} service name cannot be blank",
       )
-    elsif @channels_seen.select { |c| c[:channel_name] == channel[:channel_name] && c[:title] == channel[:title] && c[:title].blank? }.any?
-      record.errors.add(
-        :"#{attribute_name}.#{index}.#{@channel_field}",
-        :taken,
-        message: "must be unique",
-      )
-    else
-      @channels_seen << channel
+      return false
     end
+    @channels_seen << channel
   end
 
-  def validate_social_media_title(title, index, record, attribute_name)
+  def validate_social_media_title(title, channel_name, index, record, attribute_name)
+    @titles_seen ||= []
+    title ||= channel_name
     return if title.blank?
 
     if @titles_seen.include?(title)
       record.errors.add(
-        :"#{attribute_name}.#{index}.#{@title_field}",
+        attribute_name.to_sym,
         :taken,
-        message: "must be unique",
+        message: "Social media channel #{index + 1} title must be unique",
       )
     else
       @titles_seen << title
@@ -63,23 +57,24 @@ private
   end
 
   def validate_social_media_url(url, index, record, attribute_name)
+    @urls_seen ||= []
     if url.blank?
       record.errors.add(
-        :"#{attribute_name}.#{index}.#{@url_field}",
+        attribute_name.to_sym,
         :blank,
-        message: "cannot be blank",
+        message: "Social media channel #{index + 1} URL cannot be blank",
       )
     elsif !valid_url?(url)
       record.errors.add(
-        :"#{attribute_name}.#{index}.#{@url_field}",
+        attribute_name.to_sym,
         :invalid,
-        message: "is invalid - use the full URL, including https://",
+        message: "Social media channel #{index + 1} URL is invalid - use the full URL, including https://",
       )
     elsif @urls_seen.include?(url)
       record.errors.add(
-        :"#{attribute_name}.#{index}.#{@url_field}",
+        attribute_name.to_sym,
         :taken,
-        message: "must be unique",
+        message: "Social media channel #{index + 1} URL must be unique",
       )
     else
       @urls_seen << url
