@@ -47,9 +47,17 @@ module PublishingApi
           # `item` looks something like `{"url"=>"foo", "social_media_service_name"=>"Facebook", "title"=> "Optional title"}`
           service_name = item["social_media_service_name"]
           service_url = item["url"]
-          title = item["title"]
+
+          title = if item["title"].present?
+                    item["title"]
+                  elsif service_name.parameterize == "x"
+                    "Follow us on X"
+                  else
+                    service_name
+                  end
+
           {
-            title: title.presence || service_name,
+            title: title,
             service_type: service_name.parameterize, # "Google Plus" => "google-plus"
             href: service_url,
           }

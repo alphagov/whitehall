@@ -78,6 +78,12 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
     assert_equal "Facebark", account.display_name
   end
 
+  test "display_name is the custom one for X service if the title is blank" do
+    sms = build(:social_media_service, name: "X")
+    account = build(:social_media_account, title: "", social_media_service: sms)
+    assert_equal "Follow us on X", account.display_name
+  end
+
   test "should accept multiple translations" do
     account = create(:social_media_account)
 
