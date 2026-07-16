@@ -31,24 +31,24 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
   end
 
   def content_item
-    @content_item ||= content_item_from_content_store
+    @content_item ||= Services.publishing_api.get_content(content_id).to_h
   end
 
   def content_id
-    @content_id ||= content_item["content_id"]
-  end
+    @content_id ||= Services.publishing_api.lookup_content_id(base_path: parsed_url.path, with_drafts: true)
 
-  def content_item_from_content_store
-    path = parsed_url.path
-
-    item = Services.content_store.content_item(path).to_h
-
-    if item["base_path"] != path && item["document_type"] != "guide"
-      raise GdsApi::HTTPNotFound, 404
+    if @content_id.blank?
+      toplevel_path_segment = parsed_url.path.split("/").second
+      @content_id = Services.publishing_api.lookup_content_id(base_path: "/#{toplevel_path_segment}", with_drafts: true)
+      if @content_id.blank?
+        raise GdsApi::HTTPNotFound, 404
+      else
+        unless content_item["document_type"] == "guide"
+          raise GdsApi::HTTPNotFound, 404
+        end
+      end
     end
 
-    item
-  rescue GdsApi::ContentStore::ItemNotFound
-    raise GdsApi::HTTPNotFound, 404
+    @content_id
   end
 end
