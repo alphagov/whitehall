@@ -3,15 +3,16 @@ require "test_helper"
 class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
   setup do
     @content_id = SecureRandom.uuid
-    Services.content_store.stubs(:content_item).with("/test").returns(
-      "content_id" => @content_id,
-      "title" => "Test",
-      "base_path" => "/test",
-      "publishing_app" => "content-publisher",
+    stub_publishing_api_has_lookups("/test" => @content_id)
+    stub_publishing_api_has_item(
+      content_id: @content_id,
+      title: "Test",
+      base_path: "/test",
+      publishing_app: "content-publisher",
     )
   end
 
-  test "should be valid when content store has the path" do
+  test "should be valid without a GOV.UK url that Publishing API knows" do
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: "https://www.gov.uk/test",
       document_collection_group: build(:document_collection_group),
@@ -31,13 +32,12 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
 
   test "should be valid when a mainstream guide sub-page url is used" do
     content_id = SecureRandom.uuid
-    Services.content_store.stubs(:content_item).with("/foo/subpage").returns(
-      "content_id" => content_id,
-      "title" => "Foo Bar",
-      "base_path" => "/foo",
-      "publishing_app" => "content-publisher",
-      "document_type" => "guide",
-    )
+    stub_publishing_api_has_lookups("/foo" => content_id)
+    stub_publishing_api_has_item(content_id:,
+                                 title: "Foo Bar",
+                                 base_path: "/foo",
+                                 document_type: "guide",
+                                 publishing_app: "content-publisher")
 
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: "https://www.gov.uk/foo/subpage",
@@ -85,21 +85,18 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
     assert url.errors.full_messages.include?("Url must be a valid GOV.UK URL")
   end
 
-  test "should be valid for a Welsh-only GOV.UK page (locale: cy)" do
-    welsh_content_id = SecureRandom.uuid
-    content_store_response = { "content_id" => welsh_content_id, "title" => "Talu TWE y cyflogwr", "base_path" => "/talu-treth-twe", "publishing_app" => "publisher", "locale" => "cy" }
-    Services.content_store.stubs(:content_item).with("/talu-treth-twe").returns(content_store_response)
-
+  test "should be invalid when a GOV.UK URL that isn't in the Publishing API" do
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
-      url: "https://www.gov.uk/talu-treth-twe",
+      url: "https://www.gov.uk/different-path",
       document_collection_group: build(:document_collection_group),
     )
 
-    assert url.valid?
+    assert_not url.valid?
+    assert url.errors.full_messages.include?("Url must reference a GOV.UK page")
   end
 
-  test "should be invalid when content store returns a 404" do
-    Services.content_store.stubs(:content_item).raises(GdsApi::ContentStore::ItemNotFound.new(404))
+  test "should be invalid when Publishing API returns a 404" do
+    stub_any_publishing_api_call_to_return_not_found
 
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: "https://www.gov.uk/test",
@@ -112,13 +109,12 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
 
   test "should be invalid when a non-mainstream guide sub-page url is used" do
     content_id = SecureRandom.uuid
-    Services.content_store.stubs(:content_item).with("/foo/subpage").returns(
-      "content_id" => content_id,
-      "title" => "Foo Bar",
-      "base_path" => "/foo",
-      "publishing_app" => "content-publisher",
-      "document_type" => "other",
-    )
+    stub_publishing_api_has_lookups("/foo" => content_id)
+    stub_publishing_api_has_item(content_id:,
+                                 title: "Foo Bar",
+                                 base_path: "/foo",
+                                 document_type: "other",
+                                 publishing_app: "content-publisher")
 
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: "https://www.gov.uk/foo/subpage",
@@ -128,8 +124,8 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
     assert_not url.valid?
   end
 
-  test "should be invalid when Content Store is unavailable" do
-    Services.content_store.stubs(:content_item).raises(GdsApi::HTTPIntermittentServerError.new(503))
+  test "should be invalid when Publishing API is down" do
+    stub_publishing_api_isnt_available
 
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: "https://www.gov.uk/test",
