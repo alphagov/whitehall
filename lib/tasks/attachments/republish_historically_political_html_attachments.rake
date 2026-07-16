@@ -3,9 +3,11 @@ task republish_historically_political_html_attachments: :environment do
   government_start_date = Government.current.start_date
 
   document_ids = Edition
-    .publicly_visible
-    .where(id: HtmlAttachment.where("attachable_type = 'Edition' AND political = true AND first_published_at < ?", government_start_date).select(:attachable_id))
-    .pluck(:document_id)
+                   .publicly_visible
+                   .where(political: true)
+                   .where("first_published_at < ?", government_start_date)
+                   .where(id: HtmlAttachment.where(attachable_type: "Edition").select(:attachable_id))
+                   .pluck(:document_id)
 
   puts "Enqueueing #{document_ids.count} documents with historically political html attachments"
 
