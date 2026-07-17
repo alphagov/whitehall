@@ -269,6 +269,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   test "is valid when access_limiting is set to 'individuals' and access limiting emails are present" do
     @feature_flags.switch!(:access_limiting_individuals_ui, true)
 
+    create(:user, email: "user@example.com")
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "user@example.com"
@@ -309,6 +310,59 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
     assert_not edition.valid?
     assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses"
+  end
+
+  test "is invalid when access_limiting is set to 'individuals' and the provided email does not match an existing Signon user" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    edition = create(:limited_access_edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "no_such_user@example.com"
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user"
+  end
+
+  test "recognizes an existing Signon user regardless of email case" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    create(:user, email: "User@Example.com")
+    edition = create(:limited_access_edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "user@example.com"
+
+    assert edition.valid?
+  end
+
+  test "is invalid when a Signon email is mixed in with an email that does not match any Signon user" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    create(:user, email: "user@example.com")
+    edition = create(:limited_access_edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "user@example.com, no_such_user@example.com"
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user"
+  end
+
+  test "does not require a Signon match for an individual email marked for destruction" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    create(:user, email: "user@example.com")
+    edition = build(:limited_access_edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "user@example.com"
+    edition.save!
+
+    edition.access_limiting_individuals.create!(email: "no_such_user@example.com")
+    assert edition.access_limiting_individuals.exists?(email: "no_such_user@example.com")
+
+    edition.access_limiting_individual_emails = "user@example.com"
+
+    assert edition.access_limiting_individuals.detect { |i| i.email == "no_such_user@example.com" }.marked_for_destruction?
+    assert edition.valid?
+    assert_not_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user"
   end
 
   test "is valid when access_limiting is set to 'none' regardless of access limiting individuals" do
