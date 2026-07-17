@@ -1,7 +1,7 @@
 require "test_helper"
 require "rake"
 
-class IdentifyPoliticalContentFor < ActiveSupport::TestCase
+class MarkAndUnmarkPoliticalContent < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   setup do
@@ -10,8 +10,8 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
 
   teardown { task.reenable }
 
-  describe "#identify_political_content" do
-    let(:task) { Rake::Task["election:identify_political_content_for"] }
+  describe "#mark_political_content_for" do
+    let(:task) { Rake::Task["election:mark_political_content_for"] }
     let(:organisation) { create(:organisation, political: true) }
     let(:date) { "31-12-2022" }
 
@@ -22,10 +22,10 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
 
     it "raises an error if date is not right format" do
       out, _err = capture_io { task.invoke(organisation.slug, "not a date") }
-      assert_includes out, 'The date is not on the right format ["not a date"]'
+      assert_includes out, 'The date is not in the right format ["not a date"]'
     end
 
-    it "marks eligible published editions of documents first published after the specified date and any associated drafts as political" do
+    it "marks eligible editions of documents first published after the specified date as political" do
       published_document = create(:document)
       published_edition = create(:publication, :published, document: published_document, first_published_at: "01-01-2023")
       draft_of_published_edition = create(:publication, :draft, document: published_document)
@@ -45,15 +45,50 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
 
       assert published_edition.reload.political
       assert draft_of_published_edition.reload.political
-      # These states are not included
-      assert_not withdrawn_edition.reload.political
-      assert_not draft_of_withdrawn_edition.reload.political
-      assert_not unpublished_edition.reload.political
-      assert_not draft_of_unpublished_edition.reload.political
+      assert withdrawn_edition.reload.political
+      assert draft_of_withdrawn_edition.reload.political
+      assert unpublished_edition.reload.political
+      assert draft_of_unpublished_edition.reload.political
     end
 
-    it "unmarks eligible published editions of documents first published after the specified date as not political" do
-      organisation.update!(political: false)
+    it "does not mark editions related to documents first published before the specified date" do
+      non_political_document = create(:document)
+      published_edition = create(:publication, :published, document: non_political_document, political: false, first_published_at: "30-12-2022")
+      draft_edition = create(:publication, :draft, document: non_political_document, political: false)
+      organisation.editions = [published_edition, draft_edition]
+      organisation.save!
+
+      capture_io { task.invoke(organisation.slug, date) }
+      assert_not non_political_document.reload.live_edition.political
+      assert_not non_political_document.reload.latest_edition.political
+    end
+
+    it "does not mark editions that are ineligible as political content" do
+      fatality_notice = create(:fatality_notice, :published)
+      organisation.editions = [fatality_notice]
+      organisation.save!
+
+      capture_io { task.invoke(organisation.slug, date) }
+      assert_not fatality_notice.reload.political
+    end
+  end
+
+  describe "#unmark_political_content_for" do
+    let(:task) { Rake::Task["election:unmark_political_content_for"] }
+    let(:organisation) { create(:organisation, political: false) }
+    let(:date) { "31-12-2022" }
+
+    it "raises an error if organisation does not exist" do
+      out, _err = capture_io { task.invoke("non-existent-slug", date) }
+      assert_includes out, 'There is no Organisation with slug ["non-existent-slug"]'
+    end
+
+    it "raises an error if date is not right format" do
+      out, _err = capture_io { task.invoke(organisation.slug, "not a date") }
+      assert_includes out, 'The date is not in the right format ["not a date"]'
+    end
+
+    it "unmarks eligible editions of documents first published after the specified date as not political" do
       published_document = create(:document)
       published_edition = create(:publication, :published, document: published_document, first_published_at: "01-01-2023", political: true)
       draft_of_published_edition = create(:publication, :draft, document: published_document, political: true)
@@ -73,15 +108,15 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
 
       assert_not published_edition.reload.political
       assert_not draft_of_published_edition.reload.political
-      # These states are not included
-      assert withdrawn_edition.reload.political
-      assert draft_of_withdrawn_edition.reload.political
-      assert unpublished_edition.reload.political
-      assert draft_of_unpublished_edition.reload.political
+      assert_not withdrawn_edition.reload.political
+      assert_not draft_of_withdrawn_edition.reload.political
+      assert_not unpublished_edition.reload.political
+      assert_not draft_of_unpublished_edition.reload.political
     end
 
     # This is a characterisation test. Ideally, manually set political markers would not be affected by the task.
-    it "unmarks political flag set by the user for non-political document types" do
+    # However, it is not straightforward to deduce whether a political marker was set manually or not.
+    it "unmarks editions manually marked as political, for non-potentially-political document types" do
       organisation.update!(political: true)
       published_document = create(:document)
       non_political_publication_type = PublicationType.all.detect { |type| PoliticalContentIdentifier::POLITICAL_PUBLICATION_TYPES.exclude?(type) }
@@ -99,25 +134,16 @@ class IdentifyPoliticalContentFor < ActiveSupport::TestCase
       assert_not published_edition.reload.political
     end
 
-    it "does not mark editions unrelated to documents first published before the specified date as political" do
-      non_political_document = create(:document)
-      published_edition = create(:publication, :published, document: non_political_document, political: false, first_published_at: "30-12-2022")
-      draft_edition = create(:publication, :draft, document: non_political_document, political: false)
+    it "does not unmark editions related to documents first published before the specified date" do
+      political_document = create(:document)
+      published_edition = create(:publication, :published, document: political_document, political: true, first_published_at: "30-12-2022")
+      draft_edition = create(:publication, :draft, document: political_document, political: true)
       organisation.editions = [published_edition, draft_edition]
       organisation.save!
 
       capture_io { task.invoke(organisation.slug, date) }
-      assert_not non_political_document.reload.live_edition.political
-      assert_not non_political_document.reload.latest_edition.political
-    end
-
-    it "does not mark editions that are ineligible as political content as political" do
-      fatality_notice = create(:fatality_notice, :published)
-      organisation.editions = [fatality_notice]
-      organisation.save!
-
-      capture_io { task.invoke(organisation.slug, date) }
-      assert_not fatality_notice.reload.political
+      assert political_document.reload.live_edition.political
+      assert political_document.reload.latest_edition.political
     end
   end
 end
