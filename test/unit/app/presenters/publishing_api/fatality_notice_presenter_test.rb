@@ -68,13 +68,13 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the auth bypass id" do
-    assert_equal [@fatality_notice.auth_bypass_id], @presented_content[:auth_bypass_ids]
+    @fatality_notice.auth_bypass_id = "auth-bypass-id"
+    presented = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
+    assert_equal %w[auth-bypass-id], presented.content[:auth_bypass_ids]
   end
 
   test "it presents an empty auth bypass id array when the edition has no token" do
-    @fatality_notice.auth_bypass_id = nil
-    presented = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
-    assert_equal [], presented.content[:auth_bypass_ids]
+    assert_equal [], @presented_content[:auth_bypass_ids]
   end
 
   test "it presents edition links" do

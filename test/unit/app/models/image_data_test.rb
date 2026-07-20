@@ -36,8 +36,8 @@ class ImageDataTest < ActiveSupport::TestCase
   end
 
   test "returns unique auth_bypass_ids from its image's editions" do
-    fatality_notice_1 =  create(:fatality_notice)
-    fatality_notice_2 =  create(:fatality_notice)
+    fatality_notice_1 =  create(:fatality_notice, :with_auth_bypass_id)
+    fatality_notice_2 =  create(:fatality_notice, :with_auth_bypass_id)
     images_from_first_edition = (1..3).map { |i| build(:image, id: i, edition: fatality_notice_1) }
     images_from_second_edition = (4..6).map { |i| build(:image, id: i, edition: fatality_notice_2) }
 
@@ -47,7 +47,7 @@ class ImageDataTest < ActiveSupport::TestCase
   end
 
   test "excludes editions that have no auth_bypass_id" do
-    edition_with_token = create(:fatality_notice)
+    edition_with_token = create(:fatality_notice, :with_auth_bypass_id)
     edition_without_token = create(:fatality_notice)
     edition_without_token.auth_bypass_id = nil
     images = [

@@ -12,7 +12,7 @@ class EditionAuthBypassRevokerTest < ActiveSupport::TestCase
     end
 
     test "clears the edition's auth_bypass_id, saves it with the current user and calls 'perform!' on the updater" do
-      edition = create(:draft_edition)
+      edition = create(:draft_edition, :with_auth_bypass_id)
       assert_not_nil edition.auth_bypass_id
 
       EditionAuthBypassRevoker.new(edition:, current_user: user, updater:).call
