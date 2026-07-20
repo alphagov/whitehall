@@ -300,6 +300,9 @@ class ActionDispatch::IntegrationTest
 
   teardown do
     GDS::SSO.test_user = nil
+    # login_as queues a Warden block that fires on the next request. An unused
+    # one outlives the test and signs in the next test that makes a request.
+    Warden.test_reset!
   end
 end
 
