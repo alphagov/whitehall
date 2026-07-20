@@ -95,6 +95,15 @@ class EditionTest < ActiveSupport::TestCase
     assert Edition.latest_edition.include?(new_draft)
   end
 
+  test "#create_draft does not copy the auth bypass id to the new draft" do
+    published_edition = create(:published_edition, :with_auth_bypass_id)
+    assert_not_nil published_edition.auth_bypass_id
+
+    new_draft = published_edition.create_draft(create(:writer))
+
+    assert_nil new_draft.auth_bypass_id
+  end
+
   test ".latest_edition ignores deleted editions" do
     document = create(:document)
     original_edition = create(:published_edition, document:)
