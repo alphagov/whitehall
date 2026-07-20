@@ -217,13 +217,14 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal "All workflow actions require a lock version", response.body
   end
 
-  test "approve_retrospectively marks the document as having been approved retrospectively and redirects back to he edition" do
+  test "approve_retrospectively marks the document as having been approved retrospectively and redirects back to the edition" do
     editor = create(:departmental_editor)
     acting_as(editor) { force_publish(draft_edition) }
     post :approve_retrospectively, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
     assert_redirected_to admin_publication_path(draft_edition)
     assert_equal "Thanks for reviewing; this document is no longer marked as force-published", flash[:notice]
+    # Missing assertion here. Should check `force_published` is now false,
   end
 
   test "approve_retrospectively responds with 422 if missing a lock version" do
