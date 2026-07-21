@@ -4,7 +4,13 @@
 
 <% unless @feature_list.featurable_type == "Edition" %>
   <%= render "govuk_publishing_components/components/warning_text", {
-    text: "Warning: changes to features appear instantly on the live site.",
+    text: "Changes to features appear instantly on the live site.",
+  } %>
+<% end %>
+
+<% unless @feature_list.featurable_type == "Organisation" %>
+  <%= render "govuk_publishing_components/components/warning_text", {
+    text: "Any access limiting settings you have set will have no effect on this image.",
   } %>
 <% end %>
 
