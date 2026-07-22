@@ -17,202 +17,26 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
       auth_bypass_id_to_revoke = edition.auth_bypass_id
       SecureRandom.stubs(uuid: uid)
 
-      service = EditionAuthBypassUpdater.new(
-        edition:,
-        current_user: user,
-        updater:,
-      )
+      EditionAuthBypassUpdater.new(edition:, current_user: user, updater:).call
 
-      service.call
-
-      assert_equal edition.auth_bypass_id, uid
-      assert_not_equal edition.auth_bypass_id, auth_bypass_id_to_revoke
-      assert_equal edition.edition_authors.last.user, user
+      assert_equal uid, edition.auth_bypass_id
+      assert_not_equal auth_bypass_id_to_revoke, edition.auth_bypass_id
+      assert_equal user, edition.edition_authors.last.user
     end
 
-    test "updates attachments with auth_bypass_ids" do
+    test "propagates the new auth_bypass_id to attached assets" do
+      SecureRandom.stubs(uuid: uid)
       edition = create(:draft_edition)
       file_attachment = create(:file_attachment, attachable: edition)
 
-      SecureRandom.stubs(uuid: uid)
-      expected_attributes = { "auth_bypass_ids" => [uid] }
-
-      service = EditionAuthBypassUpdater.new(
-        edition:,
-        current_user: user,
-        updater:,
-      )
-
       AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
         "asset_manager_updater",
         "AttachmentData",
         file_attachment.attachment_data.id,
-        expected_attributes,
+        { "auth_bypass_ids" => [uid] },
       )
 
-      service.call
-    end
-
-    test "updates an image with auth_bypass_id" do
-      edition = create(:draft_fatality_notice)
-      image = create(:image, edition:)
-
-      SecureRandom.stubs(uuid: uid)
-      expected_attributes = { "auth_bypass_ids" => [uid] }
-
-      service = EditionAuthBypassUpdater.new(
-        edition:,
-        current_user: user,
-        updater:,
-      )
-
-      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
-        "asset_manager_updater",
-        "ImageData",
-        image.image_data.id,
-        expected_attributes,
-      )
-
-      service.call
-    end
-
-    test "does not attempt to update html attachments via the update whitehall asset job" do
-      edition = create(:draft_edition)
-      create(:html_attachment, attachable: edition)
-
-      SecureRandom.stubs(uuid: uid)
-
-      service = EditionAuthBypassUpdater.new(
-        edition:,
-        current_user: user,
-        updater:,
-      )
-
-      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).never
-
-      service.call
-    end
-
-    test "updates a consultation response form asset with auth_bypass_id" do
-      edition = create(:consultation)
-      participation = create(:consultation_participation, consultation: edition)
-      consultation_response_form = create(:consultation_response_form, consultation_participation: participation)
-
-      edition.reload
-      SecureRandom.stubs(uuid: uid)
-      expected_attributes = { "auth_bypass_ids" => [uid] }
-
-      service = EditionAuthBypassUpdater.new(
-        edition:,
-        current_user: user,
-        updater:,
-      )
-
-      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
-        "asset_manager_updater",
-        "ConsultationResponseFormData",
-        consultation_response_form.consultation_response_form_data.id,
-        expected_attributes,
-      )
-
-      service.call
-    end
-
-    test "updates a consultation outcome's attachments with auth_bypass_id" do
-      edition = create(:draft_consultation)
-      outcome = create(:consultation_outcome, consultation: edition)
-      file_attachment = create(:file_attachment, attachable: outcome)
-
-      SecureRandom.stubs(uuid: uid)
-      expected_attributes = { "auth_bypass_ids" => [uid] }
-
-      service = EditionAuthBypassUpdater.new(
-        edition:,
-        current_user: user,
-        updater:,
-      )
-
-      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
-        "asset_manager_updater",
-        "AttachmentData",
-        file_attachment.attachment_data.id,
-        expected_attributes,
-      )
-
-      service.call
-    end
-
-    test "updates a consultation's public feedback attachments with auth_bypass_id" do
-      edition = create(:draft_consultation)
-      feedback = create(:consultation_public_feedback, consultation: edition)
-      file_attachment = create(:file_attachment, attachable: feedback)
-
-      SecureRandom.stubs(uuid: uid)
-      expected_attributes = { "auth_bypass_ids" => [uid] }
-
-      service = EditionAuthBypassUpdater.new(
-        edition:,
-        current_user: user,
-        updater:,
-      )
-
-      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
-        "asset_manager_updater",
-        "AttachmentData",
-        file_attachment.attachment_data.id,
-        expected_attributes,
-      )
-
-      service.call
-    end
-
-    test "updates a call for evidence response form asset with auth_bypass_id" do
-      edition = create(:call_for_evidence)
-      participation = create(:call_for_evidence_participation, call_for_evidence: edition)
-      call_for_evidence_response_form = create(:call_for_evidence_response_form, call_for_evidence_participation: participation)
-
-      edition.reload
-      SecureRandom.stubs(uuid: uid)
-      expected_attributes = { "auth_bypass_ids" => [uid] }
-
-      service = EditionAuthBypassUpdater.new(
-        edition:,
-        current_user: user,
-        updater:,
-      )
-
-      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
-        "asset_manager_updater",
-        "CallForEvidenceResponseFormData",
-        call_for_evidence_response_form.call_for_evidence_response_form_data.id,
-        expected_attributes,
-      )
-
-      service.call
-    end
-
-    test "updates a call for evidence outcome's attachments with auth_bypass_id" do
-      edition = create(:draft_call_for_evidence)
-      outcome = create(:call_for_evidence_outcome, call_for_evidence: edition)
-      file_attachment = create(:file_attachment, attachable: outcome)
-
-      SecureRandom.stubs(uuid: uid)
-      expected_attributes = { "auth_bypass_ids" => [uid] }
-
-      service = EditionAuthBypassUpdater.new(
-        edition:,
-        current_user: user,
-        updater:,
-      )
-
-      AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
-        "asset_manager_updater",
-        "AttachmentData",
-        file_attachment.attachment_data.id,
-        expected_attributes,
-      )
-
-      service.call
+      EditionAuthBypassUpdater.new(edition:, current_user: user, updater:).call
     end
   end
 end

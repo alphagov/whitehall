@@ -41,6 +41,7 @@ class ImageData < ApplicationRecord
     images
       .filter { |image| Edition::PRE_PUBLICATION_STATES.include? image.edition.state }
       .map { |image| image.edition.auth_bypass_id }
+      .compact
       .uniq
   end
 

@@ -61,6 +61,23 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
     assert_equal page.block_content["attribute_two"], content[:details][:attribute_two]
   end
 
+  test "it presents the edition's auth_bypass_id" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    page = create(:standard_edition)
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+
+    assert_equal [page.auth_bypass_id], presenter.content[:auth_bypass_ids]
+  end
+
+  test "it presents an empty auth_bypass_ids array when the edition has no token" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    page = create(:standard_edition)
+    page.auth_bypass_id = nil
+    presenter = PublishingApi::StandardEditionPresenter.new(page)
+
+    assert_equal [], presenter.content[:auth_bypass_ids]
+  end
+
   test "it includes a title and a description" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
     page = create(:standard_edition,

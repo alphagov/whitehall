@@ -128,7 +128,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def auth_bypass_ids
-    attachable && attachable.respond_to?(:auth_bypass_id) ? [attachable.auth_bypass_id] : []
+    attachable && attachable.respond_to?(:auth_bypass_id) ? [attachable.auth_bypass_id].compact : []
   end
 
   def redirect_url

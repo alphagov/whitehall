@@ -127,6 +127,11 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_attribute :auth_bypass_ids, [corporate_information_page.auth_bypass_id]
     end
 
+    test "auth bypass ids are empty when the edition has no token" do
+      corporate_information_page.auth_bypass_id = nil
+      assert_attribute :auth_bypass_ids, []
+    end
+
     test "links" do
       expected_link_keys = %i[organisations]
 
