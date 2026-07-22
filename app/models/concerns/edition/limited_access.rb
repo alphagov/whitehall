@@ -2,8 +2,6 @@ module Edition::LimitedAccess
   extend ActiveSupport::Concern
 
   included do
-    self.ignored_columns += %w[access_limited]
-
     attr_accessor :current_user_for_validation
 
     enum :access_limiting, {
