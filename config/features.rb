@@ -38,5 +38,5 @@ Flipflop.configure do
           default: true
   feature :access_limiting_individuals_ui,
           description: "Extend the access-limiting radio UI with an individuals option",
-          default: Whitehall.integration?
+          default: false
 end
