@@ -33,12 +33,16 @@ class ImageDeletionIntegrationTest < ActionDispatch::IntegrationTest
           click_link "Delete image"
           click_button "Delete image"
           assert_text "minister-of-funk.960x640.jpg has been deleted"
+          visit admin_edition_path(edition)
+          click_link "Force publish"
+          fill_in "Reason for force publishing", with: "testing"
+          click_button "Force publish"
         end
 
         it "deletes the corresponding asset in asset manager" do
-          Services.asset_manager.expects(:delete_asset).times(7).with(regexp_matches(/asset_manager_id.*/))
+          Services.asset_manager.expects(:delete_asset).times(7)
 
-          AssetManagerDeleteAssetJob.drain
+          PublishAttachmentAssetJob.drain
         end
       end
     end

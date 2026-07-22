@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_08_150116) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_14_100425) do
   create_table "access_limiting_individuals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "edition_id", null: false
@@ -103,7 +103,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_150116) do
   create_table "call_for_evidence_response_form_data", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "carrierwave_file"
     t.datetime "created_at", precision: nil
+    t.integer "replaced_by_id"
     t.datetime "updated_at", precision: nil
+    t.index ["replaced_by_id"], name: "index_call_for_evidence_response_form_data_on_replaced_by_id"
   end
 
   create_table "call_for_evidence_response_forms", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -139,7 +141,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_150116) do
   create_table "consultation_response_form_data", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "carrierwave_file"
     t.datetime "created_at", precision: nil
+    t.integer "replaced_by_id"
     t.datetime "updated_at", precision: nil
+    t.index ["replaced_by_id"], name: "index_consultation_response_form_data_on_replaced_by_id"
   end
 
   create_table "consultation_response_forms", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -631,6 +635,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_150116) do
   create_table "images", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "caption", size: :medium
     t.datetime "created_at", precision: nil
+    t.boolean "deleted", default: false
     t.integer "edition_id"
     t.integer "image_data_id"
     t.datetime "updated_at", precision: nil

@@ -12,6 +12,12 @@ class MockAssetManager
   def delete_asset(*_args); end
 
   def update_asset(*_args); end
+
+  def media(*_args)
+    response = OpenStruct.new
+    response.body = File.read(File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))
+    response
+  end
 end
 
 Before do

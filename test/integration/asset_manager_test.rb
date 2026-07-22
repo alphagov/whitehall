@@ -46,6 +46,81 @@ class AssetManagerIntegrationTest
     end
   end
 
+  class CreatingAnImage < ActiveSupport::TestCase
+    extend Minitest::Spec::DSL
+
+    setup do
+      @filename = "minister-of-funk.960x640.jpg"
+      @edition = create(:draft_publication)
+      @attachment = FactoryBot.build(:image_with_no_assets, edition: @edition)
+      @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+    end
+
+    test "sends the attachment to Asset Manager" do
+      Services.asset_manager.expects(:create_asset).at_least_once.with { |args|
+        args[:file].path =~ /#{@filename}/
+      }.returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
+    end
+
+    test "marks the attachment as draft in Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .at_least_once
+              .with(has_entry(draft: true))
+              .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
+    end
+  end
+
+  class CreatingAnAuthorisedImage < ActiveSupport::TestCase
+    extend Minitest::Spec::DSL
+
+    setup do
+      @organisation = FactoryBot.create(:organisation)
+
+      @filename = "minister-of-funk.960x640.jpg"
+      @edition = create(:draft_consultation)
+      @edition.access_limiting = "organisations"
+      @edition.organisations << @organisation
+
+      @edition.save!
+
+      @attachment = FactoryBot.build(:image_with_no_assets, edition: @edition)
+      @attachment.image_data.images << @attachment
+      @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+      Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
+    end
+
+    test "sends the user ids of authorised users to Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .with(has_entry(access_limited_organisation_ids: @edition.organisations.map(&:content_id)))
+              .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
+    end
+
+    test "marks the attachment as draft in Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .at_least_once
+              .with(has_entry(draft: true))
+              .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
+    end
+  end
+
   class CreatingAnOrganisationLogo < ActiveSupport::TestCase
     setup do
       @filename = "960x640_jpeg.jpg"
@@ -165,10 +240,27 @@ class AssetManagerIntegrationTest
       @filename = "greenpaper.pdf"
       @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
       ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
+
+      consultation = FactoryBot.build(
+        :consultation,
+      )
+
+      consultation.consultation_participation = FactoryBot.build(
+        :consultation_participation,
+      )
+
+      consultation.consultation_participation.consultation_response_form = FactoryBot.build(
+        :consultation_response_form,
+      )
+
       @consultation_response_form_data = FactoryBot.build(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(@filename)),
       )
+
+      consultation.consultation_participation.consultation_response_form.consultation_response_form_data = @consultation_response_form_data
+
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
     end
 
     test "sends the consultation response form data file to Asset Manager" do
@@ -181,8 +273,11 @@ class AssetManagerIntegrationTest
       end
     end
 
-    test "sends draft as false for consultation response form data to Asset Manager" do
-      Services.asset_manager.expects(:create_asset).with(has_entry(draft: false)).returns(@asset_manager_response)
+    test "marks the attachment as draft in Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .at_least_once
+              .with(has_entry(draft: true))
+              .returns(@asset_manager_response)
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.save!
@@ -216,6 +311,10 @@ class AssetManagerIntegrationTest
   class ReplacingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       filename = "greenpaper.pdf"
+
+      @replacement_filename = "whitepaper.pdf"
+      @replacement_id = "asset_manager_id_new"
+
       ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
       @consultation_response_form_data = FactoryBot.create(
         :consultation_response_form_data,
@@ -224,15 +323,15 @@ class AssetManagerIntegrationTest
 
       @asset_manager_id = @consultation_response_form_data.assets.first.asset_manager_id
       Services.asset_manager.stubs(:asset).with(@asset_manager_id).returns({ "id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => filename })
+      Services.asset_manager.stubs(:asset).with(@replacement_id).returns({ "id" => "http://asset-manager/assets/#{@replacement_id}", "name" => @replacement_filename })
     end
 
     test "replacing a consultation response form data file removes the old file from asset manager" do
-      replacement_filename = "whitepaper.pdf"
       Services.asset_manager.expects(:create_asset).with { |args|
-        args[:file].path =~ /#{replacement_filename}/
-      }.returns({ "id" => "http://asset-manager/assets/asset_manager_id_new", "name" => replacement_filename })
+        args[:file].path =~ /#{@replacement_filename}/
+      }.returns({ "id" => "http://asset-manager/assets/#{@replacement_id}", "name" => @replacement_filename })
       Services.asset_manager.expects(:delete_asset).with(@asset_manager_id)
-      @consultation_response_form_data.file = File.open(fixture_path.join(replacement_filename))
+      @consultation_response_form_data.file = File.open(fixture_path.join(@replacement_filename))
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.save!

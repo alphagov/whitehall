@@ -3,7 +3,7 @@ class ImageUploader < WhitehallUploader
 
   configure do |config|
     config.remove_previously_stored_files_after_update = false
-    config.storage = Storage::PreviewableStorage
+    config.storage = Storage::AttachmentStorage
     config.validate_integrity = true
   end
 

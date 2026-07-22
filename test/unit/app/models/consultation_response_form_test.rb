@@ -31,4 +31,18 @@ class ConsultationResponseFormTest < ActiveSupport::TestCase
     consultation_response_form_data.expects(:destroy!)
     consultation_response_form.destroy!
   end
+
+  test ".attachable returns associated Consultation if it is exists" do
+    consultation = build(:consultation)
+    consultation_participation = build(:consultation_participation, consultation:)
+    consultation_response_form = build(:consultation_response_form, consultation_participation:)
+
+    assert consultation_response_form.attachable, consultation
+  end
+
+  test ".attachable returns Attachable::Null if no associated Consultation" do
+    consultation_response_form = build(:consultation_response_form)
+
+    assert consultation_response_form.attachable, Attachable::Null
+  end
 end

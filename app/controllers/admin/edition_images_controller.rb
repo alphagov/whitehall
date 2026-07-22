@@ -43,10 +43,18 @@ class Admin::EditionImagesController < Admin::BaseController
 
     if image_data_params["crop_data"].present?
       image_data = image.image_data
+      original = image_data.assets.find_by(variant: "original")
+
+      asset_manager_response = Services.asset_manager.media(original.asset_manager_id, original.filename)
+      tmp_file_path = "#{Whitehall.asset_manager_tmp_dir}/#{original.filename}"
+      File.open(tmp_file_path, "w+") { |f| f.write(asset_manager_response.body) }
+      sanitized_tmp_file = CarrierWave::SanitizedFile.new(File.open(tmp_file_path))
+
       new_image_data = ImageData.new
+      new_image_data.images << image
       new_image_data.to_replace_id = image_data.id
       new_image_data.assign_attributes(image_data_params)
-      new_image_data.file.download! image_data.file.url
+      new_image_data.file = sanitized_tmp_file
       # so that auth_bypass_id is discoverable by AssetManagerStorage
       new_image_data.images << image
       new_image_data.save!
@@ -61,6 +69,9 @@ class Admin::EditionImagesController < Admin::BaseController
     else
       render :edit
     end
+  rescue GdsApi::HTTPNotFound
+    image.image_data.errors.add(:file, "could not be fetched from Asset Manager.")
+    render :edit
   end
 
   def create

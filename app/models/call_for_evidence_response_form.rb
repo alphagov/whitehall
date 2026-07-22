@@ -4,11 +4,17 @@ class CallForEvidenceResponseForm < ApplicationRecord
 
   delegate :url, :file, to: :call_for_evidence_response_form_data
 
+  delegate :deleted?, :publicly_visible?, :auth_bypass_id, to: :attachable
+
   validates :title, :call_for_evidence_response_form_data, presence: true
 
   accepts_nested_attributes_for :call_for_evidence_response_form_data
 
   after_destroy :destroy_call_for_evidence_response_form_data_if_required
+
+  def attachable
+    call_for_evidence_participation&.call_for_evidence || Attachable::Null.new
+  end
 
 private
 

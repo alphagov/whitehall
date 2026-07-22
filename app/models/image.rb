@@ -6,13 +6,27 @@ class Image < ApplicationRecord
   validates :image_data, presence: { message: "must be present" }
   validate :permitted_usage
 
-  after_destroy :destroy_image_data_if_required
-
   accepts_nested_attributes_for :image_data
 
   delegate :filename, :content_type, :width, :height, :bitmap?, :svg?, :can_be_cropped?, :requires_crop?, :image_kind, to: :image_data
 
-  default_scope -> { order(:id) }
+  default_scope -> { where(deleted: false).order(:id) }
+
+  def publicly_visible?
+    return if edition.blank?
+
+    edition.publicly_visible?
+  end
+
+  def deleted?
+    return if edition.blank?
+
+    edition.deleted?
+  end
+
+  def attachable
+    edition
+  end
 
   def url(*args)
     image_data.file_url(*args)
@@ -60,6 +74,28 @@ class Image < ApplicationRecord
     details
   end
 
+  def delete
+    if image_data && Image.where(image_data_id: image_data.id).empty?
+      image_data.destroy!
+    end
+
+    update_column(:deleted, true)
+  end
+
+  def destroy
+    callbacks_result = transaction do
+      run_callbacks(:destroy) do
+        delete
+      end
+    end
+
+    if callbacks_result
+      self
+    else
+      false
+    end
+  end
+
 private
 
   def caption_enabled?
@@ -73,12 +109,6 @@ private
     return unless edition
 
     errors.add(:usage, "must be permitted") unless edition.permitted_image_usages.detect { |image_usage| image_usage.key == usage }
-  end
-
-  def destroy_image_data_if_required
-    if image_data && Image.where(image_data_id: image_data.id).empty?
-      image_data.destroy!
-    end
   end
 
   def skip_main_validation?

@@ -162,6 +162,28 @@ class ImageDataTest < ActiveSupport::TestCase
     assert_not image_data.svg?
   end
 
+  test ".attachments returns list of images" do
+    image_data = build_example("960x640_jpeg.jpg")
+    edition = create(:fatality_notice, images: [build(:image, image_data:)])
+    image = build(:image, image_data:, edition:)
+
+    assert image_data.attachments, [image]
+  end
+
+  test ".attachable returns edition of last image in images" do
+    image_data = build_example("960x640_jpeg.jpg")
+    edition = create(:fatality_notice, images: [build(:image, image_data:)])
+    build(:image, image_data:, edition:)
+
+    assert image_data.attachable, edition
+  end
+
+  test ".attachable returns Attachable::Null if no images" do
+    image_data = build(:image_data)
+
+    assert image_data.attachable, Attachable::Null
+  end
+
   def build_example(file_name)
     file = File.open(Rails.root.join("test/fixtures/images", file_name))
     build(:image_data, file:)

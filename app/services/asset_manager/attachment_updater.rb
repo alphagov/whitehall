@@ -2,13 +2,15 @@ class AssetManager::AttachmentUpdater
   def self.call(attachment_data)
     return if attachment_data.deleted?
 
+    attachment_data_replaced = attachment_data.is_a?(Replaceable) && attachment_data.replaced?
+
     asset_attributes = {
       "access_limited_organisation_ids" => attachment_data.access_limitation_organisation_ids,
       "access_limited_user_ids" => attachment_data.access_limitation_individual_ids,
-      "draft" => attachment_data.draft? && !(attachment_data.replaced? || attachment_data.unpublished?),
+      "draft" => attachment_data.draft? && !(attachment_data_replaced || attachment_data.unpublished?),
     }
 
-    unless attachment_data.replaced?
+    unless attachment_data_replaced
       asset_attributes.merge!({ "parent_document_url" => attachment_data.attachable_url })
     end
 
@@ -18,6 +20,8 @@ class AssetManager::AttachmentUpdater
   end
 
   def self.replace(attachment_data)
+    return unless attachment_data.is_a?(Replaceable)
+
     return if attachment_data.deleted? || !attachment_data.replaced?
 
     attachment_data.assets.each do |asset|
