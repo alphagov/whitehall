@@ -395,7 +395,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test "should prevent access to inaccessible editions" do
-    protected_edition = create(:draft_publication, :access_limited)
+    protected_edition = create(:draft_publication, :access_limited_by_organisations)
 
     post :submit, params: { id: protected_edition.id }
     assert_response :forbidden

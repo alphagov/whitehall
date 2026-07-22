@@ -54,6 +54,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         context "edition is access-limited" do
           before do
             edition.access_limiting = "organisations"
+            edition.access_limiting_organisation_ids = edition.edition_organisations.map(&:organisation_id)
             edition.save!
           end
 
@@ -86,6 +87,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
                 before do
                   new_edition.change_note = "change-note"
                   new_edition.access_limiting = "organisations"
+                  new_edition.access_limiting_organisation_ids = new_edition.edition_organisations.map(&:organisation_id)
                   new_edition.save!
                 end
 
@@ -222,6 +224,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
               before do
                 new_edition.change_note = "change-note"
                 new_edition.access_limiting = "organisations"
+                new_edition.access_limiting_organisation_ids = new_edition.edition_organisations.map(&:organisation_id)
                 new_edition.save!
               end
 
@@ -359,7 +362,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
         context "consultation is access-limited" do
           before do
-            consultation.update!(access_limiting: "organisations")
+            consultation.update!(access_limiting: "organisations", access_limiting_organisation_ids: consultation.edition_organisations.map(&:organisation_id))
           end
 
           it "is not accessible to anonymous user" do

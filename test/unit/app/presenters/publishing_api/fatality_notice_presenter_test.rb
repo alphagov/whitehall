@@ -265,7 +265,7 @@ end
 class PublishingApi::AccessLimitedFatalityNoticeTest < ActiveSupport::TestCase
   setup do
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
-      @fatality_notice = create(:fatality_notice, :access_limited),
+      @fatality_notice = create(:fatality_notice, :access_limited_by_organisations),
     )
     @organisation = @fatality_notice.organisations.first
     @presented_content = @presented_fatality_notice.content

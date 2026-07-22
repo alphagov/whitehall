@@ -12,7 +12,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
   end
 
   test "#perform! with an access limited edition clears the flag" do
-    edition = create(:submitted_edition, :access_limited)
+    edition = create(:submitted_edition, :access_limited_by_organisations)
 
     assert EditionPublisher.new(edition).perform!
     assert edition.published?
@@ -23,7 +23,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     edition = create(
       :submitted_edition,
-      :access_limited,
+      :access_limited_by_organisations,
       access_limiting_organisation_ids: [organisation.id],
     )
 

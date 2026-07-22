@@ -172,6 +172,10 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   context "with access_limiting_organisations_ui flag off" do
+    setup do
+      @feature_flags.switch!(:access_limiting_organisations_ui, false)
+    end
+
     test "is valid when access_limiting is set to 'organisations' and no access limiting organisations are selected" do
       edition = create(:consultation, access_limiting: :organisations)
       edition.access_limiting_organisation_ids = []
@@ -366,8 +370,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "access_limiting persists across save/reload" do
-    edition = build(:limited_access_edition)
-    edition.access_limiting = "organisations"
+    edition = build(:limited_access_edition, :access_limited_by_organisations)
     edition.save!
     edition.reload
     assert edition.access_limited?

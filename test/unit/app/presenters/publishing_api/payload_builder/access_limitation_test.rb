@@ -16,6 +16,7 @@ module PublishingApi
       end
 
       test "returns organisation content ids for organisation access limiting, when flags are off" do
+        @feature_flags.switch!(:access_limiting_organisations_ui, false)
         organisation = create(:organisation)
 
         item = build_item(
@@ -31,6 +32,7 @@ module PublishingApi
       end
 
       test "falls back to organisation content ids for a legacy organisation-limited edition when only the individuals flag is on" do
+        @feature_flags.switch!(:access_limiting_organisations_ui, false)
         @feature_flags.switch!(:access_limiting_individuals_ui, true)
         organisation = create(:organisation)
 
