@@ -5,14 +5,21 @@ class RepublishHistoricallyPoliticalHtmlAttachmentsRake < ActiveSupport::TestCas
     create(:government, start_date: 5.years.ago, end_date: 1.year.ago - 1.day)
     create(:government, start_date: 1.year.ago)
 
-    historically_political_edition = create(
+    published_historically_political_edition = create(
       :edition,
       :with_document,
       :published,
       first_published_at: 2.years.ago,
       political: true,
     )
-    political_edition = create(
+    withdrawn_historically_political_edition = create(
+      :edition,
+      :with_document,
+      :withdrawn,
+      first_published_at: 2.years.ago,
+      political: true,
+    )
+    published_political_edition = create(
       :edition,
       :with_document,
       :published,
@@ -20,7 +27,7 @@ class RepublishHistoricallyPoliticalHtmlAttachmentsRake < ActiveSupport::TestCas
       political: true,
     )
 
-    historical_edition = create(
+    published_historical_edition = create(
       :edition,
       :with_document,
       :published,
@@ -36,26 +43,33 @@ class RepublishHistoricallyPoliticalHtmlAttachmentsRake < ActiveSupport::TestCas
       political: true,
     )
 
-    create(:html_attachment, attachable: historically_political_edition)
-    create(:html_attachment, attachable: political_edition)
-    create(:html_attachment, attachable: historical_edition)
+    create(:html_attachment, attachable: published_historically_political_edition)
+    create(:html_attachment, attachable: withdrawn_historically_political_edition)
+    create(:html_attachment, attachable: published_political_edition)
+    create(:html_attachment, attachable: published_historical_edition)
     create(:html_attachment, attachable: unpublished_historically_political_edition)
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
-      historically_political_edition.document_id,
+      published_historically_political_edition.document_id,
       true,
     )
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
-      political_edition.document_id,
+      withdrawn_historically_political_edition.document_id,
+      true,
+    )
+
+    PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
+      "bulk_republishing",
+      published_political_edition.document_id,
       true,
     ).never
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
       "bulk_republishing",
-      historical_edition.document_id,
+      published_historical_edition.document_id,
       true,
     ).never
 
