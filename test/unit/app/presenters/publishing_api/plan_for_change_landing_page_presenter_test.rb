@@ -69,13 +69,13 @@ class PublishingApi::PlanForChangeLandingPagePresenterTest < ActiveSupport::Test
   end
 
   test "it presents the auth bypass id" do
-    assert_equal [@plan_for_change_landing_page.auth_bypass_id], @presented_content[:auth_bypass_ids]
+    @plan_for_change_landing_page.auth_bypass_id = "auth-bypass-id"
+    presented = PublishingApi::PlanForChangeLandingPagePresenter.new(@plan_for_change_landing_page)
+    assert_equal %w[auth-bypass-id], presented.content[:auth_bypass_ids]
   end
 
   test "it presents an empty auth bypass id array when the edition has no token" do
-    @plan_for_change_landing_page.auth_bypass_id = nil
-    presented = PublishingApi::PlanForChangeLandingPagePresenter.new(@plan_for_change_landing_page)
-    assert_equal [], presented.content[:auth_bypass_ids]
+    assert_equal [], @presented_content[:auth_bypass_ids]
   end
 
   test "it presents edition links" do

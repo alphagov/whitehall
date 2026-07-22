@@ -700,7 +700,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
   test "POST :create passes the edition's auth_bypass_id to the new image assets" do
     login_authorised_user
-    edition = create(:draft_fatality_notice)
+    edition = create(:draft_fatality_notice, :with_auth_bypass_id)
     file = upload_fixture("images/960x640_jpeg.jpg")
 
     AssetManagerCreateAssetJob
@@ -713,7 +713,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
   test "POST :update passes the edition's auth_bypass_id to the cropped image assets" do
     login_authorised_user
     image = build(:image)
-    edition = create(:draft_fatality_notice, images: [image])
+    edition = create(:draft_fatality_notice, :with_auth_bypass_id, images: [image])
 
     AssetManagerCreateAssetJob
       .expects(:perform_async)

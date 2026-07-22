@@ -23,23 +23,51 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       stub_asset(asset_manager_id, draft: true)
     end
 
-    context "given a draft document with file attachment" do
-      let(:edition) { create(:detailed_guide, organisations: [organisation]) }
-
+    context "forwarding the preview token to Asset Manager" do
       before do
-        add_file_attachment_with_asset("sample.docx", to: edition)
+        add_file_attachment_with_asset("logo.png", to: edition)
         edition.save!
       end
 
-      context "when document is marked as access limited in Whitehall" do
+      context "when the draft has a preview token" do
+        let(:edition) { create(:detailed_guide, :with_auth_bypass_id) }
+
+        it "sends the attachment with the document's auth_bypass_id" do
+          Services.asset_manager.expects(:create_asset).at_least_once.with(
+            has_entries(auth_bypass_ids: [edition.auth_bypass_id]),
+          ).returns(asset_manager_response)
+
+          AssetManagerCreateAssetJob.drain
+        end
+      end
+
+      context "when the draft has no preview token" do
+        let(:edition) { create(:detailed_guide) }
+
+        it "sends the attachment with an empty auth_bypass_ids" do
+          Services.asset_manager.expects(:create_asset).at_least_once.with(
+            has_entries(auth_bypass_ids: []),
+          ).returns(asset_manager_response)
+
+          AssetManagerCreateAssetJob.drain
+        end
+      end
+    end
+
+    context "applying access limiting to a draft's attachments" do
+      context "when a draft is marked as access limited" do
+        let(:edition) { create(:detailed_guide, organisations: [organisation]) }
+
         before do
+          add_file_attachment_with_asset("sample.docx", to: edition)
+          edition.save!
           visit edit_admin_edition_path(edition)
           check "Limit access"
           click_button "Save"
           assert_text "Your document has been saved"
         end
 
-        it "marks attachment as access limited in Asset Manager" do
+        it "marks the attachment as access limited in Asset Manager" do
           Services.asset_manager
                   .expects(:update_asset)
                   .at_least_once.with(asset_manager_id, has_entry("access_limited_organisation_ids", [organisation.content_id]))
@@ -47,33 +75,31 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           AssetManagerAttachmentMetadataJob.drain
         end
       end
-    end
 
-    context "given a draft document with an image attachment" do
-      let(:edition) { create(:draft_detailed_guide) }
+      context "when a draft is unmarked as access limited" do
+        let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
 
-      before do
-        visit admin_edition_path(edition)
-        click_link "Edit draft"
-        click_link "Images"
-        attach_file "images[][image_data_attributes][file]", path_to_attachment("minister-of-funk.960x640.jpg")
-        click_button "Upload"
+        before do
+          add_file_attachment_with_asset("sample.docx", to: edition)
+          edition.save!
+          visit edit_admin_edition_path(edition)
+          uncheck "Limit access"
+          click_button "Save"
+          assert_text "Your document has been saved"
+        end
+
+        it "unmarks the attachment as access limited in Asset Manager" do
+          Services.asset_manager
+                  .expects(:update_asset)
+                  .at_least_once.with(asset_manager_id, has_entry("access_limited_organisation_ids", []))
+
+          AssetManagerAttachmentMetadataJob.drain
+        end
       end
 
-      # Note that there is no access limiting applied to non attachments. This is existing behaviour that probably needs changing.
-      it "sends an image to asset manager with the document's auth_bypass_id" do
-        Services.asset_manager.expects(:create_asset).at_least_once.with(
-          has_entry(auth_bypass_ids: [edition.auth_bypass_id]),
-        ).returns(asset_manager_response)
+      context "when an attachment is added to an access-limited draft" do
+        let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
 
-        AssetManagerCreateAssetJob.drain
-      end
-    end
-
-    context "given an access-limited draft document" do
-      let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
-
-      context "when an attachment is added to the draft document" do
         before do
           visit admin_edition_path(edition)
           click_link "Add attachments"
@@ -84,46 +110,18 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           assert_text "Attachment 'logo.png' uploaded"
         end
 
-        it "marks attachment as access limited and sends it with an auth_bypass_id in Asset Manager" do
+        it "marks the attachment as access limited in Asset Manager" do
           Services.asset_manager.expects(:create_asset).with(
-            has_entries(
-              access_limited_organisation_ids: [organisation.content_id],
-              auth_bypass_ids: [edition.auth_bypass_id],
-            ),
+            has_entries(access_limited_organisation_ids: [organisation.content_id]),
           ).returns(asset_manager_response)
 
           AssetManagerCreateAssetJob.drain
         end
       end
 
-      context "when an html attachment is added to the draft document" do
-        let(:edition) { create(:publication, :policy_paper) }
+      context "when multiple files are uploaded to an access-limited draft" do
+        let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
 
-        before do
-          visit admin_edition_path(edition)
-          click_link "Edit attachments"
-          click_link "Add new HTML attachment"
-          fill_in "Title", with: "html-attachment"
-          fill_in "Body", with: "some html content"
-        end
-
-        it "sends an html attachment to publishing api with its edition's auth_bypass_id" do
-          Services.publishing_api.expects(:put_content)
-                  .with(anything, has_entries(title: edition.title))
-          Services.publishing_api.expects(:put_content)
-                  .with(anything, has_entries(title: edition.attachments.first.title))
-
-          Services.publishing_api.expects(:put_content).at_least_once
-                  .with(anything, has_entries(
-                                    title: "html-attachment",
-                                    auth_bypass_ids: [edition.auth_bypass_id],
-                                  ))
-
-          click_button "Save"
-        end
-      end
-
-      context "when uploaded to draft document" do
         before do
           visit admin_edition_path(edition)
           click_link "Add attachments"
@@ -136,49 +134,24 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           assert find("li", text: "logo.png")
         end
 
-        it "marks attachment as access limited in Asset Manager" do
+        it "marks each attachment as access limited in Asset Manager" do
           Services.asset_manager
                   .expects(:create_asset)
                   .at_least(2)
                   .with(
-                    has_entries(
-                      access_limited_organisation_ids: [organisation.content_id],
-                      auth_bypass_ids: [edition.auth_bypass_id],
-                    ),
+                    has_entries(access_limited_organisation_ids: [organisation.content_id]),
                   ).returns(asset_manager_response)
 
           AssetManagerCreateAssetJob.drain
         end
       end
-    end
 
-    context "given an access-limited draft document and a file attachment" do
-      let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
+      context "when an attachment is replaced on an access-limited draft" do
+        let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
 
-      before do
-        add_file_attachment_with_asset("sample.docx", to: edition)
-        edition.save!
-      end
-
-      context "when document is unmarked as access limited in Whitehall" do
         before do
-          visit edit_admin_edition_path(edition)
-          uncheck "Limit access"
-          click_button "Save"
-          assert_text "Your document has been saved"
-        end
-
-        it "unmarks attachment as access limited in Asset Manager" do
-          Services.asset_manager
-                  .expects(:update_asset)
-                  .at_least_once.with(asset_manager_id, has_entry("access_limited_organisation_ids", []))
-
-          AssetManagerAttachmentMetadataJob.drain
-        end
-      end
-
-      context "when attachment is replaced" do
-        before do
+          add_file_attachment_with_asset("sample.docx", to: edition)
+          edition.save!
           visit admin_edition_path(edition)
           click_link "Edit attachments"
           click_link "Edit"
@@ -187,25 +160,20 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           assert_text "Attachment 'sample.docx' updated"
         end
 
-        it "marks replacement attachment as access limited in Asset Manager" do
+        it "marks the replacement attachment as access limited in Asset Manager" do
           Services.asset_manager.stubs(:create_asset).returns(asset_manager_response)
-          Services.asset_manager.expects(:create_asset).with { |params|
-            params[:access_limited_organisation_ids] == [organisation.content_id] &&
-              params[:auth_bypass_ids] == [edition.auth_bypass_id]
-          }.returns(asset_manager_response)
+          Services.asset_manager.expects(:create_asset).with { |params| params[:access_limited_organisation_ids] == [organisation.content_id] }.returns(asset_manager_response)
 
           AssetManagerCreateAssetJob.drain
         end
       end
-    end
 
-    context "given a draft access-limited consultation" do
-      # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
-      let(:edition) { create(:consultation, organisations: [organisation], access_limiting: "organisations") }
-      let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
-      let!(:outcome) { edition.create_outcome!(outcome_attributes) }
+      context "when an attachment is added to an access-limited consultation outcome" do
+        # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
+        let(:edition) { create(:consultation, organisations: [organisation], access_limiting: "organisations") }
+        let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
+        let!(:outcome) { edition.create_outcome!(outcome_attributes) }
 
-      context "when an attachment is added to the consultation's outcome" do
         before do
           visit admin_consultation_path(edition)
           click_link "Edit draft"
@@ -217,32 +185,12 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           assert_text "Attachment 'asset-title' uploaded"
         end
 
-        it "marks attachment as access limited in Asset Manager and sends with the consultation's auth_bypass_id" do
+        it "marks the attachment as access limited in Asset Manager" do
           Services.asset_manager.expects(:create_asset).with(
-            has_entries(
-              access_limited_organisation_ids: [organisation.content_id],
-              auth_bypass_ids: [edition.auth_bypass_id],
-            ),
+            has_entries(access_limited_organisation_ids: [organisation.content_id]),
           ).returns(asset_manager_response)
           AssetManagerCreateAssetJob.drain
         end
-      end
-
-      it "sends a consultation form to asset manager with the consultation's auth_bypass_id" do
-        visit admin_consultation_path(edition)
-        click_link "Edit draft"
-        name_of_form_uploader = "edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]"
-        fill_in "edition[consultation_participation_attributes][consultation_response_form_attributes][title]", with: "Consultation response form"
-        attach_file name_of_form_uploader, path_to_attachment("simple.pdf")
-        click_button "Save"
-
-        # Note that there is no access limiting applied to non attachments. This is existing behaviour that probably needs changing.
-        Services.asset_manager.expects(:create_asset).with { |args|
-          args[:file].path =~ /simple\.pdf/
-          args[:auth_bypass_ids] == [edition.auth_bypass_id]
-        }.returns(asset_manager_response)
-
-        AssetManagerCreateAssetJob.drain
       end
     end
 

@@ -317,7 +317,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     end
 
     test "sends an edition attachable's auth bypass ids to asset manager when these are passed through in the params" do
-      attachable = FactoryBot.create(:consultation)
+      attachable = FactoryBot.create(:consultation, :with_auth_bypass_id)
       file = FactoryBot.create(:file_attachment, attachable:)
       assetable = file.attachment_data
 
@@ -327,7 +327,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     end
 
     test "sends an outcome attachable's auth bypass ids to asset manager when these are passed through in the params" do
-      consultation = FactoryBot.create(:consultation)
+      consultation = FactoryBot.create(:consultation, :with_auth_bypass_id)
       attachable = FactoryBot.create(:consultation_outcome, consultation:)
       file = FactoryBot.create(:file_attachment, attachable:)
       assetable = file.attachment_data

@@ -2,17 +2,16 @@ require "test_helper"
 
 class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   def present(edition)
-    edition.auth_bypass_id = "52db85fc-0f30-42a6-afdd-c2b31ecc6a67"
     PublishingApi::PublicationPresenter.new(edition)
   end
 
-  test "presents an empty auth_bypass_ids array when the edition has no token" do
+  test "presents the edition's auth_bypass_id" do
     publication = create(:publication)
-    publication.auth_bypass_id = nil
+    publication.auth_bypass_id = "auth-bypass-id"
 
     presenter = PublishingApi::PublicationPresenter.new(publication)
 
-    assert_equal [], presenter.content[:auth_bypass_ids]
+    assert_equal %w[auth-bypass-id], presenter.content[:auth_bypass_ids]
   end
 
   test "publication presentation includes the correct values" do
@@ -41,7 +40,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         { path: public_path, type: "exact" },
       ],
       redirects: [],
-      auth_bypass_ids: %w[52db85fc-0f30-42a6-afdd-c2b31ecc6a67],
+      auth_bypass_ids: [],
       first_published_at: publication.first_public_at,
       update_type: "major",
       details: {

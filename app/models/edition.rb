@@ -77,7 +77,6 @@ class Edition < ApplicationRecord
   POST_PUBLICATION_STATES = %w[published superseded withdrawn unpublished].freeze
   PUBLICLY_VISIBLE_STATES = %w[published withdrawn].freeze
 
-  before_create :set_auth_bypass_id
   before_save :set_public_timestamp
   after_validation :update_revalidated_at, if: -> { validation_context == :publish }
   after_create :update_document_edition_references
@@ -188,7 +187,8 @@ class Edition < ApplicationRecord
                                     change_note
                                     minor_change
                                     force_published
-                                    scheduled_publication]
+                                    scheduled_publication
+                                    auth_bypass_id]
       draft_attributes = attributes.except(*ignorable_attribute_keys)
         .merge("state" => "draft", "creator" => user, "previously_published" => previously_published)
 
