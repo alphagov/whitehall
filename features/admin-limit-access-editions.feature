@@ -20,6 +20,7 @@ Feature: Viewing most recent editions in admin
     Given I am an editor
     When I begin drafting a new document
     And I set the Lead organisation to an org I am not in
-    And I check the "Limit access to publishers from organisations associated with this document before you publish" box
+    And I choose organisation access limiting
+    And I select "Some made up org" as an access limiting organisation
     When I click "Save"
-    Then I should see the validation error "Lead or supporting organisations must include your own organisation"
+    Then I should see the validation error "Access limiting organisations must include your own organisation"

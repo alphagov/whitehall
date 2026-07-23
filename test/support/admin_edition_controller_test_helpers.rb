@@ -1492,6 +1492,8 @@ module AdminEditionControllerTestHelpers
       edition_class = class_for(edition_type)
 
       test "create should record the access_limiting flag" do
+        feature_flags.switch! :access_limiting_organisations_ui, false
+
         organisation = create(:organisation)
         controller.current_user.organisation = organisation
         controller.current_user.save!
@@ -1511,6 +1513,8 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit displays persisted access_limiting flag" do
+        feature_flags.switch! :access_limiting_organisations_ui, false
+
         publication = create(edition_type, access_limiting: "none")
 
         get :edit, params: { id: publication }
@@ -1522,6 +1526,8 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update records new value of access_limiting flag" do
+        feature_flags.switch! :access_limiting_organisations_ui, false
+
         controller.current_user.organisation = create(:organisation)
         controller.current_user.save!
         publication = create(edition_type, access_limiting: "none", organisations: [controller.current_user.organisation])
@@ -1538,6 +1544,8 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "access limiting document fails if user does not belong to one of the tagged organisations" do
+        feature_flags.switch! :access_limiting_organisations_ui, false
+
         controller.current_user.organisation = create(:organisation)
         controller.current_user.save!
         organisation = create(:organisation)

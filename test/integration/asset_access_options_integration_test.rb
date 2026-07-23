@@ -62,7 +62,8 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
           add_file_attachment_with_asset("sample.docx", to: edition)
           edition.save!
           visit edit_admin_edition_path(edition)
-          check "Limit access"
+          choose "Limit access to publishers from organisations associated with this document"
+          select organisation.name, from: "edition_access_limiting_organisation_ids"
           click_button "Save"
           assert_text "Your document has been saved"
         end
@@ -77,13 +78,13 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       context "when a draft is unmarked as access limited" do
-        let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
+        let(:edition) { create(:detailed_guide, :access_limited_by_organisations, organisations: [organisation]) }
 
         before do
           add_file_attachment_with_asset("sample.docx", to: edition)
           edition.save!
           visit edit_admin_edition_path(edition)
-          uncheck "Limit access"
+          choose "No - This document should be available to all publishers"
           click_button "Save"
           assert_text "Your document has been saved"
         end
@@ -98,7 +99,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       context "when an attachment is added to an access-limited draft" do
-        let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
+        let(:edition) { create(:detailed_guide, :access_limited_by_organisations, organisations: [organisation]) }
 
         before do
           visit admin_edition_path(edition)
@@ -120,7 +121,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       context "when multiple files are uploaded to an access-limited draft" do
-        let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
+        let(:edition) { create(:detailed_guide, :access_limited_by_organisations, organisations: [organisation]) }
 
         before do
           visit admin_edition_path(edition)
@@ -147,7 +148,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       context "when an attachment is replaced on an access-limited draft" do
-        let(:edition) { create(:detailed_guide, organisations: [organisation], access_limiting: "organisations") }
+        let(:edition) { create(:detailed_guide, :access_limited_by_organisations, organisations: [organisation]) }
 
         before do
           add_file_attachment_with_asset("sample.docx", to: edition)
@@ -170,7 +171,7 @@ class AssetAccessOptionsIntegrationTest < ActionDispatch::IntegrationTest
 
       context "when an attachment is added to an access-limited consultation outcome" do
         # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
-        let(:edition) { create(:consultation, organisations: [organisation], access_limiting: "organisations") }
+        let(:edition) { create(:consultation, :access_limited_by_organisations, organisations: [organisation]) }
         let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
         let!(:outcome) { edition.create_outcome!(outcome_attributes) }
 

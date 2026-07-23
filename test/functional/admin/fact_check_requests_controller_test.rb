@@ -189,7 +189,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   end
 
   test "should prevent creation of a fact check request if edition is not accessible to the current user" do
-    protected_edition = create(:draft_publication, :access_limited)
+    protected_edition = create(:draft_publication, :access_limited_by_organisations)
     post :create, params: { edition_id: protected_edition.id, fact_check_request: @attributes }
 
     assert_response :forbidden
