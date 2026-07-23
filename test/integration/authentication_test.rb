@@ -6,6 +6,10 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     ENV["GDS_SSO_MOCK_INVALID"] = "1"
   end
 
+  teardown do
+    ENV.delete("GDS_SSO_MOCK_INVALID")
+  end
+
   test "should use GDS SSO to authenticate" do
     get admin_people_path
     assert_redirected_to "/auth/gds"

@@ -1,6 +1,10 @@
 require "test_helper"
 
 class ComponentGuideTest < ActionDispatch::IntegrationTest
+  teardown do
+    ENV.delete("GDS_SSO_MOCK_INVALID")
+  end
+
   test "redirects unauthenticated users to signon" do
     ENV["GDS_SSO_MOCK_INVALID"] = "1"
     get "/component-guide"
