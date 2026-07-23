@@ -26,6 +26,7 @@ module PublishingApi
           links: edition_links,
           auth_bypass_ids: [parent.auth_bypass_id].compact,
         )
+        .merge(PayloadBuilder::AccessLimitation.for(parent))
     end
 
     def links

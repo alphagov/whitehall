@@ -68,6 +68,77 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     assert_equal %w[auth-bypass-id], present(html_attachment).content[:auth_bypass_ids]
   end
 
+  test "presents the parent edition's organisation access limiting when it is access-limited" do
+    access_limiting_organisation = create(:organisation)
+    edition = create(
+      :publication,
+      :draft,
+      :with_html_attachment,
+      access_limiting: "organisations",
+      access_limiting_organisation_ids: [access_limiting_organisation.id],
+    )
+    html_attachment = edition.html_attachments.first
+
+    assert_equal(
+      { organisations: [access_limiting_organisation.content_id] },
+      present(html_attachment).content[:access_limited],
+    )
+  end
+
+  test "presents the parent edition's named users when individual access limiting is on" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+    user = create(:user)
+    edition = create(
+      :publication,
+      :draft,
+      :with_html_attachment,
+      access_limiting: "individuals",
+      access_limiting_individual_emails: user.email,
+    )
+    html_attachment = edition.html_attachments.first
+
+    assert_equal(
+      { users: [user.uid] },
+      present(html_attachment).content[:access_limited],
+    )
+  end
+
+  test "presents the parent consultation's access limiting for an HTML attachment on a consultation response" do
+    access_limiting_organisation = create(:organisation)
+    consultation = create(
+      :draft_consultation,
+      access_limiting: "organisations",
+      access_limiting_organisation_ids: [access_limiting_organisation.id],
+    )
+    consultation_response = create(:consultation_outcome, :with_html_attachment, consultation:)
+    html_attachment = consultation_response.html_attachments.first
+
+    assert_equal(
+      { organisations: [access_limiting_organisation.content_id] },
+      present(html_attachment).content[:access_limited],
+    )
+  end
+
+  test "does not present access_limited when the parent is not access-limited" do
+    edition = create(:publication, :draft, :with_html_attachment)
+    html_attachment = edition.html_attachments.first
+
+    assert_not present(html_attachment).content.key?(:access_limited)
+  end
+
+  test "does not present access_limited once the access-limited parent is publicly visible" do
+    edition = create(
+      :publication,
+      :published,
+      :with_html_attachment,
+      access_limiting: "organisations",
+      access_limiting_organisation_ids: [create(:organisation).id],
+    )
+    html_attachment = edition.html_attachments.first
+
+    assert_not present(html_attachment).content.key?(:access_limited)
+  end
+
   test "it includes auto-numbered headers when headers are present in body" do
     html_attachment = create(
       :html_attachment,
