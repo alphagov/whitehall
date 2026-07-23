@@ -365,46 +365,19 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test "setting access_limiting writes through to the legacy access_limited column" do
-    edition = build(:limited_access_edition)
-
-    edition.access_limiting = "organisations"
-    assert_equal true, edition[:access_limited]
-
-    edition.access_limiting = "individuals"
-    assert_equal true, edition[:access_limited]
-
-    edition.access_limiting = "none"
-    assert_equal false, edition[:access_limited]
-  end
-
-  test "access_limiting persists across save/reload and keeps both columns in sync" do
+  test "access_limiting persists across save/reload" do
     edition = build(:limited_access_edition)
     edition.access_limiting = "organisations"
     edition.save!
     edition.reload
     assert edition.access_limited?
     assert_equal "organisations", edition.access_limiting
-    assert_equal true, edition[:access_limited]
 
     edition.access_limiting = "individuals"
     edition.save!
     edition.reload
     assert edition.access_limited?
     assert_equal "individuals", edition.access_limiting
-    assert_equal true, edition[:access_limited]
-  end
-
-  test "access_limited? reads from access_limiting, not the legacy boolean" do
-    edition = create(:limited_access_edition, access_limiting: "organisations")
-    # Force the legacy and new columns out of sync via raw SQL (bypasses bridge)
-    Edition.where(id: edition.id).update_all(access_limited: true, access_limiting: "none")
-    edition.reload
-    assert_not edition.access_limited?, "access_limited? should reflect the new column"
-
-    Edition.where(id: edition.id).update_all(access_limited: false, access_limiting: "organisations")
-    edition.reload
-    assert edition.access_limited?, "access_limited? should reflect the new column"
   end
 
   test "access_limited? is true for organisations and individuals modes" do

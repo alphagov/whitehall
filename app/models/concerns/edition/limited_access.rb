@@ -2,6 +2,8 @@ module Edition::LimitedAccess
   extend ActiveSupport::Concern
 
   included do
+    self.ignored_columns += %w[access_limited]
+
     attr_accessor :current_user_for_validation
 
     enum :access_limiting, {
@@ -41,12 +43,6 @@ module Edition::LimitedAccess
 
   def access_limited?
     access_limiting_organisations? || access_limiting_individuals?
-  end
-
-  # TODO: Remove once nothing reads or writes `access_limited` (drop-column ticket).
-  def access_limiting=(value)
-    super
-    self.access_limited = !access_limiting_none?
   end
 
   def accessible_to?(user)
