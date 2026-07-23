@@ -32,7 +32,7 @@ module Edition::LimitedAccess
     validate :access_limiting_must_include_current_user_organisation
     validate :access_limiting_must_include_current_user_email
     validate :access_limiting_individual_emails_required, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
-    validate :access_limiting_individual_emails_format, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
+    validate :access_limiting_individual_emails_valid, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
   end
 
   def access_limited_object
@@ -143,11 +143,16 @@ private
     errors.add(:access_limiting_individual_emails, "must include at least one email when individual access limiting is enabled") if access_limiting_individuals.reject(&:marked_for_destruction?).empty?
   end
 
-  def access_limiting_individual_emails_format
-    invalid = access_limiting_individuals
-                .reject(&:marked_for_destruction?)
-                .reject { |individual| ValidatesEmailFormatOf.validate_email_format(individual.email.to_s).nil? }
+  def access_limiting_individual_emails_valid
+    individuals = access_limiting_individuals.reject(&:marked_for_destruction?)
 
-    errors.add(:access_limiting_individual_emails, "must contain valid email addresses") if invalid.any?
+    if individuals.any? { |individual| ValidatesEmailFormatOf.validate_email_format(individual.email.to_s) }
+      errors.add(:access_limiting_individual_emails, "must contain valid email addresses")
+    end
+
+    emails = individuals.map { |individual| individual.email.to_s.downcase }
+    unless emails.all? { |email| User.exists?(["LOWER(email) = ?", email]) }
+      errors.add(:access_limiting_individual_emails, "must match an existing Signon user")
+    end
   end
 end

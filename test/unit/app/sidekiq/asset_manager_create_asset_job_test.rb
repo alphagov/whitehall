@@ -219,7 +219,8 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
     test "sets access limiting to any non nil value returned by the payload builder" do
       @feature_flags.switch!(:access_limiting_individuals_ui, true)
 
-      attachable = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "individuals", access_limiting_individual_emails: "some.gibberish@example.com")
+      user = create(:user)
+      attachable = FactoryBot.create(:consultation, organisations: [@organisation], access_limiting: "individuals", access_limiting_individual_emails: user.email)
       file = FactoryBot.create(:file_attachment, attachable:)
       assetable = file.attachment_data
 

@@ -383,6 +383,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     feature_flags.switch! :access_limiting_individuals_ui, true
 
     organisation = create(:organisation)
+    create(:user, email: "user@example.com")
     edition = create(
       :consultation,
       access_limiting: :organisations,
@@ -413,6 +414,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     feature_flags.switch! :access_limiting_individuals_ui, true
 
     organisation = create(:organisation)
+    create(:user, email: "user@example.com")
     edition = create(
       :consultation,
       access_limiting: :individuals,
@@ -443,6 +445,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     feature_flags.switch! :access_limiting_individuals_ui, true
 
     organisation = create(:organisation)
+    create(:user, email: "user@example.com")
     edition = create(
       :consultation,
       access_limiting: :individuals,
@@ -471,6 +474,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   view_test "PATCH :update re-renders the edit template with error and the submitted values, but does not persist the association, when access limiting individuals invalid" do
     feature_flags.switch! :access_limiting_individuals_ui, true
 
+    create(:user, email: "user@example.com")
     edition = create(
       :consultation,
       access_limiting: :individuals,
