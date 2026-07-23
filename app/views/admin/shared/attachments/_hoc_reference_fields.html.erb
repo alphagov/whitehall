@@ -7,8 +7,8 @@
     label: {
       text: "House of Commons paper number",
     },
-    name: "attachment[hoc_paper_number]",
-    id: "attachment_hoc_paper_number",
+    name: "#{name}[hoc_paper_number]",
+    id: "#{name}_hoc_paper_number",
     value: form.object.hoc_paper_number,
     error_items: errors_for(attachment.errors, :unnumbered_hoc_paper),
     heading_size: heading_size,
@@ -17,8 +17,8 @@
   <%= form.hidden_field :unnumbered_hoc_paper, value: "0" %>
 
   <%= render "govuk_publishing_components/components/checkboxes", {
-    name: "attachment[unnumbered_hoc_paper]",
-    id: "attachment_unnumbered_hoc_paper",
+    name: "#{name}[unnumbered_hoc_paper]",
+    id: "#{name}_unnumbered_hoc_paper",
     items: [
       {
         label: "Unnumbered act paper",
@@ -43,8 +43,8 @@
 <div class="govuk-!-margin-bottom-<%= margin_bottom %>">
   <%= render "govuk_publishing_components/components/select", {
     label: "Parliamentary session",
-    name: "attachment[parliamentary_session]",
-    id: "attachment_parliamentary_session",
+    name: "#{name}[parliamentary_session]",
+    id: "#{name}_parliamentary_session",
     heading_level: 3,
     heading_size: heading_size,
     options: options,

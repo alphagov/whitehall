@@ -22,6 +22,32 @@ Then(/^I should see that the publication has attachments$/) do
   expect("greenpaper.pdf").to eq(file_attachments[1].filename)
 end
 
+When("I upload a file and give it a HOC paper number but no Parliamentary session") do
+  @edition = Edition.last
+  visit admin_edition_attachments_path(@edition)
+
+  page.attach_file Rails.root.join("test/fixtures/greenpaper.pdf")
+  click_button "Upload"
+
+  fill_in "Title (required)", with: "Greenpaper title"
+  fill_in "House of Commons paper number", with: "1234"
+
+  click_button "Save"
+end
+
+When("I upload a file and give it a Parliamentary session but no HOC paper number") do
+  @edition = Edition.last
+  visit admin_edition_attachments_path(@edition)
+
+  page.attach_file Rails.root.join("test/fixtures/greenpaper.pdf")
+  click_button "Upload"
+
+  fill_in "Title (required)", with: "Greenpaper title"
+  select "2026-27", from: "Parliamentary session"
+
+  click_button "Save"
+end
+
 When(/^I upload files one with the same filename as an existing file$/) do
   visit admin_edition_attachments_path(@edition)
 

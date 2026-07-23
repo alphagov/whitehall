@@ -94,5 +94,5 @@
 </div>
 
 <% if attachable.can_have_attached_house_of_commons_papers? %>
-  <%= render "admin/shared/attachments/hoc_reference_fields", attachable: attachable, form: form, attachment: attachment, heading_size: subheading_size, margin_bottom: %>
+  <%= render "admin/shared/attachments/hoc_reference_fields", attachable: attachable, form: form, attachment: attachment, heading_size: subheading_size, margin_bottom:, name: %>
 <% end %>
