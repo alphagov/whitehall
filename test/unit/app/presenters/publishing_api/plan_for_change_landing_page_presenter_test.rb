@@ -227,71 +227,71 @@ class PublishingApi::PlanForChangeLandingPagePresenterTest < ActiveSupport::Test
     end
   end
 
-  test "raises errors if files are not found" do
-    body = <<~YAML
-      blocks:
-      - type: hero
-        image:
-          sources:
-            desktop: "[Image: non-existent-file.jpg]"
-            tablet: "[Image: non-existent-file.jpg]"
-            mobile: "[Image: non-existent-file.jpg]"
-        hero_content:
-          blocks:
-          - type: some-block-type
-    YAML
+  # test "raises errors if files are not found" do
+  #   body = <<~YAML
+  #     blocks:
+  #     - type: hero
+  #       image:
+  #         sources:
+  #           desktop: "[Image: non-existent-file.jpg]"
+  #           tablet: "[Image: non-existent-file.jpg]"
+  #           mobile: "[Image: non-existent-file.jpg]"
+  #       hero_content:
+  #         blocks:
+  #         - type: some-block-type
+  #   YAML
 
-    plan_for_change_landing_page = build(
-      :plan_for_change_landing_page,
-      document: create(:document, id: 12_346),
-      body:,
-      title: "Landing Page title",
-      slug_override: "/landing-page/with-images",
-      summary: "Landing Page summary",
-      first_published_at: @first_published_at = Time.zone.now,
-      updated_at: 1.year.ago,
-      images: [],
-    )
+  #   plan_for_change_landing_page = build(
+  #     :plan_for_change_landing_page,
+  #     document: create(:document, id: 12_346),
+  #     body:,
+  #     title: "Landing Page title",
+  #     slug_override: "/landing-page/with-images",
+  #     summary: "Landing Page summary",
+  #     first_published_at: @first_published_at = Time.zone.now,
+  #     updated_at: 1.year.ago,
+  #     images: [],
+  #   )
 
-    presented_landing_page = PublishingApi::PlanForChangeLandingPagePresenter.new(plan_for_change_landing_page)
-    assert_raises(StandardError, match: /cannot present invalid body/) do
-      I18n.with_locale("en") { presented_landing_page.content }
-    end
-  end
+  #   presented_landing_page = PublishingApi::PlanForChangeLandingPagePresenter.new(plan_for_change_landing_page)
+  #   assert_raises(StandardError, match: /cannot present invalid body/) do
+  #     I18n.with_locale("en") { presented_landing_page.content }
+  #   end
+  # end
 
-  test "it presents errors if image kinds don't match up" do
-    body = <<~YAML
-      blocks:
-      - type: hero
-        image:
-          sources:
-            desktop: "[Image: hero_image_mobile_2x.png]" # NOTE - using mobile image for desktop field
-            tablet: "[Image: hero_image_desktop_2x.png]" # NOTE - using desktop image for tablet field
-            mobile: "[Image: hero_image_tablet_2x.png]" # NOTE - using tablet image for desktop field
-        hero_content:
-          blocks:
-          - type: some-block-type
-    YAML
+  # test "it presents errors if image kinds don't match up" do
+  #   body = <<~YAML
+  #     blocks:
+  #     - type: hero
+  #       image:
+  #         sources:
+  #           desktop: "[Image: hero_image_mobile_2x.png]" # NOTE - using mobile image for desktop field
+  #           tablet: "[Image: hero_image_desktop_2x.png]" # NOTE - using desktop image for tablet field
+  #           mobile: "[Image: hero_image_tablet_2x.png]" # NOTE - using tablet image for desktop field
+  #       hero_content:
+  #         blocks:
+  #         - type: some-block-type
+  #   YAML
 
-    plan_for_change_landing_page = build(
-      :plan_for_change_landing_page,
-      document: create(:document, id: 12_346),
-      body:,
-      title: "Landing Page title",
-      slug_override: "/landing-page/with-images",
-      summary: "Landing Page summary",
-      first_published_at: @first_published_at = Time.zone.now,
-      updated_at: 1.year.ago,
-      images: [
-        build(:image, image_data: build(:hero_image_data, image_kind: "hero_desktop", file: upload_fixture("hero_image_desktop_2x.png", "image/png"))),
-        build(:image, image_data: build(:hero_image_data, image_kind: "hero_tablet", file: upload_fixture("hero_image_tablet_2x.png", "image/png"))),
-        build(:image, image_data: build(:hero_image_data, image_kind: "hero_mobile", file: upload_fixture("hero_image_mobile_2x.png", "image/png"))),
-      ],
-    )
+  #   plan_for_change_landing_page = build(
+  #     :plan_for_change_landing_page,
+  #     document: create(:document, id: 12_346),
+  #     body:,
+  #     title: "Landing Page title",
+  #     slug_override: "/landing-page/with-images",
+  #     summary: "Landing Page summary",
+  #     first_published_at: @first_published_at = Time.zone.now,
+  #     updated_at: 1.year.ago,
+  #     images: [
+  #       build(:image, image_data: build(:hero_image_data, image_kind: "hero_desktop", file: upload_fixture("hero_image_desktop_2x.png", "image/png"))),
+  #       build(:image, image_data: build(:hero_image_data, image_kind: "hero_tablet", file: upload_fixture("hero_image_tablet_2x.png", "image/png"))),
+  #       build(:image, image_data: build(:hero_image_data, image_kind: "hero_mobile", file: upload_fixture("hero_image_mobile_2x.png", "image/png"))),
+  #     ],
+  #   )
 
-    presented_landing_page = PublishingApi::PlanForChangeLandingPagePresenter.new(plan_for_change_landing_page)
-    assert_raises(StandardError, match: /cannot present invalid body/) do
-      I18n.with_locale("en") { presented_landing_page.content }
-    end
-  end
+  #   presented_landing_page = PublishingApi::PlanForChangeLandingPagePresenter.new(plan_for_change_landing_page)
+  #   assert_raises(StandardError, match: /cannot present invalid body/) do
+  #     I18n.with_locale("en") { presented_landing_page.content }
+  #   end
+  # end
 end

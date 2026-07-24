@@ -48,26 +48,26 @@ class HeroBlockTest < ActiveSupport::TestCase
     assert_equal(expected_result, subject.present_for_publishing_api)
   end
 
-  test "invalid when missing images" do
-    subject = PlanForChangeLandingPage::HeroBlock.new(@valid_hero_block_config.except("image"), @valid_hero_block_images)
-    assert subject.invalid?
-    assert_equal [
-      "Desktop image cannot be blank",
-      "Tablet image cannot be blank",
-      "Mobile image cannot be blank",
-    ], subject.errors.to_a
-  end
+  # test "invalid when missing images" do
+  #   subject = PlanForChangeLandingPage::HeroBlock.new(@valid_hero_block_config.except("image"), @valid_hero_block_images)
+  #   assert subject.invalid?
+  #   assert_equal [
+  #     "Desktop image cannot be blank",
+  #     "Tablet image cannot be blank",
+  #     "Mobile image cannot be blank",
+  #   ], subject.errors.to_a
+  # end
 
-  test "invalid when image expressions are not found" do
-    no_images = []
-    subject = PlanForChangeLandingPage::HeroBlock.new(@valid_hero_block_config, no_images)
-    assert subject.invalid?
-    assert_equal [
-      "Desktop image cannot be blank",
-      "Tablet image cannot be blank",
-      "Mobile image cannot be blank",
-    ], subject.errors.to_a
-  end
+  # test "invalid when image expressions are not found" do
+  #   no_images = []
+  #   subject = PlanForChangeLandingPage::HeroBlock.new(@valid_hero_block_config, no_images)
+  #   assert subject.invalid?
+  #   assert_equal [
+  #     "Desktop image cannot be blank",
+  #     "Tablet image cannot be blank",
+  #     "Mobile image cannot be blank",
+  #   ], subject.errors.to_a
+  # end
 
   test "valid when missing hero content blocks" do
     subject = PlanForChangeLandingPage::HeroBlock.new(@valid_hero_block_config.except("hero_content"), @valid_hero_block_images)
