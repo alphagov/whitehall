@@ -18,7 +18,7 @@
           },
           Flipflop.access_limiting_organisations_ui? ? {
             value: "organisations",
-            text: "Limit access to publishers from organisations associated with this document",
+            text: "Limit access to the following organisations",
             checked: edition.access_limiting_organisations?,
             conditional: render("admin/editions/access_limiting_organisation_select", form: form, edition: edition),
           } : nil,
@@ -43,7 +43,7 @@
         error_items: errors_for(edition.errors, :access_limiting),
         items: [
           {
-            label: "Limit access to publishers from organisations associated with this document before you publish",
+            label: "Limit access to the following organisations before you publish",
             value: "organisations",
             checked: edition.access_limited?,
           },
