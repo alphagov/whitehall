@@ -15,7 +15,7 @@ module PublishingApi
             User.find_by(email:)&.uid
           }.uniq
 
-          access_limited[:users] = uids unless uids.empty?
+          access_limited[:users] = uids
         else
           access_limited[:organisations] = item.organisations.pluck(:content_id).uniq
         end

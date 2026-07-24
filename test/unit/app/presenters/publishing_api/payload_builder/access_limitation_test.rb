@@ -88,7 +88,7 @@ module PublishingApi
         )
       end
 
-      test "returns empty hash when named users resolve to no UIDs, when flag is on" do
+      test "returns empty array when named users resolve to no UIDs, effectively opening draft access to everyone, when flag is on" do
         @feature_flags.switch!(:access_limiting_individuals_ui, true)
 
         item = build_item(
@@ -96,7 +96,12 @@ module PublishingApi
           access_limiting_individuals: stub(pluck: ["unknown@example.com"]),
         )
 
-        assert_equal({}, access_limited_result(item))
+        # Downstream systems will treat this as open access, despite the WH user's intention likely being to restrict access.
+        # Model validations should prevent an empty array from being saved if the user has actively selected limitation to individuals.
+        # At this point in the code, we can either send 'users: []' or not set the users at all, which will send {} for access limitation.
+        # Both those options are interpreted as open access downstream, in content store and asset manager.
+        # The best option is to not be opinionated about the value here at payload build time and trust that the model has defenses in place.
+        assert_equal({ users: [] }, access_limited_result(item))
       end
 
       test "returns empty hash if not access limited" do
