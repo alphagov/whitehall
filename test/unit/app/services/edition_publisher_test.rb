@@ -282,4 +282,30 @@ class EditionPublisherTest < ActiveSupport::TestCase
     EditionPublisher.new(edition).perform!
     assert edition.reload.published?
   end
+
+  test "#perform! clears auth_bypass_id when edition has one set" do
+    edition = create(:submitted_edition, :with_auth_bypass_id)
+    assert_not_nil edition.auth_bypass_id
+
+    EditionPublisher.new(edition).perform!
+
+    assert_nil edition.reload.auth_bypass_id
+  end
+
+  test "#perform! propagates cleared auth_bypass_id to assets when edition previously had a token" do
+    edition = create(:submitted_edition, :with_auth_bypass_id)
+
+    EditionAuthBypassAssetPropagator.any_instance.expects(:propagate).once
+
+    EditionPublisher.new(edition).perform!
+  end
+
+  test "#perform! does not propagate auth_bypass_id changes to assets when edition had no token" do
+    edition = create(:submitted_edition)
+    assert_nil edition.auth_bypass_id
+
+    EditionAuthBypassAssetPropagator.any_instance.expects(:propagate).never
+
+    EditionPublisher.new(edition).perform!
+  end
 end
