@@ -11,6 +11,14 @@ class PoliticalContentIdentifier
     PublicationType::PolicyPaper,
   ].freeze
 
+  CONFIG_DRIVEN_POTENTIALLY_POLITICAL_FORMATS = %w[
+    news_story
+    press_release
+    world_news_story
+    government_response
+    case_study
+  ]
+
   attr_reader :edition
 
   def initialize(edition)
@@ -51,7 +59,7 @@ private
   end
 
   def potentially_political_standard_edition?
-    edition.is_a?(StandardEdition) && edition.can_be_marked_political?
+    edition.is_a?(StandardEdition) && edition.can_be_marked_political? && CONFIG_DRIVEN_POTENTIALLY_POLITICAL_FORMATS.include?(edition.configurable_document_type)
   end
 
   def potentially_political_publication?

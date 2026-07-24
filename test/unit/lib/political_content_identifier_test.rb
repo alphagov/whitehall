@@ -34,31 +34,66 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     assert political?(edition)
   end
 
-  test "config-driven formats that can be marked as political, and associated with a political org, are political" do
-    ConfigurableDocumentType.setup_test_types(
-      build_configurable_document_type(
-        "test_type",
-        {
-          "forms" => {
-            "documents" => {
-              "fields" => {
-                "lead_organisations" => {
-                  "attribute_path" => %w[lead_organisation_ids],
-                  "translatable" => true,
-                  "block" => "ordered_select_with_search_tagging",
+  test "whitelisted config-driven formats, with history mode enabled, are political when associated with a political org" do
+    ConfigurableDocumentType
+      .setup_test_types(
+        build_configurable_document_type(
+          "news_story",
+          {
+            "forms" => {
+              "documents" => {
+                "fields" => {
+                  "lead_organisations" => {
+                    "attribute_path" => %w[lead_organisation_ids],
+                    "translatable" => true,
+                    "block" => "ordered_select_with_search_tagging",
+                  },
                 },
               },
             },
+            "settings" => {
+              "history_mode_enabled" => true,
+            },
           },
-          "settings" => { "history_mode_enabled" => true },
-        },
-      ),
-    )
-    edition = build(:standard_edition)
+        ),
+      )
+
+    edition = create(:standard_edition, configurable_document_type: "news_story")
     edition.edition_organisations.build([{ organisation: create(:organisation, :political), lead: true }])
     edition.save!
 
     assert political?(edition)
+  end
+
+  test "non-whitelisted config-driven formats, with history mode enabled and a political organisation, are not political" do
+    ConfigurableDocumentType
+      .setup_test_types(
+        build_configurable_document_type(
+          "topical_event",
+          {
+            "forms" => {
+              "documents" => {
+                "fields" => {
+                  "lead_organisations" => {
+                    "attribute_path" => %w[lead_organisation_ids],
+                    "translatable" => true,
+                    "block" => "ordered_select_with_search_tagging",
+                  },
+                },
+              },
+            },
+            "settings" => {
+              "history_mode_enabled" => true,
+            },
+          },
+        ),
+      )
+
+    edition = create(:standard_edition, configurable_document_type: "topical_event")
+    edition.edition_organisations.build([{ organisation: create(:organisation, :political), lead: true }])
+    edition.save!
+
+    assert_not political?(edition)
   end
 
   test "political formats not associated with political orgs are not political" do
