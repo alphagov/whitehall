@@ -9,6 +9,16 @@ Feature: Uploading attachments to editions
     When I upload files and give them titles
     Then I should see that the publication has attachments
 
+  Scenario:
+    Given a draft publication "Example publication" exists
+    When I upload a file and give it a HOC paper number but no Parliamentary session
+    Then I should see an error of "greenpaper.pdf: Parliamentary session is required when house of commons number is set" on the upload page
+
+  Scenario:
+    Given a draft publication "Example publication" exists
+    When I upload a file and give it a Parliamentary session but no HOC paper number
+    Then I should see an error of "greenpaper.pdf: House of commons paper number is required when parliamentary session is set" on the upload page
+
   Scenario: Keep existing attachments
     Given a draft publication "Results of beards survey" with a file attachment exists
     When I upload files one with the same filename as an existing file
