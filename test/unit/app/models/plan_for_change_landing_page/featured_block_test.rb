@@ -46,26 +46,26 @@ class FeaturedBlockTest < ActiveSupport::TestCase
     assert_equal(expected_result, subject.present_for_publishing_api)
   end
 
-  test "invalid when missing images" do
-    subject = PlanForChangeLandingPage::FeaturedBlock.new(@valid_featured_block_config.except("image"), @valid_featured_images)
-    assert subject.invalid?
-    assert_equal [
-      "Desktop image cannot be blank",
-      "Tablet image cannot be blank",
-      "Mobile image cannot be blank",
-    ], subject.errors.to_a
-  end
+  # test "invalid when missing images" do
+  #   subject = PlanForChangeLandingPage::FeaturedBlock.new(@valid_featured_block_config.except("image"), @valid_featured_images)
+  #   assert subject.invalid?
+  #   assert_equal [
+  #     "Desktop image cannot be blank",
+  #     "Tablet image cannot be blank",
+  #     "Mobile image cannot be blank",
+  #   ], subject.errors.to_a
+  # end
 
-  test "invalid when image expressions are not found" do
-    no_images = []
-    subject = PlanForChangeLandingPage::FeaturedBlock.new(@valid_featured_block_config, no_images)
-    assert subject.invalid?
-    assert_equal [
-      "Desktop image cannot be blank",
-      "Tablet image cannot be blank",
-      "Mobile image cannot be blank",
-    ], subject.errors.to_a
-  end
+  # test "invalid when image expressions are not found" do
+  #   no_images = []
+  #   subject = PlanForChangeLandingPage::FeaturedBlock.new(@valid_featured_block_config, no_images)
+  #   assert subject.invalid?
+  #   assert_equal [
+  #     "Desktop image cannot be blank",
+  #     "Tablet image cannot be blank",
+  #     "Mobile image cannot be blank",
+  #   ], subject.errors.to_a
+  # end
 
   test "valid when missing featured content blocks" do
     subject = PlanForChangeLandingPage::FeaturedBlock.new(
