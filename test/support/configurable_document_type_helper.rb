@@ -46,7 +46,7 @@ module ConfigurableDocumentTypeHelper
           },
           "organisations" => nil,
           "backdating_enabled" => false,
-          "history_mode_enabled" => false,
+          "history_mode" => { "enabled" => false },
           "translations_enabled" => false,
           "send_change_history" => true,
         },

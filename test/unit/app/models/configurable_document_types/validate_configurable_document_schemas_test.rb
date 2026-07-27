@@ -103,6 +103,25 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
           end
         end
       end
+
+      it "is not valid if history mode does not specify 'enabled' value" do
+        document["settings"]["history_mode"].delete("enabled")
+        assert_equal SchemaValidator.for(document).first, "object at `/settings/history_mode` is missing required properties: enabled"
+      end
+
+      context "history mode must be enabled for other history mode options to be set" do
+        it "is not valid if type has `can_be_marked_political_by_publishers` true, and `enabled` is false" do
+          document["settings"]["history_mode"]["enabled"] = false
+          document["settings"]["history_mode"]["can_be_marked_political_by_publishers"] = true
+          assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode/enabled` is not: true", "History mode must be enabled if `can_be_marked_political_by_publishers` is set to true."
+        end
+
+        it "is not valid if type has `can_be_marked_political_by_system_based_on_organisation` true, and `enabled` is false" do
+          document["settings"]["history_mode"]["enabled"] = false
+          document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_organisation"] = true
+          assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode/enabled` is not: true", "History mode must be enabled if `can_be_marked_political_by_system_based_on_organisation` is set to true."
+        end
+      end
     end
 
     context "validating `schema`" do

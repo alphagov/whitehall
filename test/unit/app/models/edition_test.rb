@@ -751,6 +751,36 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil edition.government
   end
 
+  test "history mode is enabled by default" do
+    edition = build(:edition)
+    assert edition.history_mode_enabled?
+  end
+
+  test "can be marked political by publishers if history mode enabled" do
+    edition = build(:edition)
+
+    assert edition.can_be_marked_political_by_publishers?
+  end
+
+  test "cannot be marked political by publishers if history mode disabled" do
+    edition = build(:edition)
+    edition.stubs(:history_mode_enabled?).returns(false)
+
+    assert_not edition.can_be_marked_political_by_publishers?
+  end
+
+  test "cannot be marked political by system based on organisation, as a default" do
+    edition = build(:edition)
+
+    assert_not edition.can_be_marked_political_by_system_based_on_organisation?
+  end
+
+  test "cannot be marked political by system based on organisation, if history mode disabled" do
+    edition = build(:edition)
+
+    assert_not edition.can_be_marked_political_by_system_based_on_organisation?
+  end
+
   test "#historic? is true when political and from a previous government" do
     create(:current_government)
     previous_government = create(:previous_government)

@@ -152,8 +152,20 @@ class Edition < ApplicationRecord
     change_note.present? || minor_change
   end
 
-  def can_be_marked_political?
+  def history_mode_enabled?
     true
+  end
+
+  def can_be_marked_political_by_publishers?
+    return false unless history_mode_enabled?
+
+    true
+  end
+
+  def can_be_marked_political_by_system_based_on_organisation?
+    return false unless history_mode_enabled?
+
+    false
   end
 
   def path_name

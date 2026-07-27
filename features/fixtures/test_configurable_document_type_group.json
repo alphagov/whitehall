@@ -56,7 +56,9 @@
       },
       "send_change_history": true,
       "file_attachments_enabled": true,
-      "history_mode_enabled": true
+      "history_mode": {
+        "enabled": true
+      }
     }
   },
   {
@@ -116,7 +118,9 @@
       },
       "send_change_history": true,
       "file_attachments_enabled": true,
-      "history_mode_enabled": true
+      "history_mode": {
+        "enabled": true
+      }
     }
   }
 ]

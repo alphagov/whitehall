@@ -149,6 +149,10 @@ class Consultation < Edition
     PublishingApi::ConsultationPresenter
   end
 
+  def can_be_marked_political_by_system_based_on_organisation?
+    true
+  end
+
 private
 
   def validate_consultation_principles

@@ -92,8 +92,20 @@ class StandardEdition < Edition
     ].any? { |path| field_paths.include?(path) }
   end
 
-  def can_be_marked_political?
-    type_instance.settings["history_mode_enabled"]
+  def history_mode_enabled?
+    type_instance.settings.dig("history_mode", "enabled")
+  end
+
+  def can_be_marked_political_by_publishers?
+    return false unless history_mode_enabled?
+
+    type_instance.settings.dig("history_mode", "can_be_marked_political_by_publishers") || false
+  end
+
+  def can_be_marked_political_by_system_based_on_organisation?
+    return false unless history_mode_enabled?
+
+    type_instance.settings.dig("history_mode", "can_be_marked_political_by_system_based_on_organisation") || false
   end
 
   def change_note_required?

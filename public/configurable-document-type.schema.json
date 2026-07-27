@@ -449,9 +449,42 @@
           "type": "boolean",
           "description": "Whether backdating is allowed for this document type. This is required for documents representing past printed papers or documents from other digital sources outside Whitehall."
         },
-        "history_mode_enabled": {
-          "type": "boolean",
-          "description": "Whether history mode is enabled for this document type. This controls whether the document can be marked as political."
+        "history_mode": {
+          "type": "object",
+          "description": "History mode controls for this document type.",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether the history mode is enabled for this document type. It controls whether the political field is included in the payload sent to the Publishing API, regardless of how the flag was set."
+            },
+            "can_be_marked_political_by_publishers": {
+              "type": "boolean",
+              "description": "Whether the political flag can be set by publishers via the Whitehall admin interface. It's usually GDS Admins and Editors, and managing editors, that can set the flag on a draft of a document that has already been published."
+            },
+            "can_be_marked_political_by_system_based_on_organisation": {
+              "type": "boolean",
+              "description": "Whether the system can set the political flag at publish time, if the document is associated with at least one political organisation."
+            }
+          },
+          "required": ["enabled"],
+          "if": {
+            "anyOf": [
+              {
+                "properties": { "can_be_marked_political_by_publishers": { "const": true } },
+                "required": ["can_be_marked_political_by_publishers"]
+              },
+              {
+                "properties": { "can_be_marked_political_by_system_based_on_organisation": { "const": true } },
+                "required": ["can_be_marked_political_by_system_based_on_organisation"]
+              }
+            ]
+          },
+          "then": {
+            "required": ["enabled"],
+            "properties": {
+              "enabled": { "const": true }
+            }
+          }
         },
         "file_attachments_enabled": {
           "type": "boolean",
@@ -484,7 +517,7 @@
         "send_change_history",
         "organisations",
         "backdating_enabled",
-        "history_mode_enabled",
+        "history_mode",
         "file_attachments_enabled",
         "taxon",
         "translations_enabled"

@@ -27,18 +27,19 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     assert political?(world_news_story)
   end
 
-  test "political formats associated with a political orgs are political" do
+  test "legacy formats whitelisted for marking by the system are political when associated with at least one political org" do
     political_organisation = create(:organisation, :political)
-    edition = create(:consultation, lead_organisations: [political_organisation])
+    non_political_organisation = create(:organisation, political: false)
+    edition = create(:consultation, lead_organisations: [political_organisation, non_political_organisation])
 
     assert political?(edition)
   end
 
-  test "whitelisted config-driven formats, with history mode enabled, are political when associated with a political org" do
+  test "config-driven formats whitelisted for marking by the system are political when associated with at least one political org" do
     ConfigurableDocumentType
       .setup_test_types(
         build_configurable_document_type(
-          "news_story",
+          "test_type",
           {
             "forms" => {
               "documents" => {
@@ -52,60 +53,102 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
               },
             },
             "settings" => {
-              "history_mode_enabled" => true,
+              "history_mode" => {
+                "enabled" => true,
+                "can_be_marked_political_by_system_based_on_organisation" => true,
+              },
             },
           },
         ),
       )
 
-    edition = create(:standard_edition, configurable_document_type: "news_story")
-    edition.edition_organisations.build([{ organisation: create(:organisation, :political), lead: true }])
+    edition = create(:standard_edition)
+    political_organisation = create(:organisation, :political)
+    non_political_organisation = create(:organisation, political: false)
+    edition.edition_organisations.build([{ organisation: political_organisation, lead: true }, { organisation: non_political_organisation, lead: true }])
     edition.save!
 
     assert political?(edition)
   end
 
-  test "non-whitelisted config-driven formats, with history mode enabled and a political organisation, are not political" do
-    ConfigurableDocumentType
-      .setup_test_types(
-        build_configurable_document_type(
-          "topical_event",
-          {
-            "forms" => {
-              "documents" => {
-                "fields" => {
-                  "lead_organisations" => {
-                    "attribute_path" => %w[lead_organisation_ids],
-                    "translatable" => true,
-                    "block" => "ordered_select_with_search_tagging",
-                  },
-                },
-              },
-            },
-            "settings" => {
-              "history_mode_enabled" => true,
-            },
-          },
-        ),
-      )
-
-    edition = create(:standard_edition, configurable_document_type: "topical_event")
-    edition.edition_organisations.build([{ organisation: create(:organisation, :political), lead: true }])
-    edition.save!
-
-    assert_not political?(edition)
-  end
-
-  test "political formats not associated with political orgs are not political" do
+  test "legacy formats whitelisted for marking by the system are not political when associated with non-political orgs" do
     non_political_organisation = create(:organisation, :non_political)
     edition = create(:consultation, lead_organisations: [non_political_organisation])
 
     assert_not political?(edition)
   end
 
-  test "non-political formats associated with political orgs are not political" do
+  test "config-driven formats whitelisted for marking by the system are not political when associated with a non-political org" do
+    ConfigurableDocumentType
+      .setup_test_types(
+        build_configurable_document_type(
+          "test_type",
+          {
+            "forms" => {
+              "documents" => {
+                "fields" => {
+                  "lead_organisations" => {
+                    "attribute_path" => %w[lead_organisation_ids],
+                    "translatable" => true,
+                    "block" => "ordered_select_with_search_tagging",
+                  },
+                },
+              },
+            },
+            "settings" => {
+              "history_mode" => {
+                "enabled" => true,
+                "can_be_marked_political_by_system_based_on_organisation" => true,
+              },
+            },
+          },
+        ),
+      )
+
+    edition = create(:standard_edition)
+    edition.edition_organisations.build([{ organisation: create(:organisation, political: false), lead: true }])
+    edition.save!
+
+    assert_not political?(edition)
+  end
+
+  test "legacy formats not whitelisted for marking by the system are not political when associated with political orgs" do
     political_organisation = create(:organisation, :political)
     edition = create(:detailed_guide, lead_organisations: [political_organisation])
+
+    assert_not political?(edition)
+  end
+
+  test "config-driven formats not whitelisted for marking by the system are not political when associated with a political organisation" do
+    ConfigurableDocumentType
+      .setup_test_types(
+        build_configurable_document_type(
+          "test_type",
+          {
+            "forms" => {
+              "documents" => {
+                "fields" => {
+                  "lead_organisations" => {
+                    "attribute_path" => %w[lead_organisation_ids],
+                    "translatable" => true,
+                    "block" => "ordered_select_with_search_tagging",
+                  },
+                },
+              },
+            },
+            "settings" => {
+              "history_mode" => {
+                "enabled" => true,
+                "can_be_marked_political_by_system_based_on_organisation" => false,
+              },
+            },
+          },
+        ),
+      )
+
+    edition = create(:standard_edition)
+    edition.edition_organisations.build([{ organisation: create(:organisation, :political), lead: true }])
+    edition.save!
 
     assert_not political?(edition)
   end

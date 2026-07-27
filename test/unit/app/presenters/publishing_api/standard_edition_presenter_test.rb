@@ -218,7 +218,9 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it includes a political key in the details if history mode enabled" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
-        "history_mode_enabled" => true,
+        "history_mode" => {
+          "enabled" => true,
+        },
       },
     }))
     page = create(:standard_edition, political: true)
@@ -232,7 +234,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it does not include a political key in the details if history mode not enabled" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
-        "history_mode_enabled" => false,
+        "history_mode" => { "enabled" => false },
       },
     }))
     page = create(:standard_edition, political: true)

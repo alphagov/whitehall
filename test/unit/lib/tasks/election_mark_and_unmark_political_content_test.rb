@@ -39,7 +39,7 @@ class MarkAndUnmarkPoliticalContent < ActiveSupport::TestCase
       organisation.save!
 
       # All editions are "potentially" political by virtue of their type
-      assert([published_edition, withdrawn_edition, unpublished_edition].pluck(:publication_type).each { |type| PoliticalContentIdentifier::POLITICAL_PUBLICATION_TYPES.include?(type) })
+      [published_edition, withdrawn_edition, unpublished_edition].each { |edition| assert edition.can_be_marked_political_by_system_based_on_organisation? }
 
       capture_io { task.invoke(organisation.slug, date) }
 
@@ -102,7 +102,7 @@ class MarkAndUnmarkPoliticalContent < ActiveSupport::TestCase
       organisation.save!
 
       # All editions are "potentially" political by virtue of their type
-      assert([published_edition, withdrawn_edition, unpublished_edition].pluck(:publication_type).each { |type| PoliticalContentIdentifier::POLITICAL_PUBLICATION_TYPES.include?(type) })
+      [published_edition, withdrawn_edition, unpublished_edition].each { |edition| assert edition.can_be_marked_political_by_system_based_on_organisation? }
 
       capture_io { task.invoke(organisation.slug, date) }
 
@@ -119,7 +119,7 @@ class MarkAndUnmarkPoliticalContent < ActiveSupport::TestCase
     it "unmarks editions manually marked as political, for non-potentially-political document types" do
       organisation.update!(political: true)
       published_document = create(:document)
-      non_political_publication_type = PublicationType.all.detect { |type| PoliticalContentIdentifier::POLITICAL_PUBLICATION_TYPES.exclude?(type) }
+      non_political_publication_type = PublicationType.all.detect { |type| Publication::POTENTIALLY_POLITICAL_BY_ORGANISATION_PUBLICATION_TYPES.exclude?(type) }
       published_edition = create(:publication, :published, publication_type: non_political_publication_type, document: published_document, first_published_at: "01-01-2023", political: true)
       organisation.editions = [published_edition]
       organisation.save!

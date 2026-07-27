@@ -176,7 +176,7 @@ class WorldwideOrganisation < Edition
     false
   end
 
-  def can_be_marked_political?
+  def history_mode_enabled?
     false
   end
 

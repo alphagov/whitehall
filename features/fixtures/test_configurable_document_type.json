@@ -212,7 +212,9 @@
     "translations_enabled": true,
     "file_attachments_enabled": true,
     "features_enabled": true,
-    "history_mode_enabled": true,
+    "history_mode": {
+      "enabled": true
+    },
     "send_change_history": true,
     "images": {
       "enabled": true,

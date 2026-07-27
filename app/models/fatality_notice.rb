@@ -41,7 +41,7 @@ class FatalityNotice < Edition
     PublishingApi::FatalityNoticePresenter
   end
 
-  def can_be_marked_political?
+  def history_mode_enabled?
     false
   end
 end

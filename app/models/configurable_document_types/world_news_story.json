@@ -110,7 +110,11 @@
     "file_attachments_enabled": true,
     "organisations": null,
     "backdating_enabled": true,
-    "history_mode_enabled": true,
+    "history_mode": {
+      "enabled": true,
+      "can_be_marked_political_by_publishers": true,
+      "can_be_marked_political_by_system_based_on_organisation": true
+    },
     "taxon": {
       "enabled": true,
       "required": true

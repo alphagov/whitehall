@@ -1,24 +1,4 @@
 class PoliticalContentIdentifier
-  LEGACY_POTENTIALLY_POLITICAL_FORMATS = [
-    CallForEvidence,
-    Consultation,
-    Speech,
-  ].freeze
-
-  POLITICAL_PUBLICATION_TYPES = [
-    PublicationType::CorporateReport,
-    PublicationType::ImpactAssessment,
-    PublicationType::PolicyPaper,
-  ].freeze
-
-  CONFIG_DRIVEN_POTENTIALLY_POLITICAL_FORMATS = %w[
-    news_story
-    press_release
-    world_news_story
-    government_response
-    case_study
-  ]
-
   attr_reader :edition
 
   def initialize(edition)
@@ -34,7 +14,7 @@ class PoliticalContentIdentifier
 
     associated_with_a_minister? ||
       always_political_format? ||
-      (potentially_political_format? && has_political_org?)
+      associated_with_political_organisation?
   end
 
 private
@@ -47,34 +27,20 @@ private
     edition.is_associated_with_a_minister?
   end
 
-  def has_political_org?
-    edition.organisation_association_enabled? &&
-      edition.organisations.where(political: true).any?
-  end
-
-  def potentially_political_format?
-    potentially_political_standard_edition? ||
-      potentially_political_publication? ||
-      LEGACY_POTENTIALLY_POLITICAL_FORMATS.include?(edition.class)
-  end
-
-  def potentially_political_standard_edition?
-    edition.is_a?(StandardEdition) && edition.can_be_marked_political? && CONFIG_DRIVEN_POTENTIALLY_POLITICAL_FORMATS.include?(edition.configurable_document_type)
-  end
-
-  def potentially_political_publication?
-    edition.is_a?(Publication) && political_publication_type?
-  end
-
-  def political_publication_type?
-    POLITICAL_PUBLICATION_TYPES.include?(edition.publication_type)
-  end
-
   def always_political_format?
     edition.configurable_document_type == "world_news_story"
   end
 
   def never_political_format?
     edition.is_a?(FatalityNotice) || stats_publication?
+  end
+
+  def associated_with_political_organisation?
+    edition.can_be_marked_political_by_system_based_on_organisation? && has_political_org?
+  end
+
+  def has_political_org?
+    edition.organisation_association_enabled? &&
+      edition.organisations.where(political: true).any?
   end
 end

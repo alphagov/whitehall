@@ -56,6 +56,10 @@ class Speech < Edition
     !can_have_some_invalid_data? && person_override.blank?
   end
 
+  def can_be_marked_political_by_system_based_on_organisation?
+    true
+  end
+
 private
 
   def date_for_government

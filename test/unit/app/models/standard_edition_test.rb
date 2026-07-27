@@ -213,12 +213,14 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page_without_backdating.can_set_previously_published?
   end
 
-  test "it allows marking content as political if the history mode configurable document type setting permits it" do
+  test "it allows history mode if the configurable document type settings permit it" do
     test_type_with_history_mode =
       build_configurable_document_type(
         "test_type_with_history_mode", {
           "settings" => {
-            "history_mode_enabled" => true,
+            "history_mode" => {
+              "enabled" => true,
+            },
           },
         }
       )
@@ -226,7 +228,9 @@ class StandardEditionTest < ActiveSupport::TestCase
       build_configurable_document_type(
         "test_type_without_history_mode", {
           "settings" => {
-            "history_mode_enabled" => false,
+            "history_mode" => {
+              "enabled" => false,
+            },
           },
         }
       )
@@ -234,8 +238,108 @@ class StandardEditionTest < ActiveSupport::TestCase
     ConfigurableDocumentType.setup_test_types(test_type_with_history_mode.merge(test_type_without_history_mode))
     page_with_history_mode = StandardEdition.new(configurable_document_type: "test_type_with_history_mode")
     page_without_history_mode = StandardEdition.new(configurable_document_type: "test_type_without_history_mode")
-    assert page_with_history_mode.can_be_marked_political?
-    assert_not page_without_history_mode.can_be_marked_political?
+    assert page_with_history_mode.history_mode_enabled?
+    assert_equal false, page_without_history_mode.history_mode_enabled?
+  end
+
+  test "it allows publishers to mark content as political via the UI if the configurable document type settings permit it" do
+    test_type_that_allows_marking_political_by_publishers =
+      build_configurable_document_type(
+        "test_type_that_allows_marking_political_by_publishers", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "can_be_marked_political_by_publishers" => true,
+            },
+          },
+        }
+      )
+    test_type_that_does_not_allow_marking_political_by_publishers =
+      build_configurable_document_type(
+        "test_type_that_does_not_allow_marking_political_by_publishers", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "can_be_marked_political_by_publishers" => false,
+            },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_that_allows_marking_political_by_publishers.merge(test_type_that_does_not_allow_marking_political_by_publishers))
+    page_with_political_marking_allowed = StandardEdition.new(configurable_document_type: "test_type_that_allows_marking_political_by_publishers")
+    page_with_political_marking_not_allowed = StandardEdition.new(configurable_document_type: "test_type_that_does_not_allow_marking_political_by_publishers")
+    assert page_with_political_marking_allowed.can_be_marked_political_by_publishers?
+    assert_equal false, page_with_political_marking_not_allowed.can_be_marked_political_by_publishers?
+  end
+
+  test "it allows the system to mark content as political based on organisation if the configurable document type settings permit it" do
+    test_type_that_allows_marking_political_by_the_system =
+      build_configurable_document_type(
+        "test_type_that_allows_marking_political_by_the_system", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "can_be_marked_political_by_system_based_on_organisation" => true,
+            },
+          },
+        }
+      )
+    test_type_that_does_not_allow_marking_political_by_the_system =
+      build_configurable_document_type(
+        "test_type_that_does_not_allow_marking_political_by_the_system", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "can_be_marked_political_by_system_based_on_organisation" => false,
+            },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_that_allows_marking_political_by_the_system.merge(test_type_that_does_not_allow_marking_political_by_the_system))
+    page_with_political_marking_allowed = StandardEdition.new(configurable_document_type: "test_type_that_allows_marking_political_by_the_system")
+    page_with_political_marking_not_allowed = StandardEdition.new(configurable_document_type: "test_type_that_does_not_allow_marking_political_by_the_system")
+    assert page_with_political_marking_allowed.can_be_marked_political_by_system_based_on_organisation?
+    assert_equal false, page_with_political_marking_not_allowed.can_be_marked_political_by_system_based_on_organisation?
+  end
+
+  test "it does not allow publishers nor system to mark content as political if the settings don't enable history mode" do
+    test_type_with_history_mode_disabled =
+      build_configurable_document_type(
+        "test_type_with_history_mode_disabled", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => false,
+              "can_be_marked_political_by_system_based_on_organisation" => true,
+              "can_be_marked_political_by_publishers" => true,
+            },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_history_mode_disabled)
+    page_with_history_mode_disabled = StandardEdition.new(configurable_document_type: "test_type_with_history_mode_disabled")
+    assert_equal false, page_with_history_mode_disabled.can_be_marked_political_by_publishers?
+    assert_equal false, page_with_history_mode_disabled.can_be_marked_political_by_system_based_on_organisation?
+  end
+
+  test "it does not allow publishers nor system to mark content as political if the settings are not present" do
+    test_type_with_no_publisher_nor_system_option =
+      build_configurable_document_type(
+        "test_type_with_no_publisher_nor_system_option", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+            },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_no_publisher_nor_system_option)
+    page_with_no_publisher_nor_system_option = StandardEdition.new(configurable_document_type: "test_type_with_no_publisher_nor_system_option")
+    assert_equal false, page_with_no_publisher_nor_system_option.can_be_marked_political_by_publishers?
+    assert_equal false, page_with_no_publisher_nor_system_option.can_be_marked_political_by_system_based_on_organisation?
   end
 
   test "it is invalid if the block content does not conform to the configurable document type schema validations" do

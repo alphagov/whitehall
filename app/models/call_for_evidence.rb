@@ -147,6 +147,10 @@ class CallForEvidence < Edition
     errors.add(:call_for_evidence_response_form, "must have finished uploading") unless call_for_evidence_participation.call_for_evidence_response_form_uploaded_to_asset_manager?
   end
 
+  def can_be_marked_political_by_system_based_on_organisation?
+    true
+  end
+
 private
 
   def all_blank_or_empty_hashes(attributes)

@@ -208,7 +208,9 @@
     "features_enabled": true,
     "organisations": null,
     "backdating_enabled": false,
-    "history_mode_enabled": false,
+    "history_mode": {
+      "enabled": false
+    },
     "taxon": {
       "enabled": true,
       "required": false

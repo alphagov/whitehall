@@ -675,8 +675,15 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "legend", text: "First published date"
   end
 
-  view_test "GET edit renders the history mode form controls when history mode is enabled" do
-    configurable_document_type = build_configurable_document_type("test_type", { "settings" => { "history_mode_enabled" => true } })
+  view_test "GET edit renders the history mode form controls when history mode is enabled and can be marked by publishers" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "history_mode" => {
+          "enabled" => true,
+          "can_be_marked_political_by_publishers" => true,
+        },
+      },
+    })
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
     edition = build(:published_standard_edition, :with_organisations)

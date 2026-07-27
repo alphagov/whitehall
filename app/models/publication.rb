@@ -148,6 +148,16 @@ class Publication < Edition
     PublishingApi::PublicationPresenter
   end
 
+  POTENTIALLY_POLITICAL_BY_ORGANISATION_PUBLICATION_TYPES = [
+    PublicationType::CorporateReport,
+    PublicationType::ImpactAssessment,
+    PublicationType::PolicyPaper,
+  ].freeze
+
+  def can_be_marked_political_by_system_based_on_organisation?
+    POTENTIALLY_POLITICAL_BY_ORGANISATION_PUBLICATION_TYPES.include?(publication_type)
+  end
+
 private
 
   def attachment_required_before_moving_out_of_draft
