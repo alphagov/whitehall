@@ -243,7 +243,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting_individual_emails = "test@test.com example@example.com some_test@test.com"
 
     assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: test@test.com example@example.com some_test@test.com"
   end
 
   test "does not persist access_limiting_individuals on assignment" do
@@ -273,6 +273,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   test "is valid when access_limiting is set to 'individuals' and access limiting emails are present" do
     @feature_flags.switch!(:access_limiting_individuals_ui, true)
 
+    create(:user, email: "user@example.com")
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "user@example.com"
@@ -289,7 +290,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
     assert_not edition.valid?
     assert_includes edition.errors[:access_limiting_individual_emails],
-                    "must contain valid email addresses"
+                    "must contain valid email addresses: not-an-email"
     assert_empty edition.errors[:"access_limiting_individuals.email"]
   end
 
@@ -301,7 +302,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting_individual_emails = "test@test"
 
     assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: test@test"
   end
 
   test "is invalid when valid emails are mixed in with badly formatted emails" do
@@ -312,7 +313,77 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting_individual_emails = "user@example.com, gibberish"
 
     assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: gibberish"
+  end
+
+  test "shows both the format error and the Signon-match error, when different emails have different problems" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    edition = create(:limited_access_edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "no_such_user@example.com, gibberish"
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: gibberish"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user: no_such_user@example.com"
+  end
+
+  test "is invalid when access_limiting is set to 'individuals' and the provided email does not match an existing Signon user" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    edition = create(:limited_access_edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "no_such_user@example.com"
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user: no_such_user@example.com"
+  end
+
+  test "recognizes an existing Signon user regardless of email case" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    create(:user, email: "User@Example.com")
+    edition = create(:limited_access_edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "user@example.com"
+
+    assert edition.valid?
+  end
+
+  test "is invalid when a Signon email is mixed in with an email that does not match any Signon user" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    create(:user, email: "user@example.com")
+    edition = create(:limited_access_edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "user@example.com, no_such_user@example.com"
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user: no_such_user@example.com"
+  end
+
+  test "does not require a Signon match for an individual email marked for destruction" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, true)
+
+    create(:user, email: "user@example.com")
+    edition = build(:limited_access_edition)
+    edition.access_limiting = :individuals
+    edition.access_limiting_individual_emails = "user@example.com"
+    edition.save!
+
+    # Bypass the edition-level Signon validation to simulate a pre-existing
+    # individual whose email doesn't match any Signon user - e.g. one added
+    # before this validation existed, or whose Signon account was later removed.
+    edition.access_limiting_individuals.create!(email: "no_such_user@example.com")
+    assert edition.access_limiting_individuals.exists?(email: "no_such_user@example.com")
+
+    # Replacing the emails list marks the non-Signon email for destruction,
+    # rather than removing it from the in-memory association immediately.
+    edition.access_limiting_individual_emails = "user@example.com"
+
+    assert edition.access_limiting_individuals.detect { |i| i.email == "no_such_user@example.com" }.marked_for_destruction?
+    assert edition.valid?
+    assert_not_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user"
   end
 
   test "is valid when access_limiting is set to 'none' regardless of access limiting individuals" do
@@ -360,7 +431,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
     assert_not edition.valid?
     assert_includes edition.errors[:access_limiting_individual_emails], "must include your own email"
-    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: test@test.com example@example.com"
   end
 
   test "is valid when access_limiting is set to 'individuals' and no access limiting individuals are selected when flag is off" do
