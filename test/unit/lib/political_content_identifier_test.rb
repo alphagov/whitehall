@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PoliticalContentIdentifierTest < ActiveSupport::TestCase
-  test "fatality notices are never political, even when associated with a minister" do
+  test "fatality notices are never marked political, even when associated with a minister" do
     fatality_notice = create(
       :fatality_notice,
       role_appointments: [create(:ministerial_role_appointment)],
@@ -10,7 +10,7 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     assert_not political?(fatality_notice)
   end
 
-  test "statistics publications are never political, even when associated with a minister" do
+  test "statistics publications are never marked political, even when associated with a minister" do
     statistics_publication = create(
       :publication,
       :statistics,
@@ -21,7 +21,8 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
   end
 
   test "world-news-stories are always political" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("world_news_story"))
+    ConfigurableDocumentType
+      .setup_test_types(build_configurable_document_type("world_news_story", { "settings" => { "history_mode" => { "enabled" => true } } }))
     world_news_story = create(:standard_edition, configurable_document_type: "world_news_story")
 
     assert political?(world_news_story)

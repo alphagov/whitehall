@@ -158,6 +158,15 @@ class Publication < Edition
     POTENTIALLY_POLITICAL_BY_ORGANISATION_PUBLICATION_TYPES.include?(publication_type)
   end
 
+  NEVER_POLITICAL_PUBLICATION_TYPES = [
+    PublicationType::OfficialStatistics,
+    PublicationType::NationalStatistics,
+  ].freeze
+
+  def history_mode_enabled?
+    true unless NEVER_POLITICAL_PUBLICATION_TYPES.include?(publication_type)
+  end
+
 private
 
   def attachment_required_before_moving_out_of_draft
