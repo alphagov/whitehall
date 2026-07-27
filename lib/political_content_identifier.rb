@@ -12,9 +12,7 @@ class PoliticalContentIdentifier
   def political?
     return false if never_political_format?
 
-    associated_with_a_minister? ||
-      always_political_format? ||
-      associated_with_political_organisation?
+    always_marked_political_by_system? || associated_with_a_minister? || associated_with_political_organisation?
   end
 
 private
@@ -23,8 +21,8 @@ private
     edition.is_associated_with_a_minister?
   end
 
-  def always_political_format?
-    edition.configurable_document_type == "world_news_story"
+  def always_marked_political_by_system?
+    edition.always_marked_political_by_system?
   end
 
   def never_political_format?

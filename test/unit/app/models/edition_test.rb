@@ -781,6 +781,19 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.can_be_marked_political_by_system_based_on_organisation?
   end
 
+  test "cannot be marked political by system, by default" do
+    edition = build(:edition)
+
+    assert_not edition.always_marked_political_by_system?
+  end
+
+  test "cannot be marked political by system based on organisation if always political" do
+    edition = build(:edition)
+    edition.stubs(:always_marked_political_by_system?).returns(true)
+
+    assert_not edition.can_be_marked_political_by_system_based_on_organisation?
+  end
+
   test "#historic? is true when political and from a previous government" do
     create(:current_government)
     previous_government = create(:previous_government)

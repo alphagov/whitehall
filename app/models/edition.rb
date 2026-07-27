@@ -163,8 +163,12 @@ class Edition < ApplicationRecord
   end
 
   def can_be_marked_political_by_system_based_on_organisation?
-    return false unless history_mode_enabled?
+    return false if always_marked_political_by_system? || !history_mode_enabled?
 
+    false
+  end
+
+  def always_marked_political_by_system?
     false
   end
 

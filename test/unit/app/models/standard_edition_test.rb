@@ -340,6 +340,90 @@ class StandardEditionTest < ActiveSupport::TestCase
     page_with_no_publisher_nor_system_option = StandardEdition.new(configurable_document_type: "test_type_with_no_publisher_nor_system_option")
     assert_equal false, page_with_no_publisher_nor_system_option.can_be_marked_political_by_publishers?
     assert_equal false, page_with_no_publisher_nor_system_option.can_be_marked_political_by_system_based_on_organisation?
+    assert_equal false, page_with_no_publisher_nor_system_option.always_marked_political_by_system?
+  end
+
+  test "will always be marked political by the system, if the settings specify it" do
+    always_political_test_type =
+      build_configurable_document_type(
+        "always_political_test_type", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "always_marked_political_by_system" => true,
+            },
+          },
+        }
+      )
+
+    not_always_political_test_type =
+      build_configurable_document_type(
+        "not_always_political_test_type", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "always_marked_political_by_system" => false,
+            },
+          },
+        }
+      )
+
+    always_political_no_history_mode_test_type =
+      build_configurable_document_type(
+        "always_political_no_history_mode_test_type", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => false,
+              "always_marked_political_by_system" => true,
+            },
+          },
+        }
+      )
+    ConfigurableDocumentType.setup_test_types(always_political_test_type.merge(not_always_political_test_type.merge(always_political_no_history_mode_test_type)))
+    always_political_page = StandardEdition.new(configurable_document_type: "always_political_test_type")
+    not_always_political_page = StandardEdition.new(configurable_document_type: "not_always_political_test_type")
+    always_political_no_history_mode_page = StandardEdition.new(configurable_document_type: "always_political_no_history_mode_test_type")
+    assert always_political_page.always_marked_political_by_system?
+    assert_equal false, not_always_political_page.always_marked_political_by_system?
+    assert_equal false, always_political_no_history_mode_page.always_marked_political_by_system?
+  end
+
+  test "it does not allow system to mark content as political based on organisation, if always political" do
+    always_political_test_type =
+      build_configurable_document_type(
+        "always_political_test_type", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "can_be_marked_political_by_system_based_on_organisation" => true,
+              "always_marked_political_by_system" => true,
+            },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(always_political_test_type)
+    always_political_page = StandardEdition.new(configurable_document_type: "always_political_test_type")
+    assert_equal false, always_political_page.can_be_marked_political_by_system_based_on_organisation?
+  end
+
+  test "it allows publishers to change political flag via the UI, even if document is always marked political by system" do
+    always_political_test_type =
+      build_configurable_document_type(
+        "always_political_test_type", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "can_be_marked_political_by_publishers" => true,
+              "always_marked_political_by_system" => true,
+            },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(always_political_test_type)
+    always_political_page = StandardEdition.new(configurable_document_type: "always_political_test_type")
+    assert always_political_page.can_be_marked_political_by_publishers?
   end
 
   test "it is invalid if the block content does not conform to the configurable document type schema validations" do

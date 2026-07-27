@@ -22,7 +22,7 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
 
   test "world-news-stories are always political" do
     ConfigurableDocumentType
-      .setup_test_types(build_configurable_document_type("world_news_story", { "settings" => { "history_mode" => { "enabled" => true } } }))
+      .setup_test_types(build_configurable_document_type("world_news_story", { "settings" => { "history_mode" => { "enabled" => true, "always_marked_political_by_system" => true } } }))
     world_news_story = create(:standard_edition, configurable_document_type: "world_news_story")
 
     assert political?(world_news_story)

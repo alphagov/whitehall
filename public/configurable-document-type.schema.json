@@ -464,27 +464,58 @@
             "can_be_marked_political_by_system_based_on_organisation": {
               "type": "boolean",
               "description": "Whether the system can set the political flag at publish time, if the document is associated with at least one political organisation."
+            },
+            "always_marked_political_by_system": {
+              "type": "boolean",
+              "description": "Whether the system always sets the political flag at publish time, regardless of associations."
             }
           },
           "required": ["enabled"],
-          "if": {
-            "anyOf": [
-              {
-                "properties": { "can_be_marked_political_by_publishers": { "const": true } },
-                "required": ["can_be_marked_political_by_publishers"]
+          "allOf":
+          [
+            {
+              "if": {
+                "properties": {
+                  "always_marked_political_by_system": { "const": true }
+                },
+                "required": ["always_marked_political_by_system"]
               },
-              {
-                "properties": { "can_be_marked_political_by_system_based_on_organisation": { "const": true } },
-                "required": ["can_be_marked_political_by_system_based_on_organisation"]
+              "then": {
+                "anyOf": [
+                  {
+                    "not": {
+                      "required": ["can_be_marked_political_by_system_based_on_organisation"]
+                    }
+                  },
+                  {
+                    "properties": {
+                      "can_be_marked_political_by_system_based_on_organisation": { "const": false }
+                    }
+                  }
+                ]
               }
-            ]
-          },
-          "then": {
-            "required": ["enabled"],
-            "properties": {
-              "enabled": { "const": true }
+            },
+            {
+              "if": {
+                "anyOf": [
+                  {
+                    "properties": { "can_be_marked_political_by_publishers": { "const": true } },
+                    "required": ["can_be_marked_political_by_publishers"]
+                  },
+                  {
+                    "properties": { "can_be_marked_political_by_system_based_on_organisation": { "const": true } },
+                    "required": ["can_be_marked_political_by_system_based_on_organisation"]
+                  }
+                ]
+              },
+              "then": {
+                "required": ["enabled"],
+                "properties": {
+                  "enabled": { "const": true }
+                }
+              }
             }
-          }
+          ]
         },
         "file_attachments_enabled": {
           "type": "boolean",
