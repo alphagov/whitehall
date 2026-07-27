@@ -279,6 +279,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     feature_flags.switch! :access_limiting_individuals_ui, true
 
     organisation = create(:organisation)
+    create(:user, email: "user@example.com")
     edition = create(
       :consultation,
       access_limiting: :organisations,
@@ -308,6 +309,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     feature_flags.switch! :access_limiting_individuals_ui, true
 
     organisation = create(:organisation)
+    create(:user, email: "user@example.com")
     edition = create(
       :consultation,
       access_limiting: :individuals,
@@ -337,6 +339,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     feature_flags.switch! :access_limiting_individuals_ui, true
 
     organisation = create(:organisation)
+    create(:user, email: "user@example.com")
     edition = create(
       :consultation,
       access_limiting: :individuals,
@@ -364,6 +367,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   view_test "PATCH :update re-renders the edit template with error and the submitted values, but does not persist the association, when access limiting individuals invalid" do
     feature_flags.switch! :access_limiting_individuals_ui, true
 
+    create(:user, email: "user@example.com")
     edition = create(
       :consultation,
       access_limiting: :individuals,
@@ -381,7 +385,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
         }
 
     assert_template :edit
-    assert_select ".govuk-error-summary a", text: "Access limiting individual emails must contain valid email addresses", href: "#access_limiting_individuals_emails"
+    assert_select ".govuk-error-summary a", text: "Access limiting individual emails must contain valid email addresses: notanemail", href: "#access_limiting_individuals_emails"
     assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: "user@example.com, another_user@example.com, notanemail"
     assert_select "textarea[name='edition[editorial_remark]']", text: "Test"
 
