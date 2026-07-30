@@ -209,7 +209,9 @@ private
   end
 
   def publication_has_been_published?
-    publication && publication.published?
+    return unless publication
+
+    publication.published? || publication.superseded?
   end
 
   def publication_url

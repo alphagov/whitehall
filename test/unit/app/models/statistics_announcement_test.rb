@@ -14,6 +14,13 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement.touch
   end
 
+  test "publish_redirect_to_publication publishes a redirect to the publication URL (on touch) if the publication is superseded" do
+    announcement = create(:statistics_announcement)
+    publication = create(:superseded_statistics, publication_type_id: PublicationType::OfficialStatistics.id, statistics_announcement: announcement)
+    Whitehall::PublishingApi.expects(:publish_redirect_async).with(announcement.content_id, publication.base_path)
+    announcement.touch
+  end
+
   test "only statistical publication types are valid" do
     assert build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id).valid?
     assert build(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id).valid?
