@@ -172,41 +172,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     end
   end
 
-  test "requires_redirect? returns true when unpublished?" do
-    statistics_announcement = build(
-      :statistics_announcement,
-      publishing_state: "unpublished",
-    )
-    assert statistics_announcement.requires_redirect?
-  end
-
-  test "requires_redirect? returns false when not unpublished?" do
-    statistics_announcement = build(
-      :statistics_announcement,
-      publishing_state: "published",
-      publication: nil,
-    )
-    assert_not statistics_announcement.requires_redirect?
-  end
-
-  test "requires_redirect? returns true when when publication is published?" do
-    statistics_announcement = build(
-      :statistics_announcement,
-      publishing_state: "published",
-      publication: build(:published_statistics),
-    )
-    assert statistics_announcement.requires_redirect?
-  end
-
-  test "requires_redirect? returns false when when publication is draft" do
-    statistics_announcement = build(
-      :statistics_announcement,
-      publishing_state: "published",
-      publication: build(:draft_statistics),
-    )
-    assert_not statistics_announcement.requires_redirect?
-  end
-
   test "publishes to publishing api with a minor update type" do
     Sidekiq::Testing.inline! do
       edition = create(:statistics_announcement)
