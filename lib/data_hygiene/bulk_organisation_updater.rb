@@ -171,9 +171,7 @@ module DataHygiene
     end
 
     def update_edition(edition, new_lead_organisations, new_supporting_organisations)
-      return false if
-        edition.lead_organisations == new_lead_organisations &&
-          edition.supporting_organisations == new_supporting_organisations
+      return false if edition_orgs_unchanged?(edition, new_lead_organisations, new_supporting_organisations)
 
       edition.update( # rubocop:disable Rails/SaveBang
         lead_organisations: new_lead_organisations,
@@ -181,6 +179,11 @@ module DataHygiene
       )
 
       true
+    end
+
+    def edition_orgs_unchanged?(edition, new_lead_organisations, new_supporting_organisations)
+      edition.lead_organisations == new_lead_organisations &&
+        edition.supporting_organisations == new_supporting_organisations
     end
 
     def update_statistics_announcement(document, new_organisations)
