@@ -41,4 +41,19 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
     publisher = EditionForcePublisher.new(edition)
     assert_not publisher.can_perform?
   end
+
+  test "#perform! clears the edition's auth_bypass_id" do
+    edition = create(:draft_edition, :with_auth_bypass_id)
+
+    assert EditionForcePublisher.new(edition).perform!
+    assert_nil edition.reload.auth_bypass_id
+  end
+
+  test "#perform! propagates the cleared auth_bypass_id to assets when the edition previously had a token" do
+    edition = create(:draft_edition, :with_auth_bypass_id)
+
+    EditionAuthBypassAssetPropagator.any_instance.expects(:propagate).once
+
+    EditionForcePublisher.new(edition).perform!
+  end
 end

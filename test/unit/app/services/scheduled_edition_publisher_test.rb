@@ -40,4 +40,21 @@ class ScheduledEditionPublisherTest < ActiveSupport::TestCase
     assert publisher.perform!
     assert edition.published?
   end
+
+  test "#perform! clears the edition's auth_bypass_id" do
+    edition = create(:scheduled_edition, :with_auth_bypass_id, scheduled_publication: 1.hour.ago)
+    publisher = ScheduledEditionPublisher.new(edition)
+
+    assert publisher.perform!
+    assert_nil edition.reload.auth_bypass_id
+  end
+
+  test "#perform! propagates the cleared auth_bypass_id to assets when the edition previously had a token" do
+    edition = create(:scheduled_edition, :with_auth_bypass_id, scheduled_publication: 1.hour.ago)
+    publisher = ScheduledEditionPublisher.new(edition)
+
+    EditionAuthBypassAssetPropagator.any_instance.expects(:propagate).once
+
+    publisher.perform!
+  end
 end
