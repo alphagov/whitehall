@@ -7,6 +7,20 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal PublicationType::OfficialStatistics, announcement.publication_type
   end
 
+  test "publish_redirect_to_publication publishes a redirect to the publication URL (on touch) if the publication is published" do
+    announcement = create(:statistics_announcement)
+    publication = create(:published_statistics, publication_type_id: PublicationType::OfficialStatistics.id, statistics_announcement: announcement)
+    Whitehall::PublishingApi.expects(:publish_redirect_async).with(announcement.content_id, publication.base_path)
+    announcement.touch
+  end
+
+  test "publish_redirect_to_publication publishes a redirect to the publication URL (on touch) if the publication is superseded" do
+    announcement = create(:statistics_announcement)
+    publication = create(:superseded_statistics, publication_type_id: PublicationType::OfficialStatistics.id, statistics_announcement: announcement)
+    Whitehall::PublishingApi.expects(:publish_redirect_async).with(announcement.content_id, publication.base_path)
+    announcement.touch
+  end
+
   test "only statistical publication types are valid" do
     assert build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id).valid?
     assert build(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id).valid?
@@ -170,41 +184,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_difference %w[StatisticsAnnouncement.count StatisticsAnnouncementOrganisation.count], -1 do
       statistics_announcement.destroy
     end
-  end
-
-  test "requires_redirect? returns true when unpublished?" do
-    statistics_announcement = build(
-      :statistics_announcement,
-      publishing_state: "unpublished",
-    )
-    assert statistics_announcement.requires_redirect?
-  end
-
-  test "requires_redirect? returns false when not unpublished?" do
-    statistics_announcement = build(
-      :statistics_announcement,
-      publishing_state: "published",
-      publication: nil,
-    )
-    assert_not statistics_announcement.requires_redirect?
-  end
-
-  test "requires_redirect? returns true when when publication is published?" do
-    statistics_announcement = build(
-      :statistics_announcement,
-      publishing_state: "published",
-      publication: build(:published_statistics),
-    )
-    assert statistics_announcement.requires_redirect?
-  end
-
-  test "requires_redirect? returns false when when publication is draft" do
-    statistics_announcement = build(
-      :statistics_announcement,
-      publishing_state: "published",
-      publication: build(:draft_statistics),
-    )
-    assert_not statistics_announcement.requires_redirect?
   end
 
   test "publishes to publishing api with a minor update type" do

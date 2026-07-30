@@ -184,10 +184,6 @@ class StatisticsAnnouncement < ApplicationRecord
     publishing_state == "unpublished"
   end
 
-  def requires_redirect?
-    unpublished? || publication_has_been_published?
-  end
-
   def publishing_api_presenter
     PublishingApi::StatisticsAnnouncementPresenter
   end
@@ -213,7 +209,9 @@ private
   end
 
   def publication_has_been_published?
-    publication && publication.published?
+    return unless publication
+
+    publication.published? || publication.superseded?
   end
 
   def publication_url
