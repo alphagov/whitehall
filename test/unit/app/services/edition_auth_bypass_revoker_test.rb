@@ -34,5 +34,13 @@ class EditionAuthBypassRevokerTest < ActiveSupport::TestCase
 
       EditionAuthBypassRevoker.new(edition:, current_user: user, updater:).call
     end
+
+    test "persists the auth_bypass_id even when the edition is scheduled" do
+      edition = create(:scheduled_edition, :with_auth_bypass_id)
+
+      EditionAuthBypassRevoker.new(edition:, current_user: user, updater:).call
+
+      assert_nil edition.reload.auth_bypass_id
+    end
   end
 end

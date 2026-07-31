@@ -38,5 +38,14 @@ class EditionAuthBypassUpdaterTest < ActiveSupport::TestCase
 
       EditionAuthBypassUpdater.new(edition:, current_user: user, updater:).call
     end
+
+    test "persists the new auth_bypass_id even when the edition is scheduled" do
+      edition = create(:scheduled_edition, :with_auth_bypass_id)
+      SecureRandom.stubs(uuid: uid)
+
+      EditionAuthBypassUpdater.new(edition:, current_user: user, updater:).call
+
+      assert_equal uid, edition.reload.auth_bypass_id
+    end
   end
 end
