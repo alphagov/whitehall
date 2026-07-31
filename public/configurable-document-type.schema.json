@@ -465,6 +465,10 @@
               "type": "boolean",
               "description": "Whether the system can set the political flag at publish time, if the document is associated with at least one political organisation."
             },
+            "can_be_marked_political_by_system_based_on_minister": {
+              "type": "boolean",
+              "description": "Whether the system can set the political flag at publish time, if the document is associated with at least one ministerial role."
+            },
             "always_marked_political_by_system": {
               "type": "boolean",
               "description": "Whether the system always sets the political flag at publish time, regardless of associations."
@@ -481,16 +485,34 @@
                 "required": ["always_marked_political_by_system"]
               },
               "then": {
-                "anyOf": [
+                "allOf": [
                   {
-                    "not": {
-                      "required": ["can_be_marked_political_by_system_based_on_organisation"]
-                    }
+                    "anyOf": [
+                      {
+                        "not": {
+                          "required": ["can_be_marked_political_by_system_based_on_organisation"]
+                        }
+                      },
+                      {
+                        "properties": {
+                          "can_be_marked_political_by_system_based_on_organisation": { "const": false }
+                        }
+                      }
+                    ]
                   },
                   {
-                    "properties": {
-                      "can_be_marked_political_by_system_based_on_organisation": { "const": false }
-                    }
+                    "anyOf": [
+                      {
+                        "not": {
+                          "required": ["can_be_marked_political_by_system_based_on_minister"]
+                        }
+                      },
+                      {
+                        "properties": {
+                          "can_be_marked_political_by_system_based_on_minister": { "const": false }
+                        }
+                      }
+                    ]
                   }
                 ]
               }
@@ -505,6 +527,10 @@
                   {
                     "properties": { "can_be_marked_political_by_system_based_on_organisation": { "const": true } },
                     "required": ["can_be_marked_political_by_system_based_on_organisation"]
+                  },
+                  {
+                    "properties": { "can_be_marked_political_by_system_based_on_minister": { "const": true } },
+                    "required": ["can_be_marked_political_by_system_based_on_minister"]
                   }
                 ]
               },

@@ -40,6 +40,13 @@ class FatalityNoticeTest < ActiveSupport::TestCase
     assert_not fatality_notice.can_be_marked_political_by_publishers?
   end
 
+  test "cannot be marked political when associated with a minister" do
+    fatality_notice = build(:fatality_notice, role_appointments: [build(:ministerial_role_appointment)])
+
+    assert fatality_notice.is_associated_with_a_minister?
+    assert_not fatality_notice.can_be_marked_political_by_system_based_on_minister?
+  end
+
   test "is rendered by frontend" do
     assert FatalityNotice.new.rendering_app == Whitehall::RenderingApp::FRONTEND
   end

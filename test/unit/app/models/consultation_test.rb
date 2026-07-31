@@ -472,4 +472,11 @@ class ConsultationTest < ActiveSupport::TestCase
   test "is rendered by frontend" do
     assert Consultation.new.rendering_app == Whitehall::RenderingApp::FRONTEND
   end
+
+  test "can be marked political when associated with a minister" do
+    consultation = build(:consultation, role_appointments: [build(:ministerial_role_appointment)])
+
+    assert consultation.can_be_marked_political_by_system_based_on_minister?
+    assert consultation.is_associated_with_a_minister?
+  end
 end

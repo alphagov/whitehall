@@ -180,4 +180,11 @@ class PublicationTest < ActiveSupport::TestCase
     published_with_excluded = create(:published_publication_with_excluded_nations, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: "http://scotland.com")])
     assert_not published_with_excluded.all_nation_applicability_selected?
   end
+
+  test "can be marked political when associated with a minister" do
+    publication = build(:publication, role_appointments: [build(:ministerial_role_appointment)])
+
+    assert publication.can_be_marked_political_by_system_based_on_minister?
+    assert publication.is_associated_with_a_minister?
+  end
 end

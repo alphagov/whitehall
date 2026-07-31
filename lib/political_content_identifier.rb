@@ -18,7 +18,7 @@ class PoliticalContentIdentifier
 private
 
   def associated_with_a_minister?
-    edition.is_associated_with_a_minister?
+    edition.can_be_marked_political_by_system_based_on_minister? && edition.is_associated_with_a_minister?
   end
 
   def always_marked_political_by_system?

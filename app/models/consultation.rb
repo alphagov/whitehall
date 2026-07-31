@@ -153,6 +153,10 @@ class Consultation < Edition
     true
   end
 
+  def can_be_marked_political_by_system_based_on_minister?
+    true
+  end
+
 private
 
   def validate_consultation_principles

@@ -167,6 +167,10 @@ class Publication < Edition
     true unless NEVER_POLITICAL_PUBLICATION_TYPES.include?(publication_type)
   end
 
+  def can_be_marked_political_by_system_based_on_minister?
+    true
+  end
+
 private
 
   def attachment_required_before_moving_out_of_draft

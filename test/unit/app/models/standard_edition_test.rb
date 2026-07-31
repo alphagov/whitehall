@@ -304,6 +304,37 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal false, page_with_political_marking_not_allowed.can_be_marked_political_by_system_based_on_organisation?
   end
 
+  test "it allows the system to mark content as political based on minister if the configurable document type settings permit it" do
+    test_type_that_allows_marking_political_by_the_system =
+      build_configurable_document_type(
+        "test_type_that_allows_marking_political_by_the_system", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "can_be_marked_political_by_system_based_on_minister" => true,
+            },
+          },
+        }
+      )
+    test_type_that_does_not_allow_marking_political_by_the_system =
+      build_configurable_document_type(
+        "test_type_that_does_not_allow_marking_political_by_the_system", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "can_be_marked_political_by_system_based_on_minister" => false,
+            },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_that_allows_marking_political_by_the_system.merge(test_type_that_does_not_allow_marking_political_by_the_system))
+    page_with_political_marking_allowed = StandardEdition.new(configurable_document_type: "test_type_that_allows_marking_political_by_the_system")
+    page_with_political_marking_not_allowed = StandardEdition.new(configurable_document_type: "test_type_that_does_not_allow_marking_political_by_the_system")
+    assert page_with_political_marking_allowed.can_be_marked_political_by_system_based_on_minister?
+    assert_equal false, page_with_political_marking_not_allowed.can_be_marked_political_by_system_based_on_minister?
+  end
+
   test "it does not allow publishers nor system to mark content as political if the settings don't enable history mode" do
     test_type_with_history_mode_disabled =
       build_configurable_document_type(
@@ -312,6 +343,7 @@ class StandardEditionTest < ActiveSupport::TestCase
             "history_mode" => {
               "enabled" => false,
               "can_be_marked_political_by_system_based_on_organisation" => true,
+              "can_be_marked_political_by_system_based_on_minister" => true,
               "can_be_marked_political_by_publishers" => true,
             },
           },
@@ -322,6 +354,7 @@ class StandardEditionTest < ActiveSupport::TestCase
     page_with_history_mode_disabled = StandardEdition.new(configurable_document_type: "test_type_with_history_mode_disabled")
     assert_equal false, page_with_history_mode_disabled.can_be_marked_political_by_publishers?
     assert_equal false, page_with_history_mode_disabled.can_be_marked_political_by_system_based_on_organisation?
+    assert_equal false, page_with_history_mode_disabled.can_be_marked_political_by_system_based_on_minister?
   end
 
   test "it does not allow publishers nor system to mark content as political if the settings are not present" do
@@ -340,6 +373,7 @@ class StandardEditionTest < ActiveSupport::TestCase
     page_with_no_publisher_nor_system_option = StandardEdition.new(configurable_document_type: "test_type_with_no_publisher_nor_system_option")
     assert_equal false, page_with_no_publisher_nor_system_option.can_be_marked_political_by_publishers?
     assert_equal false, page_with_no_publisher_nor_system_option.can_be_marked_political_by_system_based_on_organisation?
+    assert_equal false, page_with_no_publisher_nor_system_option.can_be_marked_political_by_system_based_on_minister?
     assert_equal false, page_with_no_publisher_nor_system_option.always_marked_political_by_system?
   end
 
@@ -405,6 +439,25 @@ class StandardEditionTest < ActiveSupport::TestCase
     ConfigurableDocumentType.setup_test_types(always_political_test_type)
     always_political_page = StandardEdition.new(configurable_document_type: "always_political_test_type")
     assert_equal false, always_political_page.can_be_marked_political_by_system_based_on_organisation?
+  end
+
+  test "it does not allow system to mark content as political based on minister, if always political" do
+    always_political_test_type =
+      build_configurable_document_type(
+        "always_political_test_type", {
+          "settings" => {
+            "history_mode" => {
+              "enabled" => true,
+              "can_be_marked_political_by_system_based_on_minister" => true,
+              "always_marked_political_by_system" => true,
+            },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(always_political_test_type)
+    always_political_page = StandardEdition.new(configurable_document_type: "always_political_test_type")
+    assert_equal false, always_political_page.can_be_marked_political_by_system_based_on_minister?
   end
 
   test "it allows publishers to change political flag via the UI, even if document is always marked political by system" do

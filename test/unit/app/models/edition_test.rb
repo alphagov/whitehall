@@ -781,6 +781,18 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.can_be_marked_political_by_system_based_on_organisation?
   end
 
+  test "cannot be marked political by system based on minister, as a default" do
+    edition = build(:edition)
+
+    assert_not edition.can_be_marked_political_by_system_based_on_minister?
+  end
+
+  test "cannot be marked political by system based on minister, if history mode disabled" do
+    edition = build(:edition)
+
+    assert_not edition.can_be_marked_political_by_system_based_on_minister?
+  end
+
   test "cannot be marked political by system, by default" do
     edition = build(:edition)
 
@@ -792,6 +804,13 @@ class EditionTest < ActiveSupport::TestCase
     edition.stubs(:always_marked_political_by_system?).returns(true)
 
     assert_not edition.can_be_marked_political_by_system_based_on_organisation?
+  end
+
+  test "cannot be marked political by system based on minister if always political" do
+    edition = build(:edition)
+    edition.stubs(:always_marked_political_by_system?).returns(true)
+
+    assert_not edition.can_be_marked_political_by_system_based_on_minister?
   end
 
   test "#historic? is true when political and from a previous government" do

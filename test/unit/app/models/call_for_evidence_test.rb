@@ -417,4 +417,11 @@ class CallForEvidenceTest < ActiveSupport::TestCase
   test "is rendered by frontend" do
     assert CallForEvidence.new.rendering_app == Whitehall::RenderingApp::FRONTEND
   end
+
+  test "can be marked political when associated with a minister" do
+    call_for_evidence = build(:call_for_evidence, role_appointments: [build(:ministerial_role_appointment)])
+
+    assert call_for_evidence.can_be_marked_political_by_system_based_on_minister?
+    assert call_for_evidence.is_associated_with_a_minister?
+  end
 end

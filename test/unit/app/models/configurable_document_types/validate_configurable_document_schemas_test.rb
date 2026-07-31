@@ -121,19 +121,27 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
           document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_organisation"] = true
           assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode/enabled` is not: true", "History mode must be enabled if `can_be_marked_political_by_system_based_on_organisation` is set to true."
         end
+
+        it "is not valid if type has `can_be_marked_political_by_system_based_on_minister` true, and `enabled` is false" do
+          document["settings"]["history_mode"]["enabled"] = false
+          document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_minister"] = true
+          assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode/enabled` is not: true", "History mode must be enabled if `can_be_marked_political_by_system_based_on_minister` is set to true."
+        end
       end
 
       context "validates that if type has `always_marked_political_by_system` true, then other system settings are not allowed" do
-        it "is valid if type has `always_marked_political_by_system` true, and `can_be_marked_political_by_system_based_on_organisation` is false" do
+        it "is valid if type has `always_marked_political_by_system` true, and other system settings are false" do
           document["settings"]["history_mode"]["always_marked_political_by_system"] = true
           document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_organisation"] = false
+          document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_minister"] = false
           errors = SchemaValidator.for(document)
           assert errors.empty?
         end
 
-        it "is valid if type has `always_marked_political_by_system` true, and `can_be_marked_political_by_system_based_on_organisation` is omitted" do
+        it "is valid if type has `always_marked_political_by_system` true, and other system settings are omitted" do
           document["settings"]["history_mode"]["always_marked_political_by_system"] = true
           document["settings"]["history_mode"].delete("can_be_marked_political_by_system_based_on_organisation")
+          document["settings"]["history_mode"].delete("can_be_marked_political_by_system_based_on_minister")
           errors = SchemaValidator.for(document)
           assert errors.empty?
         end
@@ -142,6 +150,12 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
           document["settings"]["history_mode"]["always_marked_political_by_system"] = true
           document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_organisation"] = true
           assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode` matches `not` schema", "`can_be_marked_political_by_system_based_on_organisation` cannot be true when `always_marked_political_by_system` is true"
+        end
+
+        it "is invalid if type has `always_marked_political_by_system` true, and `can_be_marked_political_by_system_based_on_minister` is true" do
+          document["settings"]["history_mode"]["always_marked_political_by_system"] = true
+          document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_minister"] = true
+          assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode` matches `not` schema", "`can_be_marked_political_by_system_based_on_minister` cannot be true when `always_marked_political_by_system` is true"
         end
       end
     end

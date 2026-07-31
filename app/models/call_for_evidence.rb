@@ -151,6 +151,10 @@ class CallForEvidence < Edition
     true
   end
 
+  def can_be_marked_political_by_system_based_on_minister?
+    true
+  end
+
 private
 
   def all_blank_or_empty_hashes(attributes)

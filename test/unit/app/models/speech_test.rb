@@ -121,6 +121,13 @@ class SpeechTest < ActiveSupport::TestCase
     assert_not build(:speech, role_appointment: build(:board_member_role_appointment)).delivered_by_minister?
   end
 
+  test "can be marked political when associated with a minister" do
+    speech = build(:speech, role_appointment: build(:ministerial_role_appointment))
+
+    assert speech.can_be_marked_political_by_system_based_on_minister?
+    assert speech.is_associated_with_a_minister?
+  end
+
   test "can associate a speech with a (legacy) topical event" do
     speech = create(:speech)
     speech.topical_events << TopicalEvent.new(name: "foo", description: "bar", summary: "test")

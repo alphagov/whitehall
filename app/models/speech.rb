@@ -60,6 +60,10 @@ class Speech < Edition
     true
   end
 
+  def can_be_marked_political_by_system_based_on_minister?
+    true
+  end
+
 private
 
   def date_for_government

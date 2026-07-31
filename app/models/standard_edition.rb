@@ -108,6 +108,12 @@ class StandardEdition < Edition
     type_instance.settings.dig("history_mode", "can_be_marked_political_by_system_based_on_organisation") || false
   end
 
+  def can_be_marked_political_by_system_based_on_minister?
+    return false if always_marked_political_by_system? || !history_mode_enabled?
+
+    type_instance.settings.dig("history_mode", "can_be_marked_political_by_system_based_on_minister") || false
+  end
+
   def always_marked_political_by_system?
     return false unless history_mode_enabled?
 
