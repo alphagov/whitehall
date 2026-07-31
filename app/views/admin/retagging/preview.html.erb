@@ -15,6 +15,9 @@
         {
           text: "Supporting organisations",
         },
+        {
+          text: "Access limiting organisations",
+        },
       ],
       rows: @docs_to_update.map do |hash|
         [
@@ -26,6 +29,9 @@
           },
           {
             text: hash[:supporting_orgs_summary],
+          },
+          {
+            text: hash[:access_limiting_orgs_summary],
           },
         ]
       end,

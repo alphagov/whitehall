@@ -132,20 +132,91 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
           slug: "some-slug",
           lead_orgs_summary: "Added new-lead-organisation, Removed old-lead-organisation. Result: new-lead-organisation",
           supporting_orgs_summary: "Added new-supporting-organisation, Removed old-supporting-organisation. Result: new-supporting-organisation",
+          access_limiting_orgs_summary: "Unchanged. Result: ",
         },
         {
           slug: "another-slug",
           lead_orgs_summary: "Reordered (from old-lead-organisation, new-lead-organisation). Result: new-lead-organisation, old-lead-organisation",
           supporting_orgs_summary: "Removed old-supporting-organisation. Result: ",
+          access_limiting_orgs_summary: "Unchanged. Result: ",
         },
         {
           slug: "final-slug",
           lead_orgs_summary: "Unchanged. Result: old-lead-organisation",
           supporting_orgs_summary: "Added new-supporting-organisation. Result: new-supporting-organisation",
+          access_limiting_orgs_summary: "Unchanged. Result: ",
         },
       ],
       updater.summarise_changes,
     )
+  end
+
+  test "it has a `summarise_changes` method that returns a hash summarising changes to access limiting organisations" do
+    raw_csv = <<~CSV
+      URL,Lead organisations,Supporting organisations
+      https://www.gov.uk/government/publications/no-access-limiting-orgs,new-lead-organisation,new-supporting-organisation
+      https://www.gov.uk/government/publications/additional-access-limiting-orgs,new-lead-organisation,new-supporting-organisation
+      https://www.gov.uk/government/publications/access-limiting-orgs-dont-change,new-lead-organisation,new-supporting-organisation
+    CSV
+
+    old_lead_org = create(:organisation, slug: "old-lead-organisation")
+    new_lead_org = create(:organisation, slug: "new-lead-organisation")
+    extra_access_limiting_org = create(:organisation, slug: "extra-access-limiting-organisation")
+    new_supporting_org = create(:organisation, slug: "new-supporting-organisation")
+    old_supporting_org = create(:organisation, slug: "old-supporting-organisation")
+
+    create(
+      :publication,
+      :draft,
+      title: "No access limiting orgs",
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [old_supporting_org],
+    )
+
+    create(
+      :publication,
+      :draft,
+      title: "Additional access limiting orgs",
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [old_supporting_org],
+      access_limiting: "organisations",
+      access_limiting_organisations: [old_lead_org, old_supporting_org, extra_access_limiting_org],
+    )
+
+    create(
+      :publication,
+      :draft,
+      title: "Access limiting orgs dont change",
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [old_supporting_org],
+      access_limiting: "organisations",
+      access_limiting_organisations: [new_lead_org, new_supporting_org],
+    )
+
+    updater = DataHygiene::BulkOrganisationUpdater.new(raw_csv)
+    updater.validate
+
+    assert_equal([], updater.errors)
+    assert_equal([
+      {
+        slug: "no-access-limiting-orgs",
+        lead_orgs_summary: "Added new-lead-organisation, Removed old-lead-organisation. Result: new-lead-organisation",
+        supporting_orgs_summary: "Added new-supporting-organisation, Removed old-supporting-organisation. Result: new-supporting-organisation",
+        access_limiting_orgs_summary: "Unchanged. Result: ",
+      },
+      {
+        slug: "additional-access-limiting-orgs",
+        lead_orgs_summary: "Added new-lead-organisation, Removed old-lead-organisation. Result: new-lead-organisation",
+        supporting_orgs_summary: "Added new-supporting-organisation, Removed old-supporting-organisation. Result: new-supporting-organisation",
+        access_limiting_orgs_summary: "Added new-lead-organisation, new-supporting-organisation, Removed old-lead-organisation, old-supporting-organisation. Result: extra-access-limiting-organisation, new-lead-organisation, new-supporting-organisation",
+      },
+      {
+        slug: "access-limiting-orgs-dont-change",
+        lead_orgs_summary: "Added new-lead-organisation, Removed old-lead-organisation. Result: new-lead-organisation",
+        supporting_orgs_summary: "Added new-supporting-organisation, Removed old-supporting-organisation. Result: new-supporting-organisation",
+        access_limiting_orgs_summary: "Unchanged. Result: new-lead-organisation, new-supporting-organisation",
+      },
+    ], updater.summarise_changes)
   end
 
   test "it fails with invalid CSV data" do
@@ -207,6 +278,82 @@ class DataHygiene::BulkOrganisationUpdaterTest < ActiveSupport::TestCase
     assert_equal [organisation1, organisation2], edition.reload.supporting_organisations
     assert_equal 1, PublishingApiDocumentRepublishingJob.jobs.size
     assert_equal edition.document.id, PublishingApiDocumentRepublishingJob.jobs.first["args"].first
+  end
+
+  test "it replaces previous lead and supporting orgs in the edition's access limiting orgs with the new lead and supporting orgs" do
+    csv_file = <<~CSV
+      URL,Lead organisations,Supporting organisations
+      https://www.gov.uk/government/publications/access-limited-edition,"lead-organisation-2","supporting-organisation-2"
+    CSV
+
+    old_lead_org = create(:organisation, slug: "lead-organisation-1")
+    new_lead_org = create(:organisation, slug: "lead-organisation-2")
+    old_supporting_org = create(:organisation, slug: "supporting-organisation-1")
+    new_supporting_org = create(:organisation, slug: "supporting-organisation-2")
+
+    edition = create(
+      :publication,
+      title: "access-limited-edition",
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [old_supporting_org],
+      access_limiting: "organisations",
+      access_limiting_organisations: [old_lead_org, old_supporting_org],
+    )
+
+    process(csv_file)
+
+    assert_same_elements edition.reload.access_limiting_organisations, [new_lead_org, new_supporting_org]
+  end
+
+  test "it retains access limiting orgs that were not previously lead or supporting organisations" do
+    csv_file = <<~CSV
+      URL,Lead organisations,Supporting organisations
+      https://www.gov.uk/government/publications/access-limited-edition,"lead-organisation-2","supporting-organisation-2"
+    CSV
+
+    old_lead_org = create(:organisation, slug: "lead-organisation-1")
+    create(:organisation, slug: "lead-organisation-2")
+    existing_access_limiting_org = create(:organisation, slug: "access-limiting-org")
+    old_supporting_org = create(:organisation, slug: "supporting-organisation-1")
+    create(:organisation, slug: "supporting-organisation-2")
+
+    edition = create(
+      :publication,
+      title: "access-limited-edition",
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [old_supporting_org],
+      access_limiting: "organisations",
+      access_limiting_organisations: [old_lead_org, old_supporting_org, existing_access_limiting_org],
+    )
+
+    process(csv_file)
+
+    assert_includes edition.reload.access_limiting_organisations, existing_access_limiting_org
+  end
+
+  test "it does not change access limiting on editions that were not access limited" do
+    csv_file = <<~CSV
+      URL,Lead organisations,Supporting organisations
+      https://www.gov.uk/government/publications/access-limited-edition,"lead-organisation-2","supporting-organisation-2"
+    CSV
+
+    old_lead_org = create(:organisation, slug: "lead-organisation-1")
+    create(:organisation, slug: "lead-organisation-2")
+    old_supporting_org = create(:organisation, slug: "supporting-organisation-1")
+    create(:organisation, slug: "supporting-organisation-2")
+
+    edition = create(
+      :publication,
+      title: "access-limited-edition",
+      lead_organisations: [old_lead_org],
+      supporting_organisations: [old_supporting_org],
+      access_limiting: "none",
+    )
+
+    process(csv_file)
+
+    assert_equal edition.reload.access_limiting_organisations.empty?, true
+    assert_equal edition.access_limiting, "none"
   end
 
   test "it just updates the draft when there is not a change to the published edition" do
