@@ -135,6 +135,41 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
     assert_equal @second_edition.major_change_published_at, @first_edition.major_change_published_at
   end
 
+  test "delete updates major_change_published_at of all subsequent minor editions" do
+    login_as :gds_admin
+
+    @document = create(:document)
+    @first_edition_major = create(:edition, :superseded, change_note: "First change note", major_change_published_at: "2022-12-01 10:00:05", document: @document)
+    @second_edition_major = create(:edition, :superseded, change_note: "Second change note", major_change_published_at: "2022-12-02 15:00:05", document: @document)
+    @third_edition_minor = create(:edition, :superseded, change_note: nil, minor_change: true, major_change_published_at: @second_edition_major.major_change_published_at, document: @document)
+    @current_edition_minor = create(:edition, :published, change_note: nil, minor_change: true, major_change_published_at: @second_edition_major.major_change_published_at, document: @document)
+
+    delete :destroy, params: { edition_id: @current_edition_minor.id, id: @second_edition_major.id }
+
+    assert_equal @first_edition_major.major_change_published_at, @third_edition_minor.reload.major_change_published_at
+    assert_equal @first_edition_major.major_change_published_at, @current_edition_minor.reload.major_change_published_at
+  end
+
+  test "delete does not overwrite major_change_published_at of subsequent major edition (and any subsequent editions from that)" do
+    login_as :gds_admin
+
+    @document = create(:document)
+    @first_edition_major = create(:edition, :superseded, change_note: "First change note", major_change_published_at: "2022-12-01 10:00:05", document: @document)
+    @second_edition_minor = create(:edition, :superseded, change_note: nil, minor_change: true, major_change_published_at: "2022-12-01 10:00:05", document: @document)
+    @third_edition_major = create(:edition, :published, change_note: "Third change note", major_change_published_at: "2022-12-02 15:00:05", document: @document)
+    @fourth_edition_minor = create(:edition, :published, change_note: nil, minor_change: true, major_change_published_at: "2022-12-02 15:00:05", document: @document)
+    @fifth_edition_major = create(:edition, :published, change_note: "Fifth change note", major_change_published_at: "2022-12-03 15:00:05", document: @document)
+    @sixth_edition_minor = create(:edition, :published, change_note: nil, minor_change: true, major_change_published_at: "2022-12-03 15:00:05", document: @document)
+
+    delete :destroy, params: { edition_id: @sixth_edition_minor.id, id: @third_edition_major.id }
+
+    assert_equal @second_edition_minor.reload.major_change_published_at.to_s, "2022-12-01 10:00:05 +0000" #  unchanged
+    assert_equal @third_edition_major.reload.major_change_published_at.to_s, "2022-12-01 10:00:05 +0000" #  updated
+    assert_equal @fourth_edition_minor.reload.major_change_published_at.to_s, "2022-12-01 10:00:05 +0000" #  updated
+    assert_equal @fifth_edition_major.reload.major_change_published_at.to_s, "2022-12-03 15:00:05 +0000" #  unchanged
+    assert_equal @sixth_edition_minor.reload.major_change_published_at.to_s, "2022-12-03 15:00:05 +0000" #  unchanged
+  end
+
   test "delete republishes the document" do
     login_as :gds_admin
 
