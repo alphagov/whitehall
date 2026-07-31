@@ -2,6 +2,7 @@ class Admin::EditionChangeNotesController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
   before_action :limit_edition_access!
+  before_action :redirect_to_latest_edition_if_not_latest
   def index
     @change_notes = @edition
       .document
@@ -52,6 +53,15 @@ class Admin::EditionChangeNotesController < Admin::BaseController
     edition_to_change.major_change_published_at = edition_to_change.document.editions.where(minor_change: false).where("id < ?", edition_to_change.id).last.try(:major_change_published_at)
     edition_to_change.save!(validate: false)
 
+    # We also need to overwrite any 'newer' minor change editions with the revised 'major_change_published_at'
+    # until/unless we encounter the next major change edition (at which point we stop overwriting)
+    edition_to_change.document.editions.where("id > ?", edition_to_change.id).find_each do |newer_edition|
+      break unless newer_edition.minor_change
+
+      newer_edition.major_change_published_at = edition_to_change.major_change_published_at
+      newer_edition.save!(validate: false)
+    end
+
     EditorialRemark.create!(
       edition: edition_to_change,
       body: "Deleted change note: #{old_change_note}",
@@ -75,5 +85,12 @@ private
   def find_edition
     edition = Edition.find(params[:edition_id])
     @edition = LocalisedModel.new(edition, edition.primary_locale)
+  end
+
+  def redirect_to_latest_edition_if_not_latest
+    latest_edition = @edition.document.latest_edition
+    return if @edition.id == latest_edition.id
+
+    redirect_to admin_edition_change_notes_path(edition_id: latest_edition.id)
   end
 end
