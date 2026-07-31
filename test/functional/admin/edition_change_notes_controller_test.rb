@@ -20,6 +20,14 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  test "redirects to the latest edition if the edition is not the latest" do
+    login_as :gds_admin
+
+    get :index, params: { edition_id: @first_edition.id }
+
+    assert_redirected_to admin_edition_change_notes_path(edition_id: @current_edition.id)
+  end
+
   view_test "index lists all the published major changes" do
     login_as :gds_admin
 
