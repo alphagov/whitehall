@@ -591,31 +591,99 @@
     "title",
     "description"
   ],
-  "if": {
-    "properties": {
-      "settings": {
+  "allOf": [
+    {
+      "if": {
         "properties": {
-          "images": {
+          "settings": {
             "properties": {
-              "enabled": { "const": false }
+              "images": {
+                "properties": {
+                  "enabled": { "const": false }
+                }
+              }
             }
           }
         }
-      }
-    }
-  },
-  "then": {
-    "properties": {
-      "forms": {
+      },
+      "then": {
         "properties": {
-          "images": {
-            "maxProperties": 0,
-            "x-error": {
-              "maxProperties": "forms/images cannot be defined if settings/images/enabled is `false`"
+          "forms": {
+            "properties": {
+              "images": {
+                "maxProperties": 0,
+                "x-error": {
+                  "maxProperties": "forms/images cannot be defined if settings/images/enabled is `false`"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "settings": {
+            "properties": {
+              "history_mode": {
+                "properties": {
+                  "can_be_marked_political_by_system_based_on_organisation": { "const": true }
+                },
+                "required": ["can_be_marked_political_by_system_based_on_organisation"]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "forms": {
+            "properties": {
+              "documents": {
+                "properties": {
+                  "fields": {
+                    "required": ["lead_organisations"]
+                  }
+                },
+                "required": ["fields"]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "settings": {
+            "properties": {
+              "history_mode": {
+                "properties": {
+                  "can_be_marked_political_by_system_based_on_minister": { "const": true }
+                },
+                "required": ["can_be_marked_political_by_system_based_on_minister"]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "forms": {
+            "properties": {
+              "documents": {
+                "properties": {
+                  "fields": {
+                    "required": ["ministerial_role_appointments"]
+                  }
+                },
+                "required": ["fields"]
+              }
             }
           }
         }
       }
     }
-  }
+  ]
 }

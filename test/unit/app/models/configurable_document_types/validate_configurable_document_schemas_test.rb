@@ -118,6 +118,12 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
 
         it "is not valid if type has `can_be_marked_political_by_system_based_on_organisation` true, and `enabled` is false" do
           document["settings"]["history_mode"]["enabled"] = false
+          document["forms"]["documents"]["fields"]["lead_organisations"] = {
+            "title": "Lead organisations",
+            "block": "ordered_select_with_search_tagging",
+            "attribute_path": %w[lead_organisation_ids],
+            "translatable": false,
+          }
           document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_organisation"] = true
           assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode/enabled` is not: true", "History mode must be enabled if `can_be_marked_political_by_system_based_on_organisation` is set to true."
         end
@@ -125,6 +131,12 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
         it "is not valid if type has `can_be_marked_political_by_system_based_on_minister` true, and `enabled` is false" do
           document["settings"]["history_mode"]["enabled"] = false
           document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_minister"] = true
+          document["forms"]["documents"]["fields"]["ministerial_role_appointments"] = {
+            "title": "Ministers",
+            "block": "select_with_search_tagging",
+            "attribute_path": %w[role_appointment_ids],
+            "translatable": false,
+          }
           assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode/enabled` is not: true", "History mode must be enabled if `can_be_marked_political_by_system_based_on_minister` is set to true."
         end
       end
@@ -149,13 +161,39 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
         it "is invalid if type has `always_marked_political_by_system` true, and `can_be_marked_political_by_system_based_on_organisation` is true" do
           document["settings"]["history_mode"]["always_marked_political_by_system"] = true
           document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_organisation"] = true
+          document["forms"]["documents"]["fields"]["lead_organisations"] = {
+            "title": "Lead organisations",
+            "block": "ordered_select_with_search_tagging",
+            "attribute_path": %w[lead_organisation_ids],
+            "translatable": false,
+          }
           assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode` matches `not` schema", "`can_be_marked_political_by_system_based_on_organisation` cannot be true when `always_marked_political_by_system` is true"
         end
 
         it "is invalid if type has `always_marked_political_by_system` true, and `can_be_marked_political_by_system_based_on_minister` is true" do
           document["settings"]["history_mode"]["always_marked_political_by_system"] = true
           document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_minister"] = true
+          document["forms"]["documents"]["fields"]["ministerial_role_appointments"] = {
+            "title": "Ministers",
+            "block": "select_with_search_tagging",
+            "attribute_path": %w[role_appointment_ids],
+            "translatable": false,
+          }
           assert_equal SchemaValidator.for(document).first, "value at `/settings/history_mode` matches `not` schema", "`can_be_marked_political_by_system_based_on_minister` cannot be true when `always_marked_political_by_system` is true"
+        end
+      end
+
+      context "validates that associations are defined if political options based on associations are enabled" do
+        it "is invalid if type has `can_be_marked_political_by_system_based_on_organisation` true, and organisations association is not defined" do
+          document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_organisation"] = true
+          document["forms"]["documents"].delete("lead_organisations")
+          assert_equal SchemaValidator.for(document).first, "object at `/forms/documents/fields` is missing required properties: lead_organisations", "Forms must define organisations association when `can_be_marked_political_by_system_based_on_organisation` is true"
+        end
+
+        it "is invalid if type has `can_be_marked_political_by_system_based_on_minister` true, and ministers association is not defined" do
+          document["settings"]["history_mode"]["can_be_marked_political_by_system_based_on_minister"] = true
+          document["forms"]["documents"].delete("ministerial_role_appointments")
+          assert_equal SchemaValidator.for(document).first, "object at `/forms/documents/fields` is missing required properties: ministerial_role_appointments", "Forms must define organisations association when `can_be_marked_political_by_system_based_on_organisation` is true"
         end
       end
     end
