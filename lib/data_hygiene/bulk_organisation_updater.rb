@@ -35,7 +35,7 @@ module DataHygiene
     def summarise_changes
       @validated_rows.map do |hash|
         {
-          slug: hash[:document].live_edition.slug,
+          slug: hash[:document].latest_edition.slug,
           lead_orgs_summary: diff_orgs(
             hash[:document].latest_edition.lead_organisations.map(&:slug),
             hash[:lead_orgs].map(&:slug),
