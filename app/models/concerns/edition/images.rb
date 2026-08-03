@@ -2,7 +2,7 @@ module Edition::Images
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(edition)
+    def process_associations_after_draft_creation(edition)
       @edition.images.each do |a|
         image = edition.images.build(a.attributes.except("id"))
         if image.invalid?
