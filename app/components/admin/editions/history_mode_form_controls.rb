@@ -5,7 +5,7 @@ class Admin::Editions::HistoryModeFormControls < ViewComponent::Base
   end
 
   def render?
-    @edition.document&.live? && @edition.can_be_marked_political? && @enforcer.can?(:mark_political)
+    @edition.document&.live? && @edition.can_be_marked_political_by_publishers? && @enforcer.can?(:mark_political)
   end
 
   def renders_government_selector?

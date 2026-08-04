@@ -32,7 +32,7 @@ class FatalityNoticeTest < ActiveSupport::TestCase
 
   test "is not able to be marked political" do
     fatality_notice = build(:fatality_notice)
-    assert_not fatality_notice.can_be_marked_political?
+    assert_not fatality_notice.can_be_marked_political_by_publishers?
   end
 
   test "is rendered by frontend" do
