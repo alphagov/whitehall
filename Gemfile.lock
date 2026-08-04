@@ -464,7 +464,7 @@ GEM
     mize (0.6.1)
     mocha (3.1.0)
       ruby2_keywords (>= 0.0.5)
-    msgpack (1.8.1)
+    msgpack (1.8.2)
     multi_json (1.20.1)
     multi_test (1.1.0)
     multi_xml (0.9.1)
