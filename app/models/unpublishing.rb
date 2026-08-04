@@ -75,7 +75,8 @@ class Unpublishing < ApplicationRecord
   end
 
   def archived_url
-    full_address = "https://www.gov.uk#{edition.base_path}"
+    locale_suffix = I18n.locale == :en ? "" : ".#{I18n.locale}"
+    full_address = "https://www.gov.uk#{edition.base_path}#{locale_suffix}"
 
     "https://webarchive.nationalarchives.gov.uk/ukgwa/#{full_address}"
   end
