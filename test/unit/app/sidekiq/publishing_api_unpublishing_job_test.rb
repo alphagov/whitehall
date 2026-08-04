@@ -85,6 +85,32 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
     PublishingApiUnpublishingJob.new.perform(unpublished_edition.unpublishing.id)
   end
 
+  test "sets I18n.locale for each available locale" do
+    stub_request(:any, %r{\Ahttps://webarchive\.nationalarchives\.gov\.uk/}).to_return(status: 307, body: "", headers: {})
+
+    unpublished_edition = create(
+      :standard_edition,
+      :unpublished_archived,
+    )
+    unpublished_edition.translations.create!(locale: :fr)
+
+    unpublishing = unpublished_edition.unpublishing
+
+    locales_seen = []
+
+    PublishingApiGoneJob.stubs(:new).returns(job = mock)
+
+    job.stubs(:perform).with do |_, _, _, locale, _|
+      locales_seen << [locale, I18n.locale]
+      true
+    end
+
+    PublishingApiUnpublishingJob.new.perform(unpublishing.id)
+
+    assert_includes locales_seen, ["en", :en]
+    assert_includes locales_seen, ["fr", :fr]
+  end
+
   test "passes allow_draft if supplied" do
     unpublished_edition = create(
       :withdrawn_edition,

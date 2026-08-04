@@ -8,16 +8,41 @@ class PublishingApiUnpublishingJob < JobBase
     content_id = Document.where(id: edition.document_id).pick(:content_id)
 
     edition.available_locales.each do |locale|
-      case unpublishing.unpublishing_reason_id
-      when UnpublishingReason::PUBLISHED_IN_ERROR_ID
-        if unpublishing.redirect?
+      I18n.with_locale(locale) do
+        case unpublishing.unpublishing_reason_id
+        when UnpublishingReason::PUBLISHED_IN_ERROR_ID
+          if unpublishing.redirect?
+            PublishingApiRedirectJob.new.perform(
+              content_id,
+              unpublishing.alternative_path,
+              locale.to_s,
+              allow_draft,
+            )
+          else
+            PublishingApiGoneJob.new.perform(
+              content_id,
+              unpublishing.alternative_path,
+              unpublishing.explanation,
+              locale.to_s,
+              allow_draft,
+            )
+          end
+        when UnpublishingReason::CONSOLIDATED_ID
           PublishingApiRedirectJob.new.perform(
             content_id,
             unpublishing.alternative_path,
             locale.to_s,
             allow_draft,
           )
-        else
+        when UnpublishingReason::WITHDRAWN_ID
+          PublishingApiWithdrawalJob.new.perform(
+            content_id,
+            unpublishing.explanation,
+            locale.to_s,
+            allow_draft,
+            unpublishing.unpublished_at.to_s,
+          )
+        when UnpublishingReason::ARCHIVED_ID
           PublishingApiGoneJob.new.perform(
             content_id,
             unpublishing.alternative_path,
@@ -26,29 +51,6 @@ class PublishingApiUnpublishingJob < JobBase
             allow_draft,
           )
         end
-      when UnpublishingReason::CONSOLIDATED_ID
-        PublishingApiRedirectJob.new.perform(
-          content_id,
-          unpublishing.alternative_path,
-          locale.to_s,
-          allow_draft,
-        )
-      when UnpublishingReason::WITHDRAWN_ID
-        PublishingApiWithdrawalJob.new.perform(
-          content_id,
-          unpublishing.explanation,
-          locale.to_s,
-          allow_draft,
-          unpublishing.unpublished_at.to_s,
-        )
-      when UnpublishingReason::ARCHIVED_ID
-        PublishingApiGoneJob.new.perform(
-          content_id,
-          unpublishing.alternative_path,
-          unpublishing.explanation,
-          locale.to_s,
-          allow_draft,
-        )
       end
     end
   end

@@ -141,7 +141,7 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     edition = create(:edition, :unpublished)
 
     stub_request(:head, edition.unpublishing.archived_url)
-      .to_return(status: 200, body: "", headers: {})
+      .to_return(status: 307, body: "", headers: {})
 
     edition.unpublishing.unpublishing_reason_id = UnpublishingReason::ARCHIVED_ID
     edition.unpublishing.save!

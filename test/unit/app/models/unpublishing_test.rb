@@ -186,9 +186,30 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, unpublishing_reason: UnpublishingReason::Archived)
 
     stub_request(:head, unpublishing.archived_url)
-      .to_return(status: 200, body: "", headers: {})
+      .to_return(status: 307, body: "", headers: {})
 
     assert unpublishing.valid?
+  end
+
+  test "#archived_url returns the localised URL for The National Archives" do
+    edition = create(:detailed_guide, :draft)
+    unpublishing = build(
+      :unpublishing,
+      edition:,
+      unpublishing_reason: UnpublishingReason::Archived,
+    )
+
+    stub_request(:head, unpublishing.archived_url)
+      .to_return(status: 200, body: "", headers: {})
+
+    assert_equal "https://webarchive.nationalarchives.gov.uk/ukgwa/https://www.gov.uk#{unpublishing.document_path}", unpublishing.archived_url
+
+    with_locale(:cy) do
+      stub_request(:head, unpublishing.archived_url)
+        .to_return(status: 200, body: "", headers: {})
+
+      assert_equal "https://webarchive.nationalarchives.gov.uk/ukgwa/https://www.gov.uk#{unpublishing.document_path}.cy", unpublishing.archived_url
+    end
   end
 
   test "always redirects if the reason is Consolidated" do
