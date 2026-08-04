@@ -202,7 +202,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     stub_request(:head, unpublishing.archived_url)
       .to_return(status: 200, body: "", headers: {})
 
-    assert_equal "https://webarchive.nationalarchives.gov.uk/ukgwa/3000/https://www.gov.uk#{unpublishing.document_path}", unpublishing.archived_url
+    assert_equal "https://webarchive.nationalarchives.gov.uk/ukgwa/https://www.gov.uk#{unpublishing.document_path}", unpublishing.archived_url
   end
 
   test "always redirects if the reason is Consolidated" do

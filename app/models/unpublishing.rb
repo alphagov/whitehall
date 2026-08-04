@@ -77,7 +77,7 @@ class Unpublishing < ApplicationRecord
   def archived_url
     full_address = "https://www.gov.uk#{edition.base_path}"
 
-    "https://webarchive.nationalarchives.gov.uk/ukgwa/3000/#{full_address}"
+    "https://webarchive.nationalarchives.gov.uk/ukgwa/#{full_address}"
   end
 
   # Because the edition may have been deleted, we need to find it unscoped to
