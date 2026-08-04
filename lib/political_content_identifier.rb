@@ -51,7 +51,7 @@ private
   end
 
   def potentially_political_standard_edition?
-    edition.is_a?(StandardEdition) && edition.can_be_marked_political?
+    edition.is_a?(StandardEdition) && edition.can_be_marked_political_by_publishers?
   end
 
   def potentially_political_publication?

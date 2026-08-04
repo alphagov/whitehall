@@ -92,7 +92,7 @@ class StandardEdition < Edition
     ].any? { |path| field_paths.include?(path) }
   end
 
-  def can_be_marked_political?
+  def can_be_marked_political_by_publishers?
     type_instance.settings["history_mode_enabled"]
   end
 

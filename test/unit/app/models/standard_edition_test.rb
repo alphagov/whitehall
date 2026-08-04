@@ -234,8 +234,8 @@ class StandardEditionTest < ActiveSupport::TestCase
     ConfigurableDocumentType.setup_test_types(test_type_with_history_mode.merge(test_type_without_history_mode))
     page_with_history_mode = StandardEdition.new(configurable_document_type: "test_type_with_history_mode")
     page_without_history_mode = StandardEdition.new(configurable_document_type: "test_type_without_history_mode")
-    assert page_with_history_mode.can_be_marked_political?
-    assert_not page_without_history_mode.can_be_marked_political?
+    assert page_with_history_mode.can_be_marked_political_by_publishers?
+    assert_not page_without_history_mode.can_be_marked_political_by_publishers?
   end
 
   test "it is invalid if the block content does not conform to the configurable document type schema validations" do

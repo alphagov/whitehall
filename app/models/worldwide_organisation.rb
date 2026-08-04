@@ -176,7 +176,7 @@ class WorldwideOrganisation < Edition
     false
   end
 
-  def can_be_marked_political?
+  def can_be_marked_political_by_publishers?
     false
   end
 
