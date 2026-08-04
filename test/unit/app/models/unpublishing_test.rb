@@ -191,6 +191,20 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.valid?
   end
 
+  test "#archived_url returns the URL for The National Archives" do
+    edition = create(:detailed_guide, :draft)
+    unpublishing = build(
+      :unpublishing,
+      edition:,
+      unpublishing_reason: UnpublishingReason::Archived,
+    )
+
+    stub_request(:head, unpublishing.archived_url)
+      .to_return(status: 200, body: "", headers: {})
+
+    assert_equal "https://webarchive.nationalarchives.gov.uk/ukgwa/3000/https://www.gov.uk#{unpublishing.document_path}", unpublishing.archived_url
+  end
+
   test "always redirects if the reason is Consolidated" do
     unpublishing = Unpublishing.new(unpublishing_reason: UnpublishingReason::Consolidated)
     assert unpublishing.redirect?
