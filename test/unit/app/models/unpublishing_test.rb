@@ -186,7 +186,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, unpublishing_reason: UnpublishingReason::Archived)
 
     stub_request(:head, unpublishing.archived_url)
-      .to_return(status: 200, body: "", headers: {})
+      .to_return(status: 307, body: "", headers: {})
 
     assert unpublishing.valid?
   end
