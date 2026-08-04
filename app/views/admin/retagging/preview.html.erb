@@ -3,7 +3,7 @@
 <% content_for :title_margin_bottom, 6 %>
 
 <div class="govuk-grid-row">
-  <section class="govuk-grid-column-full-width">
+  <section class="govuk-grid-column-full">
     <%= render "govuk_publishing_components/components/table", {
       head: [
         {
@@ -14,6 +14,9 @@
         },
         {
           text: "Supporting organisations",
+        },
+        {
+          text: "Access limiting organisations",
         },
       ],
       rows: @docs_to_update.map do |hash|
@@ -26,6 +29,9 @@
           },
           {
             text: hash[:supporting_orgs_summary],
+          },
+          {
+            text: hash[:access_limiting_orgs_summary],
           },
         ]
       end,

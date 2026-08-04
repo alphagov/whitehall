@@ -35,7 +35,7 @@ module DataHygiene
     def summarise_changes
       @validated_rows.map do |hash|
         {
-          slug: hash[:document].live_edition.slug,
+          slug: hash[:document].latest_edition.slug,
           lead_orgs_summary: diff_orgs(
             hash[:document].latest_edition.lead_organisations.map(&:slug),
             hash[:lead_orgs].map(&:slug),
@@ -43,6 +43,10 @@ module DataHygiene
           supporting_orgs_summary: diff_orgs(
             hash[:document].latest_edition.supporting_organisations.map(&:slug),
             hash[:supporting_orgs].map(&:slug),
+          ),
+          access_limiting_orgs_summary: diff_orgs(
+            hash[:document].latest_edition.access_limiting_organisations.map(&:slug),
+            new_access_limiting_orgs(hash[:document].latest_edition, hash[:lead_orgs], hash[:supporting_orgs]).map(&:slug),
           ),
         }
       end
@@ -171,16 +175,47 @@ module DataHygiene
     end
 
     def update_edition(edition, new_lead_organisations, new_supporting_organisations)
-      return false if
-        edition.lead_organisations == new_lead_organisations &&
-          edition.supporting_organisations == new_supporting_organisations
+      return false if edition_orgs_unchanged?(edition, new_lead_organisations, new_supporting_organisations)
 
       edition.update( # rubocop:disable Rails/SaveBang
         lead_organisations: new_lead_organisations,
         supporting_organisations: new_supporting_organisations,
+        access_limiting_organisations: new_access_limiting_orgs(edition, new_lead_organisations, new_supporting_organisations),
       )
 
       true
+    end
+
+    def edition_orgs_unchanged?(edition, new_lead_organisations, new_supporting_organisations)
+      edition.lead_organisations == new_lead_organisations &&
+        edition.supporting_organisations == new_supporting_organisations &&
+        edition_access_limiting_orgs_unchanged?(edition, new_lead_organisations, new_supporting_organisations)
+    end
+
+    def edition_access_limiting_orgs_unchanged?(edition, new_lead_organisations, new_supporting_organisations)
+      return true unless edition.access_limiting_organisations?
+
+      new_organisations = (new_lead_organisations + new_supporting_organisations).uniq
+
+      edition.access_limiting_organisations.none? do |organisation|
+        new_organisations.include?(organisation)
+      end
+    end
+
+    # the new access limiting orgs (ALOs) should be:
+    # - any existing access limiting orgs that are *not* being replaced in the retagging
+    #   (ie remove the current lead and support orgs from the existing list of ALOs)
+    # - the new lead orgs
+    # - the new supporting orgs
+    def new_access_limiting_orgs(edition, new_lead_organisations, new_supporting_organisations)
+      return [] unless edition.access_limiting_organisations?
+
+      new_alos = edition.access_limiting_organisations.reject do |alo|
+        edition.lead_organisations.include?(alo) || edition.supporting_organisations.include?(alo)
+      end
+      new_alos << new_lead_organisations
+      new_alos << new_supporting_organisations
+      new_alos.flatten.uniq
     end
 
     def update_statistics_announcement(document, new_organisations)
