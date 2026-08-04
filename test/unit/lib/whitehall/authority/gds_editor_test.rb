@@ -143,6 +143,16 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, :sitewide_settings_section).can?(:administer)
   end
 
+  test "can edit any organisation" do
+    user = gds_editor
+
+    editors_org = user.organisation
+    other_org = build(:organisation)
+
+    assert enforcer_for(user, editors_org).can?(:edit)
+    assert enforcer_for(user, other_org).can?(:edit)
+  end
+
   test "can manage featured links for any organisation" do
     user = gds_editor
 

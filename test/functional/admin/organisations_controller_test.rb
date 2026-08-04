@@ -359,8 +359,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "Non-admins can only edit their own organisations or children" do
     organisation1 = create(:organisation)
-    gds_editor = create(:gds_editor, organisation: organisation1)
-    login_as(gds_editor)
+    departmental_editor = create(:departmental_editor, organisation: organisation1)
+    login_as(departmental_editor)
 
     get :edit, params: { id: organisation1 }
     assert_response :success
@@ -370,6 +370,19 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_response :forbidden
 
     organisation2.parent_organisations << organisation1
+    get :edit, params: { id: organisation2 }
+    assert_response :success
+  end
+
+  test "GDS editors can edit any organisation" do
+    organisation1 = create(:organisation)
+    gds_editor = create(:gds_editor, organisation: organisation1)
+    login_as(gds_editor)
+
+    get :edit, params: { id: organisation1 }
+    assert_response :success
+
+    organisation2 = create(:organisation)
     get :edit, params: { id: organisation2 }
     assert_response :success
   end
