@@ -30,4 +30,9 @@ FactoryBot.define do
     redirect { false }
     explanation { "content was withdrawn" }
   end
+
+  factory :archived_unpublishing, parent: :unpublishing do
+    unpublishing_reason_id { UnpublishingReason::ARCHIVED_ID }
+    redirect { false }
+  end
 end

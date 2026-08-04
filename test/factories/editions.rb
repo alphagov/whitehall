@@ -176,6 +176,11 @@ FactoryBot.define do
       unpublishing { build(:consolidated_unpublishing) }
     end
 
+    trait(:unpublished_archived) do
+      state { :unpublished }
+      unpublishing { build(:archived_unpublishing) }
+    end
+
     trait(:withdrawn) do
       state { "withdrawn" }
       unpublishing { build(:withdrawn_unpublishing) }
