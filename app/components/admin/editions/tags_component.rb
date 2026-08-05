@@ -68,7 +68,7 @@ private
     when "Published"
       "govuk-tag--green"
     when "Scheduled"
-      "govuk-tag--turquoise"
+      "govuk-tag--teal"
     when "Rejected", "Dangerous links", "Broken links", "Limited access"
       "govuk-tag--red"
     when "Withdrawn", "Unpublished"
