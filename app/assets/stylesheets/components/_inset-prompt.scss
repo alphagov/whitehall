@@ -1,12 +1,12 @@
 .app-c-inset-prompt {
-  border-left: $govuk-border-width-narrow solid govuk-colour("dark-grey");
-  background-color: govuk-colour("light-grey");
+  border-left: $govuk-border-width-narrow solid govuk-colour("black", $variant: "tint-25");
+  background-color: govuk-colour("black", $variant: "tint-95");
   @include govuk-text-colour;
   @include govuk-responsive-padding(4);
   @include govuk-responsive-margin(6, "bottom");
 
   @include govuk-media-query($from: tablet) {
-    border-left: $govuk-border-width solid govuk-colour("dark-grey");
+    border-left: $govuk-border-width solid govuk-colour("black", $variant: "tint-25");
   }
 
   &:focus {

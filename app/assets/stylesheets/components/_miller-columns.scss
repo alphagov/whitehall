@@ -56,7 +56,7 @@
 
 $mc-transition-time: 400ms;
 $mc-selected-item-colour: govuk-colour("white");
-$mc-selected-item-background: govuk-colour("dark-grey");
+$mc-selected-item-background: govuk-colour("black", $variant: "tint-25");
 $mc-active-item-colour: govuk-colour("white");
 $mc-active-item-background: govuk-colour("blue");
 
