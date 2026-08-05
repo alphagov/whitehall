@@ -12,7 +12,7 @@
 
 .app-view-summary__topic-tag-list {
   padding-bottom: govuk-spacing(2);
-  border-bottom: 1px solid govuk-colour("light-grey");
+  border-bottom: 1px solid govuk-colour("black", $variant: "tint-95");
   @include govuk-font($size: 19);
 }
 
@@ -41,7 +41,7 @@
 .app-view-summary__sidebar-actions {
   padding: govuk-spacing(3);
   margin-bottom: govuk-spacing(6);
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour("black", $variant: "tint-95");
 }
 
 .app-view-summary__sidebar-actions .gem-c-button {
