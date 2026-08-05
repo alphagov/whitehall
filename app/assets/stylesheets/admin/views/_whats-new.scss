@@ -3,7 +3,7 @@
 }
 
 .app-view-whats-new__section {
-  border-bottom: 1px solid $govuk-border-colour;
+  border-bottom: 1px solid govuk-functional-colour(border);
   @include govuk-responsive-padding(5, "top");
   @include govuk-responsive-padding(5, "bottom");
 }

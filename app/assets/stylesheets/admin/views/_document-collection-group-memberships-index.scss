@@ -11,7 +11,7 @@
       display: inline-block;
       @include govuk-responsive-padding(2, "left");
       @include govuk-responsive-margin(2, "left");
-      border-left: 1px solid $govuk-border-colour;
+      border-left: 1px solid govuk-functional-colour(border);
 
       &:first-child {
         margin-left: 0;
