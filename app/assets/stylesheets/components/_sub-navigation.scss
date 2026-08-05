@@ -21,7 +21,7 @@
   position: relative;
 
   &::before {
-    background-color: $govuk-link-colour;
+    background-color: govuk-functional-colour(link);
     content: "";
     display: block;
     height: 5px;

@@ -15,7 +15,7 @@
 }
 
 .app-c-inset-prompt--error {
-  border-color: $govuk-error-colour;
+  border-color: govuk-functional-colour(error);
   background-color: govuk-colour("red", $variant: "tint-95");
   overflow-wrap: break-word;
   word-break: break-word;
@@ -51,7 +51,7 @@
   &:hover,
   &:active,
   &:focus {
-    color: $govuk-link-colour;
+    color: govuk-functional-colour(link);
     text-decoration: underline;
   }
 

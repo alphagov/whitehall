@@ -14,7 +14,7 @@
 }
 
 .app-c-govspeak-editor__preview {
-  border: 1px solid $govuk-border-colour;
+  border: 1px solid govuk-functional-colour(border);
   padding: govuk-spacing(4);
 }
 
