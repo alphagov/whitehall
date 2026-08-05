@@ -16,7 +16,7 @@
 
 .app-c-inset-prompt--error {
   border-color: $govuk-error-colour;
-  background-color: govuk-tint($govuk-error-colour, 90%);
+  background-color: govuk-colour("red", $variant: "tint-95");
   overflow-wrap: break-word;
   word-break: break-word;
 }
