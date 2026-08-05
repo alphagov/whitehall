@@ -738,7 +738,7 @@ GEM
       base64
       concurrent-ruby (>= 1.1.6)
       mime-types (>= 3.0)
-    plek (5.3.1)
+    plek (5.3.2)
     pp (0.6.4)
       prettyprint
     prettyprint (0.2.0)
