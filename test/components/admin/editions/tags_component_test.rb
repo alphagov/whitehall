@@ -31,7 +31,7 @@ class Admin::Editions::TagsComponentTest < ViewComponent::TestCase
     },
     {
       state: :scheduled,
-      expected_tag_classes: "govuk-tag govuk-tag--s govuk-tag--turquoise",
+      expected_tag_classes: "govuk-tag govuk-tag--s govuk-tag--teal",
       label_text: "Scheduled",
     },
     {
