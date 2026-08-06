@@ -89,7 +89,6 @@ module Whitehall::Authority::Rules
     def can_with_a_historic_instance?(action)
       return false if access_limit_enforced?
       return true if actor.gds_admin? || actor.gds_editor?
-      return true if actor.managing_editor? && subject.government.slug == "2024-starmer-labour-government" && action != :select_government_for_history_mode
 
       case action
       when :see
