@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_22_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_27_133017) do
   create_table "access_limiting_individuals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "edition_id", null: false
@@ -630,6 +630,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_22_120000) do
   create_table "images", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "caption", size: :medium
     t.datetime "created_at", precision: nil
+    t.boolean "deleted", default: false
     t.integer "edition_id"
     t.integer "image_data_id"
     t.datetime "updated_at", precision: nil
