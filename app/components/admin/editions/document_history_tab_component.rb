@@ -12,7 +12,9 @@ class Admin::Editions::DocumentHistoryTabComponent < ViewComponent::Base
 private
 
   def entries_on_newer_editions
-    @entries_on_newer_editions ||= document_history.entries_on_newer_editions(edition)
+    @entries_on_newer_editions ||= document_history.entries_on_newer_editions(edition).reject do |entry|
+      entry.is_a?(EditorialRemark) && !helpers.can?(:see, entry.edition)
+    end
   end
 
   def entries_on_current_edition

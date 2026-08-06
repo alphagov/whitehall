@@ -71,6 +71,11 @@ And(/^there is no "(.+)" button$/) do |button_text|
   assert_no_selector "button.gem-c-button", text: button_text
 end
 
+And("there is no sidebar") do
+  assert_no_selector "#govspeak_tab"
+  assert_no_selector "#history_tab"
+end
+
 And("there is no file upload form") do
   assert_no_selector "form.new_upload"
 end

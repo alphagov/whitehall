@@ -170,6 +170,12 @@ When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
   visit send("edit_admin_#{document_type}_path", document)
 end
 
+When(/^I am on the summary page for (.*?) "(.*?)"$/) do |document_type, title|
+  document_type = document_type.tr(" ", "_")
+  document = document_type.classify.constantize.where(title:).last
+  visit admin_edition_path(document)
+end
+
 When(/^I check "([^"]*)" adheres to the consultation principles$/) do |title|
   edition = Edition.latest_edition.find_by!(title:)
   edition.read_consultation_principles = true
