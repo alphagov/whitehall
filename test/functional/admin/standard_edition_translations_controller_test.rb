@@ -118,6 +118,8 @@ class Admin::StandardEditionTranslationsControllerTest < ActionController::TestC
       block_content: { body: "foo" },
     )
     draft_edition = published_edition.create_draft(@writer)
+    draft_edition.change_note = "Added translation"
+    draft_edition.save!
 
     put :update,
         params: { standard_edition_id: draft_edition,

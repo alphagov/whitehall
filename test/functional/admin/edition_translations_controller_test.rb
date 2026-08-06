@@ -159,6 +159,8 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   test "update creates a translation for a new draft of a previously published edition" do
     published_edition = create(:published_edition)
     draft_edition = published_edition.create_draft(@writer)
+    draft_edition.change_note = "Added translation"
+    draft_edition.save!
 
     put :update,
         params: { edition_id: draft_edition,
