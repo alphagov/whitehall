@@ -13,7 +13,7 @@ class ImageData < ApplicationRecord
 
   SVG_CONTENT_TYPE = "image/svg+xml".freeze
 
-  has_many :images
+  has_many :images, -> { all_images }, class_name: "Image"
   has_many :assets,
            as: :assetable,
            inverse_of: :assetable
