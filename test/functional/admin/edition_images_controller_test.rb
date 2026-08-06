@@ -719,6 +719,10 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
       .expects(:perform_async)
       .with(anything, anything, anything, anything, anything, [edition.auth_bypass_id]).times(7)
 
+    response = OpenStruct.new
+    response.body = File.read(File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))
+    Services.asset_manager.stubs(:media).returns(response)
+
     post :update, params: {
       edition_id: edition.id,
       id: image.id,
