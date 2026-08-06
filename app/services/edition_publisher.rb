@@ -30,9 +30,16 @@ private
     edition.access_limiting = :none
     edition.access_limiting_organisations.clear
     edition.access_limiting_individuals.destroy_all
+    edition.auth_bypass_id = nil
     edition.major_change_published_at = Time.zone.now unless edition.minor_change?
     edition.make_public_at(edition.major_change_published_at)
     edition.increment_version_number
+  end
+
+  def update_publishing_api!
+    should_update_auth_bypass = edition.saved_change_to_auth_bypass_id?
+    super
+    EditionAuthBypassAssetPropagator.new(edition).propagate if should_update_auth_bypass
   end
 
   def fire_transition!
