@@ -2,6 +2,8 @@ require "test_helper"
 
 class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
   setup do
+    @social_media_service_1 = create(:social_media_service, name: "Facebook")
+    @social_media_service_2 = create(:social_media_service, name: "LinkedIn")
     @validator = SocialMediaLinksValidator.new({
       attributes: %w[social_media_links],
       fields: {
@@ -14,7 +16,6 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
 
   class SocialMediaLinksValidatorTestClass
     include ActiveModel::API
-    include WithNestedAttributeErrors
     attr_accessor :social_media_links
   end
 
@@ -32,8 +33,9 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_includes block_content.errors["social_media_links.0.social_media_service_name".to_sym], "cannot be blank"
-    assert_includes block_content.errors["social_media_links.0.url".to_sym], "cannot be blank"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 1 service name cannot be blank"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 1 URL cannot be blank"
+    assert_equal 2, block_content.errors[:social_media_links].size
   end
 
   test "social media links are invalid when no channel is chosen and a URL is provided" do
@@ -43,8 +45,8 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_includes block_content.errors["social_media_links.0.social_media_service_name".to_sym], "cannot be blank"
-    assert_empty block_content.errors["social_media_links.0.url".to_sym]
+    assert_includes block_content.errors[:social_media_links], "Social media channel 1 service name cannot be blank"
+    assert_equal 1, block_content.errors[:social_media_links].size
   end
 
   test "social media links are invalid when a channel is chosen but no URL is provided" do
@@ -54,8 +56,8 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_empty block_content.errors["social_media_links.0.social_media_service_name".to_sym]
-    assert_includes block_content.errors["social_media_links.0.url".to_sym], "cannot be blank"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 1 URL cannot be blank"
+    assert_equal 1, block_content.errors[:social_media_links].size
   end
 
   test "social media links are invalid when a channel is chosen and a malformed URL is provided" do
@@ -65,7 +67,8 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_includes block_content.errors["social_media_links.0.url".to_sym], "is invalid - use the full URL, including https://"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 1 URL is invalid - use the full URL, including https://"
+    assert_equal 1, block_content.errors[:social_media_links].size
   end
 
   test "social media links are invalid when no channel is chosen and a malformed URL is provided" do
@@ -75,8 +78,9 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_includes block_content.errors["social_media_links.0.social_media_service_name".to_sym], "cannot be blank"
-    assert_includes block_content.errors["social_media_links.0.url".to_sym], "is invalid - use the full URL, including https://"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 1 service name cannot be blank"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 1 URL is invalid - use the full URL, including https://"
+    assert_equal 2, block_content.errors[:social_media_links].size
   end
 
   test "social media links are invalid if two channels have the same URL" do
@@ -87,8 +91,8 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_empty block_content.errors["social_media_links.0.url".to_sym]
-    assert_includes block_content.errors["social_media_links.1.url".to_sym], "must be unique"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 2 URL must be unique"
+    assert_equal 1, block_content.errors[:social_media_links].size
   end
 
   test "social media links are valid when a channel is chosen and a well-formed URL is provided" do
@@ -132,7 +136,8 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_includes block_content.errors["social_media_links.1.title".to_sym], "must be unique"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 2 title must be unique"
+    assert_equal 1, block_content.errors[:social_media_links].size
   end
 
   test "social media links are invalid when multiple instances of the same channel are provided, with no distinct titles" do
@@ -143,8 +148,8 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_empty block_content.errors["social_media_links.0.social_media_service_name".to_sym]
-    assert_includes block_content.errors["social_media_links.1.social_media_service_name".to_sym], "must be unique"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 2 title must be unique"
+    assert_equal 1, block_content.errors[:social_media_links].size
   end
 
   test "social media links are invalid when multiple 'Other' channels are provided, with no distinct titles" do
@@ -155,7 +160,8 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_includes block_content.errors["social_media_links.1.social_media_service_name".to_sym], "must be unique"
+    assert_includes block_content.errors[:social_media_links], "Social media channel 2 title must be unique"
+    assert_equal 1, block_content.errors[:social_media_links].size
   end
 
   test "social media links are invalid and only display title uniqueness error, if multiple instances of the same channel are provided, and their titles match" do
@@ -166,8 +172,8 @@ class SocialMediaLinksValidatorTest < ActiveSupport::TestCase
     ]
     @validator.validate(block_content)
 
-    assert_includes block_content.errors["social_media_links.1.title".to_sym], "must be unique"
-    assert block_content.errors["social_media_links.1.social_media_service_name".to_sym].empty?
+    assert_includes block_content.errors[:social_media_links], "Social media channel 2 title must be unique"
+    assert_equal 1, block_content.errors[:social_media_links].size
   end
 
   test "social media links are valid when multiple instances of the same channel are provided with different titles and different URLs" do
