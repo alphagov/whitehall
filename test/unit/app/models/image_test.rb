@@ -22,23 +22,6 @@ class ImageTest < ActiveSupport::TestCase
     image.url(:s216)
   end
 
-  test "does not destroy image data when other images are associated with it" do
-    image = create(:image)
-    image_data = image.image_data
-    _other_image = create(:image, image_data:)
-
-    image_data.expects(:destroy).never
-    image.destroy!
-  end
-
-  test "destroys image data when no images are associated" do
-    image = create(:image)
-    image_data = image.image_data
-
-    image_data.expects(:destroy!)
-    image.destroy!
-  end
-
   test "delegates to image data" do
     image = create(:image)
 
@@ -293,5 +276,13 @@ class ImageTest < ActiveSupport::TestCase
     assert_includes source_keys, :desktop_2x
     assert_includes source_keys, :tablet
     assert_not(source_keys.any? { |k| k.to_s.start_with?("my_prefix_") })
+  end
+
+  test "#deleted? returns true if associated edition has been deleted" do
+    image = create(:image, edition: create(:draft_publication))
+
+    image.edition.destroy!
+
+    assert image.reload.deleted?
   end
 end

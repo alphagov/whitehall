@@ -13,7 +13,11 @@ class ImageData < ApplicationRecord
 
   SVG_CONTENT_TYPE = "image/svg+xml".freeze
 
-  has_many :images
+  # Include deleted images as well as non-deleted images. `unscoped` removes
+  # Image's default scope but does not remove the association's image_data_id
+  # constraint.
+  has_many :images, -> { all_images }, class_name: "Image"
+
   has_many :assets,
            as: :assetable,
            inverse_of: :assetable
