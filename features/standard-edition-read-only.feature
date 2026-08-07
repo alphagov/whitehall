@@ -11,6 +11,7 @@ Feature: Standard Editions - read-only mode
     And I see the "read-only view" message
     And the form is wrapped inside a disabled fieldset
     And there is no "Save" button
+    And there is no sidebar
 
   Scenario: Viewing a dynamic tab of the published edition
     When I view the "Social media accounts" tab

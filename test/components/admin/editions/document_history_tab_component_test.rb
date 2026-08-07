@@ -11,10 +11,10 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     seed_document_event_history
     @timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
 
-    pagination = "<nav class='govuk-grid-row govuk-!-margin-bottom-4' role='navigation'>
+    @pagination = "<nav class='govuk-grid-row govuk-!-margin-bottom-4' role='navigation'>
                     <a class='govuk-body govuk-link app-view-document-history-tab__pagination-link' data-remote-pagination='/government/admin/editions/1321865/audit_trail?page=2' rel='next' href='/government/admin/consultations/1321865?page=2'>Older</a>
                    </nav>".html_safe
-    Admin::Editions::DocumentHistoryTabComponent.any_instance.stubs(:helpers).returns(stub(paginate: pagination))
+    Admin::Editions::DocumentHistoryTabComponent.any_instance.stubs(:helpers).returns(stub(paginate: @pagination, can?: true))
   end
 
   test "it renders a link to the add remark page" do
@@ -47,13 +47,27 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     assert_selector ".app-view-document-history-tab__pagination-link", text: "Older", count: 2
   end
 
-  test "it renders the timeline entries in the correct sections for, future, current and previous editions" do
+  test "it renders internal notes on newer editions when the user can see the newer edition" do
     render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @second_edition, document_history: @timeline))
 
     assert_selector ".app-view-editions__newer-edition-entries h3", text: "On newer editions"
     assert_selector ".app-view-editions__newer-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 2
     assert_selector ".app-view-editions__newer-edition-entries div.app-view-editions-editorial-remark__list-item", count: 1
     assert_selector ".app-view-editions__newer-edition-entries div.app-view-editions-host-content-update-event-entry__list-item", count: 0
+  end
+
+  test "it hides internal notes on newer editions when the user cannot see the newer edition, but still shows other entries" do
+    Admin::Editions::DocumentHistoryTabComponent.any_instance.stubs(:helpers).returns(stub(paginate: @pagination, can?: false))
+
+    render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @second_edition, document_history: @timeline))
+
+    assert_selector ".app-view-editions__newer-edition-entries h3", text: "On newer editions"
+    assert_selector ".app-view-editions__newer-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 2
+    assert_no_selector ".app-view-editions__newer-edition-entries div.app-view-editions-editorial-remark__list-item"
+  end
+
+  test "it renders the timeline entries in the correct sections for current and previous editions" do
+    render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @second_edition, document_history: @timeline))
 
     assert_selector ".app-view-editions__current-edition-entries h3", text: "On this edition"
     assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 4
