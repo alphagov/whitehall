@@ -52,6 +52,10 @@ module Attachable
   end
 
   class Null
+    def id
+      nil
+    end
+
     def publicly_visible?
       false
     end
@@ -74,6 +78,14 @@ module Attachable
 
     def unpublished?
       false
+    end
+
+    def deleted?
+      false
+    end
+
+    def auth_bypass_ids
+      []
     end
   end
 

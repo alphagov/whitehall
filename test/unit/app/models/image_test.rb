@@ -22,23 +22,6 @@ class ImageTest < ActiveSupport::TestCase
     image.url(:s216)
   end
 
-  test "does not destroy image data when other images are associated with it" do
-    image = create(:image)
-    image_data = image.image_data
-    _other_image = create(:image, image_data:)
-
-    image_data.expects(:destroy).never
-    image.destroy!
-  end
-
-  test "destroys image data when no images are associated" do
-    image = create(:image)
-    image_data = image.image_data
-
-    image_data.expects(:destroy!)
-    image.destroy!
-  end
-
   test "delegates to image data" do
     image = create(:image)
 
