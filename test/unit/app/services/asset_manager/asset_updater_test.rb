@@ -30,7 +30,7 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     @asset_updater.stubs(:find_asset_by_id).with(@asset_manager_id)
            .returns("id" => @asset_manager_id, "deleted" => true, "draft" => false)
 
-    Rails.logger.expects(:info).with("Attempting to update Asset with asset_manager_id: '#{@asset_manager_id}' that is live and deleted")
+    GovukError.expects(:notify).with("Attempting to update Asset with asset_manager_id: '#{@asset_manager_id}' that is live and deleted")
 
     @asset_updater.call(@asset_manager_id, { "redirect_url" => @redirect_url })
   end
