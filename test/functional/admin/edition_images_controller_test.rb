@@ -427,7 +427,6 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     files = [upload_fixture("hero_image_mobile_2x.png"), upload_fixture("hero_image_tablet_2x.png")]
 
     ServiceListeners::AttachmentUpdater.expects(:call).twice
-    PublishingApiDraftUpdateJob.expects(:perform_async)
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: files.map { |file| { image_data_attributes: { file: } } } }
 

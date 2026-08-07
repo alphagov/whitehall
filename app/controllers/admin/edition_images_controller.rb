@@ -56,6 +56,7 @@ class Admin::EditionImagesController < Admin::BaseController
     image.image_data.validate_on_image = image
 
     if image.save
+      Whitehall.edition_services.draft_updater(@edition)
       ServiceListeners::AttachmentUpdater.call(attachment_data: image.image_data)
       redirect_to admin_edition_images_path(@edition), notice: "#{image.image_data.carrierwave_image} details updated"
     else
@@ -103,6 +104,7 @@ class Admin::EditionImagesController < Admin::BaseController
     if @images.any? && @images.map(&:valid?).all?
       @images.each(&:save)
       @edition.update!(image_display_option: nil) if @image_usage.key == "lead"
+      Whitehall.edition_services.draft_updater(@edition)
       @images.each { |image| ServiceListeners::AttachmentUpdater.call(attachment_data: image.image_data) }
       flash.notice = "Images successfully uploaded"
     else
