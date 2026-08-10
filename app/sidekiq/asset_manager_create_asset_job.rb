@@ -44,7 +44,7 @@ private
 
   def enqueue_downstream_service_updates(assetable_id, assetable_type, attachable_model_class, attachable_model_id)
     if attachable_model_class
-      if attachable_model_class.constantize.ancestors.include?(Edition)
+      if attachable_model_class.constantize.ancestors.include?(Edition) && attachable_model_id
         PublishingApiDraftUpdateJob.perform_async(attachable_model_class, attachable_model_id)
       end
 
