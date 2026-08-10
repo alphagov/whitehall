@@ -18,7 +18,6 @@ class Admin::EditionTranslationsController < Admin::BaseController
   end
 
   def update
-    @translated_edition.change_note = "Added translation" if @translated_edition.change_note.blank?
     if translatable_item.update(translation_params)
       save_draft_translation if send_downstream?
       redirect_to update_redirect_path, notice: notice_message("saved")
