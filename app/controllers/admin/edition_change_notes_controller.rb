@@ -2,7 +2,6 @@ class Admin::EditionChangeNotesController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
   before_action :limit_edition_access!
-  before_action :redirect_to_latest_edition_if_not_latest
   def index
     @change_notes = @edition
       .document
@@ -85,12 +84,5 @@ private
   def find_edition
     edition = Edition.find(params[:edition_id])
     @edition = LocalisedModel.new(edition, edition.primary_locale)
-  end
-
-  def redirect_to_latest_edition_if_not_latest
-    latest_edition = @edition.document.latest_edition
-    return if @edition.id == latest_edition.id
-
-    redirect_to admin_edition_change_notes_path(edition_id: latest_edition.id)
   end
 end
