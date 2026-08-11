@@ -404,11 +404,7 @@
                         "enum": [
                           "default",
                           "topical_event_logo",
-                          "topical_event_header",
-                          "landing_page_image",
-                          "hero_desktop",
-                          "hero_tablet",
-                          "hero_mobile"
+                          "topical_event_header"
                         ]
                       },
                       "minLength": 1,
@@ -420,8 +416,6 @@
               "propertyNames": {
                 "enum": [
                   "govspeak_embed",
-                  "plan_for_change_landing_page",
-                  "hero",
                   "header",
                   "logo",
                   "sidebar",
