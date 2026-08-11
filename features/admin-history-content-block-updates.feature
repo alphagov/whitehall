@@ -6,13 +6,13 @@ Feature: Showing content block updates in history
     And the document has been updated by a change to the content block "Some email address"
 
   Scenario: Content block update exists for current edition
-    When I am on the edit page for publication "Stubble to be Outlawed"
+    When I am on the summary page for publication "Stubble to be Outlawed"
     And I click the "History" tab
     Then I should see an entry for the content block "Some email address" on the current edition
 
   Scenario: Content block update exists for a previous edition
     Given some time has passed
     When I force publish a new edition of the publication "Stubble to be Outlawed"
-    And I am on the edit page for publication "Stubble to be Outlawed"
+    And I am on the summary page for publication "Stubble to be Outlawed"
     And I click the "History" tab
     Then I should see an entry for the content block "Some email address" on the previous edition
