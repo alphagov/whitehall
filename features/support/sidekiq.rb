@@ -1,4 +1,4 @@
-require "sidekiq/testing/inline"
+Sidekiq.testing!(:inline)
 require_relative "../../test/support/sidekiq_test_helpers"
 
 World(SidekiqTestHelpers)
