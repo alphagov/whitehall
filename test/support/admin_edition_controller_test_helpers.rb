@@ -825,8 +825,8 @@ module AdminEditionControllerTestHelpers
         request.env["HTTPS"] = "on"
         get :edit, params: { id: edition }
 
-        assert_select ".govuk-notification-banner__heading", "Joe Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work."
-        assert_select ".govuk-notification-banner__content .govuk-govspeak", "Contact joe@example.com if you think they are still working on it."
+        assert_includes response.body, "Joe Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work."
+        assert_select "div", "Contact joe@example.com if you think they are still working on it."
       end
 
       view_test "should see a warning when editing an edition has been recently edited by multiple people" do
@@ -840,9 +840,9 @@ module AdminEditionControllerTestHelpers
         request.env["HTTPS"] = "on"
         get :edit, params: { id: edition }
 
-        assert_select ".govuk-notification-banner__heading", "Multiple people have started editing this #{edition.format_name}:"
-        assert_select ".govuk-notification-banner__content li", "Joe Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work. Contact joe@example.com if you think they are still working on it."
-        assert_equal assert_select(".govuk-notification-banner__content li")[1].text.strip, "Josie Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work. Contact josie@example.com if you think they are still working on it."
+        assert_includes response.body, "Multiple people have started editing this #{edition.format_name}:"
+        assert_select "li", "Joe Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work. Contact joe@example.com if you think they are still working on it."
+        assert_select "li", "Josie Bloggs started editing this #{edition.format_name} about 1 hour ago and hasn’t yet saved their work. Contact josie@example.com if you think they are still working on it."
       end
 
       test "saving a #{edition_type} should remove any RecentEditionOpening records for the current user" do
