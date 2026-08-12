@@ -300,6 +300,20 @@ class EditionPublisherTest < ActiveSupport::TestCase
     EditionPublisher.new(edition).perform!
   end
 
+  test "#perform! updates attached assets in Asset Manager with an empty auth_bypass_ids list" do
+    edition = create(:submitted_edition, :with_auth_bypass_id)
+    file_attachment = create(:file_attachment, attachable: edition)
+
+    AssetManagerUpdateAssetJob.expects(:perform_async_in_queue).with(
+      "asset_manager_updater",
+      "AttachmentData",
+      file_attachment.attachment_data.id,
+      { "auth_bypass_ids" => [] },
+    )
+
+    EditionPublisher.new(edition).perform!
+  end
+
   test "#perform! does not propagate auth_bypass_id changes to assets when edition had no token" do
     edition = create(:submitted_edition)
     assert_nil edition.auth_bypass_id
@@ -307,5 +321,14 @@ class EditionPublisherTest < ActiveSupport::TestCase
     EditionAuthBypassAssetPropagator.any_instance.expects(:propagate).never
 
     EditionPublisher.new(edition).perform!
+  end
+
+  test "#perform! does not propagate auth_bypass_id changes to assets when publishing is unsuccessful" do
+    edition = create(:submitted_edition, :with_auth_bypass_id)
+    edition.title = nil
+
+    EditionAuthBypassAssetPropagator.any_instance.expects(:propagate).never
+
+    assert_not EditionPublisher.new(edition).perform!
   end
 end
