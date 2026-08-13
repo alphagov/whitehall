@@ -9,7 +9,6 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     DocumentCollection
     WorldwideOrganisation
     FatalityNotice
-    PlanForChangeLandingPage
     Publication
     Speech
     StatisticalDataSet

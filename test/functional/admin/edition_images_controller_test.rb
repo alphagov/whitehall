@@ -260,7 +260,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile hero_desktop],
+              "kinds" => %w[default topical_event_header],
               "multiple" => false,
             },
           },
@@ -272,7 +272,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     ])
     file = upload_fixture("hero_image_mobile_2x.png")
 
-    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
     assert_redirected_to admin_edition_images_path(edition)
   end
@@ -314,7 +314,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile],
+              "kinds" => %w[default],
               "multiple" => false,
             },
           },
@@ -326,7 +326,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
-    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
     assert_redirected_to edit_admin_edition_image_path(edition, edition.images.first.id)
   end
@@ -378,7 +378,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile],
+              "kinds" => %w[default],
               "multiple" => true,
             },
           },
@@ -389,7 +389,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     file = upload_fixture("hero_image_mobile_2x.png")
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
-    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
     assert_redirected_to edit_admin_edition_image_path(edition, edition.images.first.id)
   end
@@ -415,7 +415,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile],
+              "kinds" => %w[default],
               "multiple" => true,
             },
           },
@@ -423,12 +423,12 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
       },
     }))
     edition = create(:draft_standard_edition)
-    # Both these images' size is valid for hero_mobile kind.
+    # Both these images' size is valid for the default kind.
     files = [upload_fixture("hero_image_mobile_2x.png"), upload_fixture("hero_image_tablet_2x.png")]
 
     PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
 
-    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: files.map { |file| { image_data_attributes: { file: } } } }
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
 
     assert_redirected_to admin_edition_images_path(edition)
     assert_equal "Images successfully uploaded", flash[:notice]
@@ -535,7 +535,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile],
+              "kinds" => %w[default],
               "multiple" => true,
             },
           },
@@ -545,11 +545,11 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_standard_edition)
     file = upload_fixture("hero_image_mobile_2x.png")
 
-    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_desktop", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "topical_event_header", images: [{ image_data_attributes: { file: } }] }
 
-    hero_desktop_kind = Whitehall.image_kinds.fetch("hero_desktop")
+    header_kind = Whitehall.image_kinds.fetch("topical_event_header")
     assert_template "admin/edition_images/index"
-    assert_select ".govuk-error-summary li", "Image \"hero_image_mobile_2x.png\" is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall."
+    assert_select ".govuk-error-summary li", "Image \"hero_image_mobile_2x.png\" is too small. Select an image that is at least #{header_kind.valid_width} pixels wide and at least #{header_kind.valid_height} pixels tall."
   end
 
   view_test "POST :create shows a validation error if one 'multiple' usage non-embeddable image has a duplicated filename, using the 'index' template" do
@@ -561,7 +561,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile],
+              "kinds" => %w[default],
               "multiple" => true,
             },
           },
@@ -572,7 +572,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     file = upload_fixture("hero_image_mobile_2x.png")
     create(:image, usage: "hero", edition:, image_data: build(:image_data, file:))
 
-    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
     assert_template "admin/edition_images/index"
     assert_select ".govuk-error-summary li", "Image \"hero_image_mobile_2x.png\" is not unique. All your file names must be different. Do not use special characters to create another version of the same file name."
@@ -587,7 +587,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile],
+              "kinds" => %w[default],
               "multiple" => false,
             },
           },
@@ -598,7 +598,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     file = upload_fixture("hero_image_mobile_2x.png")
     create(:image, usage: "hero", edition:, image_data: build(:image_data, file:))
 
-    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
     assert_redirected_to admin_edition_images_path(edition)
     assert_equal "Hero already uploaded. Delete the currently uploaded hero to upload a new hero.", flash[:alert]
@@ -638,7 +638,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile hero_desktop],
+              "kinds" => %w[default topical_event_header],
               "multiple" => false,
             },
           },
@@ -648,12 +648,12 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_standard_edition)
     file = upload_fixture("images/960x640_jpeg.jpg")
 
-    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_desktop", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "topical_event_header", images: [{ image_data_attributes: { file: } }] }
 
-    hero_desktop_kind = Whitehall.image_kinds.fetch("hero_desktop")
+    header_kind = Whitehall.image_kinds.fetch("topical_event_header")
     assert_template "admin/edition_images/new"
     assert_select "label", "Upload image"
-    assert_select ".govuk-error-summary li", "Image \"960x640_jpeg.jpg\" is too small. Select an image that is at least #{hero_desktop_kind.valid_width} pixels wide and at least #{hero_desktop_kind.valid_height} pixels tall."
+    assert_select ".govuk-error-summary li", "Image \"960x640_jpeg.jpg\" is too small. Select an image that is at least #{header_kind.valid_width} pixels wide and at least #{header_kind.valid_height} pixels tall."
   end
 
   test "POST :create returns 422 for non-permitted usage" do
@@ -665,7 +665,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile],
+              "kinds" => %w[default],
               "multiple" => false,
             },
           },
@@ -678,7 +678,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
 
     assert_not edition.permitted_image_usages.map(&:key).include? unpermitted_usage
 
-    post :create, params: { edition_id: edition.id, usage: unpermitted_usage, image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: unpermitted_usage, image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
     assert_equal 422, response.status
     assert_template "admin/errors/unprocessable_content"
@@ -749,7 +749,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile],
+              "kinds" => %w[default],
               "multiple" => false,
             },
           },
@@ -759,7 +759,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:published_standard_edition)
     file = upload_fixture("hero_image_mobile_2x.png")
 
-    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
+    post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
     assert_response :forbidden
   end
@@ -773,7 +773,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
           "usages" => {
             "hero" => {
               "label" => "hero",
-              "kinds" => %w[hero_mobile],
+              "kinds" => %w[default],
               "multiple" => false,
             },
           },
@@ -790,7 +790,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
            edition_id: edition.id,
            id: image.id,
            usage: "hero",
-           image_kind: "hero_mobile",
+           image_kind: "default",
            image: {
              image_data_attributes: { file: file },
            },

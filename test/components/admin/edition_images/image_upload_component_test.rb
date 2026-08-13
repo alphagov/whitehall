@@ -41,7 +41,7 @@ class Admin::EditionImages::ImageUploadComponentTest < ViewComponent::TestCase
 
   test "renders radio button inputs for multiple usage" do
     edition = build_stubbed(:draft_publication)
-    image_kinds = [Whitehall.image_kinds.fetch("default"), Whitehall.image_kinds.fetch("landing_page_image")]
+    image_kinds = [Whitehall.image_kinds.fetch("default"), Whitehall.image_kinds.fetch("topical_event_header")]
     usage = ImageUsage.new(key: "test_usage", kinds: image_kinds, multiple: true, label: "test")
     render_inline(Admin::EditionImages::ImageUploadComponent.new(edition:, image_usage: usage))
 

@@ -42,7 +42,6 @@ module Whitehall::Authority
     "Document" => Rules::DocumentRules,
     "Edition" => Rules::EditionRules,
     "FatalityNotice" => Rules::FatalityNoticeRules,
-    "PlanForChangeLandingPage" => Rules::PlanForChangeLandingPageRules,
     "StandardEdition" => Rules::StandardEditionRules,
     "ConfigurableDocumentType" => Rules::ConfigurableDocumentTypeRules,
     "MinisterialRole" => Rules::MinisterialRoleRules,
