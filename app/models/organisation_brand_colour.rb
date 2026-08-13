@@ -187,4 +187,9 @@ class OrganisationBrandColour
     title: "GDS",
     class_name: "government-digital-service",
   )
+  DepartmentForBusinessInnovationScienceAndTrade = create!(
+    id: 37,
+    title: "Department for Business, Innovation, Science and Trade",
+    class_name: "department-for-business-innovation-science-trade",
+  )
 end
