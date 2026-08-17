@@ -15,7 +15,7 @@ class DocumentCollection < Edition
   before_create :create_default_group
 
   class ClonesGroupsTrait < Edition::Traits::Trait
-    def process_associations_before_save(new_edition)
+    def process_associations_before_draft_creation(new_edition)
       new_edition.groups = @edition.groups.map(&:dup)
     end
   end

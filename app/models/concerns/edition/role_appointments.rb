@@ -2,7 +2,7 @@ module Edition::RoleAppointments
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait
-    def process_associations_before_save(edition)
+    def process_associations_before_draft_creation(edition)
       edition.role_appointments = @edition.role_appointments
     end
   end
