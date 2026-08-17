@@ -21,13 +21,13 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
         attachment.destroy!
 
         AssetManager::AssetDeleter.expects(:call).with(asset_manager_id)
-        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
+        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [], "auth_bypass_ids" => [], "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
 
         job.perform(attachment_data.id)
       end
 
       it "updates the asset if attachment data is not deleted" do
-        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
+        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [], "auth_bypass_ids" => [], "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
 
         job.perform(attachment_data.id)
       end
@@ -68,7 +68,7 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
       it "updates the asset with the parent consultation's public URL" do
         AssetManager::AssetUpdater.expects(:call).with(
           asset_manager_id,
-          { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/consultations/my-consultation" },
+          { "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [], "auth_bypass_ids" => [], "parent_document_url" => "https://www.test.gov.uk/government/consultations/my-consultation" },
         )
 
         job.perform(attachment_data.id)
@@ -83,7 +83,7 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
       it "updates the asset with the parent consultation's public URL" do
         AssetManager::AssetUpdater.expects(:call).with(
           asset_manager_id,
-          { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/consultations/my-consultation" },
+          { "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [], "auth_bypass_ids" => [], "parent_document_url" => "https://www.test.gov.uk/government/consultations/my-consultation" },
         )
 
         job.perform(attachment_data.id)
@@ -98,7 +98,7 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
       it "updates the asset with the parent call for evidence's public URL" do
         AssetManager::AssetUpdater.expects(:call).with(
           asset_manager_id,
-          { "draft" => false, "parent_document_url" => "https://www.test.gov.uk/government/calls-for-evidence/my-call-for-evidence" },
+          { "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [], "auth_bypass_ids" => [], "parent_document_url" => "https://www.test.gov.uk/government/calls-for-evidence/my-call-for-evidence" },
         )
 
         job.perform(attachment_data.id)

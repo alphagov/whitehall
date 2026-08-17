@@ -11,6 +11,9 @@ module ServiceListeners
       it "sets the expected attributes" do
         expected_attribute_hash = {
           "draft" => false,
+          "access_limited_organisation_ids" => [],
+          "access_limited_user_ids" => [],
+          "auth_bypass_ids" => [],
           "parent_document_url" => edition.public_url(draft: false),
         }
 

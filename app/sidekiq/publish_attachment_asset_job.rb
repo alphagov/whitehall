@@ -6,6 +6,9 @@ class PublishAttachmentAssetJob < JobBase
 
     asset_attributes = {
       "draft" => false,
+      "access_limited_organisation_ids" => [],
+      "access_limited_user_ids" => [],
+      "auth_bypass_ids" => [],
     }
 
     if attachment_data.last_attachable.respond_to?(:public_url)
