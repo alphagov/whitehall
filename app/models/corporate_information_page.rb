@@ -117,6 +117,10 @@ class CorporateInformationPage < Edition
     false
   end
 
+  def access_limiting_enabled?
+    false
+  end
+
 private
 
   def string_for_slug
