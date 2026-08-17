@@ -35,6 +35,7 @@ module PublishingApi
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
+      content.merge!(PayloadBuilder::AccessLimitation.for(item))
     end
 
     def edition_links
