@@ -31,7 +31,7 @@ When(/^I set the Lead organisation to an org I am not in$/) do
 end
 
 When(/^I choose organisation access limiting$/) do
-  choose "Limit access to the following organisations"
+  choose "Yes – limit access to specific organisations"
 end
 
 When(/^I select "([^"]*)" as an access limiting organisation$/) do |org_name|

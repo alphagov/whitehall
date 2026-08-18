@@ -13,18 +13,18 @@
         items: [
           {
             value: "none",
-            text: "No - This document should be available to all publishers",
+            text: "No - make available to all publishers",
             checked: edition.access_limiting_none?,
           },
           Flipflop.access_limiting_organisations_ui? ? {
             value: "organisations",
-            text: "Limit access to the following organisations",
+            text: "Yes – limit access to specific organisations",
             checked: edition.access_limiting_organisations?,
             conditional: render("admin/editions/access_limiting_organisation_select", form: form, edition: edition),
           } : nil,
           Flipflop.access_limiting_individuals_ui? ? {
             value: "individuals",
-            text: "Limit access to named publishers",
+            text: "Yes - limit access to named publishers",
             checked: edition.access_limiting_individuals?,
             conditional: render("govuk_publishing_components/components/textarea", {
               label: { text: "Add the emails of the publishers who will have access (separated by commas)" },
