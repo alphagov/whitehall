@@ -146,7 +146,7 @@ private
 
     invalid_format = individuals.select { |individual| ValidatesEmailFormatOf.validate_email_format(individual.email.to_s) }
     if invalid_format.any?
-      errors.add(:access_limiting_individual_emails, "must contain valid email addresses: #{invalid_format.map(&:email).join(', ')}")
+      errors.add(:access_limiting_individual_emails, "must contain valid email addresses separated with commas")
     end
 
     well_formed = individuals - invalid_format

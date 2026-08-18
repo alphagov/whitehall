@@ -243,7 +243,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting_individual_emails = "test@test.com example@example.com some_test@test.com"
 
     assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: test@test.com example@example.com some_test@test.com"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses separated with commas"
   end
 
   test "does not persist access_limiting_individuals on assignment" do
@@ -290,7 +290,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
     assert_not edition.valid?
     assert_includes edition.errors[:access_limiting_individual_emails],
-                    "must contain valid email addresses: not-an-email"
+                    "must contain valid email addresses separated with commas"
     assert_empty edition.errors[:"access_limiting_individuals.email"]
   end
 
@@ -302,7 +302,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting_individual_emails = "test@test"
 
     assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: test@test"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses separated with commas"
   end
 
   test "is invalid when valid emails are mixed in with badly formatted emails" do
@@ -313,7 +313,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting_individual_emails = "user@example.com, gibberish"
 
     assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: gibberish"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses separated with commas"
   end
 
   test "shows both the format error and the Signon-match error, when different emails have different problems" do
@@ -324,7 +324,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     edition.access_limiting_individual_emails = "no_such_user@example.com, gibberish"
 
     assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: gibberish"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses separated with commas"
     assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user: no_such_user@example.com"
   end
 
@@ -431,7 +431,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
     assert_not edition.valid?
     assert_includes edition.errors[:access_limiting_individual_emails], "must include your own email"
-    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses: test@test.com example@example.com"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses separated with commas"
   end
 
   test "is valid when access_limiting is set to 'individuals' and no access limiting individuals are selected when flag is off" do

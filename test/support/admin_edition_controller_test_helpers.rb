@@ -1316,7 +1316,7 @@ module AdminEditionControllerTestHelpers
         end
 
         assert_template :new
-        assert_select ".govuk-error-summary a", text: "Access limiting individual emails must contain valid email addresses: gibberish", href: "#access_limiting_individual_emails"
+        assert_select ".govuk-error-summary a", text: "Access limiting individual emails must contain valid email addresses separated with commas", href: "#access_limiting_individual_emails"
         assert_select "form#new_edition" do
           assert_select "input[name='edition[access_limiting]'][type=radio][value='individuals'][checked='checked']"
           assert_select "textarea[name='edition[access_limiting_individual_emails]']", text: "gibberish"
