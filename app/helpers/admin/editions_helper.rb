@@ -260,4 +260,11 @@ module Admin::EditionsHelper
   def edition_title_link_or_edition_title(edition)
     edition.public_url ? sanitize(link_to(edition.title, edition.public_url, { class: "govuk-link" })) : edition.title
   end
+
+  def document_access_text(edition)
+    {
+      "individuals" => "Named publishers only",
+      "organisations" => "Organisation only",
+    }[edition.try(:access_limiting)] || "All publishers"
+  end
 end

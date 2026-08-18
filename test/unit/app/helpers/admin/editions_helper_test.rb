@@ -212,4 +212,10 @@ class Admin::EditionsHelperTest < ActionView::TestCase
                     "Alternative URL displayed to user:<br><a href='#{alternative_url}'>#{alternative_url}</a>"
     assert_equal(expected_text, status_text(edition))
   end
+
+  test "#document_access_text returns the correct display string for access limiting types" do
+    assert_equal "All publishers", document_access_text(build(:edition, access_limiting: :none))
+    assert_equal "Named publishers only", document_access_text(build(:edition, access_limiting: :individuals))
+    assert_equal "Organisation only", document_access_text(build(:edition, access_limiting: :organisations))
+  end
 end
