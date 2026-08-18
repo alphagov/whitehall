@@ -5,7 +5,7 @@
 .govspeak-help__pre {
   font-size: 13px;
   padding: govuk-spacing(2);
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour("black", $variant: "tint-95");
   word-break: normal;
   word-wrap: normal;
   overflow: auto;

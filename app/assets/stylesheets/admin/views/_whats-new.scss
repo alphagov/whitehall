@@ -1,9 +1,9 @@
 .app-view-whats-new__last-updated {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour("black", $variant: "tint-25");
 }
 
 .app-view-whats-new__section {
-  border-bottom: 1px solid $govuk-border-colour;
+  border-bottom: 1px solid govuk-functional-colour(border);
   @include govuk-responsive-padding(5, "top");
   @include govuk-responsive-padding(5, "bottom");
 }
@@ -31,7 +31,7 @@
 }
 
 .app-view-whats-new__update-date {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour("black", $variant: "tint-25");
   @include govuk-responsive-margin(4, "bottom");
 }
 

@@ -1,5 +1,5 @@
 .app-c-sub-navigation {
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour("black", $variant: "tint-95");
 }
 
 .app-c-sub-navigation__list {
@@ -21,7 +21,7 @@
   position: relative;
 
   &::before {
-    background-color: $govuk-link-colour;
+    background-color: govuk-functional-colour(link);
     content: "";
     display: block;
     height: 5px;
