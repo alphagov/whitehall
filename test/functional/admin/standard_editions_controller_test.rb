@@ -252,7 +252,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Summary (required)"
     assert_select "legend", text: "Schedule publication"
     assert_select "legend", text: "Review date"
-    refute_select "legend", text: "Limit access"
+    assert_select "legend", text: "Limit access"
   end
 
   view_test "GET edit renders access limiting fields when organisations are enabled" do

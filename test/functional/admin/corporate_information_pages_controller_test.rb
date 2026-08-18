@@ -62,6 +62,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       assert_select "textarea[name='edition[summary]']", corporate_information_page.summary
       assert_select "select[name='edition[corporate_information_page_type_id]']", count: 0
       assert_select "button[type='submit']"
+      refute_select "legend", text: "Limit access"
     end
   end
 

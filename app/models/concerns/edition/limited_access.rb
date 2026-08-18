@@ -39,6 +39,10 @@ module Edition::LimitedAccess
     self
   end
 
+  def access_limiting_enabled?
+    true
+  end
+
   def access_limited?
     access_limiting_organisations? || access_limiting_individuals?
   end

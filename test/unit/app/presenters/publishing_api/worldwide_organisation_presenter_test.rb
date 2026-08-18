@@ -283,4 +283,15 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
 
     assert_equal "", presented_item.content.dig(:details, :body)
   end
+
+  test "includes access limiting" do
+    worldwide_org = create(:worldwide_organisation)
+    PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
+                                                   .with(worldwide_org)
+                                                   .returns(access_limited: { organisations: %w[abcdef12345] })
+
+    presented_item = present(worldwide_org)
+
+    assert_equal %w[abcdef12345], presented_item.content[:access_limited][:organisations]
+  end
 end
