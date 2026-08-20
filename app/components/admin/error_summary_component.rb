@@ -73,9 +73,12 @@ private
   end
 
   def ga4_title
-    return object.class.name.humanize if [ActiveModel::Errors, Array].include?(object.class)
+    erroring_object = object
+    erroring_object = object.first.base if object.try(:first).is_a?(ActiveRecord::Associations::NestedError)
 
-    "#{object.try(:new_record?) ? 'New' : 'Editing'} #{object.model_name.human.downcase.titleize}"
+    return erroring_object.class.name.humanize if [ActiveModel::Errors, Array].include?(erroring_object.class)
+
+    "#{erroring_object.try(:new_record?) ? 'New' : 'Editing'} #{erroring_object.model_name.human.downcase.titleize}"
   end
 
   def dotted_array_attribute?(error)
