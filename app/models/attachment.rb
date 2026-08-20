@@ -1,5 +1,7 @@
 # Abstract base class for Attachments.
 class Attachment < ApplicationRecord
+  include AssetType
+
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: :attachable
 
@@ -149,19 +151,6 @@ class Attachment < ApplicationRecord
 
   def url
     raise NotImplementedError, "Subclasses must implement the url method"
-  end
-
-  def delete
-    update_column(:deleted, true)
-  end
-
-  def destroy
-    callbacks_result = transaction do
-      run_callbacks(:destroy) do
-        delete
-      end
-    end
-    callbacks_result ? self : false
   end
 
 private

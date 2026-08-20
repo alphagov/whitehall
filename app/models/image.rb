@@ -1,4 +1,6 @@
 class Image < ApplicationRecord
+  include AssetType
+
   belongs_to :image_data
   belongs_to :edition
   has_one :edition_lead_image, dependent: :destroy
