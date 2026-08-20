@@ -24,6 +24,10 @@ FactoryBot.define do
         image_data.assets << build(:asset, asset_manager_id: "asset_manager_id", variant: Asset.variants[:original], filename: image_data.filename)
       end
     end
+
+    trait(:missing_file) do
+      file { nil }
+    end
   end
 
   factory :hero_image_data, class: ImageData do
@@ -67,4 +71,5 @@ FactoryBot.define do
   factory :image_data, parent: :generic_image_data, traits: [:jpg]
   factory :image_data_for_svg, parent: :generic_image_data, traits: [:svg]
   factory :image_data_with_no_assets, parent: :generic_image_data
+  factory :image_data_with_missing_file, parent: :generic_image_data, traits: [:missing_file]
 end

@@ -178,6 +178,22 @@ class Admin::ErrorSummaryComponentTest < ViewComponent::TestCase
   ensure
     object.class.model_name.define_singleton_method(:i18n_key) { original_i18n_key }
   end
+
+  test "renders GA4 data correctly for objects with nested errors" do
+    image = build(:image_with_missing_file)
+    image.valid?
+
+    render_inline Admin::ErrorSummaryComponent.new(object: image.errors.objects)
+
+    ga4_data_json = page.find("[data-ga4-auto]").native.to_h["data-ga4-auto"]
+    ga4_data = JSON.parse(ga4_data_json)
+
+    assert_equal ga4_data.keys, %w[event_name type text section action]
+    assert_equal ga4_data["event_name"], "form_error"
+    assert_equal ga4_data["type"], "New Image"
+    assert_equal ga4_data["section"], "Image data.file"
+    assert_equal ga4_data["action"], "error"
+  end
 end
 
 class ErrorSummaryTestObject
