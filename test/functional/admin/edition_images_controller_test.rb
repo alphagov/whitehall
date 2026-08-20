@@ -324,7 +324,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_standard_edition)
     file = upload_fixture("hero_image_mobile_2x.png")
 
-    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
+    ServiceListeners::AttachmentUpdater.expects(:call)
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
 
@@ -350,7 +350,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_standard_edition, image_display_option: "no_image")
     file = upload_fixture("minister-of-funk.960x640.jpg")
 
-    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
+    ServiceListeners::AttachmentUpdater.expects(:call)
 
     post :create, params: { edition_id: edition.id, usage: "lead", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
@@ -362,7 +362,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     edition = create(:draft_fatality_notice)
     file = upload_fixture("images/960x640_jpeg.jpg")
 
-    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
+    ServiceListeners::AttachmentUpdater.expects(:call)
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: [{ image_data_attributes: { file: } }] }
 
@@ -387,7 +387,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     }))
     edition = create(:draft_standard_edition)
     file = upload_fixture("hero_image_mobile_2x.png")
-    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
+    ServiceListeners::AttachmentUpdater.expects(:call)
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: [{ image_data_attributes: { file: } }] }
 
@@ -398,7 +398,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     login_authorised_user
     edition = create(:draft_fatality_notice)
     files = [upload_fixture("images/960x640_jpeg.jpg"), upload_fixture("minister-of-funk.960x640.jpg")]
-    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
+    ServiceListeners::AttachmentUpdater.expects(:call).twice
 
     post :create, params: { edition_id: edition.id, usage: "govspeak_embed", image_kind: "default", images: files.map { |file| { image_data_attributes: { file: } } } }
 
@@ -426,7 +426,7 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     # Both these images' size is valid for hero_mobile kind.
     files = [upload_fixture("hero_image_mobile_2x.png"), upload_fixture("hero_image_tablet_2x.png")]
 
-    PublishingApiDocumentRepublishingJob.expects(:perform_async).with(edition.document_id, false).once
+    ServiceListeners::AttachmentUpdater.expects(:call).twice
 
     post :create, params: { edition_id: edition.id, usage: "hero", image_kind: "hero_mobile", images: files.map { |file| { image_data_attributes: { file: } } } }
 
@@ -719,6 +719,10 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
       .expects(:perform_async)
       .with(anything, anything, anything, anything, anything, [edition.auth_bypass_id]).times(7)
 
+    response = OpenStruct.new
+    response.body = File.read(File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))
+    Services.asset_manager.expects(:media).returns(response)
+
     post :update, params: {
       edition_id: edition.id,
       id: image.id,
@@ -726,6 +730,24 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
       image_kind: "default",
       image: { image_data: { image_kind: "default", crop_data: { x: 0, y: 0, width: 960, height: 640 } } },
     }
+  end
+
+  test "POST :update renders edit page if asset cannot be found" do
+    login_authorised_user
+    image = build(:image)
+    edition = create(:draft_fatality_notice, :with_auth_bypass_id, images: [image])
+
+    Services.asset_manager.stubs(:media).raises(GdsApi::HTTPNotFound.new(404))
+
+    post :update, params: {
+      edition_id: edition.id,
+      id: image.id,
+      usage: "govspeak_embed",
+      image_kind: "default",
+      image: { image_data: { image_kind: "default", crop_data: { x: 0, y: 0, width: 960, height: 640 } } },
+    }
+
+    assert_template "admin/edition_images/edit"
   end
 
   test "POST :create shows success message when all image assets are uploaded" do
