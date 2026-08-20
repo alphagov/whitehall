@@ -34,6 +34,8 @@ class EditionPublisherTest < ActiveSupport::TestCase
   end
 
   test "#perform! with an access limited edition sets access_limiting to 'none' and clears access_limiting_individuals" do
+    create(:user, email: "user@example.com")
+
     edition = create(
       :submitted_edition,
       access_limiting: "individuals",
