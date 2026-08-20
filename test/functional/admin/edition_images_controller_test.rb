@@ -719,6 +719,10 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
       .expects(:perform_async)
       .with(anything, anything, anything, anything, anything, [edition.auth_bypass_id]).times(7)
 
+    response = OpenStruct.new
+    response.body = File.read(File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))
+    Services.asset_manager.expects(:media).returns(response)
+
     post :update, params: {
       edition_id: edition.id,
       id: image.id,
@@ -726,6 +730,24 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
       image_kind: "default",
       image: { image_data: { image_kind: "default", crop_data: { x: 0, y: 0, width: 960, height: 640 } } },
     }
+  end
+
+  test "POST :update renders edit page and error if asset cannot be found" do
+    login_authorised_user
+    image = build(:image)
+    edition = create(:draft_fatality_notice, :with_auth_bypass_id, images: [image])
+
+    Services.asset_manager.stubs(:media).raises(GdsApi::HTTPNotFound.new(404))
+
+    post :update, params: {
+      edition_id: edition.id,
+      id: image.id,
+      usage: "govspeak_embed",
+      image_kind: "default",
+      image: { image_data: { image_kind: "default", crop_data: { x: 0, y: 0, width: 960, height: 640 } } },
+    }
+
+    assert_template "admin/edition_images/edit"
   end
 
   test "POST :create shows success message when all image assets are uploaded" do

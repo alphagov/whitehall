@@ -58,3 +58,11 @@ Scenario: User uploads without selecting an image for a usage that supports mult
   And I click upload without attaching a file
   Then I should get the error message "Image not provided. Images can be JPG, JPEG, GIF, PNG or SVG files."
 
+Scenario: User uploads an image for a usage and asset manager cannot find the image
+  Given the configurable document types feature flag is enabled
+  And I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
+  When I visit the images tab of the document "The history of GOV.UK"
+  When I upload a 960x640 image
+  And I update the image details and save but asset manager cannot find the asset
+  Then I should get the error message "Image data file could not be fetched from Asset Manager."
+
