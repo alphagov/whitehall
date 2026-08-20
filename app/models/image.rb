@@ -1,4 +1,6 @@
 class Image < ApplicationRecord
+  include AssetDeletionBehaviour
+
   belongs_to :image_data
   belongs_to :edition
   has_one :edition_lead_image, dependent: :destroy
@@ -66,21 +68,6 @@ class Image < ApplicationRecord
     }
     details[:caption] = caption if caption_enabled?
     details
-  end
-
-  # Temporary addition, moved to shared class in subsequent commit
-  def delete
-    update_column(:deleted, true)
-  end
-
-  # Temporary addition, moved to shared class in subsequent commit
-  def destroy
-    callbacks_result = transaction do
-      run_callbacks(:destroy) do
-        delete
-      end
-    end
-    callbacks_result ? self : false
   end
 
 private
