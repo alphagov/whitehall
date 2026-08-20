@@ -212,6 +212,9 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "saves access_limiting_individuals with lowercased emails when access_limiting is set to 'individuals'" do
+    create(:user, email: "test@test.com")
+    create(:user, email: "example@example.com")
+
     edition = build(:limited_access_edition)
     edition.access_limiting = "individuals"
     edition.access_limiting_individual_emails = "TEST@test.com, Example@example.com"
@@ -222,6 +225,10 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "saves and reads access_limiting_individuals when the email separators are comma, semicolon, or newline" do
+    %w[test@test.com example@example.com some_other_test@test.com another_example@example.com].each do |email|
+      create(:user, email:)
+    end
+
     edition = build(:edition)
     edition.access_limiting = "individuals"
     edition.access_limiting_individual_emails =
@@ -247,6 +254,8 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "does not persist access_limiting_individuals on assignment" do
+    create(:user, email: "test@test.com")
+
     edition = build(:limited_access_edition)
     edition.access_limiting = "individuals"
     edition.access_limiting_individual_emails = "test@test.com"
@@ -435,12 +444,16 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is valid when access_limiting is set to 'individuals' and no access limiting individuals are selected when flag is off" do
+    @feature_flags.switch!(:access_limiting_individuals_ui, false)
+
     edition = create(:consultation, access_limiting: :individuals)
     edition.access_limiting_individual_emails = ""
     assert edition.valid?
   end
 
   test "access_limiting persists across save/reload" do
+    create(:user, email: "test@test.com")
+
     edition = build(:limited_access_edition, :access_limited_by_organisations)
     edition.save!
     edition.reload
@@ -448,6 +461,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert_equal "organisations", edition.access_limiting
 
     edition.access_limiting = "individuals"
+    edition.access_limiting_individual_emails = "test@test.com"
     edition.save!
     edition.reload
     assert edition.access_limited?

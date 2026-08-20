@@ -1514,6 +1514,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "edit displays persisted access_limiting flag" do
         feature_flags.switch! :access_limiting_organisations_ui, false
+        feature_flags.switch! :access_limiting_individuals_ui, false
 
         publication = create(edition_type, access_limiting: "none")
 

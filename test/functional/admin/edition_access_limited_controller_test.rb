@@ -65,6 +65,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     )
 
     feature_flags.switch! :access_limiting_organisations_ui, false
+    feature_flags.switch! :access_limiting_individuals_ui, false
 
     get :edit, params: { id: edition }
 
