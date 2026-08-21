@@ -192,6 +192,12 @@ class ImageDataTest < ActiveSupport::TestCase
     assert image_data.attachable, edition
   end
 
+  test ".attachable returns Attachable::Null if no images" do
+    image_data = build(:image_data)
+
+    assert image_data.attachable, Attachable::Null
+  end
+
   def build_example(file_name)
     file = File.open(Rails.root.join("test/fixtures/images", file_name))
     build(:image_data, file:)
