@@ -11,8 +11,17 @@ class Image < ApplicationRecord
   accepts_nested_attributes_for :image_data
 
   delegate :filename, :content_type, :width, :height, :bitmap?, :svg?, :can_be_cropped?, :requires_crop?, :image_kind, to: :image_data
+  delegate :publicly_visible?, to: :edition
 
   default_scope -> { order(:id) }
+
+  def deleted?
+    false
+  end
+
+  def attachable
+    edition
+  end
 
   def url(*args)
     image_data.file_url(*args)
