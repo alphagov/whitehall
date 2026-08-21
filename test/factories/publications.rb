@@ -5,7 +5,12 @@ FactoryBot.define do
     summary { "publication-summary" }
     publication_type_id { PublicationType::PolicyPaper.id }
     attachments { FactoryBot.build_list :html_attachment, 1 }
+    # images { FactoryBot.build_list :image, 1 }
     all_nation_applicability { true }
+
+    trait(:with_image) do
+      images { FactoryBot.build_list :image, 1 }
+    end
 
     trait(:has_excluded_nations) do
       all_nation_applicability { false }

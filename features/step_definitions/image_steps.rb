@@ -30,6 +30,11 @@ def upload_file(width = nil, height = nil, image_usage_key = "govspeak_embed", f
   within "##{image_usage_key}_image_upload_form" do
     click_on "Upload"
   end
+
+  response = OpenStruct.new
+  response.body = File.read(File.open(file))
+
+  Services.asset_manager.stubs(:media).returns(response)
 end
 
 Given("a draft document with images exists") do
