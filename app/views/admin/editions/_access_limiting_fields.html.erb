@@ -30,6 +30,9 @@
             textarea_id: "edition_access_limiting_individual_emails",
             hint: "If possible, include 2 email addresses. Once published, the document is available to all publishers. Access restrictions apply only to draft editions.",
             value: edition.access_limiting_individual_emails,
+            data: {
+              "ga4-force-report-value-in-form-tracker": true,
+            },
           }),
         } : nil,
       ].compact,
