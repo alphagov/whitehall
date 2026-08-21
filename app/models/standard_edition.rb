@@ -106,6 +106,10 @@ class StandardEdition < Edition
     "#{type_instance.settings['base_path_prefix']}/#{slug}"
   end
 
+  def additional_routes
+    type_instance.settings["additional_routes"] || []
+  end
+
   def type_instance
     ConfigurableDocumentType.find(configurable_document_type)
   end
