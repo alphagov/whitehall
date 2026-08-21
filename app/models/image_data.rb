@@ -37,6 +37,20 @@ class ImageData < ApplicationRecord
 
   delegate :url, :content_type, to: :file
 
+  def attachable
+    return Edition.new if images.empty?
+
+    # N.B.: All images will be associated with the same Edition
+    # so we just pick an arbitary image to get edition from
+    images.last.edition
+  end
+
+  def attachments
+    return [Image.new] if images.empty?
+
+    images
+  end
+
   def filename
     file&.file&.filename
   end
