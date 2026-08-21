@@ -10,6 +10,7 @@ class ImageData < ApplicationRecord
 
   include Replaceable
   include ImageKind
+  include AssetData
 
   SVG_CONTENT_TYPE = "image/svg+xml".freeze
 
@@ -17,10 +18,6 @@ class ImageData < ApplicationRecord
   # Image's default scope but does not remove the association's image_data_id
   # constraint.
   has_many :images, -> { all_images }, class_name: "Image"
-
-  has_many :assets,
-           as: :assetable,
-           inverse_of: :assetable
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
