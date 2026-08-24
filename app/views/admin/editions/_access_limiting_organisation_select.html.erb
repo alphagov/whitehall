@@ -5,6 +5,7 @@
   multiple: true,
   heading_size: "s",
   include_blank: true,
+  error_items: errors_for(edition.errors, :access_limiting_organisation_ids),
   options: taggable_organisations_container(edition.access_limiting_organisation_ids),
   data_attributes: {
     "ga4-force-report-value-in-form-tracker": true,

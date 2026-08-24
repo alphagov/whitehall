@@ -7,7 +7,6 @@
       heading: "Limit access",
       heading_level: 3,
       heading_size: "m",
-      error_items: errors_for(edition.errors, :access_limiting_organisation_ids) || errors_for(edition.errors, :access_limiting_individual_emails),
       items: [
         {
           value: "none",
@@ -30,6 +29,7 @@
             textarea_id: "edition_access_limiting_individual_emails",
             hint: "If possible, include 2 email addresses. Once published, the document is available to all publishers. Access restrictions apply only to draft editions.",
             value: edition.access_limiting_individual_emails,
+            error_items: errors_for(edition.errors, :access_limiting_individual_emails),
             data: {
               "ga4-force-report-value-in-form-tracker": true,
             },
