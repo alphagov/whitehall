@@ -1,4 +1,5 @@
 require "test_helper"
+require "attachment_test_helper"
 
 class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
@@ -7,56 +8,103 @@ class PublishAttachmentAssetJobTest < ActiveSupport::TestCase
     let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
     let(:job) { PublishAttachmentAssetJob.new }
 
-    context "attachment was created on the latest edition" do
-      let(:attachable) { create(:published_publication, title: "news-title") }
-      let(:attachment_data) { create(:attachment_data, attachable:) }
-      let(:attachment) { create(:file_attachment, attachable:, attachment_data: attachment_data) }
+    for_each_asset_data_type do |asset_data_type|
+      context "with #{asset_data_type}" do
+        context "attachment was created on the latest edition" do
+          let(:attachment_data) { build(asset_data_type.underscore.to_sym) }
 
-      before do
-        attachment_data.attachments = [attachment]
-        attachment_data.save!
-      end
+          let(:attachable) do
+            create(:published_consultation, title: "news-title")
+          end
 
-      it "it deletes and updates the asset if attachment data is deleted" do
-        attachment.destroy!
+          let(:attachment) do
+            case asset_data_type
+            when "AttachmentData"
+              attachment_data.attachable = attachable
+              create(:file_attachment, attachable:, attachment_data:)
+            when "ImageData"
+              create(:image, edition: attachable, image_data: attachment_data)
+            end
+          end
 
-        AssetManager::AssetDeleter.expects(:call).with(asset_manager_id)
-        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [], "auth_bypass_ids" => [], "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
+          before do
+            attachment.save!
+            attachable.save!
+            attachment_data.save!
+          end
 
-        job.perform(attachment_data.id)
-      end
+          it "it deletes and updates the asset if attachment data is deleted" do
+            attachment.destroy!
 
-      it "updates the asset if attachment data is not deleted" do
-        AssetManager::AssetUpdater.expects(:call).with(asset_manager_id, { "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [], "auth_bypass_ids" => [], "parent_document_url" => "https://www.test.gov.uk/government/publications/news-title" })
+            attachment_data.assets.each do |asset|
+              AssetManager::AssetDeleter.expects(:call).with(asset.asset_manager_id)
+              AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, { "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [], "auth_bypass_ids" => [], "parent_document_url" => "https://www.test.gov.uk/government/consultations/news-title" })
+            end
 
-        job.perform(attachment_data.id)
-      end
-    end
+            job.perform(attachment_data.id, asset_data_type)
+          end
 
-    context "attachment was created on the previous edition" do
-      let(:previous_attachable) { create(:superseded_publication) }
-      let(:previous_attachment) { create(:attachment, attachable: previous_attachable, attachment_data:) }
-      let(:attachable) { create(:published_publication, document: previous_attachable.document) }
-      let(:attachment_data) { create(:attachment_data, attachable:) }
-      let(:attachment) { create(:file_attachment, attachable:, attachment_data:) }
+          it "updates the asset if attachment data is not deleted" do
+            attachment_data.assets.each do |asset|
+              AssetManager::AssetUpdater.expects(:call).with(asset.asset_manager_id, { "draft" => false, "access_limited_organisation_ids" => [], "access_limited_user_ids" => [], "auth_bypass_ids" => [], "parent_document_url" => "https://www.test.gov.uk/government/consultations/news-title" })
+            end
 
-      before do
-        attachment_data.attachments = [previous_attachment, attachment]
-        attachment_data.save!
-      end
+            job.perform(attachment_data.id, asset_data_type)
+          end
+        end
 
-      it "it deletes the asset if attachment data is deleted" do
-        attachment.destroy!
+        context "attachment was created on the previous edition" do
+          let(:attachment_data) { build(asset_data_type.underscore.to_sym) }
+          let(:previous_attachable) { create(:superseded_consultation) }
+          let(:attachable) { create(:published_consultation, document: previous_attachable.document) }
 
-        AssetManager::AssetDeleter.expects(:call).with(asset_manager_id)
+          let(:previous_attachment) do
+            case asset_data_type
+            when "AttachmentData"
+              attachment_data.attachable = previous_attachable
+              create(:file_attachment, attachable: previous_attachable, attachment_data:)
+            when "ImageData"
+              create(:image, edition: previous_attachable, image_data: attachment_data)
+            end
+          end
 
-        job.perform(attachment_data.id)
-      end
+          let(:attachment) do
+            case asset_data_type
+            when "AttachmentData"
+              attachment_data.attachable = previous_attachable
+              create(:file_attachment, attachable:, attachment_data:)
+            when "ImageData"
+              create(:image, edition: attachable, image_data: attachment_data)
+            end
+          end
 
-      it "does not update the asset" do
-        AssetManager::AssetUpdater.expects(:call).never
+          before do
+            case asset_data_type
+            when "AttachmentData"
+              attachment_data.attachments = [previous_attachment, attachment]
+            when "ImageData"
+              attachment_data.images = [previous_attachment, attachment]
+            end
 
-        job.perform(attachment_data.id)
+            attachment_data.save!
+          end
+
+          it "it deletes the asset if attachment data is deleted" do
+            attachment.destroy!
+
+            attachment_data.assets.each do |asset|
+              AssetManager::AssetDeleter.expects(:call).with(asset.asset_manager_id)
+            end
+
+            job.perform(attachment_data.id, asset_data_type)
+          end
+
+          it "does not update the asset" do
+            AssetManager::AssetUpdater.expects(:call).never
+
+            job.perform(attachment_data.id, asset_data_type)
+          end
+        end
       end
     end
 

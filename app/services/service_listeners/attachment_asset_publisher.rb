@@ -6,6 +6,12 @@ module ServiceListeners
 
         PublishAttachmentAssetJob.perform_async(attachment.attachment_data.id)
       end
+
+      if attachable.is_a?(Edition)
+        Image.includes(:image_data).unscoped.where(edition: attachable.attachables).find_each do |image|
+          PublishAttachmentAssetJob.perform_async(image.image_data.id, "ImageData")
+        end
+      end
     end
   end
 end
