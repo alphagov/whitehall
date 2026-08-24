@@ -32,9 +32,12 @@
         rows: 20,
       } %>
 
-      <%= render "govuk_publishing_components/components/button", {
-        text: "Save",
-      } %>
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+        } %>
+        <%= link_to("Cancel", admin_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
     <% end %>
   </div>
 </div>
