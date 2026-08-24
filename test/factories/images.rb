@@ -13,8 +13,13 @@ FactoryBot.define do
     trait(:svg) do
       image_data { build(:image_data_for_svg) }
     end
+
+    trait(:missing_file) do
+      image_data { build(:image_data_with_missing_file) }
+    end
   end
 
   factory :image, parent: :generic_image, traits: [:jpg]
   factory :image_with_no_assets, parent: :generic_image, traits: [:with_no_assets]
+  factory :image_with_missing_file, parent: :generic_image, traits: [:missing_file]
 end
