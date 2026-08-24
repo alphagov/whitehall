@@ -941,6 +941,15 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil edition.published_at
   end
 
+  test "#post_published_state? returns true if edition is in a post published state" do
+    %i[
+      published superseded withdrawn unpublished
+    ].each do |state|
+      edition = build(:edition, state)
+      assert edition.post_published_state?
+    end
+  end
+
   test "should pass validation on saving of edition with HTML attachment with deleted contact" do
     contact = create(:contact)
     attachment = create(:html_attachment, body: "[Contact:#{contact.id}]")
