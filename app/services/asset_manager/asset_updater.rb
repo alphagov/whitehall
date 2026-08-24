@@ -7,10 +7,8 @@ class AssetManager::AssetUpdater
     end
   end
 
-  class AssetDeleted < StandardError
-    def initialize(asset_manager_id)
-      super("Attempting to update Asset with asset_manager_id: '#{asset_manager_id}' that is live and deleted")
-    end
+  def asset_deleted_message(asset_manager_id)
+    "Attempting to update Asset with asset_manager_id: '#{asset_manager_id}' that is live and deleted"
   end
 
   def self.call(*args)
@@ -35,7 +33,7 @@ private
     # Publishing the deleted state ensured that the original asset redirects to its deleted replacement, and thus 404s as well.
 
     # Asset Manager will raise a 404 when trying to fetch a deleted live asset for update. We raise here to make those cases explicit.
-    raise AssetDeleted, asset_manager_id if attributes["deleted"] && !attributes["draft"]
+    return GovukError.notify(asset_deleted_message(asset_manager_id)) if attributes["deleted"] && !attributes["draft"]
 
     begin
       keys = new_attributes.keys
