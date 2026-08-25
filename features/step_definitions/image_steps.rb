@@ -38,15 +38,34 @@ def upload_file(width = nil, height = nil, image_usage_key = "govspeak_embed", f
 end
 
 Given("a draft document with images exists") do
-  svg_image_data = build(:image_data, file: File.open(Rails.root.join("test/fixtures/images/test-svg.svg")))
-  image = build(:image, image_data: svg_image_data)
-  images = [build(:image), image]
+  @edition = create(:draft_publication, body: "!!2")
 
-  @edition = create(:draft_publication, body: "!!2", images:)
+  image = build(:image)
+  edition_image = @edition.images.build(image.attributes)
+  edition_image.build_image_data(image.image_data.attributes)
+  edition_image.image_data.file = File.open(Rails.root.join("test/fixtures/images/960x640_jpeg.jpg"))
+  edition_image.image_data.images << edition_image
+
+  svg_image = build(:image)
+  edition_svg_image = @edition.images.build(svg_image.attributes)
+  edition_svg_image.build_image_data(svg_image.image_data.attributes)
+  edition_svg_image.image_data.file = File.open(Rails.root.join("test/fixtures/images/test-svg.svg"))
+  edition_svg_image.image_data.images << edition_svg_image
+
+  @edition.save!
 end
 
 Given("a draft document with images exists including an image that is not yet ready") do
-  @edition = create(:draft_publication, body: "!!2", images: [build(:image_with_no_assets)])
+  @edition = create(:draft_publication, body: "!!2")
+
+  image = build(:image)
+  edition_image = @edition.images.build(image.attributes)
+  edition_image.build_image_data(image.image_data.attributes)
+  edition_image.image_data.file = File.open(Rails.root.join("test/fixtures/images/960x640_jpeg.jpg"))
+  edition_image.image_data.images << edition_image
+
+  @edition.save!
+
   @edition.images.first.image_data.assets.destroy_all
 end
 
@@ -106,7 +125,6 @@ end
 
 When("I click to edit the details of the image that needs to be cropped") do
   io_object = fixture_file_upload(Rails.root.join("test/fixtures/images/960x960_jpeg.jpg"), "image/jpeg").tempfile.to_io
-
   stub_request(:get, %r{.*/media/.*/960x960_jpeg.jpg}).to_return(status: 200, body: io_object, headers: {})
   find_all("a", text: "Edit details").last.click
 end
