@@ -1,7 +1,7 @@
 {
   "key": "topical_event",
   "title": "Topical event",
-  "description": "Do not create topical events without consulting GDS",
+  "description": "Use this to communicate government activity about high-profile events or in response to a major crisis. You must get approval from GDS before creating one.",
   "forms": {
     "documents": {
       "fields": {
