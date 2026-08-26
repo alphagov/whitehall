@@ -69,7 +69,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       end
 
       it "sets the expected asset attributes when the access_limiting_organisations_ui flag is on" do
-
         organisation = create(:organisation)
         edition = create(
           :publication,
@@ -307,7 +306,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       end
 
       it "sets access limiting to organisations when the access_limiting_organisations_ui flag is on" do
-
         organisation = create(:organisation)
         consultation = create(
           :draft_consultation,
@@ -334,7 +332,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       end
 
       it "sets access limiting to individuals when the access_limiting_individuals_ui flag is on" do
-
         user = create(:user)
         consultation = create(
           :draft_consultation,
