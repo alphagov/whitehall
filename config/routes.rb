@@ -312,8 +312,6 @@ Whitehall::Application.routes.draw do
           get :confirm_destroy, on: :member
         end
       end
-      resources :plan_for_change_landing_pages, path: "plan-for-change-landing-pages", except: [:index]
-
       resources :fatality_notices, path: "fatalities", except: [:index]
       resources :consultations, except: [:index] do
         resource :outcome, controller: "consultation_responses", type: "ConsultationOutcome", except: %i[new destroy]
