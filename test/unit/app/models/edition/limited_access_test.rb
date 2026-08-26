@@ -41,174 +41,117 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert edition.accessible_to?(user)
   end
 
-  context "with access_limiting_organisations_ui flag on" do
-    test "is valid when access_limiting is set to 'organisations' and access limiting organisations are present" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-      org = create(:organisation)
+  test "is valid when access_limiting is set to 'organisations' and access limiting organisations are present" do
+    org = create(:organisation)
 
-      edition = build(:edition)
-      edition.access_limiting = :organisations
-      edition.access_limiting_organisation_ids = [org.id]
+    edition = build(:edition)
+    edition.access_limiting = :organisations
+    edition.access_limiting_organisation_ids = [org.id]
 
-      assert edition.valid?
-    end
-
-    test "is valid when access_limiting is set to 'none' regardless of access limiting organisations" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-
-      edition = build(:limited_access_edition, access_limiting: :none)
-      edition.access_limiting_organisation_ids = []
-      assert edition.valid?
-    end
-
-    test "is invalid when access_limiting is set to 'organisations' and no access limiting organisations are present" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-
-      edition = build(:limited_access_edition, access_limiting: :organisations)
-      edition.access_limiting_organisation_ids = []
-
-      assert_not edition.valid?
-      assert_includes edition.errors[:access_limiting_organisation_ids], "must include at least one organisation"
-    end
-
-    test "is invalid when user does not have an organisation" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-      user = build(:user, organisation: nil)
-      edition = build(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [create(:organisation).id])
-      edition.current_user_for_validation = user
-
-      assert_invalid edition
-      assert_includes edition.errors[:access_limiting_organisation_ids], "must include your own organisation"
-    end
-
-    test "is invalid when the user's organisation is not included in the access limiting organisations" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-      user_org = create(:organisation)
-      access_limiting_org = create(:organisation)
-      user = build(:user, organisation: user_org)
-
-      edition = build(:limited_access_edition, access_limiting: "organisations")
-      edition.access_limiting_organisation_ids = [access_limiting_org.id]
-      edition.current_user_for_validation = user
-
-      assert_not edition.valid?
-      assert_includes edition.errors[:access_limiting_organisation_ids], "must include your own organisation"
-    end
-
-    test "create does not persist edition with invalid access_limiting_organisations" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-      edition = build(:limited_access_edition, access_limiting: "organisations")
-      edition.access_limiting_organisation_ids = []
-
-      assert_no_changes -> { AccessLimitingOrganisation.count } do
-        assert_not edition.save
-      end
-      assert_equal [], edition.access_limiting_organisation_ids
-    end
-
-    test "create does not persist edition with valid access_limiting_organisations when another field is invalid" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-      org = create(:organisation)
-      edition = build(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [org.id])
-      edition.title = ""
-
-      assert_no_changes -> { AccessLimitingOrganisation.count } do
-        assert_not edition.save
-      end
-      assert_equal [org.id], edition.access_limiting_organisation_ids
-    end
-
-    test "creates and updates edition with access limiting organisations" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-      original_org = create(:organisation)
-      edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [original_org.id])
-
-      assert_equal [original_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
-
-      new_org = create(:organisation)
-      edition.access_limiting_organisation_ids = [new_org.id]
-      edition.save!
-
-      assert_equal [new_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
-    end
-
-    test "update: does not persist valid access_limiting_organisations on assignment" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-      original_org = create(:organisation)
-      edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [original_org.id])
-
-      updated_org = create(:organisation)
-      edition.access_limiting_organisation_ids = [updated_org.id]
-
-      assert_equal [original_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
-    end
-
-    test "update does not persist invalid assigned access_limiting_organisations" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-
-      old_org = create(:organisation)
-      edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [old_org.id])
-      edition.access_limiting_organisation_ids = []
-
-      assert_not edition.save
-      assert_includes edition.errors[:access_limiting_organisation_ids], "must include at least one organisation"
-      assert_equal [], edition.access_limiting_organisation_ids # In-memory should show the cleared value the user set
-      assert_equal [old_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id) # DB should remain unchanged (still the original org)
-    end
-
-    test "update does not persist valid assigned access_limiting_organisations when another field is invalid" do
-      @feature_flags.switch!(:access_limiting_organisations_ui, true)
-
-      old_org = create(:organisation)
-      edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [old_org.id])
-      new_org = create(:organisation)
-      edition.access_limiting_organisation_ids = [new_org.id]
-      edition.title = ""
-
-      assert_not edition.save
-      assert_equal [new_org.id], edition.access_limiting_organisation_ids # In-memory should reflect the newly assigned orgs
-      assert_equal [old_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id) # DB should remain unchanged (still the original org)
-    end
+    assert edition.valid?
   end
 
-  context "with access_limiting_organisations_ui flag off" do
-    setup do
-      @feature_flags.switch!(:access_limiting_organisations_ui, false)
+  test "is valid when access_limiting is set to 'none' regardless of access limiting organisations" do
+    edition = build(:limited_access_edition, access_limiting: :none)
+    edition.access_limiting_organisation_ids = []
+    assert edition.valid?
+  end
+
+  test "is invalid when access_limiting is set to 'organisations' and no access limiting organisations are present" do
+    edition = build(:limited_access_edition, access_limiting: :organisations)
+    edition.access_limiting_organisation_ids = []
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_organisation_ids], "must include at least one organisation"
+  end
+
+  test "is invalid when user does not have an organisation" do
+    user = build(:user, organisation: nil)
+    edition = build(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [create(:organisation).id])
+    edition.current_user_for_validation = user
+
+    assert_invalid edition
+    assert_includes edition.errors[:access_limiting_organisation_ids], "must include your own organisation"
+  end
+
+  test "is invalid when the user's organisation is not included in the access limiting organisations" do
+    user_org = create(:organisation)
+    access_limiting_org = create(:organisation)
+    user = build(:user, organisation: user_org)
+
+    edition = build(:limited_access_edition, access_limiting: "organisations")
+    edition.access_limiting_organisation_ids = [access_limiting_org.id]
+    edition.current_user_for_validation = user
+
+    assert_not edition.valid?
+    assert_includes edition.errors[:access_limiting_organisation_ids], "must include your own organisation"
+  end
+
+  test "create does not persist edition with invalid access_limiting_organisations" do
+    edition = build(:limited_access_edition, access_limiting: "organisations")
+    edition.access_limiting_organisation_ids = []
+
+    assert_no_changes -> { AccessLimitingOrganisation.count } do
+      assert_not edition.save
     end
+    assert_equal [], edition.access_limiting_organisation_ids
+  end
 
-    test "is valid when access_limiting is set to 'organisations' and no access limiting organisations are selected" do
-      edition = create(:consultation, access_limiting: :organisations)
-      edition.access_limiting_organisation_ids = []
-      assert edition.valid?
+  test "create does not persist edition with valid access_limiting_organisations when another field is invalid" do
+    org = create(:organisation)
+    edition = build(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [org.id])
+    edition.title = ""
+
+    assert_no_changes -> { AccessLimitingOrganisation.count } do
+      assert_not edition.save
     end
+    assert_equal [org.id], edition.access_limiting_organisation_ids
+  end
 
-    test "is invalid when access_limiting is set to 'organisations' and no edition organisations are selected" do
-      edition = create(:consultation, access_limiting: :organisations)
-      edition.organisation_ids = []
+  test "creates and updates edition with access limiting organisations" do
+    original_org = create(:organisation)
+    edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [original_org.id])
 
-      assert_not edition.valid?
-      assert_includes edition.errors[:lead_organisation_ids], "at least one required"
-    end
+    assert_equal [original_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
 
-    test "is invalid when user does not have an organisation" do
-      user = build(:user, organisation: nil)
-      edition = build(:limited_access_edition, access_limiting: "organisations")
-      edition.lead_organisation_ids = [create(:organisation).id]
-      edition.current_user_for_validation = user
+    new_org = create(:organisation)
+    edition.access_limiting_organisation_ids = [new_org.id]
+    edition.save!
 
-      assert_invalid edition
-      assert_includes edition.errors[:base], "Lead or supporting organisations must include your own organisation"
-    end
+    assert_equal [new_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
+  end
 
-    test "is invalid when the user's organisation is not included in the edition organisations" do
-      user_org = create(:organisation)
-      user = build(:user, organisation: user_org)
-      edition = build(:limited_access_edition, access_limiting: "organisations", lead_organisation_ids: [create(:organisation).id])
-      edition.current_user_for_validation = user
+  test "update: does not persist valid access_limiting_organisations on assignment" do
+    original_org = create(:organisation)
+    edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [original_org.id])
 
-      assert_not edition.valid?
-      assert_includes edition.errors[:base], "Lead or supporting organisations must include your own organisation"
-    end
+    updated_org = create(:organisation)
+    edition.access_limiting_organisation_ids = [updated_org.id]
+
+    assert_equal [original_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id)
+  end
+
+  test "update does not persist invalid assigned access_limiting_organisations" do
+    old_org = create(:organisation)
+    edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [old_org.id])
+    edition.access_limiting_organisation_ids = []
+
+    assert_not edition.save
+    assert_includes edition.errors[:access_limiting_organisation_ids], "must include at least one organisation"
+    assert_equal [], edition.access_limiting_organisation_ids # In-memory should show the cleared value the user set
+    assert_equal [old_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id) # DB should remain unchanged (still the original org)
+  end
+
+  test "update does not persist valid assigned access_limiting_organisations when another field is invalid" do
+    old_org = create(:organisation)
+    edition = create(:limited_access_edition, access_limiting: "organisations", access_limiting_organisation_ids: [old_org.id])
+    new_org = create(:organisation)
+    edition.access_limiting_organisation_ids = [new_org.id]
+    edition.title = ""
+
+    assert_not edition.save
+    assert_equal [new_org.id], edition.access_limiting_organisation_ids # In-memory should reflect the newly assigned orgs
+    assert_equal [old_org.id], edition.reload.edition_access_limiting_organisations.map(&:organisation_id) # DB should remain unchanged (still the original org)
   end
 
   test "saves access_limiting_individuals with lowercased emails when access_limiting is set to 'individuals'" do
@@ -243,8 +186,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is invalid when the email separator is space" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     edition = build(:limited_access_edition)
     edition.access_limiting = "individuals"
     edition.access_limiting_individual_emails = "test@test.com example@example.com some_test@test.com"
@@ -268,8 +209,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is invalid when access_limiting is set to 'individuals' and no access limiting emails are selected" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = ""
@@ -280,8 +219,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is valid when access_limiting is set to 'individuals' and access limiting emails are present" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     create(:user, email: "user@example.com")
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
@@ -291,8 +228,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is invalid when access_limiting is set to 'individuals' and the provided email is not an email address" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "not-an-email"
@@ -304,8 +239,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is invalid when an access limiting individual email has no top-level domain" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "test@test"
@@ -315,8 +248,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is invalid when valid emails are mixed in with badly formatted emails" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "user@example.com, gibberish"
@@ -326,8 +257,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "shows both the format error and the Signon-match error, when different emails have different problems" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "no_such_user@example.com, gibberish"
@@ -338,8 +267,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is invalid when access_limiting is set to 'individuals' and the provided email does not match an existing Signon user" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "no_such_user@example.com"
@@ -349,8 +276,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "recognizes an existing Signon user regardless of email case" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     create(:user, email: "User@Example.com")
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
@@ -360,8 +285,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is invalid when a Signon email is mixed in with an email that does not match any Signon user" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     create(:user, email: "user@example.com")
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
@@ -372,8 +295,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "does not require a Signon match for an individual email marked for destruction" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     create(:user, email: "user@example.com")
     edition = build(:limited_access_edition)
     edition.access_limiting = :individuals
@@ -396,16 +317,12 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "is valid when access_limiting is set to 'none' regardless of access limiting individuals" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     edition = create(:limited_access_edition, access_limiting: :none)
     edition.access_limiting_individual_emails = ""
     assert edition.valid?
   end
 
   test "is invalid when access_limiting is set to 'individuals' and the current user's email is not included" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     user = build(:user, email: "user@example.com")
     edition = create(:limited_access_edition)
     edition.current_user_for_validation = user
@@ -417,8 +334,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "recognizes the users's email as valid when mixed in with other badly formatted emails" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     user = build(:user, email: "user@example.com")
     edition = create(:limited_access_edition)
     edition.current_user_for_validation = user
@@ -430,8 +345,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "does not recognize the users's email as valid when the email separator is space" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
     user = build(:user, email: "user@example.com")
     edition = create(:limited_access_edition)
     edition.current_user_for_validation = user
@@ -441,14 +354,6 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert_not edition.valid?
     assert_includes edition.errors[:access_limiting_individual_emails], "must include your own email"
     assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses separated with commas"
-  end
-
-  test "is valid when access_limiting is set to 'individuals' and no access limiting individuals are selected when flag is off" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, false)
-
-    edition = create(:consultation, access_limiting: :individuals)
-    edition.access_limiting_individual_emails = ""
-    assert edition.valid?
   end
 
   test "access_limiting persists across save/reload" do

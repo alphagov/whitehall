@@ -57,32 +57,6 @@ class EditionRulesTest < ActiveSupport::TestCase
     edition
   end
 
-  test "grants access based on lead/supporting organisations when flag is OFF" do
-    feature_flags.switch! :access_limiting_organisations_ui, false
-
-    user = user_in(org)
-    edition = build(:consultation, access_limiting: "organisations")
-    edition.stubs(:historic?).returns(false)
-    edition.stubs(:access_limiting_organisations?).returns(true)
-    edition.stubs(:access_limiting_organisations).returns([other_org])
-    edition.stubs(:organisations).returns([org])
-
-    assert enforcer_for(user, edition).can?(:see)
-  end
-
-  test "revokes access based on lead/supporting organisations when flag is OFF" do
-    feature_flags.switch! :access_limiting_organisations_ui, false
-
-    user = user_in(org)
-    edition = build(:consultation, access_limiting: "organisations")
-    edition.stubs(:historic?).returns(false)
-    edition.stubs(:access_limiting_organisations?).returns(true)
-    edition.stubs(:access_limiting_organisations).returns([other_org])
-    edition.stubs(:organisations).returns([other_org])
-
-    assert_not enforcer_for(user, edition).can?(:see)
-  end
-
   test "grants access when access limiting is 'none'" do
     user = user_in(org)
     edition = build(:edition, access_limiting: "none")
@@ -92,21 +66,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert enforcer_for(user, edition).can?(:see)
   end
 
-  test "revokes access when the user does not have an organisation, and flag is OFF" do
-    feature_flags.switch! :access_limiting_organisations_ui, false
-
-    user = user_in(nil)
-    edition = build(:consultation, access_limiting: "organisations")
-    edition.stubs(:historic?).returns(false)
-    edition.stubs(:access_limiting_organisations?).returns(true)
-    edition.stubs(:organisations).returns([org])
-
-    assert_not enforcer_for(user, edition).can?(:see)
-  end
-
-  test "grants access when user's organisation is in access_limiting_organisations and flag is ON" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  test "grants access when user's organisation is in access_limiting_organisations" do
     user = user_in(org)
     edition = build(:edition, access_limiting: "organisations")
     edition.stubs(:historic?).returns(false)
@@ -116,9 +76,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert enforcer_for(user, edition).can?(:see)
   end
 
-  test "revokes access when the user's organisation is not in access_limiting_organisations and flag is ON" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  test "revokes access when the user's organisation is not in access_limiting_organisations" do
     user = user_in(org)
     edition = build(:edition, access_limiting: "organisations")
     edition.stubs(:historic?).returns(false)
@@ -128,9 +86,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, edition).can?(:see)
   end
 
-  test "grants access when user's email is in access_limiting_individuals and flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "grants access when user's email is in access_limiting_individuals" do
     user = user_with_email("user@example.com")
 
     edition = build(:edition, access_limiting: "individuals")
@@ -139,9 +95,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert enforcer_for(user, edition).can?(:see)
   end
 
-  test "grants access when user's email matches an access_limiting_individual case-insensitively and flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "grants access when user's email matches an access_limiting_individual case-insensitively" do
     user = user_with_email("user@example.com")
 
     edition = build(:edition, access_limiting: "individuals")
@@ -150,9 +104,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert enforcer_for(user, edition).can?(:see)
   end
 
-  test "revokes access when user's email is not in access_limiting_individuals and flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "revokes access when user's email is not in access_limiting_individuals" do
     user = user_with_email("user@example.com")
 
     edition = build(:edition, access_limiting: "individuals")
@@ -161,9 +113,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, edition).can?(:see)
   end
 
-  test "revokes access when the user does not have an organisation, and flag is ON" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  test "revokes access when the user does not have an organisation" do
     user = user_in(nil)
     edition = build(:edition, access_limiting: "organisations")
     edition.stubs(:historic?).returns(false)
@@ -173,9 +123,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, edition).can?(:see)
   end
 
-  test "revokes access when access_limiting is 'organisations' but access_limiting_organisations is empty, and flag is ON" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  test "revokes access when access_limiting is 'organisations' but access_limiting_organisations is empty" do
     user = user_in(org)
     edition = build(:edition, access_limiting: "organisations")
     edition.stubs(:historic?).returns(false)
@@ -185,9 +133,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, edition).can?(:see)
   end
 
-  test "revokes access when access_limiting it set to 'individuals', but there are no access_limiting_individuals on the edition, and flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "revokes access when access_limiting is set to 'individuals', but there are no access_limiting_individuals on the edition" do
     org1 = build(:organisation)
     user = user_in(org1)
 
@@ -278,9 +224,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, historic_access_limited_edition_by_orgs([other_org])).can?(:unpublish)
   end
 
-  test "a user NOT in access_limiting_organisations cannot :see an access-limited historic edition when flag is ON" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  test "a user NOT in access_limiting_organisations cannot :see an access-limited historic edition" do
     user = user_in(org)
     edition = build(:published_edition, force_published: true)
     edition.stubs(:historic?).returns(true)
@@ -290,9 +234,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, edition).can?(:see)
   end
 
-  test "a user in access_limiting_organisations can :see an access-limited historic edition when flag is ON" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  test "a user in access_limiting_organisations can :see an access-limited historic edition" do
     user = user_in(org)
     edition = build(:published_edition, force_published: true)
     edition.stubs(:historic?).returns(true)
@@ -302,25 +244,7 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert enforcer_for(user, edition).can?(:see)
   end
 
-  test "a user outside the limiting org cannot perform ANY action on a non-historic access-limited edition when flag is OFF" do
-    feature_flags.switch! :access_limiting_organisations_ui, false
-
-    user = user_in(other_org)
-    edition = build(:consultation, access_limiting: "organisations")
-    edition.stubs(:historic?).returns(false)
-    edition.stubs(:access_limiting_organisations?).returns(true)
-    edition.stubs(:organisations).returns([org])
-
-    enforcer = enforcer_for(user, edition)
-    Whitehall::Authority::Rules::EditionRules.actions.each do |action|
-      assert_not enforcer.can?(action),
-                 "expected user outside limiting org to be denied :#{action} on access-limited edition when flag is OFF"
-    end
-  end
-
-  test "a user outside the limiting org cannot perform ANY action on a non-historic access-limited edition when flag is ON" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  test "a user outside the limiting org cannot perform ANY action on a non-historic access-limited edition" do
     user = user_in(other_org)
     edition = build(:edition, access_limiting: "organisations")
     edition.stubs(:historic?).returns(false)
@@ -329,13 +253,11 @@ class EditionRulesTest < ActiveSupport::TestCase
 
     enforcer = enforcer_for(user, edition)
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
-      assert_not enforcer.can?(action), "expected user outside limiting org to be denied :#{action} on access-limited edition when flag is ON"
+      assert_not enforcer.can?(action), "expected user outside limiting org to be denied :#{action} on access-limited edition"
     end
   end
 
-  test "a user NOT in access_limiting_individuals cannot perform ANY action on a non-historic edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "a user NOT in access_limiting_individuals cannot perform ANY action on a non-historic edition" do
     user = user_with_email("outsider@example.com")
     edition = build(:edition, access_limiting: "individuals")
     edition.stubs(:historic?).returns(false)
@@ -347,34 +269,17 @@ class EditionRulesTest < ActiveSupport::TestCase
     end
   end
 
-  test "when the access_limiting_individuals_ui flag is OFF, individuals mode does not enforce access" do
-    feature_flags.switch! :access_limiting_individuals_ui, false
-
-    user = user_with_email("anyone@example.com")
-    edition = build(:edition, access_limiting: "individuals")
-    edition.stubs(:historic?).returns(false)
-    edition.stubs(:access_limiting_organisations?).returns(false)
-
-    assert enforcer_for(user, edition).can?(:see)
-  end
-
-  test "a user whose email is in access_limiting_individuals can see a historic edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "a user whose email is in access_limiting_individuals can see a historic edition" do
     user = user_with_email("insider@example.com")
     assert enforcer_for(user, historic_access_limited_edition_by_individuals(["insider@example.com"])).can?(:see)
   end
 
-  test "a user whose email is NOT in access_limiting_individuals cannot :see a historic edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "a user whose email is NOT in access_limiting_individuals cannot :see a historic edition" do
     user = user_with_email("outsider@example.com")
     assert_not enforcer_for(user, historic_access_limited_edition_by_individuals(["insider@example.com"])).can?(:see)
   end
 
-  test "a user NOT in access_limiting_individuals cannot perform ANY action on a historic edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "a user NOT in access_limiting_individuals cannot perform ANY action on a historic edition" do
     user = user_with_email("outsider@example.com")
     edition = historic_access_limited_edition_by_individuals(["insider@example.com"])
 
@@ -384,23 +289,17 @@ class EditionRulesTest < ActiveSupport::TestCase
     end
   end
 
-  test "a GDS Editor whose email is NOT in access_limiting_individuals cannot :see a historic edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "a GDS Editor whose email is NOT in access_limiting_individuals cannot :see a historic edition" do
     user = user_in(org, gds_editor?: true, email: "gds@example.com")
     assert_not enforcer_for(user, historic_access_limited_edition_by_individuals(["insider@example.com"])).can?(:see)
   end
 
-  test "a GDS Admin whose email is NOT in access_limiting_individuals cannot :see a historic edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "a GDS Admin whose email is NOT in access_limiting_individuals cannot :see a historic edition" do
     user = user_in(org, gds_admin?: true, email: "gds@example.com")
     assert_not enforcer_for(user, historic_access_limited_edition_by_individuals(["insider@example.com"])).can?(:see)
   end
 
-  test "a GDS Editor whose email is in access_limiting_individuals can :update a historic edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "a GDS Editor whose email is in access_limiting_individuals can :update a historic edition" do
     user = user_in(org, gds_editor?: true, email: "gds@example.com")
     assert enforcer_for(user, historic_access_limited_edition_by_individuals(["gds@example.com"])).can?(:update)
   end

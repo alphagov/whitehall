@@ -28,11 +28,11 @@ module Edition::LimitedAccess
 
     after_save :clear_pending_access_limiting_organisation_ids
 
-    validate :access_limiting_organisations_required, if: -> { Flipflop.access_limiting_organisations_ui? && access_limiting_organisations? }
+    validate :access_limiting_organisations_required, if: -> { access_limiting_organisations? }
     validate :access_limiting_must_include_current_user_organisation
     validate :access_limiting_must_include_current_user_email
-    validate :access_limiting_individual_emails_required, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
-    validate :access_limiting_individual_emails_valid, if: -> { Flipflop.access_limiting_individuals_ui? && access_limiting_individuals? }
+    validate :access_limiting_individual_emails_required, if: -> { access_limiting_individuals? }
+    validate :access_limiting_individual_emails_valid, if: -> { access_limiting_individuals? }
   end
 
   def access_limited_object
@@ -112,21 +112,17 @@ private
   def access_limiting_must_include_current_user_organisation
     return unless current_user_for_validation.present? && access_limiting_organisations?
 
-    if Flipflop.access_limiting_organisations_ui?
-      org_ids = edition_access_limiting_organisations
-                  .reject(&:marked_for_destruction?)
-                  .map(&:organisation_id)
+    org_ids = edition_access_limiting_organisations
+                .reject(&:marked_for_destruction?)
+                .map(&:organisation_id)
 
-      if org_ids.any? && org_ids.exclude?(current_user_for_validation.organisation&.id)
-        errors.add(:access_limiting_organisation_ids, "must include your own organisation")
-      end
-    elsif organisation_association_enabled? && edition_organisations.map(&:organisation_id).exclude?(current_user_for_validation.organisation&.id)
-      errors.add(:base, "Lead or supporting organisations must include your own organisation")
+    if org_ids.any? && org_ids.exclude?(current_user_for_validation.organisation&.id)
+      errors.add(:access_limiting_organisation_ids, "must include your own organisation")
     end
   end
 
   def access_limiting_must_include_current_user_email
-    return unless current_user_for_validation.present? && Flipflop.access_limiting_individuals_ui? && access_limiting_individuals?
+    return unless current_user_for_validation.present? && access_limiting_individuals?
 
     emails = access_limiting_individuals
                .reject(&:marked_for_destruction?)

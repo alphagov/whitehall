@@ -151,9 +151,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     ).can?(:see)
   end
 
-  test "user in access_limiting_organisations can :see a non-historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  test "user in access_limiting_organisations can :see a non-historic standard edition" do
     user = User.new(organisation: @organisation)
     page = build(:standard_edition, configurable_document_type: "test_type", access_limiting: "organisations")
     page.stubs(:historic?).returns(false)
@@ -163,9 +161,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     assert Whitehall::Authority::Enforcer.new(user, page).can?(:see)
   end
 
-  test "user NOT in access_limiting_organisations cannot :see a non-historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  test "user NOT in access_limiting_organisations cannot :see a non-historic standard edition" do
     user = User.new(organisation: @organisation)
     page = build(:standard_edition, configurable_document_type: "test_type", access_limiting: "organisations")
     page.stubs(:historic?).returns(false)
@@ -175,9 +171,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     assert_not Whitehall::Authority::Enforcer.new(user, page).can?(:see)
   end
 
-  test "user whose email IS in access_limiting_individuals can :see a non-historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "user whose email IS in access_limiting_individuals can :see a non-historic standard edition" do
     user = User.new(organisation: @organisation, email: "insider@example.com")
     page = build(:standard_edition, configurable_document_type: "test_type", access_limiting: "individuals")
     page.stubs(:historic?).returns(false)
@@ -186,9 +180,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     assert Whitehall::Authority::Enforcer.new(user, page).can?(:see)
   end
 
-  test "user whose email is NOT in access_limiting_individuals cannot :see a non-historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "user whose email is NOT in access_limiting_individuals cannot :see a non-historic standard edition" do
     user = User.new(organisation: @organisation, email: "outsider@example.com")
     page = build(:standard_edition, configurable_document_type: "test_type", access_limiting: "individuals")
     page.stubs(:historic?).returns(false)
@@ -197,9 +189,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     assert_not Whitehall::Authority::Enforcer.new(user, page).can?(:see)
   end
 
-  test "user NOT in access_limiting_individuals cannot perform ANY action on a non-historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "user NOT in access_limiting_individuals cannot perform ANY action on a non-historic standard edition" do
     user = User.new(organisation: @organisation, email: "outsider@example.com")
     page = build(:standard_edition, configurable_document_type: "test_type", access_limiting: "individuals")
     page.stubs(:historic?).returns(false)
@@ -212,9 +202,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     end
   end
 
-  test "user whose email is in access_limiting_individuals can :see a historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "user whose email is in access_limiting_individuals can :see a historic standard edition" do
     user = user_with_email("insider@example.com", organisation: @organisation)
     assert Whitehall::Authority::Enforcer.new(
       user,
@@ -222,9 +210,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     ).can?(:see)
   end
 
-  test "user whose email is NOT in access_limiting_individuals cannot :see a historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "user whose email is NOT in access_limiting_individuals cannot :see a historic standard edition" do
     user = user_with_email("outsider@example.com", organisation: @other_organisation)
     assert_not Whitehall::Authority::Enforcer.new(
       user,
@@ -232,9 +218,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     ).can?(:see)
   end
 
-  test "user NOT in access_limiting_individuals cannot perform ANY action on a historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "user NOT in access_limiting_individuals cannot perform ANY action on a historic standard edition" do
     user = user_with_email("outsider@example.com", organisation: @other_organisation)
     edition = historic_access_limited_standard_edition_by_individuals(["insider@example.com"])
     enforcer = Whitehall::Authority::Enforcer.new(user, edition)
@@ -245,9 +229,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     end
   end
 
-  test "a GDS Editor NOT in access_limiting_individuals cannot :see a historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "a GDS Editor NOT in access_limiting_individuals cannot :see a historic standard edition" do
     user = OpenStruct.new(id: 1, gds_editor?: true, gds_admin?: false, email: "gds@example.com", organisation: @organisation)
     assert_not Whitehall::Authority::Enforcer.new(
       user,
@@ -255,9 +237,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
     ).can?(:see)
   end
 
-  test "a GDS Editor whose email IS in access_limiting_individuals can :update a historic standard edition when flag is ON" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  test "a GDS Editor whose email IS in access_limiting_individuals can :update a historic standard edition" do
     user = OpenStruct.new(id: 1, gds_editor?: true, gds_admin?: false, email: "gds@example.com", organisation: @organisation)
     assert Whitehall::Authority::Enforcer.new(
       user,

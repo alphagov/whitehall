@@ -102,14 +102,10 @@ module Whitehall::Authority::Rules
     end
 
     def access_limit_enforced?
-      if Flipflop.access_limiting_individuals_ui? && subject.access_limiting_individuals?
+      if subject.access_limiting_individuals?
         subject.access_limiting_individuals.none? { |individual| individual.email.to_s.downcase == actor.email.to_s.downcase }
-      elsif Flipflop.access_limiting_organisations_ui? && subject.access_limiting_organisations?
+      elsif subject.access_limiting_organisations?
         subject.access_limiting_organisations.none?(actor.organisation)
-      elsif !Flipflop.access_limiting_organisations_ui? && subject.access_limiting_organisations?
-        organisations = subject.organisations
-        organisations += subject.edition_organisations.map(&:organisation) if subject.respond_to?(:edition_organisations)
-        organisations.exclude?(actor.organisation)
       else
         false
       end
