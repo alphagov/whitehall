@@ -86,7 +86,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   end
 
   test "presents the parent edition's named users when individual access limiting is on" do
-    @feature_flags.switch!(:access_limiting_individuals_ui, true)
     user = create(:user)
     edition = create(
       :publication,

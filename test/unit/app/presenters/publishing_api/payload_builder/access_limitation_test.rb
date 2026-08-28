@@ -15,41 +15,7 @@ module PublishingApi
         AccessLimitation.for(item)[:access_limited]
       end
 
-      test "returns organisation content ids for organisation access limiting, when flags are off" do
-        @feature_flags.switch!(:access_limiting_organisations_ui, false)
-        organisation = create(:organisation)
-
-        item = build_item(
-          access_limiting_organisations?: true,
-          access_limiting_individuals?: false,
-          organisations: [organisation],
-        )
-
-        assert_equal(
-          { organisations: [organisation.content_id] },
-          access_limited_result(item),
-        )
-      end
-
-      test "falls back to organisation content ids for a legacy organisation-limited edition when only the individuals flag is on" do
-        @feature_flags.switch!(:access_limiting_organisations_ui, false)
-        @feature_flags.switch!(:access_limiting_individuals_ui, true)
-        organisation = create(:organisation)
-
-        item = build_item(
-          access_limiting_organisations?: true,
-          access_limiting_individuals?: false,
-          organisations: [organisation],
-        )
-
-        assert_equal(
-          { organisations: [organisation.content_id] },
-          access_limited_result(item),
-        )
-      end
-
-      test "it returns access limiting organisations if access limiting is set to 'organisations', when feature flag is on" do
-        @feature_flags.switch!(:access_limiting_organisations_ui, true)
+      test "it returns access limiting organisations if access limiting is set to 'organisations'" do
         organisation = create(:organisation)
         item = build_item(
           access_limiting_organisations?: true,
@@ -62,9 +28,7 @@ module PublishingApi
         )
       end
 
-      test "it returns an empty hash if access limiting is set to 'none', when feature flag is on" do
-        @feature_flags.switch!(:access_limiting_organisations_ui, true)
-
+      test "it returns an empty hash if access limiting is set to 'none'" do
         item = build_item(
           access_limited?: false,
           access_limiting_organisations?: false,
@@ -73,9 +37,7 @@ module PublishingApi
         assert_equal({}, AccessLimitation.for(item))
       end
 
-      test "returns user uids for individual access limiting, when flag is on" do
-        @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
+      test "returns user uids for individual access limiting" do
         user = create(:user, email: "user@example.com")
         item = build_item(
           access_limiting_individuals?: true,
@@ -88,9 +50,7 @@ module PublishingApi
         )
       end
 
-      test "returns empty array when named users resolve to no UIDs, effectively opening draft access to everyone, when flag is on" do
-        @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
+      test "returns empty array when named users resolve to no UIDs, effectively opening draft access to everyone" do
         item = build_item(
           access_limiting_individuals?: true,
           access_limiting_individuals: stub(pluck: ["unknown@example.com"]),

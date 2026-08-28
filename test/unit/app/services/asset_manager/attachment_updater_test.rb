@@ -69,8 +69,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       end
 
       it "sets the expected asset attributes when the access_limiting_organisations_ui flag is on" do
-        @feature_flags.switch!(:access_limiting_organisations_ui, true)
-
         organisation = create(:organisation)
         edition = create(
           :publication,
@@ -97,7 +95,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
 
     context "when the attachment's attachable is a draft and is access limited to individuals" do
       it "sends the individual user uids for all assets when the access_limiting_individuals_ui flag is on" do
-        @feature_flags.switch!(:access_limiting_individuals_ui, true)
         user = create(:user)
         edition = create(:draft_publication, access_limiting: "individuals", access_limiting_individual_emails: user.email)
         attachment = create(:file_attachment, attachable: edition, attachment_data: create(:attachment_data, attachable: edition))
@@ -309,8 +306,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       end
 
       it "sets access limiting to organisations when the access_limiting_organisations_ui flag is on" do
-        @feature_flags.switch!(:access_limiting_organisations_ui, true)
-
         organisation = create(:organisation)
         consultation = create(
           :draft_consultation,
@@ -337,8 +332,6 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       end
 
       it "sets access limiting to individuals when the access_limiting_individuals_ui flag is on" do
-        @feature_flags.switch!(:access_limiting_individuals_ui, true)
-
         user = create(:user)
         consultation = create(
           :draft_consultation,

@@ -33,10 +33,4 @@ Flipflop.configure do
   feature :configurable_document_types,
           description: "Enable 'in development' config-driven document types (alongside the 'live' ones)",
           default: Rails.env.development?
-  feature :access_limiting_organisations_ui,
-          description: "Replace the access-limiting checkbox with radio + organisation selector UI",
-          default: true
-  feature :access_limiting_individuals_ui,
-          description: "Extend the access-limiting radio UI with an individuals option",
-          default: true
 end

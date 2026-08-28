@@ -962,12 +962,10 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def access_limiting_organisations_ui_on_should_allow_access_limiting_of(edition_type)
+    def access_limiting_organisations_should_allow_access_limiting_of(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new should preselect the 'none' radio button option for access limiting" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         organisation = create(:organisation)
         controller.current_user.organisation = organisation
         controller.current_user.save!
@@ -981,8 +979,6 @@ module AdminEditionControllerTestHelpers
       end
 
       test "create should save with access limiting set to 'none'" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         post :create,
              params: {
                edition: controller_attributes_for(edition_type).merge(
@@ -996,8 +992,6 @@ module AdminEditionControllerTestHelpers
       end
 
       test "create should save with access limiting set to 'organisations'" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         organisation = create(:organisation)
         controller.current_user.organisation = organisation
         controller.current_user.save!
@@ -1017,8 +1011,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "create fails and rerenders new template, when access limiting organisations invalid" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         user_organisation = create(:organisation)
         controller.current_user.organisation = user_organisation
         controller.current_user.save!
@@ -1045,8 +1037,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "create fails and rerenders with submitted access limiting organisations, when failing validation of unrelated field" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         user_organisation = create(:organisation)
         controller.current_user.organisation = user_organisation
         controller.current_user.save!
@@ -1073,8 +1063,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "create fails and rerenders with submitted access limiting organisations, when user does not belong to one of the access limiting organisations" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         user_organisation = create(:organisation)
         controller.current_user.organisation = user_organisation
         controller.current_user.save!
@@ -1102,8 +1090,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display persisted access limiting value" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         organisation = create(:organisation)
         controller.current_user.organisation = organisation
         controller.current_user.save!
@@ -1119,8 +1105,6 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should change access limiting, from 'none' to 'organisations'" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         organisation = create(:organisation)
         controller.current_user.organisation = organisation
         controller.current_user.save!
@@ -1142,8 +1126,6 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should change access limiting, from 'organisations' to 'none', and clear the organisations" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         organisation = create(:organisation)
         controller.current_user.organisation = organisation
         controller.current_user.save!
@@ -1166,8 +1148,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "update fails and rerenders with submitted access limiting organisations, when access limiting organisations invalid" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         organisation = create(:organisation)
         controller.current_user.organisation = organisation
         controller.current_user.save!
@@ -1197,8 +1177,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "update fails and re-renders with the submitted access limiting organisations, when unrelated field fails validation" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         organisation = create(:organisation)
         new_organisation = create(:organisation)
         controller.current_user.organisation = organisation
@@ -1228,8 +1206,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "update fails and rerenders with submitted access limiting organisations, when user does not belong to one of the access limiting organisations" do
-        feature_flags.switch! :access_limiting_organisations_ui, true
-
         user_organisation = create(:organisation)
         controller.current_user.organisation = user_organisation
         controller.current_user.save!
@@ -1257,12 +1233,10 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def access_limiting_individuals_ui_on_should_allow_access_limiting_of(edition_type)
+    def access_limiting_individuals_should_allow_access_limiting_of(edition_type)
       edition_class = class_for(edition_type)
 
       view_test "new should preselect the 'none' radio button option for individual access limiting" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         get :new
 
         assert_select "form#new_edition" do
@@ -1272,8 +1246,6 @@ module AdminEditionControllerTestHelpers
       end
 
       test "create should save with individual access limiting set to 'none'" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         post :create,
              params: {
                edition: controller_attributes_for(edition_type).merge(
@@ -1287,8 +1259,6 @@ module AdminEditionControllerTestHelpers
       end
 
       test "create should save with access limiting set to 'individuals'" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         post :create,
              params: {
                edition: controller_attributes_for(edition_type).merge(
@@ -1303,8 +1273,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "create fails and rerenders with submitted access limiting emails, when access limiting emails invalid" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         assert_no_difference -> { edition_class.count } do
           post :create,
                params: {
@@ -1324,8 +1292,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "create fails and rerenders with submitted access limiting emails, when failing validation of unrelated field" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         assert_no_difference -> { edition_class.count } do
           post :create,
                params: {
@@ -1345,8 +1311,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "create fails and rerenders with submitted access limiting emails, when user is not one of the access limiting individuals" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         assert_no_difference -> { edition_class.count } do
           post :create,
                params: {
@@ -1366,8 +1330,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit should display persisted individual access limiting value" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
 
         get :edit, params: { id: edition }
@@ -1380,8 +1342,6 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should change access limiting, from 'none' to 'individuals'" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         edition = create(edition_type, access_limiting: "none")
 
         put :update,
@@ -1398,8 +1358,6 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should change access limiting, from 'individuals' to 'none', and clear the individuals association" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
 
         put :update,
@@ -1416,8 +1374,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "update fails and rerenders with submitted access limiting individuals, when access limiting individuals invalid" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
 
         put :update,
@@ -1439,8 +1395,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "update fails and re-renders with the submitted access limiting individuals, when unrelated field fails validation" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         edition = create(edition_type, access_limiting: "individuals", access_limiting_individual_emails: controller.current_user.email)
         new_user = create(:user, email: "new_user@email.com")
 
@@ -1464,8 +1418,6 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "update fails and rerenders with submitted access limiting individuals, when the user is not one of the access limiting individuals" do
-        feature_flags.switch! :access_limiting_individuals_ui, true
-
         edition = create(edition_type, access_limiting: "none")
 
         put :update,
@@ -1485,83 +1437,6 @@ module AdminEditionControllerTestHelpers
         assert_select ".govuk-error-summary a", text: "Access limiting individual emails must include your own email", href: "#access_limiting_individual_emails"
         assert_equal "none", edition.reload.access_limiting
         assert_empty edition.reload.access_limiting_individuals
-      end
-    end
-
-    def access_limiting_organisations_ui_off_should_allow_access_limiting_of(edition_type)
-      edition_class = class_for(edition_type)
-
-      test "create should record the access_limiting flag" do
-        feature_flags.switch! :access_limiting_organisations_ui, false
-
-        organisation = create(:organisation)
-        controller.current_user.organisation = organisation
-        controller.current_user.save!
-
-        post :create,
-             params: {
-               edition: controller_attributes_for(edition_type).merge(
-                 first_published_at: Date.parse("2010-10-21"),
-                 access_limiting: "organisations",
-                 lead_organisation_ids: [organisation.id],
-               ),
-             }
-
-        created_publication = edition_class.last
-        assert_not created_publication.nil?
-        assert created_publication.access_limited?
-      end
-
-      view_test "edit displays persisted access_limiting flag" do
-        feature_flags.switch! :access_limiting_organisations_ui, false
-        feature_flags.switch! :access_limiting_individuals_ui, false
-
-        publication = create(edition_type, access_limiting: "none")
-
-        get :edit, params: { id: publication }
-
-        assert_select "form#edit_edition" do
-          assert_select "input[name='edition[access_limiting]'][type=checkbox]"
-          assert_select "input[name='edition[access_limiting]'][type=checkbox][checked=checked]", count: 0
-        end
-      end
-
-      test "update records new value of access_limiting flag" do
-        feature_flags.switch! :access_limiting_organisations_ui, false
-
-        controller.current_user.organisation = create(:organisation)
-        controller.current_user.save!
-        publication = create(edition_type, access_limiting: "none", organisations: [controller.current_user.organisation])
-
-        put :update,
-            params: {
-              id: publication,
-              edition: {
-                access_limiting: "organisations",
-              },
-            }
-
-        assert publication.reload.access_limited?
-      end
-
-      view_test "access limiting document fails if user does not belong to one of the tagged organisations" do
-        feature_flags.switch! :access_limiting_organisations_ui, false
-
-        controller.current_user.organisation = create(:organisation)
-        controller.current_user.save!
-        organisation = create(:organisation)
-        edition = create(edition_type, access_limiting: "none", organisations: [organisation])
-
-        put :update,
-            params: {
-              id: edition,
-              edition: {
-                access_limiting: "organisations",
-              },
-            }
-
-        assert_not edition.reload.access_limited?
-        assert_select ".gem-c-error-summary__list-item", text: "Lead or supporting organisations must include your own organisation"
       end
     end
 

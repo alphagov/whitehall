@@ -6,9 +6,9 @@ module PublishingApi
 
         access_limited = {}
 
-        if Flipflop.access_limiting_organisations_ui? && item.respond_to?(:access_limiting_organisations?) && item.access_limiting_organisations?
+        if item.respond_to?(:access_limiting_organisations?) && item.access_limiting_organisations?
           access_limited[:organisations] = item.access_limiting_organisations.pluck(:content_id).uniq
-        elsif Flipflop.access_limiting_individuals_ui? && item.respond_to?(:access_limiting_individuals?) && item.access_limiting_individuals?
+        elsif item.respond_to?(:access_limiting_individuals?) && item.access_limiting_individuals?
           emails = item.access_limiting_individuals.pluck(:email)
 
           uids = emails.filter_map { |email|

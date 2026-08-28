@@ -14,10 +14,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "GET :edit should show radio buttons instead of checkbox when access_limiting_organisations_ui flag is on" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
+  view_test "GET :edit should show radio buttons instead of checkbox" do
     organisation = create(:organisation)
     edition = create(
       :consultation,
@@ -34,9 +31,7 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_select "input[name='edition[access_limited]'][type=checkbox]", count: 0
   end
 
-  view_test "GET :edit shows the persisted editions's access limiting value when flag is on" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
+  view_test "GET :edit shows the persisted editions's access limiting value" do
     organisation = create(:organisation)
     edition = create(
       :consultation,
@@ -52,28 +47,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_select "select[name='edition[access_limiting_organisation_ids][]']" do
       assert_select "option[selected='selected'][value='#{organisation.id}']"
     end
-  end
-
-  view_test "GET :edit shows the persisted editions's access limiting value, and preserves already set access limiting organisations, when flag is turned off" do
-    organisation = create(:organisation)
-    edition = create(
-      :consultation,
-      access_limiting: "organisations",
-      create_default_organisation: false,
-      lead_organisations: [organisation],
-      access_limiting_organisation_ids: [organisation.id],
-    )
-
-    feature_flags.switch! :access_limiting_organisations_ui, false
-    feature_flags.switch! :access_limiting_individuals_ui, false
-
-    get :edit, params: { id: edition }
-
-    assert edition.access_limited?
-    assert_equal "organisations", edition.access_limiting
-    assert edition.access_limiting_organisations.exists?(id: organisation.id)
-    assert_select "input[name='edition[access_limiting]'][value='organisations'][checked=checked]"
-    refute_select "select[name='edition[access_limiting_organisation_ids][]']"
   end
 
   test "PATCH :update should be forbidden unless user is a GDS Admin" do
@@ -118,8 +91,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   end
 
   test "PATCH :update changes access limiting from 'none' to 'organisations' and creates an editorial remark" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
     organisation = create(:organisation)
     edition = create(
       :consultation,
@@ -149,8 +120,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   end
 
   test "PATCH :update changes access limiting from 'organisations' to 'none', clears access limiting organisations, and creates an editorial remark" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
     organisation = create(:organisation)
     edition = create(
       :consultation,
@@ -180,7 +149,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   end
 
   test "PATCH :update fails and re-renders edit template when editorial remark is not provided" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
     organisation = create(:organisation)
     edition = create(
       :consultation,
@@ -206,8 +174,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   end
 
   view_test "PATCH :update fails and renders edit template with submitted access limiting organisations, when access limiting organisations empty" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
     organisation = create(:organisation)
     edition = create(
       :consultation,
@@ -241,8 +207,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   end
 
   view_test "PATCH :update re-renders the edit template with the submitted access limiting organisations and editorial remark, when unrelated field fails validation" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-
     organisation = create(:organisation)
     new_organisation = create(:organisation)
     edition = create(
@@ -276,9 +240,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   end
 
   test "PATCH :update clears access_limiting_organisations when switching to individuals" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
     organisation = create(:organisation)
     create(:user, email: "user@example.com")
     edition = create(
@@ -306,9 +267,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   end
 
   test "PATCH :update clears access_limiting_individuals when switching to organisations" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
     organisation = create(:organisation)
     create(:user, email: "user@example.com")
     edition = create(
@@ -336,9 +294,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   end
 
   test "PATCH :update clears both access_limiting_organisations and access_limiting_individuals when switching to none" do
-    feature_flags.switch! :access_limiting_organisations_ui, true
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
     organisation = create(:organisation)
     create(:user, email: "user@example.com")
     edition = create(
@@ -366,8 +321,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
   end
 
   view_test "PATCH :update re-renders the edit template with error and the submitted values, but does not persist the association, when access limiting individuals invalid" do
-    feature_flags.switch! :access_limiting_individuals_ui, true
-
     create(:user, email: "user@example.com")
     edition = create(
       :consultation,
@@ -394,7 +347,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_not edition.access_limiting_individuals.exists?(email: "another_user@example.com")
   end
 
-  # flags agnostic
   test "PATCH :update should enqueue the edition draft updater" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
@@ -425,7 +377,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     assert_equal [first_organisation, second_organisation], edition.reload.lead_organisations
   end
 
-  # flags agnostic
   test "PATCH :update should enqueue the attachment updater" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
@@ -456,7 +407,6 @@ class Admin::EditionAccessLimitedControllerTest < ActionController::TestCase
     AssetManagerAttachmentMetadataJob.drain
   end
 
-  # flags agnostic
   test "PATCH :update does not change edition if in unmodifiable state" do
     edition = create(:published_consultation, create_default_organisation: true)
 
