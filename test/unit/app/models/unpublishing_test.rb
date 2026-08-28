@@ -129,6 +129,11 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal "https://www.judiciary.uk/about", unpublishing.alternative_path
   end
 
+  test "alternative_path defaults to '/' when given a GOV.UK domain and no path" do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.test.gov.uk")
+    assert_equal "/", unpublishing.alternative_path
+  end
+
   test "alternative_path returns nil if alternative_url is nil" do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: nil)
     assert_nil unpublishing.alternative_path
