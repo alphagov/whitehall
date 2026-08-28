@@ -6,20 +6,20 @@ en:
       show_banner: false
       title: What’s new in Whitehall Publisher
       summary: |
-        Summary of updates from the GOV.UK publishing team on Whitehall Publisher, the roadmap, and getting involved
-      last_updated: Last updated 31 March 2026
+        Summary of updates from the last 12 months' work by the GOV.UK publishing team on Whitehall Publisher.
+      last_updated: Last updated 27 August 2026
       introduction:
         heading: Roadmap overview
         body_govspeak: |
           Now:
 
-          - We continue to work on the support and feature request backlog. 
+          - We continue to work on the support, maintenance and feature request backlog. 
           - We are working on some of Whitehall's underlying technical design to make future development of content types easier.
-          - We are releasing a new way of making topical events and looking at how that may be used for other related content types.
+          - We are working on a new content type, which will allow publishers to create mini sites with a navigational structure within Whitehall.
 
           Next:
 
-          - We will be considering options for improving how access and permissions work in Whitehall.
+          - We will be looking how existing content types might work with the new content type, and this might make it easier to create and manage content in Whitehall.
 
       upcoming_changes:
         heading: 
@@ -27,6 +27,27 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Access limiting to named users
+            area: Managing documents and editions
+            type: improvement
+            date: 27 August 2026
+            body_govspeak: |
+              Users can now limit access to documents in Whitehall to a list of named users. This adds more security to the publishing process, by limiting access to draft editions before they are published. [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/10116156575).
+
+          - heading: Uploaded images are now visible without refreshing the page.
+            area: Managing images
+            type: improvement
+            date: 18 May 2026
+            body_govspeak: |
+              Previously images uploaded to Whitehall were not immediately visible to publishers without refreshing the page. A label saying that the image was "processing" was displayed. This has now been redesigned so newly uploaded images are visible straight away, with no need to refresh the page. [See the basecamp post for details](https://app.basecamp.com/4322319/buckets/15005645/messages/9902112282).
+
+          - heading: New Topical Event pages.
+            area: Managing documents and editions
+            type: new feature
+            date: 27 April 2026
+            body_govspeak: |
+              We've made some changes to the Topical Events content type. These are designed to help publishers create pages with greater visual impact, while keeping their content on GOV.UK. [See the basecamp post for details](https://app.basecamp.com/4322319/buckets/15005645/messages/9811414082).
+
           - heading: Lead images optional on news articles
             area: Managing documents and editions
             type: improvement
@@ -141,49 +162,6 @@ en:
                Previously, publishers were required to put files in a .zip before bulk uploading. This is no longer the case. Publishers can upload (or drag and drop) files directly onto the page.
                
                [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/8893161083).
-          - heading: Whitehall search for "Only invalid editions"
-            area: Searching for documents
-            type: improvement
-            date: 17 July 2025
-            body_govspeak: |
-               Searches can now show all of the editions that have issues that would need addressing if you were to try to publish a new edition of that document. This helps departments see where there are issues and take remedial action. 
-               
-               [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/8869164879).
-          - heading: Seeing validation issues on summary pages
-            area: Creating and updating documents
-            type: improvement
-            date: 17 July 2025
-            body_govspeak: |
-              We are now surfacing all validation issues in the sidebar of each edition on the summary page. This makes it clear at a glance what issue needs fixing (without having to try to publish or schedule the edition first).
-              
-              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/8869164879).
-          - heading: Adding topic taxonomy tags to scheduled content
-            area: Creating and updating documents
-            type: change
-            date: 15 July 2025
-            body_govspeak: |
-              It is no longer possible to schedule content to be published without adding topic taxonomy tags. Publishers and reviewers will no longer be able to "Force schedule" content without adding a tag. 
-              
-              This helps ensure the email subscriptions and filtering through search work as expected.
-
-              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/8872624190)
-          - heading: Dangerous links removed from Whitehall content
-            area: Creating and updating documents
-            type: security
-            date: 08 April 2025
-            body_govspeak: |
-              A number of URLs on Whitehall pages were discovered to now go through to “inappropriate” content on third-party sites.
-
-              Work was done to monitor this and automate the removal of the dangerous links. This may result in the force publishing of content. When this happens a message will show saying: “This edition has been superseded” and internal note saying “Dangerous links automatically removed” will be added.
-          - heading: Removing unwanted assets
-            area: Supporting and managing content
-            type: maintenance
-            date: January 2025
-            body_govspeak: |
-              Throughout 2024 we noticed an increasing number of support tickets alerting us to assets (mostly PDFs) that had remained live despite the publishers removing them in Whitehall. We investigated the issues and removed 146,000 superseded assets for the system. We also solved some of the underlying issues that had caused the problems to occur. 
-
-              This reduced the number of support issues related to the issue from 3-5 per week to a handful per quarter.
-
       guidance:
         heading: Publishing guidance, updates and support
         body_govspeak: |
