@@ -96,8 +96,8 @@ class Unpublishing < ApplicationRecord
 
     return alternative_uri.to_s unless GovUkUrlFormatValidator.can_be_converted_to_relative_path?(alternative_uri)
 
-    path = alternative_uri.path
-    path << "##{alternative_uri.fragment}" if alternative_uri.fragment.present?
+    path = alternative_uri.path.presence || "/"
+    path += "##{alternative_uri.fragment}" if alternative_uri.fragment.present?
     path
   end
 

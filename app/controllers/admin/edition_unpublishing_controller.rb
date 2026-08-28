@@ -5,19 +5,24 @@ class Admin::EditionUnpublishingController < Admin::BaseController
   def edit; end
 
   def update
-    services = Whitehall.edition_services
-    if @unpublishing.update(unpublishing_params)
-      if withdrawing?
-        services.withdrawer(@unpublishing.edition, user: current_user).perform!
+    ActiveRecord::Base.transaction do
+      services = Whitehall.edition_services
+      if @unpublishing.update(unpublishing_params)
+        if withdrawing?
+          services.withdrawer(@unpublishing.edition, user: current_user).perform!
+        else
+          services.unpublisher(@unpublishing.edition).perform!
+        end
+        redirect_to admin_edition_path(@unpublishing.edition), {
+          notice: "The #{helpers.withdrawal_or_unpublishing(@unpublishing.edition)} was updated",
+        }
       else
-        services.unpublisher(@unpublishing.edition).perform!
+        render :edit
       end
-      redirect_to admin_edition_path(@unpublishing.edition), {
-        notice: "The #{helpers.withdrawal_or_unpublishing(@unpublishing.edition)} was updated",
-      }
-    else
-      render :edit
     end
+  rescue GdsApi::HTTPUnprocessableEntity
+    flash.now[:alert] = "Error: Publishing API rejected the redirect"
+    render :edit, status: :unprocessable_entity
   end
 
 private

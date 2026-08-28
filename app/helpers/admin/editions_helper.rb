@@ -180,7 +180,9 @@ module Admin::EditionsHelper
                    "being published in error"
                  end
         details = ""
-        if consolidated || edition.unpublishing.redirect
+        if archived
+          details = " User is redirected from<br><a href='#{Whitehall.public_root}#{edition.base_path}'>#{Whitehall.public_root}#{edition.base_path}</a><br>to<br><a href='#{edition.unpublishing.archived_url}'>#{edition.unpublishing.archived_url}</a>"
+        elsif consolidated || edition.unpublishing.redirect
           details = " User is redirected from<br><a href='#{Whitehall.public_root}#{edition.base_path}'>#{Whitehall.public_root}#{edition.base_path}</a><br>to<br><a href='#{edition.unpublishing.alternative_url}'>#{edition.unpublishing.alternative_url}</a>"
         else
           details << " User-facing reason: '#{edition.unpublishing.explanation}'." if edition.unpublishing.explanation.present?
