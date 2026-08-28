@@ -113,4 +113,33 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
     errors = assigns(:unpublishing).errors.where(:alternative_url)
     assert_dom ".govuk-error-message", text: "Error: #{errors.map(&:full_message).join}"
   end
+
+  view_test "#updating shows the Publishing API error message if a 422 response was received, and doesn't update the Unpublishing" do
+    edition = create(:edition, :published_in_error_redirect)
+    original_explanation = edition.unpublishing.explanation
+    original_alternative_url = edition.unpublishing.alternative_url
+    original_redirect = edition.unpublishing.redirect
+    Whitehall.edition_services
+      .expects(:unpublisher)
+      .with(edition)
+      .returns(unpublisher = stub)
+
+    # Currently happens if you try to redirect to `https://gov.uk`, which Publishing
+    # API rejects because no redirect path was provided, even though the host is
+    # allow-listed.
+    unpublisher.expects(:perform!).raises(GdsApi::HTTPUnprocessableEntity.new(422))
+
+    put :update, params: { edition_id: edition.id,
+                           unpublishing: {
+                             explanation: "this used to say unpublished",
+                             alternative_url: "https://gov.uk/some-page",
+                             redirect: "0",
+                           } }
+
+    assert_template :edit
+    assert_equal "Error: Publishing API rejected the redirect", flash.now[:alert]
+    assert_equal original_explanation, edition.unpublishing.reload.explanation
+    assert_equal original_alternative_url, edition.unpublishing.reload.alternative_url
+    assert_equal original_redirect, edition.unpublishing.reload.redirect
+  end
 end
