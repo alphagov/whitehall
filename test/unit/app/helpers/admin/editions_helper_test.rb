@@ -137,7 +137,7 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     assert_equal "Unpublished (less than a minute ago) due to being consolidated into another page. User is redirected from<br><a href='https://www.test.gov.uk#{edition.base_path}'>https://www.test.gov.uk#{edition.base_path}</a><br>to<br><a href='#{alternative_url}'>#{alternative_url}</a>", status_text(edition)
   end
 
-  test "#status_text has special handling for unpublished (due to being archived)" do
+  test "#status_text has special handling for unpublished (via National Archives)" do
     edition = create(:edition, :unpublished)
 
     stub_request(:head, edition.unpublishing.archived_url)
@@ -145,7 +145,8 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     edition.unpublishing.unpublishing_reason_id = UnpublishingReason::ARCHIVED_ID
     edition.unpublishing.save!
-    assert_equal "Unpublished (less than a minute ago) due to being archived via the National Archives.", status_text(edition)
+
+    assert_equal "Unpublished (less than a minute ago) due to being archived via the National Archives. User is redirected from<br><a href='#{edition.public_url}'>#{edition.public_url}</a><br>to<br><a href='#{edition.unpublishing.archived_url}'>#{edition.unpublishing.archived_url}</a>", status_text(edition)
   end
 
   test "#status_text has special handling for unpublished (due to publish in error) - redirect to alternative URL" do
