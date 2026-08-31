@@ -153,9 +153,9 @@
   "presenters": {
     "publishing_api": {
       "details": {
-        "body": "govspeak",
-        "date_field": "rfc3339_date",
-        "list_of_foods": "raw"
+        "body": { "field": "body", "type": "compiled_govspeak" },
+        "date_field": { "field": "date_field", "type": "rfc3339_date" },
+        "list_of_foods": { "field": "list_of_foods", "type": "raw" }
       },
       "links": []
     }
