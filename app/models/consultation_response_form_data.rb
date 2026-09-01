@@ -1,4 +1,5 @@
 class ConsultationResponseFormData < ApplicationRecord
+  include ResponseFormAssetData
   mount_uploader :file, ResponseDocumentUploader, mount_on: :carrierwave_file
 
   has_one :consultation_response_form
@@ -7,10 +8,6 @@ class ConsultationResponseFormData < ApplicationRecord
            inverse_of: :assetable
 
   validates :file, presence: true
-
-  def auth_bypass_ids
-    [consultation_response_form.consultation_participation.consultation.auth_bypass_id].compact
-  end
 
   def all_asset_variants_uploaded?
     asset_variants = assets.map(&:variant).map(&:to_sym)

@@ -5,7 +5,7 @@ class Admin::CallsForEvidenceControllerTest < ActionController::TestCase
 
   setup do
     login_as :writer
-    CallForEvidenceResponseForm.any_instance.stubs(:call_for_evidence_participation).returns(stub(call_for_evidence: stub(auth_bypass_id: "auth bypass id")))
+    CallForEvidenceResponseForm.any_instance.stubs(:call_for_evidence_participation).returns(stub(call_for_evidence: stub(auth_bypass_id: "auth bypass id", id: 1)))
   end
 
   should_be_an_admin_controller
