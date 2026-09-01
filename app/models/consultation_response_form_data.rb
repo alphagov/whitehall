@@ -28,4 +28,8 @@ class ConsultationResponseFormData < ApplicationRecord
   def assets_match_updated_image_filename
     assets.all? { |asset| asset.filename.include?(filename) } if filename
   end
+
+  def attachable
+    consultation_response_form&.consultation_participation&.consultation || Edition.new
+  end
 end

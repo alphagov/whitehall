@@ -73,4 +73,19 @@ class ConsultationResponseFormDataTest < ActiveSupport::TestCase
 
     assert_not consultation_response_form_data.all_asset_variants_uploaded?
   end
+
+  test "#attachable returns the parent consultation" do
+    consultation = build(:consultation)
+    consultation_participation = build(:consultation_participation, consultation:)
+    consultation_response_form = build(:consultation_response_form, consultation_participation:)
+    consultation_response_form_data = build(:consultation_response_form_data, consultation_response_form:)
+
+    assert_equal consultation, consultation_response_form_data.attachable
+  end
+
+  test "#attachable returns a new Edition when there is no consultation" do
+    consultation_response_form_data = build(:consultation_response_form_data)
+
+    assert consultation_response_form_data.attachable.new_record?
+  end
 end
