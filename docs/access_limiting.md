@@ -48,17 +48,20 @@ When limiting to named publishers, it's recommended that you list at least two p
 
 The access-limiting check is handled by [`EditionRules#access_limit_enforced?`](/lib/whitehall/authority/rules/edition_rules.rb). An edition is in exactly one access-limiting mode at a time - none, organisations, or individuals - so the check simply looks at whichever mode is set, then checks whether the current user's email or organisation is on that mode's allow-list.
 
-Access is controlled entirely through these two lists. An edition's lead and supporting organisations are no longer used as a fallback.
+Access is controlled entirely through these two lists. Note that until mid 2026, access-limiting was a boolean choice: on or off. If 'on', the document's chosen lead and supporting organisations would double up as the list of organisations the document was access-limited to. When introducing the new mode of 'individual' access-limiting, we also refactored the 'organisation' access-limiting to introduce a separate 'access_limiting_organisations' field, no longer coupling access-limiting to the publisher's choice of lead and supporting organisations.
 
 If a user isn't on the allow-list, they're blocked from every action on the edition - viewing, editing, publishing, deleting - and this applies just as much to GDS Editors and GDS Admins who aren't on the list. The check runs across the editions interface and its related areas (tags, translations, change notes, workflow, fact-check requests). Anyone blocked sees a 403 (forbidden) page.
 
-## Assets and attachments
+Beyond Whitehall's UI, the access-limiting also applies:
 
-Access limiting isn't only enforced in Whitehall's admin UI - it's also pushed to Asset Manager (the GOV.UK service that stores uploaded files), so an access-limited draft's attachments are protected there too, not just its text content.
+- On the draft stack (e.g. on the draft preview link)
+- On Asset Manager (for attachments and images associated with the access-limited document), kept in sync via [`AssetManager::AttachmentUpdater`](/app/services/asset_manager/attachment_updater.rb) whenever the edition is saved
 
-For an organisation-limited edition, Whitehall sends Asset Manager `access_limited_organisation_ids`the same organisations as the edition's access-limiting list. For an individual-limited edition, it sends `access_limited_user_ids` instead - the Signon user IDs of the named individuals - since an individual limit isn't tied to a single organisation. This is kept in sync via [`AssetManager::AttachmentUpdater`](/app/services/asset_manager/attachment_updater.rb) whenever the edition is saved.
+On the draft stack, the access-limiting information is propagated through to the draft content store, e.g. `access_limited: {"users" => [], "organisations" => ["af07d5a5-df63-4ddc-9383-6a666845ebe9"]}`. The value is an array of Signon user IDs or of Organisation content IDs respectively
 
-Publishing the edition clears all of this: [`PublishAttachmentAssetJob`](/app/sidekiq/publish_attachment_asset_job.rb) resets each attachment's `draft`, `access_limited_organisation_ids`, `access_limited_user_ids` and `auth_bypass_ids` to empty/false, in a background job triggered by the publish.
+On Asset Manager, the access-limiting information is propagated through as either `access_limited_organisation_ids` or `access_limited_user_ids` on the asset.
+
+Publishing the edition clears all access-limiting. For assets, the [`PublishAttachmentAssetJob`](/app/sidekiq/publish_attachment_asset_job.rb) resets each attachment's `draft`, `access_limited_organisation_ids`, `access_limited_user_ids` and `auth_bypass_ids` to empty/false, in a background job triggered by the publish.
 
 ## Sharing a preview link (auth bypass)
 
@@ -72,16 +75,4 @@ An editor can revoke a link at any time ("Remove link", [`EditionAuthBypassRevok
 
 Because the normal permission check blocks everyone equally, changing an edition's access limiting needs a separate route that doesn't depend on already having access to that specific edition. This is reachable at `/admin/editions/:id/edit_access_limited`.
 
-From this page a GDS Admin can:
-
-- change the edition's lead/supporting organisations
-- change or remove the access-limiting mode, organisations, or individual emails
-
-Any change here requires a mandatory "editorial remark" explaining why.
-
-The "Edit access" link surfaces in two places:
-
-- next to a document in the admin search results, when the current user is a GDS Admin and the document is access limited
-- on the 403 page itself, when a GDS Admin hits the permission wall trying to open a limited   document, offering a direct link to fix its access
-
-This is also the route for fixing access limiting after the fact - for example if an organisation is restructured, someone on an individual limit leaves, or a document was limited to the wrong organisation alongside the setter's own.
+From this page a GDS Admin can change or remove the access-limiting mode, organisations, or individual emails. Any change here requires a mandatory "editorial remark" explaining why. The intention for this page is to enable GDS Admins to be able to fix access in cases where publishers may have accidentally locked themselves out (a belt and braces approach, given there is also validation in place to attempt to prevent that from occurring in the first place).
