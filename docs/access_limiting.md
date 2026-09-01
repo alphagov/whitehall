@@ -8,11 +8,11 @@ By default, an edition isn't access limited: any signed-in Whitehall user, from 
 
 ## Access limiting rules at a glance
 
-| Mode | Who can see the content | Who is blocked |
-|---|---|---|
-| No limit | Everyone | Nobody |
+| Mode               | Who can see the content | Who is blocked |
+|--------------------|-------------------------|----------------|
+| No limit           | Everyone                | Nobody         |
 | Organisation limit | Users whose organisation is on the edition's access-limiting organisations list | Users in any other organisation |
-| Individual limit | Users whose email address is on the edition's access-limiting individuals list | Everyone else, regardless of their organisation |
+| Individual limit   | Users whose email address is on the edition's access-limiting individuals list  | Everyone else, regardless of their organisation |
 
 Access limiting takes priority over every other permission in Whitehall, including GDS Editor and GDS Admin privileges - see [How enforcement works](#how-enforcement-works) for the mechanism, and [GDS Admin overrides](#gds-admin-overrides-edit-access) for the one route around it.
 
@@ -20,13 +20,13 @@ None of the rules above apply to someone using a shared preview link - see [Shar
 
 ## Glossary
 
-| Term | Meaning |
-|---|---|
-| Access limit | A restriction placed on a piece of content so fewer people can view or edit it while it's in draft |
-| Organisation limit | Access restricted to one or more organisations (teams/departments) |
-| Individual limit | Access restricted to named person(s), identified by their email address |
+| Term                   | Meaning |
+|------------------------|---------|
+| Access limit           | A restriction placed on a piece of content so fewer people can view or edit it while it's in draft |
+| Organisation limit     | Access restricted to one or more organisations (teams/departments) |
+| Individual limit       | Access restricted to named person(s), identified by their email address |
 | GDS Editor / GDS Admin | GDS staff with elevated publishing permissions - but access limits override even their privileges |
-| Auth bypass | A shared link that lets someone view a draft (access limited or not) on the public GOV.UK frontend without signing in |
+| Auth bypass            | A shared link that lets someone view a draft (access limited or not) on the public GOV.UK frontend without signing in |
 
 ## Does my role matter?
 
