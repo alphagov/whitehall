@@ -195,7 +195,7 @@ GEM
     diff-lcs (1.6.2)
     diffy (3.4.4)
     dig_rb (1.0.1)
-    domain_name (0.6.20240107)
+    domain_name (0.6.20260829)
     drb (2.2.3)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
@@ -260,7 +260,7 @@ GEM
       et-orbi (~> 1.4)
       raabro (~> 1.4)
     fuzzy_match (2.1.0)
-    gds-api-adapters (103.4.0)
+    gds-api-adapters (103.4.4)
       addressable
       link_header
       null_logger
