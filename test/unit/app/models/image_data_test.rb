@@ -121,6 +121,29 @@ class ImageDataTest < ActiveSupport::TestCase
     assert image_data.valid?
   end
 
+  test ".attachable returns edition of last image in images" do
+    image_data = build_example("960x640_jpeg.jpg")
+    edition = create(:fatality_notice, images: [build(:image, image_data:)])
+    build(:image, image_data:, edition:)
+
+    assert image_data.attachable, edition
+  end
+
+  test ".attachable returns new Edition if no images" do
+    image_data = build(:image_data)
+
+    assert image_data.attachable.is_a?(Edition)
+    assert image_data.attachable.new_record?
+  end
+
+  test ".attachments returns list of images" do
+    image_data = build_example("960x640_jpeg.jpg")
+    edition = create(:fatality_notice, images: [build(:image, image_data:)])
+    image = build(:image, image_data:, edition:)
+
+    assert image_data.attachments, [image]
+  end
+
   test "#bitmap? is false for SVG files" do
     assert_not build_example("test-svg.svg").bitmap?
   end

@@ -1,16 +1,16 @@
 class AssetManagerAttachmentMetadataJob < JobBase
   sidekiq_options queue: "asset_manager"
 
-  def perform(attachment_data_id)
-    attachment_data = AttachmentData.find(attachment_data_id)
+  def perform(assetable_id, assetable_type = "AttachmentData")
+    asset_data = assetable_type.constantize.find(assetable_id)
 
-    return if attachment_data.blank?
+    return if asset_data.blank?
 
-    return unless attachment_data.all_asset_variants_uploaded?
+    return unless asset_data.all_asset_variants_uploaded?
 
-    AssetManager::AttachmentUpdater.call(attachment_data)
+    AssetManager::AttachmentUpdater.call(asset_data)
 
-    AttachmentData.where(replaced_by: attachment_data).find_each do |replaced_attachment_data|
+    assetable_type.constantize.where(replaced_by: asset_data).find_each do |replaced_attachment_data|
       AssetManager::AttachmentUpdater.replace(replaced_attachment_data)
     rescue AssetManager::ServiceHelper::AssetNotFound => e
       logger.warn("AssetManagerAttachmentMetadataJob: #{e}")

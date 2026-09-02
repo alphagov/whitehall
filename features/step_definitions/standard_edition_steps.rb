@@ -1,14 +1,9 @@
 def create_configurable_document(title:, locale: "en", summary: nil, body: nil, date_field: nil, street: nil, city: nil, images: nil, list_of_foods: nil)
-  if images.nil?
-    image = create(:image)
-    images = [image]
-  end
   defaults = default_content_for_locale(locale)
   I18n.with_locale(locale) do
-    create(
+    edition = create(
       :draft_standard_edition,
       {
-        images:,
         title: title,
         summary: summary || defaults[:summary],
         primary_locale: locale,
@@ -21,6 +16,16 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil, 
         },
       },
     )
+
+    if images.nil?
+      image = build(:image)
+      edition_image = edition.images.build(image.attributes)
+      edition_image.build_image_data(image.image_data.attributes)
+      edition_image.image_data.file = File.open(Rails.root.join("test/fixtures/images/960x640_jpeg.jpg"))
+      edition_image.image_data.images << edition_image
+    end
+
+    edition
   end
 end
 
@@ -149,16 +154,28 @@ Given(/^a draft configurable document exists$/) do
 end
 
 When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
-  lead_image = create(:image, usage: "lead")
-  embeddable_image = create(:image, usage: "govspeak_embed")
   standard_edition = create(
     :submitted_standard_edition,
     {
-      images: [lead_image, embeddable_image],
       title: title,
       block_content: default_block_content_for_locale("en"),
     },
   )
+
+  lead_image = build(:image, usage: "lead")
+  edition_lead_image = standard_edition.images.build(lead_image.attributes)
+  edition_lead_image.build_image_data(lead_image.image_data.attributes)
+  edition_lead_image.image_data.file = File.open(Rails.root.join("test/fixtures/images/960x640_jpeg.jpg"))
+  edition_lead_image.image_data.images << edition_lead_image
+
+  embeddable_image = build(:image, usage: "govspeak_embed")
+  edition_embeddable_image = standard_edition.images.build(embeddable_image.attributes)
+  edition_embeddable_image.build_image_data(embeddable_image.image_data.attributes)
+  edition_embeddable_image.image_data.file = File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg"))
+  edition_embeddable_image.image_data.images << edition_embeddable_image
+
+  standard_edition.save!
+
   stub_publishing_api_links_with_taxons(standard_edition.content_id, %w[a-taxon-content-id])
   visit admin_standard_edition_path(standard_edition)
   click_link "Publish"

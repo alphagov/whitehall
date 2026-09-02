@@ -2,6 +2,7 @@
 <% content_for :page_title, "Edit #{@image_usage.title} details" %>
 <% content_for :title, "Edit image details" %>
 <% content_for :title_margin_bottom, 6 %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: image)) %>
 
 <div class="govuk-grid-row">
   <%= form_tag [:admin, :edition, :image], id: image, multipart: true, method: :patch do %>

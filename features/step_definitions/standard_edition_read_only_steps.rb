@@ -28,12 +28,20 @@ Given(/^a published standard edition called (.+) exists$/) do |title|
   external_attachment = create(:external_attachment, title: "External attachment", attachable: @edition)
   file_attachment = create(:file_attachment, title: "File attachment", attachable: @edition)
 
-  single_usage_image = create(:image, usage: "lead", caption: "This is my lead image", image_data: build(:image_data, file: upload_fixture("minister-of-funk.960x640.jpg")))
-  embeddable_image = create(:image, usage: "govspeak_embed", image_data: build(:image_data, file: upload_fixture("images/960x640_jpeg.jpg")))
+  single_usage_image = build(:image, usage: "lead", caption: "This is my lead image")
+  edition_single_usage_image = @edition.images.build(single_usage_image.attributes)
+  edition_single_usage_image.build_image_data(single_usage_image.image_data.attributes)
+  edition_single_usage_image.image_data.file = upload_fixture("minister-of-funk.960x640.jpg")
+  edition_single_usage_image.image_data.images << edition_single_usage_image
+
+  embeddable_image = build(:image, usage: "govspeak_embed")
+  edition_embeddable_image = @edition.images.build(embeddable_image.attributes)
+  edition_embeddable_image.build_image_data(embeddable_image.image_data.attributes)
+  edition_embeddable_image.image_data.file = upload_fixture("images/960x640_jpeg.jpg")
+  edition_embeddable_image.image_data.images << edition_embeddable_image
 
   @edition.update!(
     attachments: [html_attachment, external_attachment, file_attachment],
-    images: [single_usage_image, embeddable_image],
   )
 
   feature_list = create(:feature_list, featurable: @edition, locale: :en)

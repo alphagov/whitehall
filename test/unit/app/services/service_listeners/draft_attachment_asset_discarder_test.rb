@@ -1,29 +1,55 @@
 require "test_helper"
+require "attachment_test_helper"
 
 module ServiceListeners
   class DraftAttachmentAssetDiscarderTest < ActiveSupport::TestCase
     extend Minitest::Spec::DSL
 
     describe ServiceListeners::DraftAttachmentAssetDiscarder do
-      let(:edition) { create(:draft_edition) }
-      let(:first_attachment) { create(:file_attachment, attachable: edition) }
-      let(:second_attachment) { create(:csv_attachment, attachable: edition) }
-      let!(:non_file_attachment) { create(:html_attachment, attachable: edition) }
+      describe "for all file attachments" do
+        let(:edition) { create(:draft_edition) }
+        let(:first_attachment) { create(:file_attachment, attachable: edition) }
+        let(:second_attachment) { create(:csv_attachment, attachable: edition) }
+        let!(:non_file_attachment) { create(:html_attachment, attachable: edition) }
 
-      before do
-        stub_asset(first_attachment.attachment_data.assets.first.asset_manager_id)
-        stub_asset(second_attachment.attachment_data.assets.first.asset_manager_id)
+        before do
+          stub_asset(first_attachment.attachment_data.assets.first.asset_manager_id)
+          stub_asset(second_attachment.attachment_data.assets.first.asset_manager_id)
+        end
+
+        it "calls deleter for all assets" do
+          edition.delete!
+          edition.delete_all_attachments
+
+          AssetManager::AssetDeleter.expects(:call).with(first_attachment.attachment_data.assets.first.asset_manager_id)
+          AssetManager::AssetDeleter.expects(:call).with(second_attachment.attachment_data.assets.first.asset_manager_id)
+
+          ServiceListeners::DraftAttachmentAssetDiscarder.call(edition)
+          DeleteAttachmentAssetJob.drain
+        end
       end
 
-      it "calls deleter for all assets of all file attachments" do
-        edition.delete!
-        edition.delete_all_attachments
+      describe "for images" do
+        let(:edition) { create(:draft_publication) }
+        let(:attachment_data) { build(:image_data) }
+        let(:image) { create_attachment(attachment_data:, edition:) }
 
-        AssetManager::AssetDeleter.expects(:call).with(first_attachment.attachment_data.assets.first.asset_manager_id)
-        AssetManager::AssetDeleter.expects(:call).with(second_attachment.attachment_data.assets.first.asset_manager_id)
+        before do
+          image.image_data.assets do |asset|
+            stub_asset(asset.asset_manager_id)
+          end
+        end
 
-        ServiceListeners::DraftAttachmentAssetDiscarder.call(edition)
-        DeleteAttachmentAssetJob.drain
+        it "calls deleter for all assets" do
+          image.edition.delete!
+
+          image.image_data.assets.each do |asset|
+            AssetManager::AssetDeleter.expects(:call).with(asset.asset_manager_id)
+          end
+
+          ServiceListeners::DraftAttachmentAssetDiscarder.call(edition)
+          DeleteAttachmentAssetJob.drain
+        end
       end
 
       def stub_asset(asset_manger_id, attributes = {})

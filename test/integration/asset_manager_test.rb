@@ -46,6 +46,80 @@ class AssetManagerIntegrationTest
     end
   end
 
+  class CreatingAnImage < ActiveSupport::TestCase
+    extend Minitest::Spec::DSL
+
+    setup do
+      @filename = "minister-of-funk.960x640.jpg"
+      @edition = create(:draft_publication)
+      @attachment = FactoryBot.build(:image_with_no_assets, edition: @edition)
+      @attachment.image_data.images << @attachment
+      @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+    end
+
+    test "sends the attachment to Asset Manager" do
+      Services.asset_manager.expects(:create_asset).at_least_once.with { |args|
+        args[:file].path =~ /#{@filename}/
+      }.returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
+    end
+
+    test "marks the attachment as draft in Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .at_least_once
+              .with(has_entry(draft: true))
+              .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
+    end
+  end
+
+  class CreatingAnAuthorisedImage < ActiveSupport::TestCase
+    extend Minitest::Spec::DSL
+
+    setup do
+      @filename = "minister-of-funk.960x640.jpg"
+      @edition = create(:draft_consultation)
+      @edition.access_limiting = "organisations"
+      @edition.access_limiting_organisation_ids = @edition.organisations.map(&:id)
+
+      @edition.save!
+
+      @attachment = FactoryBot.build(:image_with_no_assets, edition: @edition)
+      @attachment.image_data.images << @attachment
+      @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+      Services.asset_manager.stubs(:create_asset).returns(@asset_manager_response)
+    end
+
+    test "sends the user ids of authorised users to Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .with(has_entry(access_limited_organisation_ids: @edition.organisations.map(&:content_id)))
+              .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
+    end
+
+    test "marks the attachment as draft in Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .at_least_once
+              .with(has_entry(draft: true))
+              .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
+    end
+  end
+
   class CreatingAnOrganisationLogo < ActiveSupport::TestCase
     setup do
       @filename = "960x640_jpeg.jpg"

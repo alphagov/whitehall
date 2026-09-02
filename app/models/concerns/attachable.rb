@@ -56,6 +56,10 @@ module Attachable
       false
     end
 
+    def post_published_state?
+      false
+    end
+
     def accessible_to?(_user)
       false
     end
