@@ -16,7 +16,6 @@ When(/^I add a new person called "([^"]*)"$/) do |name|
   click_link "Create new person"
   fill_in_person_name name
   fill_in "Biography", with: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  attach_file "Upload image", jpg_image
   click_button "Save"
 end
 
@@ -27,6 +26,12 @@ When(/^I update the person called "([^"]*)" to have the name "([^"]*)"$/) do |ol
   fill_in_person_name new_name
   fill_in "Biography", with: "Vivamus fringilla libero et augue fermentum eget molestie felis accumsan."
   click_button "Save"
+end
+
+When(/^I update the person called "([^"]*)"$/) do |name|
+  visit_people_admin
+  click_link name
+  click_on "Edit"
 end
 
 When(/^I remove the person "([^"]*)"$/) do |name|
@@ -67,4 +72,9 @@ Then(/^I should see the translation "([^"]*)" and body text "([^"]*)"$/) do |loc
   end
 
   expect(page).to have_content(text)
+end
+
+Then(/^I should be be able to add an image$/) do
+  attach_file "Upload image", jpg_image
+  click_on "Save"
 end

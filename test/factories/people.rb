@@ -7,6 +7,13 @@ FactoryBot.define do
     image { build(:featured_image_data) }
   end
 
+  factory :person_in_current_role, parent: :person do
+    after :create do |person|
+      role = create(:role, slug: "test-role")
+      create(:role_appointment, role:, person:)
+    end
+  end
+
   factory :pm, parent: :person do
     after :create do |person, _evaluator|
       role = create(:ministerial_role, slug: "prime-minister")
