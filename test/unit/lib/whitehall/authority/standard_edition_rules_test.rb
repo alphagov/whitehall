@@ -98,7 +98,7 @@ class StandardEditionRulesTest < ActiveSupport::TestCase
   end
 
   test "any user can :see a historic standard edition that is not access-limited" do
-    user = User.new(organisation: @other_organisation)
+    user = User.new(organisation: @organisation)
     assert Whitehall::Authority::Enforcer.new(user, historic_standard_edition).can?(:see)
   end
 

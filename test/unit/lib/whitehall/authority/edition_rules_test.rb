@@ -50,10 +50,12 @@ class EditionRulesTest < ActiveSupport::TestCase
     edition
   end
 
-  def historic_unrestricted_edition
+  def historic_unrestricted_edition(author = nil)
     edition = build(:edition)
     edition.stubs(:historic?).returns(true)
     edition.stubs(:access_limiting_organisations?).returns(false)
+    edition.stubs(:government).returns(build(:government, slug: "2024-starmer-labour-government"))
+    edition.stubs(:submitted_by).returns(author)
     edition
   end
 
@@ -166,6 +168,16 @@ class EditionRulesTest < ActiveSupport::TestCase
   test "a Historic Content Unpublisher can :unpublish a historic edition that is not access-limited" do
     user = user_in(org, can_unpublish_historic_content?: true)
     assert enforcer_for(user, historic_unrestricted_edition).can?(:unpublish)
+  end
+
+  test "a Historic Content Publisher Managing Editor can :force_publish a historic edition that is not access-limited" do
+    user = user_in(org, managing_editor?: true)
+    assert enforcer_for(user, historic_unrestricted_edition).can?(:force_publish)
+  end
+
+  test "a Historic Content Publisher Managing Editor cannot :publish a historic edition that is not access-limited, if they are the ones to have submitted it for 2i" do
+    user = user_in(org, managing_editor?: true)
+    assert_not enforcer_for(user, historic_unrestricted_edition(user)).can?(:publish)
   end
 
   test "a regular user cannot :unpublish a historic edition that is not access-limited" do
