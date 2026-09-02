@@ -16,6 +16,9 @@ module ServiceListeners
         Image.includes(:image_data).unscoped.where(edition: attachable.attachables).find_each do |image|
           update_attachment_data! image.image_data
         end
+
+        response_form_data = AttachmentAssetPublisher.response_form_data_for(attachable)
+        update_attachment_data! response_form_data if response_form_data
       end
     end
 
