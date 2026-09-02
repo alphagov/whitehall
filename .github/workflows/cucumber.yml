@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Setup MySQL
         id: setup-mysql
-        uses: alphagov/govuk-infrastructure/.github/actions/setup-mysql@main
+        uses: alphagov/govuk-infrastructure/.github/actions/setup-mysql@rerun-flaky-db-setup-step
 
       - name: Setup Redis
         uses: alphagov/govuk-infrastructure/.github/actions/setup-redis@main
