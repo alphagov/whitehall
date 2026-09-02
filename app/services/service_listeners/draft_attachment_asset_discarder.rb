@@ -13,6 +13,9 @@ module ServiceListeners
 
           DeleteAttachmentAssetJob.perform_async(image_data.id, "ImageData") if image_data&.needs_discarding?
         end
+
+        response_form_data = AttachmentAssetPublisher.response_form_data_for(attachable)
+        DeleteAttachmentAssetJob.perform_async(response_form_data.id, response_form_data.class.to_s) if response_form_data
       end
     end
   end
