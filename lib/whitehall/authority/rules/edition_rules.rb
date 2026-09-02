@@ -88,17 +88,24 @@ module Whitehall::Authority::Rules
 
     def can_with_a_historic_instance?(action)
       return false if access_limit_enforced?
+
+      # Allow GDS Editors and above to take any action on historic editions
       return true if actor.gds_admin? || actor.gds_editor?
+
+      # Handle the special case first: publishers who have been given explicit
+      # permission to unpublish historic content, should be able to do so
+      return true if action == :unpublish && actor.can_unpublish_historic_content?
+
+      # Otherwise, if the actor can't take this action on a regular edition,
+      # there's no way they should be allowed to take it on a historic edition
+      return false unless can_with_an_instance?(action)
+
+      # Allow Managing Editors to take any action on historic editions for the 2024 Starmer Labour Government
+      # except for selecting a government for history mode. This temporary measure will be removed in mid Sept.
       return true if actor.managing_editor? && subject.government.slug == "2024-starmer-labour-government" && action != :select_government_for_history_mode
 
-      case action
-      when :see
-        true
-      when :unpublish
-        actor.can_unpublish_historic_content?
-      else
-        false
-      end
+      # Allow viewing of historic editions to all users, but no other actions
+      action == :see
     end
 
     def access_limit_enforced?
