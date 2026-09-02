@@ -16,7 +16,6 @@
         text: "This page in only available to GDS Admins. Information in this document could be sensitive and access controls should only be changed at the request of the user.",
       } %>
 
-      <%= render "admin/editions/organisation_fields", form: form, edition: @edition %>
       <%= render "admin/editions/access_limiting_fields", form: form, edition: @edition %>
 
       <%= render "govuk_publishing_components/components/textarea", {
