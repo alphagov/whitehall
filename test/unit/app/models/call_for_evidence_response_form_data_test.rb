@@ -73,4 +73,19 @@ class CallForEvidenceResponseFormDataTest < ActiveSupport::TestCase
 
     assert_not call_for_evidence_response_form_data.all_asset_variants_uploaded?
   end
+
+  test "#attachable returns the parent call for evidence" do
+    call_for_evidence = build(:call_for_evidence)
+    call_for_evidence_participation = build(:call_for_evidence_participation, call_for_evidence:)
+    call_for_evidence_response_form = build(:call_for_evidence_response_form, call_for_evidence_participation:)
+    call_for_evidence_response_form_data = build(:call_for_evidence_response_form_data, call_for_evidence_response_form:)
+
+    assert_equal call_for_evidence, call_for_evidence_response_form_data.attachable
+  end
+
+  test "#attachable returns a new Edition when there is no call for evidence" do
+    call_for_evidence_response_form_data = build(:call_for_evidence_response_form_data)
+
+    assert call_for_evidence_response_form_data.attachable.new_record?
+  end
 end
