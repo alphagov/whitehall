@@ -1,6 +1,8 @@
 class DocumentCollectionNonWhitehallLink::GovukUrl
   include ActiveModel::Validations
 
+  LOOKUP_LOCALES = %w[en cy].freeze
+
   attr_reader :url, :document_collection_group
 
   validates :url, presence: true
@@ -31,7 +33,17 @@ class DocumentCollectionNonWhitehallLink::GovukUrl
   end
 
   def content_item
-    @content_item ||= Services.publishing_api.get_content(content_id).to_h
+    @content_item ||= fetch_content_item(content_id)
+  end
+
+  def fetch_content_item(id)
+    LOOKUP_LOCALES.each do |locale|
+      return Services.publishing_api.get_content(id, locale:).to_h
+    rescue GdsApi::HTTPNotFound
+      next
+    end
+
+    raise GdsApi::HTTPNotFound, 404
   end
 
   def content_id
