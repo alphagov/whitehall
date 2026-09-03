@@ -47,6 +47,42 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
     assert url.valid?
   end
 
+  test "should be valid when a Welsh-only url is used" do
+    stub_welsh_only_page("/taluch-bil-treth-hunanasesiad")
+
+    url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk/taluch-bil-treth-hunanasesiad",
+      document_collection_group: build(:document_collection_group),
+    )
+
+    assert url.valid?
+  end
+
+  test "should be valid when a Welsh-only mainstream guide sub-page url is used" do
+    stub_welsh_only_page("/taluch-bil-treth-hunanasesiad", document_type: "guide")
+
+    url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk/taluch-bil-treth-hunanasesiad/taluch-bil-treth",
+      document_collection_group: build(:document_collection_group),
+    )
+
+    assert url.valid?
+  end
+
+  test "should be invalid when the document exists in neither English nor Welsh" do
+    content_id = SecureRandom.uuid
+    stub_publishing_api_has_lookups("/no-such-locale" => content_id)
+    stub_publishing_api_does_not_have_item(content_id)
+
+    url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk/no-such-locale",
+      document_collection_group: build(:document_collection_group),
+    )
+
+    assert_not url.valid?
+    assert url.errors.full_messages.include?("Url must reference a GOV.UK page")
+  end
+
   test "should be invalid without a url" do
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: nil,
@@ -163,5 +199,27 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
     )
 
     assert_nil url.save
+  end
+
+private
+
+  def stub_welsh_only_page(base_path, document_type: "answer")
+    content_id = SecureRandom.uuid
+
+    stub_publishing_api_has_lookups(base_path => content_id)
+    stub_publishing_api_does_not_have_item(content_id, locale: "en")
+    stub_publishing_api_has_item(
+      {
+        content_id:,
+        title: "Talu'ch bil treth Hunanasesiad",
+        base_path:,
+        document_type:,
+        locale: "cy",
+        publishing_app: "publisher",
+      },
+      locale: "cy",
+    )
+
+    content_id
   end
 end
