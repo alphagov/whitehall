@@ -443,7 +443,7 @@ GEM
       activesupport (>= 5.2.8.1)
       notifications-ruby-client (~> 6.0)
       rack (>= 2.1.4.1)
-    marcel (1.0.4)
+    marcel (1.2.1)
     matrix (0.4.3)
     maxitest (6.1.0)
       minitest (>= 5.20.0, < 5.28.0)
