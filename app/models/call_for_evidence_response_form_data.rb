@@ -29,4 +29,8 @@ class CallForEvidenceResponseFormData < ApplicationRecord
   def assets_match_updated_image_filename
     assets.all? { |asset| asset.filename.include?(filename) } if filename
   end
+
+  def attachable
+    call_for_evidence_response_form&.call_for_evidence_participation&.call_for_evidence || Edition.new
+  end
 end
