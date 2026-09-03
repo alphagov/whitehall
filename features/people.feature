@@ -26,3 +26,11 @@ Feature: Managing a person
     Given a person called "Amanda Appleford" exists with a translation for the locale "French (Français)"
     When I edit the "French (Français)" translation for the person "Amanda Appleford" updating the biography to "Ca va bien"
     Then I should see the translation "French (Français)" and body text "Ca va bien"
+
+  Scenario: Editing a person in a role
+    Given the organisation "Foreign Office" exists
+    And I add a new "Minister" role named "Chief Scientist" to the "Foreign Office"
+    And a person called "Test Scientist" exists with the biography "blah"
+    And I appoint "Test Scientist" as the "Chief Scientist"
+    When I update the person called "Test Scientist"
+    Then I should be be able to add an image

@@ -16,7 +16,6 @@ class Admin::PeopleControllerTest < ActionController::TestCase
       assert_select "input[name='person[forename]'][type=text]"
       assert_select "input[name='person[surname]'][type=text]"
       assert_select "input[name='person[letters]'][type=text]"
-      assert_select "input[name='person[image_attributes][file]'][type=file]"
       assert_select "textarea[name='person[biography]']"
     end
   end
@@ -45,15 +44,6 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     post :create, params: { person: attributes_for(:person) }
 
     assert_redirected_to admin_person_url(Person.last)
-  end
-
-  test "creating allows attachment of an image" do
-    attributes = attributes_for(:person)
-    attributes[:image_attributes] = { file: upload_fixture("minister-of-funk.960x640.jpg", "image/jpg") }
-
-    post :create, params: { person: attributes }
-
-    assert_equal "minister-of-funk.960x640.jpg", Person.last.image.filename
   end
 
   test "GET on :show assigns the person and renders the show page" do
@@ -115,20 +105,33 @@ class Admin::PeopleControllerTest < ActionController::TestCase
       assert_select "input[name='person[forename]'][type=text]"
       assert_select "input[name='person[surname]'][type=text]"
       assert_select "input[name='person[letters]'][type=text]"
-      assert_select "input[name='person[image_attributes][file]'][type=file]"
       assert_select "textarea[name='person[biography]']"
     end
   end
 
   view_test "editing shows existing image" do
-    person = create(:person, :with_image)
+    person = create(:person_in_current_role, :with_image)
     get :edit, params: { id: person }
 
     assert_select "img[src='#{person.image.url}']"
   end
 
+  view_test "editing form does not allow image upload when the person is not in a role" do
+    person = create(:person)
+    get :edit, params: { id: person }
+
+    assert_not_select "input[name='person[image_attributes][file]'][type=file]"
+  end
+
+  view_test "editing form allows image upload when the person is in a role" do
+    person = create(:person_in_current_role)
+    get :edit, params: { id: person }
+
+    assert_select "input[name='person[image_attributes][file]'][type=file]"
+  end
+
   view_test "editing shows processing label if image assets are not available" do
-    person = build(:person, :with_image)
+    person = create(:person_in_current_role, :with_image)
     person.image.assets = []
     person.save!
 
