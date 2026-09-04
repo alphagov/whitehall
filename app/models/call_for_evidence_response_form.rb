@@ -10,6 +10,14 @@ class CallForEvidenceResponseForm < ApplicationRecord
 
   after_destroy :destroy_call_for_evidence_response_form_data_if_required
 
+  def attachable
+    call_for_evidence_participation&.call_for_evidence
+  end
+
+  def deleted?
+    false
+  end
+
 private
 
   def destroy_call_for_evidence_response_form_data_if_required

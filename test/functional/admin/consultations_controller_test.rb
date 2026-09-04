@@ -5,7 +5,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   setup do
     login_as :writer
-    ConsultationResponseForm.any_instance.stubs(:consultation_participation).returns(stub(consultation: stub(auth_bypass_id: "auth bypass id")))
+    ConsultationResponseForm.any_instance.stubs(:consultation_participation).returns(stub(consultation: stub(auth_bypass_id: "auth bypass id", id: 1)))
   end
 
   should_be_an_admin_controller
