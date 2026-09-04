@@ -10,6 +10,14 @@ class ConsultationResponseForm < ApplicationRecord
 
   after_destroy :destroy_consultation_response_form_data_if_required
 
+  def attachable
+    consultation_participation&.consultation
+  end
+
+  def deleted?
+    false
+  end
+
 private
 
   def destroy_consultation_response_form_data_if_required

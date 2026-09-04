@@ -31,4 +31,22 @@ class ConsultationResponseFormTest < ActiveSupport::TestCase
     consultation_response_form_data.expects(:destroy!)
     consultation_response_form.destroy!
   end
+
+  test "#attachable returns the parent consultation" do
+    consultation = build(:consultation)
+    consultation_participation = build(:consultation_participation, consultation:)
+    consultation_response_form = build(:consultation_response_form, consultation_participation:)
+
+    assert_equal consultation, consultation_response_form.attachable
+  end
+
+  test "#attachable returns nil when there is no participation" do
+    consultation_response_form = build(:consultation_response_form, consultation_participation: nil)
+
+    assert_nil consultation_response_form.attachable
+  end
+
+  test "#deleted? returns false" do
+    assert_not build(:consultation_response_form).deleted?
+  end
 end
