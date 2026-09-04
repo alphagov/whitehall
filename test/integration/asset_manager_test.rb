@@ -238,11 +238,17 @@ class AssetManagerIntegrationTest
     setup do
       @filename = "greenpaper.pdf"
       @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
-      ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
-      @consultation_response_form_data = FactoryBot.build(
-        :consultation_response_form_data,
-        file: File.open(fixture_path.join(@filename)),
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+
+      consultation = create(:draft_consultation)
+      participation = create(:consultation_participation, consultation:)
+      response_form = build(
+        :consultation_response_form,
+        consultation_participation: participation,
       )
+
+      @consultation_response_form_data = response_form.consultation_response_form_data
+      @consultation_response_form_data.file = File.open(fixture_path.join(@filename))
     end
 
     test "sends the consultation response form data file to Asset Manager" do
@@ -255,8 +261,8 @@ class AssetManagerIntegrationTest
       end
     end
 
-    test "sends draft as false for consultation response form data to Asset Manager" do
-      Services.asset_manager.expects(:create_asset).with(has_entry(draft: false)).returns(@asset_manager_response)
+    test "sends draft as true for consultation response form data to Asset Manager" do
+      Services.asset_manager.expects(:create_asset).with(has_entry(draft: true)).returns(@asset_manager_response)
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.save!
@@ -264,14 +270,46 @@ class AssetManagerIntegrationTest
     end
   end
 
+  class CreatingAnAuthorisedConsultationResponseFormData < ActiveSupport::TestCase
+    setup do
+      @filename = "greenpaper.pdf"
+      @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+
+      @organisation = create(:organisation)
+      consultation = create(
+        :draft_consultation,
+        access_limiting: "organisations",
+        access_limiting_organisation_ids: [@organisation.id],
+        organisations: [@organisation],
+      )
+      response_form = build(:consultation_response_form, consultation_participation: nil)
+      create(:consultation_participation, consultation:, consultation_response_form: response_form)
+      consultation.reload
+
+      @consultation_response_form_data = response_form.consultation_response_form_data
+    end
+
+    test "sends the access limited organisation ids to Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .with(has_entry(access_limited_organisation_ids: [@organisation.content_id]))
+              .returns(@asset_manager_response)
+
+      AssetManagerCreateAssetJob.drain
+    end
+  end
+
   class RemovingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       filename = "greenpaper.pdf"
-      ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
-      @consultation_response_form_data = FactoryBot.create(
-        :consultation_response_form_data,
+      consultation = create(:draft_consultation)
+      participation = create(:consultation_participation, consultation:)
+      response_form = create(
+        :consultation_response_form,
+        consultation_participation: participation,
         file: File.open(fixture_path.join(filename)),
       )
+      @consultation_response_form_data = response_form.consultation_response_form_data
 
       @asset_manager_id = @consultation_response_form_data.assets.first.asset_manager_id
       Services.asset_manager.stubs(:asset).with(@asset_manager_id).returns("id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => filename)
@@ -290,14 +328,17 @@ class AssetManagerIntegrationTest
   class ReplacingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       filename = "greenpaper.pdf"
-      ConsultationResponseFormData.any_instance.stubs(:auth_bypass_ids).returns([])
-      @consultation_response_form_data = FactoryBot.create(
-        :consultation_response_form_data,
+      consultation = create(:draft_consultation)
+      participation = create(:consultation_participation, consultation:)
+      response_form = create(
+        :consultation_response_form,
+        consultation_participation: participation,
         file: File.open(fixture_path.join(filename)),
       )
+      @consultation_response_form_data = response_form.consultation_response_form_data
 
       @asset_manager_id = @consultation_response_form_data.assets.first.asset_manager_id
-      Services.asset_manager.stubs(:asset).with(@asset_manager_id).returns({ "id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => filename })
+      Services.asset_manager.stubs(:asset).returns("id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => filename)
     end
 
     test "replacing a consultation response form data file removes the old file from asset manager" do
@@ -310,6 +351,81 @@ class AssetManagerIntegrationTest
 
       Sidekiq::Testing.inline! do
         @consultation_response_form_data.save!
+      end
+    end
+  end
+
+  class CreatingACallForEvidenceResponseFormData < ActiveSupport::TestCase
+    setup do
+      @filename = "greenpaper.pdf"
+      @asset_manager_response = {
+        "id" => "http://asset-manager/assets/asset_manager_id",
+        "name" => @filename,
+      }
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+
+      call_for_evidence = create(:draft_call_for_evidence)
+      participation = create(
+        :call_for_evidence_participation,
+        call_for_evidence:,
+      )
+      response_form = build(
+        :call_for_evidence_response_form,
+        call_for_evidence_participation: participation,
+      )
+
+      @call_for_evidence_response_form_data =
+        response_form.call_for_evidence_response_form_data
+      @call_for_evidence_response_form_data.file =
+        File.open(fixture_path.join(@filename))
+    end
+
+    class CreatingAnAuthorisedCallForEvidenceResponseFormData < ActiveSupport::TestCase
+      setup do
+        @filename = "greenpaper.pdf"
+        @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
+        Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+
+        @organisation = create(:organisation)
+        call_for_evidence = create(
+          :draft_call_for_evidence,
+          access_limiting: "organisations",
+          access_limiting_organisation_ids: [@organisation.id],
+          organisations: [@organisation],
+        )
+        response_form = build(:call_for_evidence_response_form, call_for_evidence_participation: nil)
+        create(:call_for_evidence_participation, call_for_evidence:, call_for_evidence_response_form: response_form)
+        call_for_evidence.reload
+
+        @call_for_evidence_response_form_data = response_form.call_for_evidence_response_form_data
+      end
+
+      test "sends the access limited organisation ids to Asset Manager" do
+        Services.asset_manager.expects(:create_asset)
+                .with(has_entry(access_limited_organisation_ids: [@organisation.content_id]))
+                .returns(@asset_manager_response)
+
+        AssetManagerCreateAssetJob.drain
+      end
+    end
+
+    test "sends the call for evidence response form data file to Asset Manager" do
+      Services.asset_manager.expects(:create_asset).with { |args|
+        args[:file].path =~ /#{@filename}/
+      }.returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @call_for_evidence_response_form_data.save!
+      end
+    end
+
+    test "sends draft as true for call for evidence response form data to Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .with(has_entry(draft: true))
+              .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @call_for_evidence_response_form_data.save!
       end
     end
   end

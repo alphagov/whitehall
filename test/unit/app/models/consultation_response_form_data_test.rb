@@ -6,25 +6,6 @@ class ConsultationResponseFormDataTest < ActiveSupport::TestCase
     assert_not consultation_response_form_data.valid?
   end
 
-  test "should return its consultation's auth_bypass_id" do
-    auth_bypass_id = "86385d6a-f918-4c93-96bf-087218a48ced"
-    consultation = Consultation.new(id: 1, auth_bypass_id:)
-    consultation_participation = build(:consultation_participation, consultation:)
-    consultation_response_form = build(:consultation_response_form, consultation_participation:)
-    consultation_response_form_data = build(:consultation_response_form_data, consultation_response_form:)
-
-    assert_equal consultation_response_form_data.auth_bypass_ids, [auth_bypass_id]
-  end
-
-  test "should return an empty array when its consultation has no auth_bypass_id" do
-    consultation = Consultation.new(id: 1, auth_bypass_id: nil)
-    consultation_participation = build(:consultation_participation, consultation:)
-    consultation_response_form = build(:consultation_response_form, consultation_participation:)
-    consultation_response_form_data = build(:consultation_response_form_data, consultation_response_form:)
-
-    assert_equal [], consultation_response_form_data.auth_bypass_ids
-  end
-
   test "#all_asset_variants_uploaded? should return true when there is an original asset" do
     consultation_response_form_data = build(:consultation_response_form_data)
 
@@ -72,5 +53,20 @@ class ConsultationResponseFormDataTest < ActiveSupport::TestCase
     )
 
     assert_not consultation_response_form_data.all_asset_variants_uploaded?
+  end
+
+  test "#attachable returns the parent consultation" do
+    consultation = build(:consultation)
+    consultation_participation = build(:consultation_participation, consultation:)
+    consultation_response_form = build(:consultation_response_form, consultation_participation:)
+    consultation_response_form_data = build(:consultation_response_form_data, consultation_response_form:)
+
+    assert_equal consultation, consultation_response_form_data.attachable
+  end
+
+  test "#attachable returns a new Edition when there is no consultation" do
+    consultation_response_form_data = build(:consultation_response_form_data)
+
+    assert consultation_response_form_data.attachable.new_record?
   end
 end
