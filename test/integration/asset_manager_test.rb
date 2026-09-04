@@ -270,6 +270,37 @@ class AssetManagerIntegrationTest
     end
   end
 
+  class CreatingAnAuthorisedConsultationResponseFormData < ActiveSupport::TestCase
+    setup do
+      @filename = "greenpaper.pdf"
+      @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+
+      @organisation = create(:organisation)
+      consultation = create(
+        :draft_consultation,
+        access_limiting: "organisations",
+        access_limiting_organisation_ids: [@organisation.id],
+        organisations: [@organisation],
+      )
+      participation = create(:consultation_participation, consultation:)
+      response_form = build(:consultation_response_form, consultation_participation: participation)
+
+      @consultation_response_form_data = response_form.consultation_response_form_data
+      @consultation_response_form_data.file = File.open(fixture_path.join(@filename))
+    end
+
+    test "sends the access limited organisation ids to Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .with(has_entry(access_limited_organisation_ids: [@organisation.content_id]))
+              .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @consultation_response_form_data.save!
+      end
+    end
+  end
+
   class RemovingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       filename = "greenpaper.pdf"
@@ -364,6 +395,37 @@ class AssetManagerIntegrationTest
     test "sends draft as true for call for evidence response form data to Asset Manager" do
       Services.asset_manager.expects(:create_asset)
               .with(has_entry(draft: true))
+              .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @call_for_evidence_response_form_data.save!
+      end
+    end
+  end
+
+  class CreatingAnAuthorisedCallForEvidenceResponseFormData < ActiveSupport::TestCase
+    setup do
+      @filename = "greenpaper.pdf"
+      @asset_manager_response = { "id" => "http://asset-manager/assets/asset_manager_id", "name" => @filename }
+      Services.asset_manager.stubs(:asset).returns(@asset_manager_response)
+
+      @organisation = create(:organisation)
+      call_for_evidence = create(
+        :draft_call_for_evidence,
+        access_limiting: "organisations",
+        access_limiting_organisation_ids: [@organisation.id],
+        organisations: [@organisation],
+      )
+      participation = create(:call_for_evidence_participation, call_for_evidence:)
+      response_form = build(:call_for_evidence_response_form, call_for_evidence_participation: participation)
+
+      @call_for_evidence_response_form_data = response_form.call_for_evidence_response_form_data
+      @call_for_evidence_response_form_data.file = File.open(fixture_path.join(@filename))
+    end
+
+    test "sends the access limited organisation ids to Asset Manager" do
+      Services.asset_manager.expects(:create_asset)
+              .with(has_entry(access_limited_organisation_ids: [@organisation.content_id]))
               .returns(@asset_manager_response)
 
       Sidekiq::Testing.inline! do
