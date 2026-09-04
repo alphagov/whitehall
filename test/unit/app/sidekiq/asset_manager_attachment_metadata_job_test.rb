@@ -35,5 +35,14 @@ class AssetManagerAttachmentMetadataJobTest < ActiveSupport::TestCase
         end
       end
     end
+
+    it "does not raise for a model without a replaced_by association" do
+      attachment_data = create(:consultation_response_form_data)
+      Services.asset_manager.stubs(:asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => "foo.pdf")
+
+      assert_nothing_raised do
+        job.perform(attachment_data.id, "ConsultationResponseFormData")
+      end
+    end
   end
 end
