@@ -33,4 +33,10 @@ class CallForEvidenceResponseFormData < ApplicationRecord
   def attachable
     call_for_evidence_response_form&.call_for_evidence_participation&.call_for_evidence || Edition.new
   end
+
+  # A response document is never shared across editions
+  # so it can never have been "replaced"
+  def replaced?
+    false
+  end
 end

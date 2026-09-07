@@ -88,4 +88,8 @@ class ConsultationResponseFormDataTest < ActiveSupport::TestCase
 
     assert consultation_response_form_data.attachable.new_record?
   end
+
+  test "#replaced? returns false" do
+    assert_not build(:consultation_response_form_data).replaced?
+  end
 end
