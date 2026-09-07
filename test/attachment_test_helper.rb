@@ -15,11 +15,8 @@ def create_attachment(attachment_data:, edition:)
   end
 end
 
+# Defining an explicit list, since models like Consultation response form data
+# also includes AssetData but can't run generically like Attachment/Image.
 def for_each_asset_data_type(&block)
-  asset_data_types = ApplicationRecord
-    .descendants
-    .select { |klass| klass.include?(AssetData) }
-    .map(&:name)
-
-  asset_data_types.each(&block)
+  %w[AttachmentData ImageData].each(&block)
 end
