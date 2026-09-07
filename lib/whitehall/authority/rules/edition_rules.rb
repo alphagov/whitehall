@@ -78,7 +78,7 @@ module Whitehall::Authority::Rules
       when :select_government_for_history_mode
         actor.gds_admin? || actor.gds_editor?
       when :unpublish
-        actor.gds_admin? || actor.managing_editor?
+        actor.gds_admin? || actor.gds_editor? || actor.managing_editor?
       when :unwithdraw
         actor.gds_admin? || actor.gds_editor? || actor.managing_editor?
       else
