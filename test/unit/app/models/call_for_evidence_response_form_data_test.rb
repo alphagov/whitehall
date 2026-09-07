@@ -88,4 +88,8 @@ class CallForEvidenceResponseFormDataTest < ActiveSupport::TestCase
 
     assert call_for_evidence_response_form_data.attachable.new_record?
   end
+
+  test "#replaced? returns false" do
+    assert_not build(:call_for_evidence_response_form_data).replaced?
+  end
 end

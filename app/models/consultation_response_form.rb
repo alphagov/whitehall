@@ -10,6 +10,16 @@ class ConsultationResponseForm < ApplicationRecord
 
   after_destroy :destroy_consultation_response_form_data_if_required
 
+  def attachable
+    consultation_participation&.consultation
+  end
+
+  # AssetData calls #deleted? on each attachments item but response forms have no soft-delete state
+  # (unlike Attachment/Image) so there's only one correct answer: false
+  def deleted?
+    false
+  end
+
 private
 
   def destroy_consultation_response_form_data_if_required

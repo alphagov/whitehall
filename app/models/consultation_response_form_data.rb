@@ -32,4 +32,10 @@ class ConsultationResponseFormData < ApplicationRecord
   def attachable
     consultation_response_form&.consultation_participation&.consultation || Edition.new
   end
+
+  # A response document is never shared across editions
+  # so it can never have been "replaced"
+  def replaced?
+    false
+  end
 end
