@@ -24,7 +24,7 @@
       <%= image_usage.lead? ? render(Admin::EditionImages::LeadImageCardComponent.new(edition: @edition, image:, image_usage:)) : render(Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage:)) %>
     <% end %>
 
-    <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each_with_index do |usage, multiple_upload_section_index| %>
+    <% @edition.permitted_image_usages.select { |usage| usage.multiple? }.each do |usage| %>
       <% if @edition.editable? %>
         <%= render Admin::EditionImages::ImageUploadComponent.new(edition: @edition, failed_images: @failed_images, image_usage: usage) %>
       <% end %>
@@ -60,10 +60,6 @@
         </ul>
       <% else %>
         <p class="govuk-body">No images uploaded</p>
-      <% end %>
-
-      <% unless multiple_upload_section_index == @edition.permitted_image_usages.select { |usage| usage.multiple? }.count - 1 %>
-        <hr aria-hidden="true" class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-6">
       <% end %>
     <% end %>
   </div>
