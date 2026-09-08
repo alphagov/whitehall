@@ -50,12 +50,9 @@
           } %>
         <% end %>
 
-        <ul id="uploaded_<%= usage.label || usage.key %>_image_list" class="govuk-list">
-          <% current_images.each_with_index do |image, idx| %>
-            <%= render Admin::EditionImages::ImageComponent.new(edition: @edition, image: image, image_usage: usage) %>
-            <% unless (idx + 1) == current_images.size %>
-              <li aria-hidden="true"><hr class="app-view-edition-resource__section-break govuk-section-break govuk-section-break--visible"></li>
-            <% end %>
+        <ul id="uploaded_embeddable_image_list" class="govuk-list">
+          <% current_images.each do |image| %>
+            <%= render(Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage: usage)) %>
           <% end %>
         </ul>
       <% else %>

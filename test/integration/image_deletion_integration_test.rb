@@ -30,7 +30,9 @@ class ImageDeletionIntegrationTest < ActionDispatch::IntegrationTest
         before do
           visit admin_edition_path(edition)
           click_link "Edit images"
-          click_link "Delete image"
+          within "#uploaded_embeddable_image_list" do
+            click_link "Delete"
+          end
           click_button "Delete image"
           assert_text "minister-of-funk.960x640.jpg has been deleted"
           visit admin_edition_path(edition)
