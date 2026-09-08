@@ -9,7 +9,6 @@ class FileAttachment < Attachment
            :content_type,
            :pdf?,
            :csv?,
-           :opendocument?,
            :file_extension,
            :file_size,
            :number_of_pages,

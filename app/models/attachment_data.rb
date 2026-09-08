@@ -40,11 +40,6 @@ class AttachmentData < ApplicationRecord
     false
   end
 
-  # Is in OpenDocument format? (see https://en.wikipedia.org/wiki/OpenDocument)
-  def opendocument?
-    OPENDOCUMENT_EXTENSIONS.include? file_extension.upcase
-  end
-
   def indexable?
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
   end
