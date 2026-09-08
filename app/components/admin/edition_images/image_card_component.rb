@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
-class Admin::EditionImages::ImageCardComponent < Admin::EditionImages::ImageComponent
+class Admin::EditionImages::ImageCardComponent < ViewComponent::Base
+  def initialize(edition:, image:, image_usage:)
+    @edition = edition
+    @image = image
+    @image_usage = image_usage
+  end
+
 private
+
+  attr_reader :edition, :image, :image_usage
 
   def summary_card_actions
     return [] unless edition.editable?
