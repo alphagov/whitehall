@@ -84,7 +84,7 @@ When(/^I visit the images tab of the document "([^"]*)"$/) do |title|
 end
 
 Then(/^I should see a list with (\d+) image/) do |count|
-  expect(page).to have_selector("ul .app-view-edition-resource__preview", count:)
+  expect(page).to have_selector("#uploaded_embeddable_image_list .gem-c-summary-card", count:)
 end
 
 Then(/^I should see a list with (\d+) (.*) image/) do |_count, image_usage_key|
@@ -113,20 +113,28 @@ When(/^I select an image for the (?:detailed guide|publication)$/) do
 end
 
 When("I click to delete an image") do
-  first("a", text: "Delete image").click
+  within "#uploaded_embeddable_image_list" do
+    first("a", text: "Delete").click
+  end
 end
 
 When("I click to edit the details of an image") do
   io_object = fixture_file_upload(jpg_image, "image/jpeg").tempfile.to_io
 
   stub_request(:get, %r{.*/media/.*/*.jpg}).to_return(status: 200, body: io_object, headers: {})
-  first("a", text: "Edit details").click
+
+  within "#uploaded_embeddable_image_list" do
+    first("a", text: "Edit").click
+  end
 end
 
 When("I click to edit the details of the image that needs to be cropped") do
   io_object = fixture_file_upload(Rails.root.join("test/fixtures/images/960x960_jpeg.jpg"), "image/jpeg").tempfile.to_io
   stub_request(:get, %r{.*/media/.*/960x960_jpeg.jpg}).to_return(status: 200, body: io_object, headers: {})
-  find_all("a", text: "Edit details").last.click
+
+  within "#uploaded_embeddable_image_list" do
+    find_all("a", text: "Edit").last.click
+  end
 end
 
 Then("I should I see the processing status tag") do
