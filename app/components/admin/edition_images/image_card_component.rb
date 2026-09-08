@@ -38,7 +38,7 @@ private
   def thumbnail
     return "Not set" if image.blank?
 
-    return "<span class=\"govuk-tag govuk-tag--green\">Processing</span>".html_safe unless image.image_data&.original_uploaded? && image.thumbnail
+    return "<div class=\"js-image-processing-status\"><span class=\"govuk-tag govuk-tag--green\">Processing</span></div>".html_safe unless image.image_data&.original_uploaded? && image.thumbnail
 
     return "<span class=\"govuk-tag govuk-tag--red\">Requires cropping</span>".html_safe if image.requires_crop?
 
