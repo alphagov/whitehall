@@ -26,8 +26,8 @@ class ImageUsageTest < ActiveSupport::TestCase
     assert_equal "header logo", usage.title
   end
 
-  test "title is `image` if embeddable (default) image usage" do
+  test "title is `Embeddable image` if embeddable (default) image usage" do
     usage = ImageUsage.new(key: "govspeak_embed", kinds: [], multiple: false, caption_enabled: true)
-    assert_equal "image", usage.title
+    assert_equal "Embeddable image", usage.title
   end
 end

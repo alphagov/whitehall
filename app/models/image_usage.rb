@@ -23,7 +23,7 @@ class ImageUsage
   end
 
   def title
-    return "image" if embeddable?
+    return "Embeddable image" if embeddable?
 
     label || "#{key} image"
   end
