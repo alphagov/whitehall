@@ -29,32 +29,18 @@
   } %>
 
   <%= hidden_field_tag("usage", image_usage.key) %>
+  <%= hidden_field_tag("image_kind", image_kind.name) %>
 
-  <% if image_usage.kinds.size > 1 %>
-    <%= render "govuk_publishing_components/components/radio", {
-      heading: "What kind of image is this?",
-      name: "image_kind",
-      items: image_usage.kinds.map do |image_kind|
-        {
-          value: image_kind.name,
-          text: image_kind.display_name,
-        }
-      end,
-    } %>
-  <% else %>
-    <%= hidden_field_tag("image_kind", image_kind.name) %>
-
-    <% if image_kind.allowed_formats.include?("svg") %>
-      <%= render "govuk_publishing_components/components/details", {
-        title: "You must use an SVG for charts and diagrams",
-      } do %>
-        SVGs allow users to magnify images without losing quality.
-        Find out <%= link_to "how to create an SVG file (opens in new tab)",
-                            "https://guidance.publishing.service.gov.uk/formatting-content/images-videos/formatting-images/#how-to-create-an-svg-file",
-                            class: "govuk-link",
-                            target: "_blank",
-                            rel: "noopener" %>.
-      <% end %>
+  <% if image_kind.allowed_formats.include?("svg") %>
+    <%= render "govuk_publishing_components/components/details", {
+      title: "You must use an SVG for charts and diagrams",
+    } do %>
+      SVGs allow users to magnify images without losing quality.
+      Find out <%= link_to "how to create an SVG file (opens in new tab)",
+                          "https://guidance.publishing.service.gov.uk/formatting-content/images-videos/formatting-images/#how-to-create-an-svg-file",
+                          class: "govuk-link",
+                          target: "_blank",
+                          rel: "noopener" %>.
     <% end %>
   <% end %>
 
