@@ -17,6 +17,8 @@ module AssetData
 
   delegate :auth_bypass_id, to: :attachable
 
+  delegate :url, :path, :content_type, to: :file, allow_nil: true
+
   def attachable
     Attachable::Null.new
   end
@@ -109,6 +111,17 @@ module AssetData
 
   def filename
     file&.file&.filename
+  end
+
+  def all_asset_variants_uploaded?
+    asset_variants = assets.map(&:variant).map(&:to_sym)
+    required_variants = file.active_version_names + [:original]
+
+    (required_variants - asset_variants).empty?
+  end
+
+  def assets_match_updated_image_filename
+    assets.all? { |asset| asset.filename.include?(filename) } if filename
   end
 
 private
