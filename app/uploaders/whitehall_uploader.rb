@@ -30,5 +30,5 @@ class WhitehallUploader < CarrierWave::Uploader::Base
     # active_versions is protected, so it can only be called by subclasses
     # it returns an array of [key, value] pairs, and we want the keys
     active_versions.map(&:first)
-  end  
+  end
 end

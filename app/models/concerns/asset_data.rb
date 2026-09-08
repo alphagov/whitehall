@@ -27,9 +27,8 @@ module AssetData
     return [] if auth_bypass_id.blank?
 
     [auth_bypass_id]
-
-    rescue NoMethodError
-      []
+  rescue NoMethodError
+    []
   end
 
   def access_limitation_organisation_ids
