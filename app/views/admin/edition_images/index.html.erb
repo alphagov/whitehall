@@ -50,11 +50,11 @@
           } %>
         <% end %>
 
-        <ul id="uploaded_embeddable_image_list" class="govuk-list">
+        <div id="uploaded_embeddable_image_list">
           <% current_images.each do |image| %>
             <%= render(Admin::EditionImages::ImageCardComponent.new(edition: @edition, image:, image_usage: usage)) %>
           <% end %>
-        </ul>
+        </div>
       <% else %>
         <p class="govuk-body">No images uploaded</p>
       <% end %>
