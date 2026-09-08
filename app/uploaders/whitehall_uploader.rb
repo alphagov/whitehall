@@ -25,4 +25,10 @@ class WhitehallUploader < CarrierWave::Uploader::Base
       assetable_type: model.class.to_s,
     }.deep_stringify_keys
   end
+
+  def active_version_names
+    # active_versions is protected, so it can only be called by subclasses
+    # it returns an array of [key, value] pairs, and we want the keys
+    active_versions.map(&:first)
+  end  
 end
