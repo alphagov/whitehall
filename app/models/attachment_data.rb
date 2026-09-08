@@ -34,10 +34,6 @@ class AttachmentData < ApplicationRecord
     content_type == AttachmentUploader::PDF_CONTENT_TYPE
   end
 
-  def txt?
-    file_extension == "txt"
-  end
-
   def csv?
     return file_extension.casecmp("csv").zero? if file_extension
 
