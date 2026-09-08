@@ -15,10 +15,6 @@ class ConsultationResponseFormData < ApplicationRecord
     assets_match_updated_image_filename
   end
 
-  def filename
-    file.present? && file.file.filename
-  end
-
   def assets_match_updated_image_filename
     assets.all? { |asset| asset.filename.include?(filename) } if filename
   end

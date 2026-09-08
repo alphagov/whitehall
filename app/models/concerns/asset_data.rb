@@ -107,6 +107,10 @@ module AssetData
     end
   end
 
+  def filename
+    file&.file&.filename
+  end
+
 private
 
   def filtered_attachments(include_deleted_attachables: false)
