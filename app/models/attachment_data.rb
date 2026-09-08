@@ -64,12 +64,6 @@ class AttachmentData < ApplicationRecord
     attachable && attachable.respond_to?(:auth_bypass_id) ? [attachable.auth_bypass_id].compact : []
   end
 
-  def redirect_url
-    return nil unless unpublished?
-
-    unpublished_attachable.unpublishing.document_url
-  end
-
   def keep_existing_file?
     to_replace_id.present? && keep_or_replace != "replace"
   end
