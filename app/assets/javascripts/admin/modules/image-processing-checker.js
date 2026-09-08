@@ -75,7 +75,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {}
 
     updateImageStatus(replacementEl) {
       if (replacementEl) {
-        this.$root.replaceChild(replacementEl, this.imageStatus)
+        this.imageStatus.replaceWith(replacementEl)
       } else {
         this.imageStatus.remove()
       }
