@@ -15,7 +15,7 @@ module AssetData
 
   delegate :unpublished?, to: :unpublished_attachable
 
-  delegate :auth_bypass_id, to: :attachable
+  delegate :auth_bypass_id, to: :attachable, allow_nil: true
 
   delegate :url, :path, :content_type, to: :file, allow_nil: true
 
@@ -27,6 +27,9 @@ module AssetData
     return [] if auth_bypass_id.blank?
 
     [auth_bypass_id]
+
+    rescue NoMethodError
+      []
   end
 
   def access_limitation_organisation_ids
