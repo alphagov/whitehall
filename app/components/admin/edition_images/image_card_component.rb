@@ -44,4 +44,20 @@ private
 
     sanitize("<img style=\"width: 100%;\" src=\"#{image.thumbnail}\" alt=\"\" class=\"app-view-edition-resource__preview\">")
   end
+
+  def markdown_code
+    render("govuk_publishing_components/components/copy_to_clipboard", {
+      label: tag.span("Markdown code:", class: "govuk-visually-hidden"),
+      copyable_content: image_markdown,
+      button_text: "Copy Markdown",
+    })
+  end
+
+  def image_markdown
+    edition.images_have_unique_filenames? ? "[Image: #{image.filename}]" : "!!#{find_image_index + 1}"
+  end
+
+  def find_image_index
+    edition.images.find_index(image)
+  end
 end

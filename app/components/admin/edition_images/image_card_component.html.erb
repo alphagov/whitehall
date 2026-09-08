@@ -11,5 +11,9 @@
       key: "Caption",
       value: caption,
     } : nil,
+    image_usage.embeddable? ? {
+      key: "Markdown code",
+      value: markdown_code,
+    } : nil,
   ].compact,
 } %>
