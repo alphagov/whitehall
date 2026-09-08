@@ -41,10 +41,6 @@ module Whitehall
     def version_names
       versions.map(&:prefixed_name)
     end
-
-    def display_name_without_dimensions
-      display_name.split("(").first.strip
-    end
   end
 
   class ImageKinds
