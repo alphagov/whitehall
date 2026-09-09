@@ -28,6 +28,13 @@ module PublishingApi
         item.block_content&.public_send(attribute)
       end
 
+      def parsed_as_hash(attribute)
+        content = item.block_content&.public_send(attribute)
+        return nil if content.nil?
+
+        JSON.parse(content)
+      end
+
       def govspeak(attribute)
         content = item.block_content&.public_send(attribute)
         return nil if content.nil?
