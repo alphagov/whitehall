@@ -1,0 +1,30 @@
+<%
+# This is a hack to ensure that the Asset Manager session cookie is set prior
+# to trying to load any images from Asset Manager (e.g. on the Images tab of
+# a draft document), and prior to attempting to preview said document.
+# Otherwise, users without an active Asset Manager session will trigger
+# a number of callbacks (one for every image on the document) which won't
+# necessarily complete in the right order, thus invalidating the session
+# and preventing the images from being loaded.
+#
+# See https://gov-uk.atlassian.net/browse/WHIT-3992
+draft_asset_placeholder_url = lambda do
+  placeholder = StandardEdition::LeadImage::DEFAULT_PLACEHOLDER_IMAGE_URL
+
+  host = {
+    "production" => "draft-assets.publishing.service.gov.uk",
+    "staging" =>  "draft-assets.staging.publishing.service.gov.uk",
+    "integration" =>  "draft-assets.integration.publishing.service.gov.uk",
+  }.fetch(GovukEnvironment.current, nil)
+
+  return placeholder unless host
+
+  placeholder.sub(
+    "assets.publishing.service.gov.uk",
+    host,
+  )
+end
+%>
+<script>
+  new Image().src = "<%= draft_asset_placeholder_url.call %>";
+</script>
