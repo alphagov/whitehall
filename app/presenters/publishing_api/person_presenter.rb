@@ -21,7 +21,7 @@ module PublishingApi
         details:,
         document_type: "person",
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::FRONTEND,
+        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         schema_name: "person",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
