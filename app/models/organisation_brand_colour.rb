@@ -192,4 +192,9 @@ class OrganisationBrandColour
     title: "Department for Business, Innovation, Science and Trade",
     class_name: "department-for-business-innovation-science-trade",
   )
+  DepartmentForEnergySecurityAndNetZero = create!(
+    id: 38,
+    title: "Department for Energy, Security & Net Zero",
+    class_name: "department-for-energy-security-net-zero",
+  )
 end
