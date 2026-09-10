@@ -48,10 +48,6 @@ class ImageData < ApplicationRecord
     images
   end
 
-  def filename
-    file&.file&.filename
-  end
-
   def auth_bypass_ids
     images
       .filter { |image| Edition::PRE_PUBLICATION_STATES.include? image.edition.state }
