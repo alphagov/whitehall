@@ -1,5 +1,5 @@
 class ResponseDocumentUploader < WhitehallUploader
-  storage Storage::PreviewableStorage
+  storage Storage::AttachmentStorage
   def extension_allowlist
     %w[pdf csv rtf doc docx xls xlsx odt ods]
   end
