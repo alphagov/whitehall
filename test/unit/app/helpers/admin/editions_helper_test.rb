@@ -140,9 +140,6 @@ class Admin::EditionsHelperTest < ActionView::TestCase
   test "#status_text has special handling for unpublished (via National Archives)" do
     edition = create(:edition, :unpublished)
 
-    stub_request(:head, edition.unpublishing.archived_url)
-      .to_return(status: 307, body: "", headers: {})
-
     edition.unpublishing.unpublishing_reason_id = UnpublishingReason::ARCHIVED_ID
     edition.unpublishing.save!
 

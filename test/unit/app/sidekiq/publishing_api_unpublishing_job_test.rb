@@ -86,8 +86,6 @@ class PublishingApiUnpublishingJobTest < ActiveSupport::TestCase
   end
 
   test "sets I18n.locale for each available locale" do
-    stub_request(:any, %r{\Ahttps://webarchive\.nationalarchives\.gov\.uk/}).to_return(status: 307, body: "", headers: {})
-
     unpublished_edition = create(
       :standard_edition,
       :unpublished_archived,

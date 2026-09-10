@@ -9,7 +9,6 @@ class Unpublishing < ApplicationRecord
   validates :alternative_url, uri: true, allow_blank: true
   validates :alternative_url, gov_uk_url_format: true, allow_blank: true
   validate :redirect_not_circular
-  validate :live_archived_url, if: :archived?
 
   after_initialize :ensure_presence_of_content_id
 
@@ -111,19 +110,6 @@ private
     rescue URI::InvalidURIError, Addressable::URI::InvalidURIError
       nil
     end
-  end
-
-  def live_archived_url
-    url = URI.parse(archived_url)
-    req = Net::HTTP.new(url.host, url.port)
-    req.use_ssl = true
-    res = req.request_head(url.path)
-
-    # The National Archives returns a 307 redirect for archived pages, so we check for that instead of a 200 OK.
-    # E.g. https://webarchive.nationalarchives.gov.uk/ukgwa/https://www.gov.uk/government/news/uk-export-finance-appoints-pat-cauthery-to-lead-aerospace-and-defence-business
-    # => 307 redirect =>
-    # https://webarchive.nationalarchives.gov.uk/ukgwa/20260407083257/https://www.gov.uk/government/news/uk-export-finance-appoints-pat-cauthery-to-lead-aerospace-and-defence-business
-    errors.add(:unpublishing_reason, "cannot be \"Archived\" if page has not been archived by the National Archives (\"https://www.webarchive.nationalarchives.gov.uk\")") unless res.code == "307"
   end
 
   def redirect_not_circular
