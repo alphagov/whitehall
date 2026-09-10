@@ -345,7 +345,8 @@
             "history",
             "topical_event",
             "news_article",
-            "case_study"
+            "case_study",
+            "mini_site"
           ]
         },
         "publishing_api_document_type": {
@@ -358,7 +359,8 @@
             "world_news_story",
             "history",
             "topical_event",
-            "case_study"
+            "case_study",
+            "mini_site_landing"
           ]
         },
         "rendering_app": {
