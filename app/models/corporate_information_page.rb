@@ -11,7 +11,7 @@ class CorporateInformationPage < Edition
   validate :unique_organisation_and_page_type, on: :create, if: :organisation
 
   add_trait do
-    def process_associations_before_save(new_edition)
+    def process_associations_before_draft_creation(new_edition)
       new_edition.organisation = @edition.organisation
     end
   end

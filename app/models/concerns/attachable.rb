@@ -4,7 +4,7 @@ module Attachable
   # This 'grace period' reflects the fact that an Edition will end up with a
   # slightly earlier `created_at` timestamp compared to Attachments belonging to
   # that Edition. This is because Attachments are created after the Edition
-  # itself has been created (see the `process_associations_after_save` method).
+  # itself has been created (see the `process_associations_after_draft_creation` method).
   #
   # This needs to be taken into account when trying to identify whether an
   # Attachment is 'new' on this Edition, or if it was copied across from the
@@ -36,7 +36,7 @@ module Attachable
 
     if respond_to?(:add_trait)
       add_trait do
-        def process_associations_after_save(edition)
+        def process_associations_after_draft_creation(edition)
           @edition.attachments.each do |attachment|
             draft_attachment = attachment.deep_clone
             edition.attachments << draft_attachment
