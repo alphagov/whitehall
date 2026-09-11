@@ -55,6 +55,13 @@
               "translatable": true
             }
           }
+        },
+        "nation_applicability": {
+          "title": "Nation applicability",
+          "description": "Which UK nations this content applies to",
+          "block": "nation_applicability",
+          "attribute_path": ["block_content", "nation_applicability"],
+          "translatable": false
         }
       }
     },
@@ -181,6 +188,9 @@
             "type": "string"
           }
         }
+      },
+      "nation_applicability": {
+        "type": "object"
       },
       "social_media_links": {
         "type": "array",
