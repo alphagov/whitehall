@@ -39,7 +39,7 @@ class ResluggingTest < ActiveSupport::TestCase
 
       existing_html_attachment.update!(title: new_html_attachment_title)
 
-      task.invoke(published_edition.slug, existing_html_attachment.slug)
+      task.invoke(published_edition.document.id, existing_html_attachment.slug)
 
       # attachment slug should have changed
       assert_equal existing_html_attachment.reload.slug, new_html_attachment_slug
@@ -49,7 +49,6 @@ class ResluggingTest < ActiveSupport::TestCase
 
     it "reslugs if deleted attached HTML attachment with same slug" do
       published_edition = create(:published_edition)
-      published_edition.document
 
       deleted_html_attachment = create(:html_attachment, title: html_attachment_title, body: "Some text on a published edition", attachable: published_edition)
 
@@ -57,7 +56,7 @@ class ResluggingTest < ActiveSupport::TestCase
 
       existing_html_attachment = create(:html_attachment, title: html_attachment_title, body: "Some text on a published edition", attachable: published_edition)
 
-      task.invoke(published_edition.slug, existing_html_attachment.slug)
+      task.invoke(published_edition.document.id, existing_html_attachment.slug)
 
       existing_html_attachment = existing_html_attachment.reload
       new_edition = published_edition.document.editions.published.last
@@ -72,14 +71,13 @@ class ResluggingTest < ActiveSupport::TestCase
 
     it "does not reslug if undeleted attached HTML attachment with same slug" do
       published_edition = create(:published_edition)
-      published_edition.document
 
       create(:html_attachment, title: html_attachment_title, body: "Some text on a published edition", attachable: published_edition)
 
       existing_html_attachment = create(:html_attachment, title: html_attachment_title, body: "Some text on a published edition", attachable: published_edition)
 
       assert_raises(StandardError, match: "Attachment with slug '#{html_attachment_slug}' already exists and has been not deleted. Delete this attachment first.") do
-        task.invoke(published_edition.slug, existing_html_attachment.slug)
+        task.invoke(published_edition.document.id, existing_html_attachment.slug)
       end
     end
   end

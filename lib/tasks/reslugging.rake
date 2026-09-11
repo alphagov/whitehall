@@ -47,13 +47,8 @@ namespace :reslug do
   - changes a html attachment slug
   - reindexes the document
   - republishes the document and attachment to Publishing API (automatically handles the redirect)"
-  task :html_attachment, %i[publication_slug old_attachment_slug] => :environment do |_task, args|
-    documents = Edition.where(slug: args.publication_slug).map(&:document)
-    if documents.count > 1
-      raise "There are multiple documents with the slug '#{args.publication_slug}'. Consider writing a migration and fetching the document with a content_id or document_type to uniquely identify it."
-    end
-
-    document = documents.first
+  task :html_attachment, %i[publication_document_id old_attachment_slug] => :environment do |_task, args|
+    document = Document.find(args.publication_document_id)
     edition = document.editions.published.last
     html_attachment = edition.attachments.find_by(slug: args.old_attachment_slug)
 
