@@ -29,6 +29,7 @@
         "enum": [
           "embedded_contacts_exist",
           "length",
+          "nation_applicability",
           "no_footnotes_allowed",
           "presence",
           "safe_html",
@@ -70,6 +71,7 @@
             "default_textarea",
             "govspeak",
             "default_select",
+            "nation_applicability",
             "select_with_search_tagging",
             "ordered_select_with_search_tagging"
           ]
@@ -154,7 +156,7 @@
         "type": {
           "type": "string",
           "description": "Data type for the content block. Should map to an active record type, with the exception of the object type.",
-          "enum": ["string", "integer", "date", "array"]
+          "enum": ["string", "integer", "date", "array", "object"]
         },
         "attributes": {
           "description": "For array types, defines the schema of each array item using the same minimal attribute format.",
