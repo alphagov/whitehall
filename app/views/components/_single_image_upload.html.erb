@@ -3,17 +3,19 @@
   page_errors ||= false
   data_attributes ||= {}
   image_src ||= nil
-  image_alt ||= nil
   image_cache ||= nil
   title ||= "Image (required)"
-  alt_text_name ||= "#{name}[image_alt_text]"
-  alt_text_id ||= "#{id}_image_alt_text"
   image_name ||= "#{name}[image]"
   image_id ||= "#{id}_image"
   image_cache_name ||= "#{name}[image_cache]"
   remove_alt_text_field ||= false
   image_uploaded ||= false
   image_hint ||= nil
+  # TODO: delete when legacy topical events are migrated,
+  # as these parameters are only used for that
+  alt_text_name ||= "#{name}[image_alt_text]"
+  alt_text_id ||= "#{id}_image_alt_text"
+  image_alt ||= nil
 
   root_classes = %w(app-c-single-image-upload govuk-form-group)
 %>
