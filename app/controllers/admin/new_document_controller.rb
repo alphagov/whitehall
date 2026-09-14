@@ -1,6 +1,7 @@
 class Admin::NewDocumentController < Admin::BaseController
   def index
-    @document_types = types_hash.select { |_type_key, type_hash| type_hash["klass"].enforcer(current_user).can?(:create) }
+    @document_types = standard_document_types
+    @requires_approval_document_types = requires_approval_document_types
   end
 
   def new_document_options_redirect
@@ -84,6 +85,7 @@ class Admin::NewDocumentController < Admin::BaseController
         "hint_text" => ConfigurableDocumentType.find("topical_event").description,
         "label" => ConfigurableDocumentType.find("topical_event").label,
         "redirect" => new_admin_standard_edition_path(configurable_document_type: "topical_event"),
+        "requires_approval" => true,
       }
     end
 
@@ -96,5 +98,21 @@ class Admin::NewDocumentController < Admin::BaseController
       }
     end
     types
+  end
+
+private
+
+  def permitted_document_types
+    @permitted_document_types ||= types_hash.select { |_type_key, type_hash| type_hash["klass"].enforcer(current_user).can?(:create) }
+  end
+
+  def standard_document_types
+    permitted_document_types.reject { |_type_key, type_hash| type_hash["requires_approval"] }
+  end
+
+  def requires_approval_document_types
+    permitted_document_types.select { |_type_key, type_hash| type_hash["requires_approval"] }
+                            .sort_by { |_type_key, type_hash| type_hash["label"] }
+                            .to_h
   end
 end
