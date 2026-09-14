@@ -22,23 +22,23 @@
 %>
 
 <%= tag.div class: root_classes, data: data_attributes do %>
-  <%= render "govuk_publishing_components/components/heading", {
+  <%= render "govuk_publishing_components/components/heading", ({
     text: title,
     font_size: "l",
-    margin_bottom: 3,
-  } %>
+    margin_bottom: inset_text.present? ? nil : 3,
+  }).compact %>
 
   <%= render "govuk_publishing_components/components/inset_text", {
     text: inset_text.html_safe,
   } if inset_text.present? && !image_src %>
 
   <% if image_src %>
-    <%= render "govuk_publishing_components/components/heading", {
+    <%= render "govuk_publishing_components/components/heading", ({
       text: "Uploaded image",
       heading_level: 3,
       font_size: "m",
-      margin_bottom: 3,
-    } %>
+      margin_bottom: inset_text.present? ? nil : 3,
+    }).compact %>
 
     <%= render "govuk_publishing_components/components/inset_text", {
       text: inset_text.html_safe,
