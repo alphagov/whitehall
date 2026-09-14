@@ -80,6 +80,24 @@ class SingleImageUploadTest < ActionView::TestCase
     assert_select ".app-c-single-image-upload label[for='unique_id_image']", text: "Replace image"
   end
 
+  test "Inset text appears one time, if no image uploaded" do
+    render("components/single_image_upload", @valid_parameters.merge({
+      inset_text: "This is my inset text",
+    }))
+
+    assert_select ".app-c-single-image-upload .gem-c-inset-text", count: 1, text: "This is my inset text"
+  end
+
+  test "Inset text appears one time, if image uploaded" do
+    render("components/single_image_upload", @valid_parameters.merge({
+      image_src: "/path/to/image.jpg",
+      image_uploaded: true,
+      inset_text: "This is my inset text",
+    }))
+
+    assert_select ".app-c-single-image-upload .gem-c-inset-text", count: 1, text: "This is my inset text"
+  end
+
   # TODO: delete when legacy topical events are migrated
   test "does not render an alt text input when alt text is removed" do
     # Whilst the default behaviour is to include the alt text field,

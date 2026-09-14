@@ -44,6 +44,11 @@ examples:
       image_src: https://assets.publishing.service.gov.uk/media/11aa22bbbbbb33cccccccccc/No10DoorAjar-2.jpg
       image_alt: Some optional text that describes the image
       image_uploaded: True if all assets have finished uploading
+  with_inset_text:
+    data:
+      id: single-image-upload-with-inset-text
+      name: single-image-upload-with-inset-text
+      inset_text: This is my inset text
   with_errors_on_page:
     data:
       id: single-image-upload-with-errors-on-page
