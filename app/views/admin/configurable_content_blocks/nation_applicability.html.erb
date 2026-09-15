@@ -1,0 +1,10 @@
+<%= render "govuk_publishing_components/components/checkboxes", {
+  name: "#{block.path.form_control_name}[]",
+  id: block.path.form_control_id,
+  heading: block.title + (block.required ? " (required)" : ""),
+  heading_size: "m",
+  hint_text: block.hint_text,
+  no_hint_text: block.hint_text.blank?,
+  error: errors_for_input(block.edition.errors, block.path.validation_error_attribute.to_sym),
+  items: block.options,
+} %>
