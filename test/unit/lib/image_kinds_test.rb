@@ -106,20 +106,6 @@ class ImageKindsTest < ActiveSupport::TestCase
     end
   end
 
-  test "#display_name_without_dimensions returns display name without the dimensions" do
-    result = Whitehall::ImageKinds.build_image_kinds(
-      "test_kind" => {
-        "display_name" => "Test Kind (300x200)",
-        "valid_width" => 300,
-        "valid_height" => 200,
-        "allowed_formats" => %w[jpg jpeg gif png svg],
-        "versions" => [],
-      },
-    )
-
-    assert_equal "Test Kind", result["test_kind"].display_name_without_dimensions
-  end
-
   test "prefixes 'name' and 'from_version' when version_prefix config true" do
     result = Whitehall::ImageKinds.build_image_kinds(
       "topical_event_logo" => {

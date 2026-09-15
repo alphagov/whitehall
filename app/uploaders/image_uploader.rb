@@ -7,12 +7,6 @@ class ImageUploader < WhitehallUploader
     config.validate_integrity = true
   end
 
-  def downloader
-    # this overloads the downloader from Carrierwave::Uploader::Base
-    # so that `download!` can be used in development and test environments
-    WhitehallDownloader
-  end
-
   def extension_allowlist
     model.image_kind_config.allowed_formats
   end

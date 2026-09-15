@@ -58,6 +58,15 @@ class Admin::EditionImages::ImageCardComponentTest < ViewComponent::TestCase
     assert_selector ".govuk-summary-list__row:has(.govuk-summary-list__key:contains(\"Caption\")) .govuk-summary-list__value", text: "Not set"
   end
 
+  test "renders 'Not set' when image is missing" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build_stubbed(:standard_edition, images: [])
+
+    render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image: nil, image_usage: ImageUsage.new(key: "test_usage", label: "Test usage")))
+
+    assert_selector ".govuk-summary-list__row:has(.govuk-summary-list__key:contains(\"Image\")) .govuk-summary-list__value", text: "Not set"
+  end
+
   test "renders the 'PROCESSING' tag when image has missing assets" do
     image_data = build_stubbed(:image_data_with_no_assets, image_kind: "default")
     image = build_stubbed(:image, image_data:)
@@ -66,7 +75,7 @@ class Admin::EditionImages::ImageCardComponentTest < ViewComponent::TestCase
 
     render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "test_usage", label: "Test usage")))
 
-    assert_selector ".govuk-summary-list__row:has(.govuk-summary-list__key:contains(\"Image\")) .govuk-summary-list__value", text: "Processing"
+    assert_selector ".govuk-summary-list__row:has(.govuk-summary-list__key:contains(\"Image\")) .govuk-summary-list__value .js-image-processing-status .govuk-tag--green", text: "Processing"
   end
 
   test "renders the 'Requires crop' tag when the image needs cropping" do
@@ -77,7 +86,7 @@ class Admin::EditionImages::ImageCardComponentTest < ViewComponent::TestCase
 
     render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "test_usage", label: "Test usage")))
 
-    assert_selector ".govuk-summary-list__row:has(.govuk-summary-list__key:contains(\"Image\")) .govuk-summary-list__value", text: "Requires crop"
+    assert_selector ".govuk-summary-list__row:has(.govuk-summary-list__key:contains(\"Image\")) .govuk-summary-list__value .govuk-tag--red", text: "Requires cropping"
   end
 
   test "does not render caption row when caption_enabled is false" do
@@ -98,6 +107,37 @@ class Admin::EditionImages::ImageCardComponentTest < ViewComponent::TestCase
 
     render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image:, image_usage: ImageUsage.new(key: "test_usage", label: "Test usage")))
 
-    assert_selector "img[src='#{image.thumbnail}']"
+    assert_selector ".govuk-summary-list__row:has(.govuk-summary-list__key:contains(\"Image\")) .govuk-summary-list__value img.app-view-edition-resource__preview[src='#{image.thumbnail}'][alt='']"
+  end
+
+  test "renders the markdown code for embeddable usages" do
+    jpeg = upload_fixture("images/960x640_jpeg.jpg")
+    gif = upload_fixture("images/960x640_gif.gif")
+    jpeg_image_data = build_stubbed(:image_data, file: jpeg)
+    gif_image_data = build_stubbed(:image_data, file: gif)
+    images = [build_stubbed(:image, image_data: jpeg_image_data), build_stubbed(:image, image_data: gif_image_data)]
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build_stubbed(:standard_edition, images: images)
+    render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image: images.first, image_usage: ImageUsage.new(key: "govspeak_embed")))
+
+    assert_selector "input[value='[Image: 960x640_jpeg.jpg]']"
+  end
+
+  test "image index markdown used when edition has duplicate image filenames" do
+    images = [build_stubbed(:image), build_stubbed(:image)]
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build_stubbed(:standard_edition, images: images)
+    render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image: images.first, image_usage: ImageUsage.new(key: "govspeak_embed")))
+
+    assert_selector "input[value='!!1']"
+  end
+
+  test "image index markdown handles a lead image being present correctly" do
+    images = [build_stubbed(:image), build_stubbed(:image), build_stubbed(:image)]
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    edition = build_stubbed(:standard_edition, images: images)
+    render_inline(Admin::EditionImages::ImageCardComponent.new(edition:, image: images.third, image_usage: ImageUsage.new(key: "govspeak_embed")))
+
+    assert_selector "input[value='!!3']"
   end
 end
