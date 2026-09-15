@@ -106,17 +106,6 @@
     } %>
   <% end %>
 
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: "Organisation’s URL",
-      heading_size: "l",
-    },
-    name: "organisation[url]",
-    id: "organisation_url",
-    value: organisation.url,
-    error_items: errors_for(organisation.errors, :url),
-  } %>
-
   <%= render "govuk_publishing_components/components/select_with_search", {
     label: "Organisation type (required)",
     name: "organisation[organisation_type_key]",
