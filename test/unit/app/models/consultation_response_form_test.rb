@@ -49,4 +49,18 @@ class ConsultationResponseFormTest < ActiveSupport::TestCase
   test "#deleted? returns false" do
     assert_not build(:consultation_response_form).deleted?
   end
+
+  test "#attachable resolves to the newest edition when the response form is shared across editions" do
+    published_consultation = create(:published_consultation)
+    old_participation = create(:consultation_participation, consultation: published_consultation)
+    response_form = build(:consultation_response_form, consultation_participation: nil)
+    old_participation.update!(consultation_response_form: response_form)
+
+    draft_consultation = published_consultation.create_draft(create(:gds_editor))
+    draft_consultation.reload
+
+    response_form.reload
+
+    assert_equal draft_consultation, response_form.attachable
+  end
 end

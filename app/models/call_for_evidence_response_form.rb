@@ -1,5 +1,5 @@
 class CallForEvidenceResponseForm < ApplicationRecord
-  has_one :call_for_evidence_participation
+  has_one :call_for_evidence_participation, -> { order(id: :desc) }
   belongs_to :call_for_evidence_response_form_data
 
   delegate :url, :file, to: :call_for_evidence_response_form_data

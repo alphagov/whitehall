@@ -1,5 +1,5 @@
 class ConsultationResponseForm < ApplicationRecord
-  has_one :consultation_participation
+  has_one :consultation_participation, -> { order(id: :desc) }
   belongs_to :consultation_response_form_data
 
   delegate :url, :file, to: :consultation_response_form_data

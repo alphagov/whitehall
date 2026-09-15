@@ -330,7 +330,7 @@ class AssetManagerIntegrationTest
   class ReplacingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       filename = "greenpaper.pdf"
-      consultation = create(:draft_consultation)
+      consultation = create(:published_consultation)
       participation = create(:consultation_participation, consultation:)
       response_form = create(
         :consultation_response_form,
@@ -338,6 +338,8 @@ class AssetManagerIntegrationTest
         file: File.open(fixture_path.join(filename)),
       )
       @consultation_response_form_data = response_form.consultation_response_form_data
+
+      consultation.create_draft(create(:gds_editor))
 
       @asset_manager_id = @consultation_response_form_data.assets.first.asset_manager_id
       Services.asset_manager.stubs(:asset).returns("id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => filename)
@@ -349,6 +351,19 @@ class AssetManagerIntegrationTest
         args[:file].path =~ /#{replacement_filename}/
       }.returns({ "id" => "http://asset-manager/assets/asset_manager_id_new", "name" => replacement_filename })
       Services.asset_manager.expects(:delete_asset).with(@asset_manager_id)
+      @consultation_response_form_data.file = File.open(fixture_path.join(replacement_filename))
+
+      Sidekiq::Testing.inline! do
+        @consultation_response_form_data.save!
+      end
+    end
+
+    test "replacing a consultation response form data file on a new draft sends the asset to Asset Manager as draft" do
+      replacement_filename = "whitepaper.pdf"
+      Services.asset_manager.expects(:create_asset)
+              .with(has_entry(draft: true))
+              .returns({ "id" => "http://asset-manager/assets/asset_manager_id_new", "name" => replacement_filename })
+      Services.asset_manager.stubs(:delete_asset)
       @consultation_response_form_data.file = File.open(fixture_path.join(replacement_filename))
 
       Sidekiq::Testing.inline! do
@@ -427,6 +442,51 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:create_asset)
               .with(has_entry(access_limited_organisation_ids: [@organisation.content_id]))
               .returns(@asset_manager_response)
+
+      Sidekiq::Testing.inline! do
+        @call_for_evidence_response_form_data.save!
+      end
+    end
+  end
+
+  class ReplacingACallForEvidenceResponseFormData < ActiveSupport::TestCase
+    setup do
+      filename = "greenpaper.pdf"
+      call_for_evidence = create(:published_call_for_evidence)
+      participation = create(:call_for_evidence_participation, call_for_evidence:)
+      response_form = create(
+        :call_for_evidence_response_form,
+        call_for_evidence_participation: participation,
+        file: File.open(fixture_path.join(filename)),
+      )
+      @call_for_evidence_response_form_data = response_form.call_for_evidence_response_form_data
+
+      call_for_evidence.create_draft(create(:gds_editor))
+
+      @asset_manager_id = @call_for_evidence_response_form_data.assets.first.asset_manager_id
+      Services.asset_manager.stubs(:asset).returns("id" => "http://asset-manager/assets/#{@asset_manager_id}", "name" => filename)
+    end
+
+    test "replacing a call for evidence response form data file removes the old file from asset manager" do
+      replacement_filename = "whitepaper.pdf"
+      Services.asset_manager.expects(:create_asset).with { |args|
+        args[:file].path =~ /#{replacement_filename}/
+      }.returns({ "id" => "http://asset-manager/assets/asset_manager_id_new", "name" => replacement_filename })
+      Services.asset_manager.expects(:delete_asset).with(@asset_manager_id)
+      @call_for_evidence_response_form_data.file = File.open(fixture_path.join(replacement_filename))
+
+      Sidekiq::Testing.inline! do
+        @call_for_evidence_response_form_data.save!
+      end
+    end
+
+    test "replacing a call for evidence response form data file on a new draft sends the asset to Asset Manager as draft" do
+      replacement_filename = "whitepaper.pdf"
+      Services.asset_manager.expects(:create_asset)
+              .with(has_entry(draft: true))
+              .returns({ "id" => "http://asset-manager/assets/asset_manager_id_new", "name" => replacement_filename })
+      Services.asset_manager.stubs(:delete_asset)
+      @call_for_evidence_response_form_data.file = File.open(fixture_path.join(replacement_filename))
 
       Sidekiq::Testing.inline! do
         @call_for_evidence_response_form_data.save!
