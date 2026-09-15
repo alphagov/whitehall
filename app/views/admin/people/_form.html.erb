@@ -57,24 +57,23 @@
     error_items: errors_for(person.errors, :letters),
   } %>
 
-  <% if person.current_role_appointments.any? %>
-    <%= form.fields_for :image do |_image_fields| %>
-      <%= render "components/single_image_upload", {
-        title: "Image",
-        name: "person[image_attributes]",
-        id: "person_image",
-        image_id: "person_image_file",
-        image_name: "person[image_attributes][file]",
-        remove_alt_text_field: true,
-        filename: person.image.file.identifier,
-        page_errors: person.errors.any?,
-        error_items: errors_for(person.errors, :"image.file"),
-        image_src: person.image.url,
-        image_cache_name: "person[image_attributes][file_cache]",
-        image_cache: person.image.file_cache.presence,
-        image_uploaded: person.image.all_asset_variants_uploaded?,
-      } %>
-    <% end %>
+  <%= form.fields_for :image do |_image_fields| %>
+    <%= render "components/single_image_upload", {
+      title: "Image",
+      name: "person[image_attributes]",
+      id: "person_image",
+      image_id: "person_image_file",
+      image_name: "person[image_attributes][file]",
+      remove_alt_text_field: true,
+      filename: person.image.file.identifier,
+      page_errors: person.errors.any?,
+      error_items: errors_for(person.errors, :"image.file"),
+      image_src: person.image.url,
+      image_cache_name: "person[image_attributes][file_cache]",
+      image_cache: person.image.file_cache.presence,
+      image_uploaded: person.image.all_asset_variants_uploaded?,
+      inset_text: "Image appears when a person is <a href=\"#{admin_roles_path}\">linked to a role</a>",
+    } %>
   <% end %>
 
   <%= render "components/govspeak_editor", {
