@@ -5,7 +5,6 @@ class PageTitleTest < ActiveSupport::TestCase
     authentications/failure.html.erb
     admin/topical_event_about_pages/edit.html.erb
     admin/topical_event_about_pages/new.html.erb
-    admin/edition_audit_trail/index.html.erb
     admin/preview/preview.html.erb
     layouts/home.html.erb
     layouts/design_system.html.erb
