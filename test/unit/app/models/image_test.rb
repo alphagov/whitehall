@@ -77,6 +77,20 @@ class ImageTest < ActiveSupport::TestCase
     assert_nil image.embed_url
   end
 
+  test "returns live embed URL if the edition is in live state" do
+    edition = create(:published_fatality_notice)
+    image = build(:image, usage: "govspeak_embed", edition: edition)
+    image.image_data.stubs(:file_url).returns("https://assets.integration.publishing.service.gov.uk/media/abc123/s960_1.png")
+    assert_equal image.embed_url, "https://assets.integration.publishing.service.gov.uk/media/abc123/s960_1.png"
+  end
+
+  test "returns draft embed URL if the edition is in draft state" do
+    edition = create(:draft_fatality_notice)
+    image = build(:image, usage: "govspeak_embed", edition: edition)
+    image.image_data.stubs(:file_url).returns("https://assets.integration.publishing.service.gov.uk/media/abc123/s960_1.png")
+    assert_equal image.embed_url, "https://draft-assets.integration.publishing.service.gov.uk/media/abc123/s960_1.png"
+  end
+
   test "returns false for can_be_lead_image? if not bitmap image" do
     image = create(:image, :svg)
 

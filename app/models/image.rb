@@ -33,9 +33,15 @@ class Image < ApplicationRecord
     return unless image_data.all_asset_variants_uploaded?
 
     embed_version = image_data.image_kind_config.embed_version
-    return url if embed_version.blank?
+    return draft_or_live_url(url) if embed_version.blank?
 
-    url(embed_version.to_sym) || url
+    draft_or_live_url(url(embed_version.to_sym) || url)
+  end
+
+  def draft_or_live_url(url)
+    return url unless edition&.draft?
+
+    url.sub(%r{\Ahttps://assets.}, "https://draft-assets.")
   end
 
   def thumbnail
