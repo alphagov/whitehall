@@ -70,6 +70,6 @@ private
 
   def offsite_link_params
     params.require(:offsite_link)
-          .permit(:title, :summary, :link_type, :url, :date)
+          .permit(:title, :summary, :link_type, :url)
   end
 end
