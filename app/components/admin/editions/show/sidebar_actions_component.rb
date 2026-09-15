@@ -208,7 +208,7 @@ private
   end
 
   def add_view_on_website_action
-    if @edition.publicly_visible?
+    if @edition.state.in?(Edition::POST_PUBLICATION_STATES)
       actions << link_to("View on website (opens in new tab)",
                          @edition.public_url,
                          class: "govuk-link",
