@@ -67,6 +67,16 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal image.embed_url, image.url
   end
 
+  test "returns nil for embed_url if not all asset variants are uploaded" do
+    image = create(:image)
+
+    image_data = image.image_data
+
+    image_data.stubs(:all_asset_variants_uploaded?).returns(false)
+
+    assert_nil image.embed_url
+  end
+
   test "returns false for can_be_lead_image? if not bitmap image" do
     image = create(:image, :svg)
 

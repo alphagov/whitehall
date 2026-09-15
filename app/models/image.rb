@@ -30,10 +30,10 @@ class Image < ApplicationRecord
 
   def embed_url
     return unless image_data.respond_to?(:image_kind_config)
+    return unless image_data.all_asset_variants_uploaded?
 
     embed_version = image_data.image_kind_config.embed_version
-
-    return url if embed_version.blank? || !image_data.all_asset_variants_uploaded?
+    return url if embed_version.blank?
 
     url(embed_version.to_sym) || url
   end
