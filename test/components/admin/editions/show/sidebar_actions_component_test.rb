@@ -99,9 +99,10 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:unpublished_edition)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 2
+    assert_selector "li", count: 3
     assert_selector "button", text: "Create new edition"
     assert_selector "a", text: "View unpublished edition"
+    assert_selector "a", text: "View on website (opens in new tab)"
   end
 
   test "actions for withdrawn edition" do
@@ -212,10 +213,11 @@ class Admin::Editions::Show::SidebarActionsComponentTest < ViewComponent::TestCa
     edition = create(:edition, :published_in_error_no_redirect)
     render_inline(Admin::Editions::Show::SidebarActionsComponent.new(edition:, current_user:))
 
-    assert_selector "li", count: 3
+    assert_selector "li", count: 4
     assert_selector "button", text: "Create new edition"
     assert_selector "a", text: "View unpublished edition"
     assert_selector "a", text: "Edit unpublishing information"
+    assert_selector "a", text: "View on website (opens in new tab)"
   end
 
   test "actions for withdrawn edition as managing editor" do
