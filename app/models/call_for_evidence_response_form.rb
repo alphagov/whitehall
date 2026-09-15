@@ -1,5 +1,5 @@
 class CallForEvidenceResponseForm < ApplicationRecord
-  has_one :call_for_evidence_participation
+  has_one :call_for_evidence_participation, -> { order(id: :desc) }
   belongs_to :call_for_evidence_response_form_data
 
   delegate :url, :file, to: :call_for_evidence_response_form_data
@@ -9,6 +9,16 @@ class CallForEvidenceResponseForm < ApplicationRecord
   accepts_nested_attributes_for :call_for_evidence_response_form_data
 
   after_destroy :destroy_call_for_evidence_response_form_data_if_required
+
+  def attachable
+    call_for_evidence_participation&.call_for_evidence
+  end
+
+  # AssetData calls #deleted? on each attachments item but response forms have no soft-delete state
+  # (unlike Attachment/Image) so there's only one correct answer: false
+  def deleted?
+    false
+  end
 
 private
 

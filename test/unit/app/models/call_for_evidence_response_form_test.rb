@@ -31,4 +31,36 @@ class CallForEvidenceResponseFormTest < ActiveSupport::TestCase
     call_for_evidence_response_form_data.expects(:destroy!)
     call_for_evidence_response_form.destroy!
   end
+
+  test "#attachable returns the parent consultation" do
+    call_for_evidence = build(:call_for_evidence)
+    call_for_evidence_participation = build(:call_for_evidence_participation, call_for_evidence:)
+    call_for_evidence_response_form = create(:call_for_evidence_response_form, call_for_evidence_participation:)
+
+    assert_equal call_for_evidence, call_for_evidence_response_form.attachable
+  end
+
+  test "#attachable returns nil when there is no participation" do
+    call_for_evidence_response_form = create(:call_for_evidence_response_form, call_for_evidence_participation: nil)
+
+    assert_nil call_for_evidence_response_form.attachable
+  end
+
+  test "#deleted? returns false" do
+    assert_not build(:call_for_evidence_response_form).deleted?
+  end
+
+  test "#attachable resolves to the newest edition when the response form is shared across editions" do
+    published_call_for_evidence = create(:published_call_for_evidence)
+    old_participation = create(:call_for_evidence_participation, call_for_evidence: published_call_for_evidence)
+    response_form = build(:call_for_evidence_response_form, call_for_evidence_participation: nil)
+    old_participation.update!(call_for_evidence_response_form: response_form)
+
+    draft_call_for_evidence = published_call_for_evidence.create_draft(create(:gds_editor))
+    draft_call_for_evidence.reload
+
+    response_form.reload
+
+    assert_equal draft_call_for_evidence, response_form.attachable
+  end
 end
