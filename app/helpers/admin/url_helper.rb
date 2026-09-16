@@ -60,17 +60,6 @@ module Admin::UrlHelper
     link_to(name, path, class: "govuk-link")
   end
 
-  def admin_header_link(name, path, path_matcher = nil, options = {})
-    path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
-    if user_signed_in?
-      li_class = active_link_class(path_matcher)
-      if options[:class]
-        li_class = [li_class, options[:class]].join(" ")
-      end
-      tag.li(link_to(name, path), class: "masthead-tab-item #{li_class}")
-    end
-  end
-
   def admin_republish_content_link
     if can?(:administer, :republish_content)
       admin_link "Republish content", admin_republishing_index_path
@@ -81,11 +70,5 @@ module Admin::UrlHelper
     if can?(:administer, :retag_content)
       admin_link "Retag content", admin_retagging_index_path
     end
-  end
-
-private
-
-  def active_link_class(path_matcher)
-    request.path.match?(path_matcher) ? "active" : ""
   end
 end
