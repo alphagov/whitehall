@@ -53,7 +53,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
       if tab_form.valid?
         @edition.save_as(current_user, validate: false)
-        after_update_operations
+        updater.perform!(skip_can_perform_check: true)
         redirect_to redirect_param(fallback: show_or_edit_path), saved_confirmation_notice
       else
         apply_tab_errors_to_edition(tab_form)
