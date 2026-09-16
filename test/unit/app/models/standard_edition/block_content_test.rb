@@ -16,6 +16,9 @@ class BlockContentTest < ActiveSupport::TestCase
         "test_array_attribute" => {
           "type" => "array",
         },
+        "test_object_attribute" => {
+          "type" => "object",
+        },
       },
     }
   end
@@ -66,6 +69,20 @@ class BlockContentTest < ActiveSupport::TestCase
 
     page.attributes = { "test_array_attribute" => nil }
     assert_equal [], page.test_array_attribute
+  end
+
+  test "does not cast object attributes, preserving nil for storage if the input value is nil" do
+    page = StandardEdition::BlockContent.new(@schema)
+
+    page.attributes = { "test_object_attribute" => nil }
+    assert_nil page.test_object_attribute
+  end
+
+  test "stores whatever value is provided for object attributes without casting" do
+    page = StandardEdition::BlockContent.new(@schema)
+
+    page.attributes = { "test_object_attribute" => %w[england wales] }
+    assert_equal %w[england wales], page.test_object_attribute
   end
 
   test "maps 'presence' validation to ActiveModel::Validations::PresenceValidator" do
@@ -198,5 +215,20 @@ class BlockContentTest < ActiveSupport::TestCase
     assert_not page.valid?
     assert page.errors[:"test_array_attribute.0.social_media_service_id"].any?
     assert page.errors[:"test_array_attribute.0.url"].any?
+  end
+
+  test "maps 'nation_applicability' validation to NationApplicabilityValidator" do
+    schema = @schema.merge({
+      "validations" => {
+        "nation_applicability" => {
+          "attributes" => %w[test_object_attribute],
+        },
+      },
+    })
+    page = StandardEdition::BlockContent.new(schema)
+
+    page.attributes = {}
+    assert_not page.valid?
+    assert_not page.errors.where("test_object_attribute", :blank).empty?
   end
 end
