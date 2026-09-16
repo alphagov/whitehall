@@ -4,7 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem "rails", "~> 8.1.3"
 
 gem "addressable"
-gem "after_commit_everywhere"
 gem "babosa"
 gem "bootsnap", require: false
 gem "carrierwave"
