@@ -21,12 +21,12 @@ private
 
   def assign_ordering
     memberships = document_collection_group.memberships
-    self.ordering = if memberships.include?(self)
-                      memberships.index(self)
-                    else
-                      maximum = memberships.maximum(:ordering)
-                      maximum.nil? ? 0 : maximum + 1
-                    end
+    if memberships.include?(self)
+      self.ordering = memberships.index(self)
+    else
+      memberships.update_all("ordering = ordering + 1")
+      self.ordering = 0
+    end
   end
 
   def presence_of_document_or_non_whitehall_link

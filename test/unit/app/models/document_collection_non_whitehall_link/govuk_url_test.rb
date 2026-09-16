@@ -192,6 +192,21 @@ class DocumentCollectionNonWhitehallLink::GovukUrlTest < ActiveSupport::TestCase
                  "title" => "Test"
   end
 
+  test "#save adds the new document to the top of the group" do
+    group = create(:document_collection_group, memberships: [build(:document_collection_group_membership)])
+    existing_membership = group.memberships.first
+
+    url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
+      url: "https://www.gov.uk/test",
+      document_collection_group: group,
+    )
+    assert url.save
+
+    new_membership = group.memberships.reload.find_by(non_whitehall_link: DocumentCollectionNonWhitehallLink.last)
+    assert_equal 0, new_membership.ordering
+    assert_equal 1, existing_membership.reload.ordering
+  end
+
   test "#save return nil when it is invalid" do
     url = DocumentCollectionNonWhitehallLink::GovukUrl.new(
       url: nil,
