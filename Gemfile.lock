@@ -1051,7 +1051,6 @@ DEPENDENCIES
   json_schemer
   kaminari
   launchy
-  link_header
   mail-notify
   marcel
   maxitest
