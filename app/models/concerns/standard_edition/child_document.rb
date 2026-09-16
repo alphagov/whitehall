@@ -15,6 +15,15 @@ module StandardEdition::ChildDocument
     parent_relationship&.parent_edition_id
   end
 
+  def parent_edition_id=(parent_edition_id)
+    if parent_edition_id.present?
+      self.parent_relationship ||= build_parent_relationship
+      parent_relationship.parent_edition_id = parent_edition_id
+    else
+      self.parent_relationship = nil
+    end
+  end
+
 private
 
   def parent_edition_must_exist

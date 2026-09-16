@@ -231,6 +231,7 @@ private
       :external,
       :external_url,
       :minor_change,
+      :parent_edition_id,
       :previously_published,
       :roll_call_introduction,
       :operational_field_id,
