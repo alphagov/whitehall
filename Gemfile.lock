@@ -1052,7 +1052,6 @@ DEPENDENCIES
   kaminari
   launchy
   mail-notify
-  marcel
   maxitest
   mime-types
   mini_magick
