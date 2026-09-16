@@ -259,7 +259,6 @@ GEM
     fugit (1.12.1)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
-    fuzzy_match (2.1.0)
     gds-api-adapters (103.4.4)
       addressable
       link_header
@@ -1049,7 +1048,6 @@ DEPENDENCIES
   flog
   fog-aws
   friendly_id
-  fuzzy_match
   gds-api-adapters
   gds-sso
   globalize
