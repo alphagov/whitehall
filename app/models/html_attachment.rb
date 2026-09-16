@@ -38,11 +38,6 @@ class HtmlAttachment < Attachment
     false
   end
 
-  # Is in OpenDocument format? (see https://en.wikipedia.org/wiki/OpenDocument)
-  def opendocument?
-    false
-  end
-
   def content_type
     "text/html"
   end

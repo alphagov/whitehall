@@ -38,19 +38,10 @@ class AttachmentData < ApplicationRecord
     content_type == AttachmentUploader::PDF_CONTENT_TYPE
   end
 
-  def txt?
-    file_extension == "txt"
-  end
-
   def csv?
     return file_extension.casecmp("csv").zero? if file_extension
 
     false
-  end
-
-  # Is in OpenDocument format? (see https://en.wikipedia.org/wiki/OpenDocument)
-  def opendocument?
-    OPENDOCUMENT_EXTENSIONS.include? file_extension.upcase
   end
 
   def indexable?
@@ -75,12 +66,6 @@ class AttachmentData < ApplicationRecord
 
   def auth_bypass_ids
     attachable && attachable.respond_to?(:auth_bypass_id) ? [attachable.auth_bypass_id].compact : []
-  end
-
-  def redirect_url
-    return nil unless unpublished?
-
-    unpublished_attachable.unpublishing.document_url
   end
 
   def keep_existing_file?

@@ -15,7 +15,9 @@ module AssetData
 
   delegate :unpublished?, to: :unpublished_attachable
 
-  delegate :auth_bypass_id, to: :attachable
+  delegate :auth_bypass_id, to: :attachable, allow_nil: true
+
+  delegate :url, :path, :content_type, to: :file, allow_nil: true
 
   def attachable
     Attachable::Null.new
@@ -25,6 +27,8 @@ module AssetData
     return [] if auth_bypass_id.blank?
 
     [auth_bypass_id]
+  rescue NoMethodError
+    []
   end
 
   def access_limitation_organisation_ids
@@ -105,6 +109,21 @@ module AssetData
     elsif significant_attachable.is_a?(PolicyGroup)
       significant_attachable.public_url
     end
+  end
+
+  def filename
+    file&.file&.filename
+  end
+
+  def all_asset_variants_uploaded?
+    asset_variants = assets.map(&:variant).map(&:to_sym)
+    required_variants = file.active_version_names + [:original]
+
+    (required_variants - asset_variants).empty?
+  end
+
+  def assets_match_updated_image_filename
+    assets.all? { |asset| asset.filename.include?(filename) } if filename
   end
 
 private

@@ -25,11 +25,6 @@ class ExternalAttachment < Attachment
     false
   end
 
-  # Is in OpenDocument format? (see https://en.wikipedia.org/wiki/OpenDocument)
-  def opendocument?
-    false
-  end
-
   def file_extension
     ""
   end
