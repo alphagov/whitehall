@@ -825,9 +825,6 @@ GEM
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
-    responders (3.2.1)
-      actionpack (>= 7.0)
-      railties (>= 7.0)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -1078,7 +1075,6 @@ DEPENDENCIES
   rake
   record_tag_helper
   redis
-  responders
   rinku
   rubocop-govuk
   sentry-sidekiq
