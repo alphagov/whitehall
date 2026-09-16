@@ -55,8 +55,6 @@ gem "whenever", require: false
 group :development, :test do
   gem "erb_lint", require: false
   gem "flog"
-  gem "pact", require: false
-  gem "pact_broker-client"
   gem "pry-byebug"
   gem "pry-rails"
   gem "rubocop-govuk", require: false
