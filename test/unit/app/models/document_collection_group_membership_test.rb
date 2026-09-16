@@ -14,15 +14,15 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
     group.memberships = [
       build(:document_collection_group_membership),
       build(:document_collection_group_membership),
-      membership,
       build(:document_collection_group_membership),
+      membership,
     ]
 
     membership.save!
-    assert_equal 2, membership.ordering
+    assert_equal 0, membership.reload.ordering
   end
 
-  test "it is given an automatic ordering of the last item" do
+  test "it is given an automatic ordering at the top of the group, pushing existing memberships down" do
     group = create(
       :document_collection_group,
       memberships: [
@@ -30,12 +30,16 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
         build(:document_collection_group_membership),
       ],
     )
+    existing_memberships = group.memberships.reload.to_a
 
     membership = create(
       :document_collection_group_membership,
       document_collection_group: group,
     )
-    assert_equal 2, membership.ordering
+
+    assert_equal 0, membership.ordering
+    assert_equal [1, 2], existing_memberships.map { |m| m.reload.ordering }.sort
+    assert_equal membership, group.memberships.reload.first
   end
 
   test "it adapts the auto ordering if the last item has a weird ordering" do
@@ -47,7 +51,8 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
       :document_collection_group_membership,
       document_collection_group: group,
     )
-    assert_equal 7, membership.ordering
+    assert_equal 0, membership.ordering
+    assert_equal 7, weird_membership.reload.ordering
   end
 
   test "is invalid without a document or a non-whitehall link" do
