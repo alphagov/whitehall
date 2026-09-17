@@ -10,7 +10,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     login_as :writer, @organisation
   end
 
-  test "GET new with a type parameter renders correct template " do
+  test "GET new with a type parameter renders correct template" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
@@ -18,6 +18,13 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     assert_response :ok
     assert_template "admin/editions/new"
+  end
+
+  view_test "GET new with a `parent_edition_id` populates a hidden input in the form" do
+    parent_edition = create(:standard_edition)
+    get :new, params: { configurable_document_type: "test_type", parent_edition_id: parent_edition.id }
+    assert_response :ok
+    assert_select "input[type='hidden'][name='edition[parent_edition_id]'][value='#{parent_edition.id}']"
   end
 
   view_test "visiting a 'new edition' page when no Organisation set on the current user" do
