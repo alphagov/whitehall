@@ -83,9 +83,6 @@ GEM
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     afm (1.0.0)
-    after_commit_everywhere (1.6.0)
-      activerecord (>= 4.2)
-      activesupport
     ast (2.4.3)
     auth-sanitizer (0.2.3)
       version_gem (~> 1.1, >= 1.1.14)
@@ -1024,7 +1021,6 @@ PLATFORMS
 DEPENDENCIES
   activemodel-serializers-xml
   addressable
-  after_commit_everywhere
   babosa
   better_errors
   binding_of_caller

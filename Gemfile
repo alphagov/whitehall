@@ -5,7 +5,6 @@ gem "rails", "~> 8.1.3"
 
 gem "activemodel-serializers-xml"
 gem "addressable"
-gem "after_commit_everywhere"
 gem "babosa"
 gem "bootsnap", require: false
 gem "carrierwave"
