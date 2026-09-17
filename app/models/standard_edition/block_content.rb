@@ -13,6 +13,7 @@ class StandardEdition::BlockContent
     "safe_html" => SafeHtmlValidator,
     "valid_internal_path_links" => InternalPathLinksValidator,
     "social_media_links" => SocialMediaLinksValidator,
+    "nation_applicability" => NationApplicabilityValidator,
   }.freeze
 
   def initialize(schema, path = ConfigurableContentBlocks::Path.new)
