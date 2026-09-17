@@ -18,6 +18,13 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET #index with a `parent_edition_id` populates a hidden input in the form" do
+    get :index, params: { parent_edition_id: 123 }
+
+    assert_response :success
+    assert_select "input[type=hidden][name=parent_edition_id][value=123]"
+  end
+
   view_test "GET #index renders formats that require GDS approval in their own alphabetically ordered section" do
     get :index
 
