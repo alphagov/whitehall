@@ -163,6 +163,14 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_template "admin/errors/not_found"
   end
 
+  view_test "GET choose_type with a `parent_edition_id` populates a hidden input in the form" do
+    type_one = build_configurable_document_type("type_one", { "title" => "Type One", "settings" => { "configurable_document_group" => "group_one" } })
+    ConfigurableDocumentType.setup_test_types({}.merge(type_one))
+    get :choose_type, params: { group: "group_one", parent_edition_id: 123 }
+    assert_response :ok
+    assert_select "input[type=hidden][name=parent_edition_id][value=123]"
+  end
+
   view_test "GET change_type shows only permitted sibling types in the same group as the current edition's type" do
     current_type = build_configurable_document_type("current_type", { "title" => "Current Type", "settings" => { "configurable_document_group" => "group_type" } })
     permitted_sibling_type = build_configurable_document_type("permitted_sibling_type", { "title" => "Permitted Sibling Type", "settings" => { "configurable_document_group" => "group_type", "organisations" => [@current_user.organisation.content_id] } })
