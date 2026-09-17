@@ -10,7 +10,7 @@ class Admin::NewDocumentController < Admin::BaseController
       render "admin/errors/not_found", status: :not_found unless new_document_type_key
 
       if types_hash[new_document_type_key].key?("redirect")
-        redirect_to types_hash[new_document_type_key]["redirect"]
+        redirect_to include_parent_edition_id_in_redirect(types_hash[new_document_type_key]["redirect"])
       else
         redirect_to send("new_admin_#{new_document_type_key}_path")
       end
@@ -114,5 +114,17 @@ private
     permitted_document_types.select { |_type_key, type_hash| type_hash["requires_approval"] }
                             .sort_by { |_type_key, type_hash| type_hash["label"] }
                             .to_h
+  end
+
+  def include_parent_edition_id_in_redirect(redirect)
+    if params[:parent_edition_id].present?
+      uri = URI.parse(redirect)
+      query_params = Rack::Utils.parse_nested_query(uri.query)
+      query_params["parent_edition_id"] = params[:parent_edition_id]
+      uri.query = query_params.to_query
+      uri.to_s
+    else
+      redirect
+    end
   end
 end
