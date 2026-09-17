@@ -1,5 +1,8 @@
-Sidekiq.testing!(:inline)
 require_relative "../../test/support/sidekiq_test_helpers"
+# govuk_sidekiq/testing (required above, via sidekiq_test_helpers) forces fake
+# mode as a side effect of being required, so this must run after that require
+# or it gets silently overridden back to :fake.
+Sidekiq.testing!(:inline)
 
 World(SidekiqTestHelpers)
 
