@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_27_133017) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_16_110000) do
   create_table "access_limiting_individuals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "edition_id", null: false
@@ -778,6 +778,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_27_133017) do
     t.index ["slug"], name: "index_organisations_on_slug", unique: true
   end
 
+  create_table "parent_child_relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "child_document_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "parent_edition_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_document_id"], name: "index_parent_child_relationships_on_child_document_id"
+    t.index ["parent_edition_id", "child_document_id"], name: "idx_pcr_unique_parent_child", unique: true
+    t.index ["parent_edition_id"], name: "index_parent_child_relationships_on_parent_edition_id"
+  end
+
   create_table "people", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "content_id"
     t.datetime "created_at", precision: nil
@@ -1251,6 +1261,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_27_133017) do
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"
+  add_foreign_key "parent_child_relationships", "documents", column: "child_document_id"
+  add_foreign_key "parent_child_relationships", "editions", column: "parent_edition_id"
   add_foreign_key "related_mainstreams", "editions"
   add_foreign_key "statistics_announcements", "statistics_announcement_dates", column: "current_release_date_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "worldwide_offices", "editions"
