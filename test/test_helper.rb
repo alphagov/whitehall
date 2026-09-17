@@ -53,6 +53,25 @@ class ActiveSupport::TestCase
   include ConfigurableDocumentTypeHelper
   extend GovspeakValidationTestHelper
 
+  # TODO: minitest 6 (see dependabot/bundler/minitest-6.0.6) appears to have a
+  # real, reproducible data-corruption bug with Rails' fork-based test
+  # parallelization: running more than a handful of tests together reliably
+  # produces `Mysql2::Error: Commands out of sync`, `Bind parameter count
+  # doesn't match number of arguments`, and transaction/savepoint errors -
+  # even with only 2 parallel workers. This does NOT reproduce on `main`
+  # (minitest 5.27.0) with the exact same test files/seed, so it isn't
+  # pre-existing flakiness.
+  #
+  # Root cause as far as investigated: Rails' worker code
+  # (ActiveSupport::Testing::Parallelization::Worker#perform_job) branches on
+  # `Minitest.respond_to?(:run_one_method)` to decide how to run a single
+  # test method. Minitest 6.0.0 removed `Minitest.run_one_method` (see its
+  # History.rdoc, "Removed Minitest.run_one_method"), so Rails falls back to
+  # `klass.new(method).run` - which appears to result in connections leaking
+  # or being shared across forked worker processes, even though the
+  # `after_fork` hook that should re-establish a fresh connection per worker
+  # looks unchanged. Not root-caused beyond this; may be a Rails or minitest
+  # bug worth reporting upstream before this PR is merged.
   parallelize(workers: :number_of_processors)
 
   attr_reader :feature_flags
