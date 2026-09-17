@@ -12,12 +12,29 @@ class DraftEditionUpdaterTest < ActiveSupport::TestCase
   end
 
   test "cannot perform if edition is invalid" do
-    edition = Edition.new
+    edition = build(:draft_edition, body: "")
+    assert_not edition.valid?
+
     updater = DraftEditionUpdater.new(edition)
     updater.expects(:notify!).never
     updater.expects(:update_publishing_api!).never
 
     updater.perform!
+  end
+
+  # This is used to allow saving of partial content on Editions.
+  # Given a Tab containing only fields X, Y and Z, we should be
+  # able to save edits to those fields, even if fields A, B and C
+  # on another tab are invalid.
+  test "can perform if edition `skip_can_perform_check` is passed and the edition is otherwise invalid" do
+    edition = build(:draft_edition, body: "")
+    assert_not edition.valid?
+
+    updater = DraftEditionUpdater.new(edition)
+    updater.expects(:notify!).once
+    updater.expects(:update_publishing_api!).once
+
+    updater.perform!(skip_can_perform_check: true)
   end
 
   test "cannot perform if edition is not draft" do

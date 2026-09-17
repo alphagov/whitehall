@@ -119,8 +119,7 @@ class Admin::EditionsController < Admin::BaseController
     @edition.assign_attributes(edition_params)
 
     if updater.can_perform? && @edition.save_as(current_user)
-
-      after_update_operations
+      updater.perform!
       redirect_to redirect_param(fallback: show_or_edit_path), saved_confirmation_notice
     else
       flash.now[:alert] = updater.failure_reason
@@ -545,11 +544,6 @@ private
     return url if url && URI.parse(url).host.blank? # only allow same-site paths
 
     fallback
-  end
-
-  def after_update_operations
-    updater.perform!
-    LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url) if @edition.link_check_report
   end
 
   def render_edition_update_failure

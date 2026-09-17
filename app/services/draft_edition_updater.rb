@@ -1,8 +1,11 @@
 class DraftEditionUpdater < EditionService
-  def perform!
-    if can_perform?
+  include Rails.application.routes.url_helpers
+
+  def perform!(skip_can_perform_check: false)
+    if skip_can_perform_check || can_perform?
       update_publishing_api!
       notify!
+      LinkCheckerApiService.check_links(edition, admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin"))) if edition.link_check_report
       true
     end
   end
