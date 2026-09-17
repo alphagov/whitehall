@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "rails", "~> 8.1.3"
 
-gem "activemodel-serializers-xml"
 gem "addressable"
 gem "after_commit_everywhere"
 gem "babosa"
