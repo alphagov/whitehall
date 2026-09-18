@@ -8,4 +8,8 @@ module StandardEdition::ChildDocument
             primary_key: :document_id
     has_one :parent_edition, through: :parent_relationship
   end
+
+  def parent_edition_id
+    parent_relationship&.parent_edition_id
+  end
 end
