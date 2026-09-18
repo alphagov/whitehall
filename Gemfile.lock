@@ -133,8 +133,6 @@ GEM
       image_processing (>= 1.1, < 3)
       marcel (>= 1.0.0, < 3)
       ssrf_filter (~> 1.0)
-    carrierwave-i18n (3.1.0)
-      carrierwave (>= 3.0.0, < 4)
     chartkick (5.2.1)
     childprocess (5.1.0)
       logger (~> 1.5)
@@ -1032,7 +1030,6 @@ DEPENDENCIES
   capybara
   capybara-playwright-driver
   carrierwave
-  carrierwave-i18n
   chronic
   climate_control
   content_block_tools
