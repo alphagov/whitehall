@@ -106,7 +106,10 @@ private
 
   def new_edition_params
     # Set the configurable document type for new editions based on the value from the query parameter submitted with the 'choose_type' form
-    super[:configurable_document_type].blank? ? super.merge(configurable_document_type: params[:configurable_document_type]) : super
+    edition_params = super[:configurable_document_type].blank? ? super.merge(configurable_document_type: params[:configurable_document_type]) : super
+
+    # Set the parent_edition_id for new editions based on the value from the query parameter submitted with the 'New document' form
+    edition_params[:parent_edition_id].blank? && params[:parent_edition_id].present? ? edition_params.merge(parent_edition_id: params[:parent_edition_id]) : edition_params
   end
 
   def set_current_tab_context

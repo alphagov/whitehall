@@ -4,6 +4,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with method: "get", url: new_admin_standard_edition_path do %>
+      <% if params[:parent_edition_id].present? %>
+        <%= hidden_field_tag :parent_edition_id, params[:parent_edition_id] %>
+      <% end %>
+
       <%= render "govuk_publishing_components/components/radio", {
         heading: page_heading,
         heading_level: 1,

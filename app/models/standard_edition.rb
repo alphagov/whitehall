@@ -12,6 +12,8 @@ class StandardEdition < Edition
   include HasBlockContent
   include StandardEdition::LeadImage
   include StandardEdition::Taxon
+  include StandardEdition::ChildDocument
+  include StandardEdition::ParentDocument
 
   FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
 

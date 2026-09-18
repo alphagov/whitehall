@@ -73,12 +73,18 @@ end
 
 When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |configurable_document_type, title|
   create(:organisation) if Organisation.count.zero?
-  visit admin_root_path
-  find("li.app-c-sub-navigation__list-item a", text: "New document").click
+  unless current_path == admin_new_document_path
+    visit admin_root_path
+    find("li.app-c-sub-navigation__list-item a", text: "New document").click
+  end
   page.choose("Standard document")
   click_button("Next")
   page.choose(configurable_document_type)
   click_button("Next")
+  step "I fill in and submit the form with title '#{title}'"
+end
+
+When(/^I fill in and submit the form with title '([^']*)'$/) do |title|
   expect(page).to have_content("New test")
   within "form" do
     fill_in "edition_title", with: title
