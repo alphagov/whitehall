@@ -15,6 +15,7 @@
     "jasmine:browser": "yarn run jasmine:prepare && yarn run jasmine-browser-runner"
   },
   "dependencies": {
+    "content-block-picker": "^2.0.0",
     "cropperjs": "^1.6.3",
     "paste-html-to-govspeak": "^0.5.0"
   },

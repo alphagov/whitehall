@@ -24,6 +24,7 @@ class User < ApplicationRecord
     GDS_ADMIN = "GDS Admin".freeze
     SIDEKIQ_ADMIN = "Sidekiq Admin".freeze
     UNPUBLISH_HISTORIC_CONTENT = "Unpublish historic content".freeze
+    CONTENT_BLOCK_PICKER_USER = "Content Block Picker User".freeze
   end
 
   def role
@@ -53,6 +54,10 @@ class User < ApplicationRecord
 
   def gds_admin?
     has_permission?(Permissions::GDS_ADMIN)
+  end
+
+  def content_block_picker_user?
+    has_permission?(Permissions::CONTENT_BLOCK_PICKER_USER)
   end
 
   def organisation_name

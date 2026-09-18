@@ -2,8 +2,12 @@ require "test_helper"
 
 class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
   include ConfigurableContentBlockSharedTests
+  attr_reader :current_user
+
+  helper_method :current_user
 
   setup do
+    @current_user = build_stubbed(:user)
     @field = {
       "block" => "govspeak",
       "title" => "Test attribute",
