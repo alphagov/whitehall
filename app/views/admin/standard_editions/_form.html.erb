@@ -9,6 +9,9 @@
   <div class="<%= "right-to-left" if edition.rtl? %>">
     <%= form.hidden_field :lock_version %>
     <%= form.hidden_field :configurable_document_type, value: edition.configurable_document_type %>
+    <% if edition.new_record? && edition.parent_edition_id.present? %>
+      <%= form.hidden_field :parent_edition_id, value: edition.parent_edition_id %>
+    <% end %>
     <%= hidden_field_tag :current_tab, active_tab if edition.defines_tabs? %>
 
     <% if on_document_tab %>

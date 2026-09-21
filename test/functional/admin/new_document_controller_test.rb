@@ -18,6 +18,19 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET #index with a `parent_edition_id` populates a hidden input in the form" do
+    get :index, params: { parent_edition_id: 123 }
+
+    assert_response :success
+    assert_select "input[type=hidden][name=parent_edition_id][value=123]"
+  end
+
+  view_test "POST #new_document_options with a `parent_edition_id` includes parent_edition_id in the redirect for StandardEdition content types" do
+    post :new_document_options_redirect, params: { new_document_options: "news_article", parent_edition_id: 123 }
+
+    assert_redirected_to choose_type_admin_standard_editions_path(group: "news_article", parent_edition_id: 123)
+  end
+
   view_test "GET #index renders formats that require GDS approval in their own alphabetically ordered section" do
     get :index
 
