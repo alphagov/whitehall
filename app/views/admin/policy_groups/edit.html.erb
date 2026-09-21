@@ -5,6 +5,10 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">
+      <%= link_to("View on website", @policy_group.public_url, class: "govuk-link", target: "blank") %>
+    </p>
+
     <%= render "govuk_publishing_components/components/warning_text", {
       text: "Changes to groups appear instantly on the live site.",
     } %>

@@ -37,6 +37,9 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_equal group, assigns(:policy_group)
+    assert_select "p.govuk-body" do
+      assert_select "a.govuk-link[href='#{group.public_url}'][target='blank']", "View on website"
+    end
   end
 
   test "PUT :update" do
