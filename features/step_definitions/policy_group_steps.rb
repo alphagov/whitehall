@@ -4,6 +4,7 @@ end
 
 When(/^I delete the policy group "([^"]*)"$/) do |group_name|
   visit admin_policy_groups_path
+  stub_request(:delete, "https://publishing-api.test.gov.uk/paths/government/groups/delete-me").to_return(status: 200)
 
   click_link "Delete #{group_name}"
   click_button "Delete"

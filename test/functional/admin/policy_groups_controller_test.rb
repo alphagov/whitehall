@@ -88,4 +88,14 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
     assert_redirected_to admin_policy_groups_path
     assert_not PolicyGroup.exists?(group.id)
   end
+
+  test "DELETE calls Publishing API `unreserve_path`" do
+    group = create(:policy_group)
+
+    # Whitehall::PublishingApi.expects(:unreserve_path).with(group.public_path, "whitehall")
+    Services.publishing_api.expects(:unreserve_path).with(group.public_path, "whitehall")
+
+    login_as :gds_editor
+    delete :destroy, params: { id: group }
+  end
 end
