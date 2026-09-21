@@ -118,8 +118,11 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   view_test "index should display links to edit an existing role" do
-    role_one = create(:board_member_role)
-    role_two = create(:military_role)
+    # Roles are ordered by organisation name, so give the organisations explicit,
+    # alphabetically-ordered names rather than relying on factory-sequenced ones
+    # (which don't sort predictably once the sequence reaches double digits).
+    role_one = create(:board_member_role, organisations: [create(:organisation, name: "Organisation A")])
+    role_two = create(:military_role, organisations: [create(:organisation, name: "Organisation B")])
 
     get :index
 
