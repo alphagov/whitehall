@@ -33,7 +33,9 @@ class Admin::PolicyGroupsController < Admin::BaseController
 
   def destroy
     name = @policy_group.name
+    path_to_unreserve = @policy_group.public_path
     @policy_group.destroy!
+    Services.publishing_api.unreserve_path(path_to_unreserve, "whitehall")
     redirect_to admin_policy_groups_path, notice: %("#{name}" deleted.)
   end
 
