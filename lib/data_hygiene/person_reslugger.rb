@@ -5,8 +5,6 @@ module DataHygiene
   #
   #   - updates the Person record's slug
   #   - republishes to Publishing API (which creates a redirect)
-  #   - reindexes the person for search
-  #   - reindexes all dependent documents in search
   #
   class PersonReslugger
     def initialize(person, new_slug)
