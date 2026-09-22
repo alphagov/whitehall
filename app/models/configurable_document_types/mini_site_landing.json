@@ -216,6 +216,11 @@
       "enabled": false,
       "required": false
     },
-    "translations_enabled": false
+    "translations_enabled": false,
+    "allowed_child_document_types": [
+      {
+        "document_type": "mini_site_child"
+      }
+    ]
   }
 }
