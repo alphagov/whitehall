@@ -1,3 +1,4 @@
+# LEGACY TOPICAL EVENTS ONLY
 require "test_helper"
 
 class TopicalEventResluggerTest < ActiveSupport::TestCase

@@ -1,3 +1,4 @@
+# LEGACY TOPICAL EVENTS ONLY
 module DataHygiene
   class TopicalEventReslugger
     def initialize(topical_event, new_slug)

@@ -25,6 +25,7 @@ namespace :reslug do
     DataHygiene::RoleReslugger.new(role, args[:new_slug]).run!
   end
 
+  # TODO: delete when legacy topical events are migrated
   desc "Change a topical_event's slug in whitehall (DANGER!).\n
   It performs the following steps:
   - changes the topical_events slug
