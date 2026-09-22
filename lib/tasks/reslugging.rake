@@ -1,15 +1,13 @@
 require "gds_api/publishing_api"
 
 namespace :reslug do
-  desc "Change a person slug (DANGER!).\n
+  desc "Change a person slug.\n
 
   This rake task changes a person's slug in whitehall.
 
   It performs the following steps:
   - changes the person's slug
-  - reindexes the person for search
-  - republishes the person to Publishing API (automatically handles the redirect)
-  - reindexes all dependent documents in search"
+  - republishes the person to Publishing API (automatically handles the redirect)"
   task :person, %i[old_slug new_slug] => :environment do |_task, args|
     person = Person.find_by!(slug: args[:old_slug])
     DataHygiene::PersonReslugger.new(person, args[:new_slug]).run!
@@ -21,7 +19,6 @@ namespace :reslug do
 
   It performs the following steps:
   - changes the role's slug
-  - reindexes the role for search
   - republishes the role to Publishing API (automatically handles the redirect)"
   task :role, %i[old_slug new_slug] => :environment do |_task, args|
     role = Role.find_by!(slug: args[:old_slug])
@@ -31,7 +28,6 @@ namespace :reslug do
   desc "Change a topical_event's slug in whitehall (DANGER!).\n
   It performs the following steps:
   - changes the topical_events slug
-  - reindexes the topical_event with its new slug
   - republishes the topical_event to Publishing API (automatically handles the redirect)"
   task :topical_event, %i[old_slug new_slug] => :environment do |_task, args|
     topical_events = TopicalEvent.where(slug: args.old_slug)
@@ -45,7 +41,6 @@ namespace :reslug do
   desc "Change a html attachment's slug in whitehall and redirect old slug\n
   It performs the following steps:
   - changes a html attachment slug
-  - reindexes the document
   - republishes the document and attachment to Publishing API (automatically handles the redirect)"
   task :html_attachment, %i[publication_document_id old_attachment_slug] => :environment do |_task, args|
     document = Document.find(args.publication_document_id)
@@ -95,9 +90,7 @@ namespace :reslug do
 
   It performs the following steps:
   - updates the Organisation's slug
-  - republishes the org to Publishing API (which creates a redirect)
-  - reindexes the org for search
-  - reindexes all dependent documents in search"
+  - republishes the org to Publishing API (which creates a redirect)"
   task :organisation, %i[old_slug new_slug] => :environment do |_task, args|
     organisation = Organisation.find_by!(slug: args[:old_slug])
     DataHygiene::OrganisationReslugger.new(organisation, args[:new_slug]).run!

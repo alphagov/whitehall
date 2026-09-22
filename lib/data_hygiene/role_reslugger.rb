@@ -4,10 +4,8 @@ module DataHygiene
   # When run, the following happens:
   #
   #   - updates the Role record's slug
-  #   - reindexes the role for search
   #   - republishes the role to Publishing API
   #   - publishes a redirect to Publishing API
-  #   - reindexes all dependent documents in search
   #
   class RoleReslugger
     def initialize(role, new_slug)

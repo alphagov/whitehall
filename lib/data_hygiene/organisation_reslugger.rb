@@ -5,9 +5,6 @@ module DataHygiene
   #
   #   - updates the Organisation's slug
   #   - republishes the org to Publishing API (which creates a redirect)
-  #   - reindexes the org for search
-  #   - reindexes all dependent documents in search
-  #
   #
   class OrganisationReslugger
     def initialize(organisation, new_slug)
@@ -28,8 +25,7 @@ module DataHygiene
     attr_reader :organisation, :new_slug, :old_slug
 
     def update_slug
-      # NOTE: This will trigger calls to both search_api and the Publishing API,
-      # meaning that entries in both places will exist with the correct slug
+      # NOTE: This will trigger calls to the Publishing API.
       organisation.update!(slug: new_slug)
     end
 
