@@ -132,6 +132,14 @@ class ConfigurableDocumentType
     }
   end
 
+  def allowed_child_document_types
+    @settings["allowed_child_document_types"] || []
+  end
+
+  def allows_child_document_type?(document_type_key)
+    allowed_child_document_types.any? { |type| type["document_type"] == document_type_key }
+  end
+
   class NotFoundError < StandardError
   end
 

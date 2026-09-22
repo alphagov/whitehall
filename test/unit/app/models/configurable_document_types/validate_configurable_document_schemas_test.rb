@@ -103,6 +103,24 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
           end
         end
       end
+
+      context "`allowed_child_document_types` has been set" do
+        it "is valid when given an array of objects with a `document_type` key" do
+          document["settings"]["allowed_child_document_types"] = [{ "document_type" => "some_child_type" }]
+          assert SchemaValidator.for(document).empty?
+        end
+
+        it "is invalid when an item is missing the `document_type` key" do
+          document["settings"]["allowed_child_document_types"] = [{}]
+          assert_not SchemaValidator.for(document).empty?
+        end
+
+        it "is invalid when an item has additional properties" do
+          # Remove this once we start supporting additional config in `allowed_child_document_types`
+          document["settings"]["allowed_child_document_types"] = [{ "document_type" => "some_child_type", "max_children" => 1 }]
+          assert_not SchemaValidator.for(document).empty?
+        end
+      end
     end
 
     context "validating `schema`" do

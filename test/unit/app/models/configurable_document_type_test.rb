@@ -389,4 +389,42 @@ class ConfigurableDocumentTypeTest < ActiveSupport::TestCase
     }
     assert_equal expected_schema, document_type.schema
   end
+
+  test "#allowed_child_document_types returns an empty array when not configured" do
+    configurable_document_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal [], document_type.allowed_child_document_types
+  end
+
+  test "#allowed_child_document_types returns the configured list of allowed child document types" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "settings" => { "allowed_child_document_types" => [{ "document_type" => "child_type" }] },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_equal [{ "document_type" => "child_type" }], document_type.allowed_child_document_types
+  end
+
+  test "#allows_child_document_type? returns true when the document type is in the allowed list" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "settings" => { "allowed_child_document_types" => [{ "document_type" => "child_type" }] },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert document_type.allows_child_document_type?("child_type")
+  end
+
+  test "#allows_child_document_type? returns false when the document type is not in the allowed list" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "settings" => { "allowed_child_document_types" => [{ "document_type" => "child_type" }] },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+    document_type = ConfigurableDocumentType.find("test_type")
+
+    assert_not document_type.allows_child_document_type?("some_other_type")
+  end
 end

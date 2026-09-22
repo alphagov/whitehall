@@ -360,7 +360,8 @@
             "history",
             "topical_event",
             "case_study",
-            "mini_site_landing"
+            "mini_site_landing",
+            "mini_site_child"
           ]
         },
         "rendering_app": {
@@ -469,6 +470,21 @@
         "translations_enabled": {
           "type": "boolean",
           "description": "Whether translations are supported for this document type."
+        },
+        "allowed_child_document_types": {
+          "type": "array",
+          "description": "Document types that are permitted to be created as children of this document type. Defaults to no allowed child types.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "document_type": {
+                "type": "string",
+                "description": "The `key` of a configurable document type that is allowed to be created as a child of this document type."
+              }
+            },
+            "required": ["document_type"],
+            "additionalProperties": false
+          }
         }
       },
       "required": [
