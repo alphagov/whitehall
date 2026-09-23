@@ -27,6 +27,13 @@
           "container": "organisations",
           "attribute_path": ["supporting_organisation_ids"],
           "translatable": false
+        },
+        "nation_applicability": {
+          "title": "Nation applicability",
+          "description": "Which UK nations this content applies to",
+          "block": "nation_applicability",
+          "attribute_path": ["block_content", "nation_applicability"],
+          "translatable": false
         }
       }
     },
@@ -128,6 +135,9 @@
       "body": {
         "type": "string"
       },
+      "nation_applicability": {
+        "type": "object"
+      },
       "social_media_links": {
         "type": "array",
         "attributes": {
@@ -160,6 +170,9 @@
       "embedded_contacts_exist": {
         "attributes": ["body"],
         "on": "publish"
+      },
+      "nation_applicability": {
+        "attributes": ["nation_applicability"]
       },
       "social_media_links": {
         "attributes": ["social_media_links"],
