@@ -195,11 +195,6 @@
           "multiple": false,
           "caption_enabled": true
         },
-        "logo": {
-          "kinds": ["topical_event_logo"],
-          "multiple": false,
-          "caption_enabled": false
-        },
         "govspeak_embed": {
           "kinds": ["default"],
           "multiple": true,
