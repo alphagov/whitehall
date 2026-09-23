@@ -159,6 +159,15 @@ Given(/^a draft configurable document exists$/) do
   @edition = create_configurable_document(**default_content_for_locale("en"))
 end
 
+Given(/^a draft configurable document called "([^"]*)" exists which is a child of "([^"]*)"$/) do |title, parent_title|
+  s
+  parent_edition = Edition.find_by(title: "\"#{parent_title}\"")
+
+  @child_edition = create_configurable_document(**default_content_for_locale("en").merge({ title: }))
+
+  ParentChildRelationship.create!(parent_edition_id: parent_edition.id, child_document_id: @child_edition.document.id)
+end
+
 When(/^I publish a submitted draft of a test configurable document titled "([^"]*)"$/) do |title|
   standard_edition = create(
     :submitted_standard_edition,
@@ -391,4 +400,13 @@ Then("the document type should have updated") do
   end
 
   expect(page).to have_content("Test configurable document type two")
+end
+
+When(/^I visit the document summary page of the standard edition called "([^"]*)"$/) do |title|
+  visit admin_edition_path(StandardEdition.find_by!(title: title))
+end
+
+When(/^I edit the standard edition called "([^"]*)"$/) do |title|
+  visit admin_edition_path(StandardEdition.find_by!(title: title))
+  click_link "Edit draft"
 end
