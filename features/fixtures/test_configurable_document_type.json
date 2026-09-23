@@ -214,6 +214,11 @@
     "features_enabled": true,
     "history_mode_enabled": true,
     "send_change_history": true,
+    "allowed_child_document_types": [
+      {
+        "document_type": "test_type"
+      }
+    ],
     "images": {
       "enabled": true,
       "usages": {
