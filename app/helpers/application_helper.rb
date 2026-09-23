@@ -151,4 +151,15 @@ module ApplicationHelper
 
     edition.content_id
   end
+
+  def get_parent_edition(edition)
+    # only fetch parent edition on document creation if parent_edition_id present
+    if params[:parent_edition_id].present? && params[:controller].match?(/new_document|standard_editions/)
+      Edition.find(params[:parent_edition_id])
+    elsif edition.present?
+      return unless edition.respond_to?(:parent_edition)
+
+      edition.parent_edition
+    end
+  end
 end
