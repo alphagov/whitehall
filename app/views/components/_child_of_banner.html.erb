@@ -1,0 +1,41 @@
+<%
+  title ||= false
+  path ||= false
+  disable_ga4 ||= false
+
+  component_helper = GovukPublishingComponents::Presenters::ComponentWrapperHelper.new(local_assigns)
+  component_helper.add_class("app-c-child-of-banner")
+
+  unless disable_ga4
+    component_helper.add_data_attribute({ module: "ga4-link-tracker" })
+    ga4_data = {
+      event_name: "navigation",
+      type: "super breadcrumb",
+      index_link: "1",
+      index_total: "1",
+    }.to_json
+  end
+%>
+<% if title %>
+  <%= tag.div(**component_helper.all_attributes) do %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <strong class="app-c-child-of-banner__part-of">Child of</strong>
+        <span class="app-c-child-of-banner__title">
+          <%= title %>
+        </span>
+      </div>
+
+      <% if path.present? %>
+        <div class="govuk-grid-column-one-third app-c-child-of-banner__link-container">
+          <a href="<%= path %>" class="app-c-child-of-banner__link govuk-link"
+          <% unless disable_ga4 %>
+            data-ga4-link='<%= ga4_data %>'
+          <% end %>>
+            Edit child pages
+          </a>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
