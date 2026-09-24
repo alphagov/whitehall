@@ -68,7 +68,7 @@
     }
   },
   "settings": {
-    "base_path_prefix": "/WHIT-4052-fix/make-this-namespaced-to-parent",
+    "base_path_prefix": "/whit-4052-fix/make-this-namespaced-to-parent",
     "publishing_api_schema_name": "mini_site",
     "publishing_api_document_type": "mini_site_landing",
     "rendering_app": "frontend",
