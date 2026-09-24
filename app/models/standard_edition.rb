@@ -23,6 +23,17 @@ class StandardEdition < Edition
 
   scope :with_news_article_document_type, -> { where(configurable_document_type: ConfigurableDocumentType.where_group("news_article").map(&:key)) }
 
+  add_trait do
+    def process_associations_after_draft_creation(edition)
+      @edition.child_relationships.each do |relationship|
+        new_relationship = edition.child_relationships.build(relationship.attributes.except("id", "parent_edition_id"))
+        new_relationship.parent_edition = edition
+
+        new_relationship.save!
+      end
+    end
+  end
+
   def format_name
     type_instance.label.downcase
   end

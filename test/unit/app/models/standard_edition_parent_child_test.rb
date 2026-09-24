@@ -91,4 +91,29 @@ class StandardEditionTest < ActiveSupport::TestCase
 
     assert child_edition.valid?
   end
+
+  test "duplicates existing parent child relationships when duplicating a parent edition" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+
+    parent_edition = create(
+      :standard_edition,
+      configurable_document_type: "test_type",
+      state: "published",
+      major_change_published_at: 1.day.ago,
+    )
+
+    create(
+      :standard_edition,
+      parent_edition_id: parent_edition.id,
+      configurable_document_type: "test_type",
+    )
+
+    new_parent_edition = parent_edition.create_draft(create(:user))
+
+    assert_equal 1, parent_edition.child_relationships.count, new_parent_edition.child_relationships.count
+    assert_equal parent_edition.child_relationships.first.child_document,
+                 new_parent_edition.child_relationships.first.child_document
+  end
 end
