@@ -152,6 +152,46 @@ describe('GOVUK.Modules.ImageCropper', () => {
       initCropperHTML()
       component.innerHTML += `
         <div class="app-c-image-cropper__image-information" hidden>
+          <ul class="govuk-list">
+            <template id="crop-checkbox">
+              <li class="app-c-image-cropper__crop-key" data-crop-box>
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="" name="" type="checkbox" checked="true" value="show">
+                  <label class="govuk-label govuk-checkboxes__label" for="">
+                  </label>
+                </div>
+              </li>
+            </template>
+          </ul>
+        </div>
+      `
+      component.setAttribute('data-versions', JSON.stringify(versions))
+
+      window.setTimeout(() => {
+        module = new GOVUK.Modules.ImageCropper(component)
+        module.init()
+
+        const image = document.querySelector('.app-c-image-cropper__image')
+        image.addEventListener('ready', () => done())
+      }, 1)
+    })
+
+    afterEach(() => form.remove())
+
+    it('should only show the main crop box, no extra outlines or legend', (done) => {
+      expect(document.querySelectorAll('.cropper-crop-box').length).toBe(1)
+      expect(
+        document.querySelectorAll('.app-c-image-cropper__crop-key').length
+      ).toBe(0)
+      done()
+    })
+  })
+
+  describe('with versions but multiple cropping outlines enabled', () => {
+    beforeEach((done) => {
+      initCropperHTML()
+      component.innerHTML += `
+        <div class="app-c-image-cropper__image-information" hidden>
           <div class="app-c-image-cropper__controls-container" hidden>
             <h2 class="govuk-heading-m">Crop controls</h2>
           </div>
@@ -170,6 +210,7 @@ describe('GOVUK.Modules.ImageCropper', () => {
         </div>
       `
       component.setAttribute('data-versions', JSON.stringify(versions))
+      component.setAttribute('data-multi-crop-outlines', 'true')
 
       window.setTimeout(() => {
         module = new GOVUK.Modules.ImageCropper(component)
