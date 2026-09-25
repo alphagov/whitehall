@@ -1056,7 +1056,6 @@ DEPENDENCIES
   json_schemer
   kaminari
   launchy
-  link_header
   mail-notify
   maxitest
   mime-types
