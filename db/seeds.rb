@@ -148,7 +148,6 @@ if WorldLocation.where(name: "Test International Delegation").blank?
     document = Document.create!(
       content_id: SecureRandom.uuid,
       document_type: "WorldwideOrganisation",
-      slug: "test-worldwide-organisation",
     )
 
     WorldwideOrganisation.create!(
