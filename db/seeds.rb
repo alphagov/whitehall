@@ -13,9 +13,10 @@ if User.where(name: "Test user").blank?
   )
 end
 
+Organisation.skip_callback(:commit, :after, :publish_to_publishing_api)
+Organisation.skip_callback(:save, :after, :republish_how_government_works_page_to_publishing_api)
+
 if Organisation.where(name: "HM Revenue & Customs").blank?
-  Organisation.skip_callback(:commit, :after, :publish_to_publishing_api)
-  Organisation.skip_callback(:save, :after, :republish_how_government_works_page_to_publishing_api)
   Organisation.create!(
     name: "HM Revenue & Customs",
     slug: "hm-revenue-customs",
@@ -27,8 +28,6 @@ if Organisation.where(name: "HM Revenue & Customs").blank?
 end
 
 if Organisation.where(name: "Test Organisation").blank?
-  Organisation.skip_callback(:commit, :after, :publish_to_publishing_api)
-  Organisation.skip_callback(:save, :after, :republish_how_government_works_page_to_publishing_api)
   Organisation.create!(
     name: "Test Organisation",
     slug: "government-digital-service",
