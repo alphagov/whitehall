@@ -55,6 +55,25 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
 
   afterEach(() => imagePreview.remove())
 
+  // The module polls with real setTimeout-based exponential backoff, so
+  // waiting a fixed duration and then asserting races against however long
+  // the browser actually takes to run through that backoff - which is prone
+  // to flaking under CI load. Poll for the expected DOM change instead, and
+  // only fail once a generous ceiling is exceeded.
+  const waitFor = (condition, done, { ceiling = 2000, interval = 10 } = {}) => {
+    const deadline = Date.now() + ceiling
+    const check = () => {
+      if (condition()) {
+        done()
+      } else if (Date.now() > deadline) {
+        done.fail('Timed out waiting for condition to become true')
+      } else {
+        window.setTimeout(check, interval)
+      }
+    }
+    check()
+  }
+
   it('should replace the processing status with the original image', (done) => {
     spyOn(window, 'fetch').and.resolveTo(okResponse)
     // eslint-disable-next-line no-new
@@ -62,13 +81,15 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
 
     expect(imagePreview.querySelector('img')).toBe(null)
 
-    window.setTimeout(() => {
-      expect(imagePreview.querySelector('img'))
-      expect(imagePreview.querySelector('img').src).toBe(
-        'http://assets.gov.uk/media/960x640.png'
-      )
-      done()
-    }, 100)
+    waitFor(
+      () => imagePreview.querySelector('img'),
+      () => {
+        expect(imagePreview.querySelector('img').src).toBe(
+          'http://assets.gov.uk/media/960x640.png'
+        )
+        done()
+      }
+    )
   })
 
   it('should replace the processing status with a specific image if `variant` specified', (done) => {
@@ -80,13 +101,15 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
 
     expect(imagePreview.querySelector('img')).toBe(null)
 
-    window.setTimeout(() => {
-      expect(imagePreview.querySelector('img'))
-      expect(imagePreview.querySelector('img').src).toBe(
-        'http://assets.gov.uk/media/s960_960x640.png'
-      )
-      done()
-    }, 100)
+    waitFor(
+      () => imagePreview.querySelector('img'),
+      () => {
+        expect(imagePreview.querySelector('img').src).toBe(
+          'http://assets.gov.uk/media/s960_960x640.png'
+        )
+        done()
+      }
+    )
   })
 
   it('should replace the processing status with the image preview after multiple attempts', (done) => {
@@ -112,10 +135,13 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
 
     expect(imagePreview.querySelector('img')).toBe(null)
 
-    window.setTimeout(() => {
-      expect(imagePreview.querySelector('img')).toBeTruthy()
-      done()
-    }, 100)
+    waitFor(
+      () => imagePreview.querySelector('img'),
+      () => {
+        expect(imagePreview.querySelector('img')).toBeTruthy()
+        done()
+      }
+    )
   })
 
   it('should render error if URL does not return 200', (done) => {
@@ -130,12 +156,15 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
 
     expect(imagePreview.querySelector('img')).toBe(null)
 
-    window.setTimeout(() => {
-      expect(
-        imagePreview.querySelector('.js-image-processing-failure-tag')
-      ).toBeTruthy()
-      done()
-    }, 100)
+    waitFor(
+      () => imagePreview.querySelector('.js-image-processing-failure-tag'),
+      () => {
+        expect(
+          imagePreview.querySelector('.js-image-processing-failure-tag')
+        ).toBeTruthy()
+        done()
+      }
+    )
   })
 
   it('should render error if image is not ready in time', (done) => {
@@ -145,11 +174,14 @@ describe('GOVUK.Modules.ImageProcessingChecker', function () {
 
     expect(imagePreview.querySelector('img')).toBe(null)
 
-    window.setTimeout(() => {
-      expect(
-        imagePreview.querySelector('.js-image-processing-failure-tag')
-      ).toBeTruthy()
-      done()
-    }, 100)
+    waitFor(
+      () => imagePreview.querySelector('.js-image-processing-failure-tag'),
+      () => {
+        expect(
+          imagePreview.querySelector('.js-image-processing-failure-tag')
+        ).toBeTruthy()
+        done()
+      }
+    )
   })
 })
