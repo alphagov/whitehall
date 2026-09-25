@@ -180,6 +180,8 @@
     this.$uniqueVersions = this.$versions.filter(
       (version) => !version.from_version
     )
+    this.multiCropOutlinesEnabled =
+      this.$imageCropper.dataset.multiCropOutlines === 'true'
     this.$cropBoxes = []
   }
 
@@ -243,9 +245,10 @@
         this.$cropperContainer =
           this.$imageCropper.querySelector('.cropper-container')
 
-        this.cropBoxReady = this.$uniqueVersions.length > 1
+        this.showMultiCropOutlines =
+          this.multiCropOutlinesEnabled && this.$uniqueVersions.length > 1
 
-        if (this.cropBoxReady) {
+        if (this.showMultiCropOutlines) {
           this.$imageCropper.querySelector('.cropper-view-box').style.outline =
             `2px dashed #fd0`
         }
@@ -327,7 +330,7 @@
   }
 
   ImageCropper.prototype.initCropboxes = function () {
-    if (!this.cropBoxReady) {
+    if (!this.showMultiCropOutlines) {
       return
     }
 

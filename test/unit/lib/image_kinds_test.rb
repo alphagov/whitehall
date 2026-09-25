@@ -144,4 +144,31 @@ class ImageKindsTest < ActiveSupport::TestCase
     assert_equal "s960", version.prefixed_name
     assert_nil version.prefixed_from_version
   end
+
+  test "#multi_crop_outlines defaults to false when not configured" do
+    result = Whitehall::ImageKinds.build_image_kinds(
+      "default" => {
+        "display_name" => "default display name",
+        "valid_width" => 0,
+        "valid_height" => 0,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
+        "versions" => [],
+      },
+    )
+    assert_equal false, result["default"].multi_crop_outlines
+  end
+
+  test "#multi_crop_outlines is enabled when set to true in config" do
+    result = Whitehall::ImageKinds.build_image_kinds(
+      "topical_event_header" => {
+        "display_name" => "Header",
+        "valid_width" => 0,
+        "valid_height" => 0,
+        "allowed_formats" => %w[jpg jpeg gif png svg],
+        "multi_crop_outlines" => true,
+        "versions" => [],
+      },
+    )
+    assert_equal true, result["topical_event_header"].multi_crop_outlines
+  end
 end

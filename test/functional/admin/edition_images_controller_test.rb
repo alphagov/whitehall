@@ -226,6 +226,25 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select "span[class='govuk-tag govuk-tag--green']", text: "Processing", count: 1
   end
 
+  view_test "GET edit renders data-multi-crop-outlines matching the image kind's config" do
+    image = build(:image)
+    edition = create(:draft_publication, images: [image])
+    Whitehall.image_kinds.fetch(image.image_data.image_kind).stubs(:multi_crop_outlines).returns(true)
+
+    get :edit, params: { edition_id: edition.id, id: image.id }
+
+    assert_select ".app-c-image-cropper[data-multi-crop-outlines='true']"
+  end
+
+  view_test "GET edit renders data-multi-crop-outlines as false by default" do
+    image = build(:image)
+    edition = create(:draft_publication, images: [image])
+
+    get :edit, params: { edition_id: edition.id, id: image.id }
+
+    assert_select ".app-c-image-cropper[data-multi-crop-outlines='false']"
+  end
+
   view_test "GET :new redirects for `single` usage image, if an image has already been uploaded" do
     login_authorised_user
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
