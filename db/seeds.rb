@@ -47,6 +47,7 @@ if Government.where(name: "Test Government").blank?
   )
 end
 
+WorldLocation.skip_callback(:commit, :after, :publish_to_publishing_api)
 WorldLocation.skip_callback(:commit, :after, :republish_index_pages_to_publishing_api)
 WorldLocationNews.skip_callback(:commit, :after, :publish_to_publishing_api)
 
