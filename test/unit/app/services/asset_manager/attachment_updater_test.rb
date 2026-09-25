@@ -4,6 +4,10 @@ require "attachment_test_helper"
 class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
+  setup do
+    AssetManager::AssetRestorer.stubs(:call)
+  end
+
   def it_sets_expected_attributes(expected_attribute_hash, attachment, asset_data_type)
     attachment_data = attachment.send(asset_data_type.underscore.to_sym)
 
@@ -444,6 +448,20 @@ class AssetManager::AttachmentUpdaterTest < ActiveSupport::TestCase
       )
 
       AssetManager::AttachmentUpdater.call(attachment_data)
+    end
+  end
+
+  context "when the attachment's asset is stale-deleted in Asset Manager, but Whitehall doesn't consider it deleted" do
+    let(:edition) { create(:draft_publication) }
+    let(:attachment_data) { build(:attachment_data) }
+    let(:attachment) { create_attachment(attachment_data:, edition:) }
+    let(:asset_manager_id) { attachment_data.assets.first.asset_manager_id }
+
+    it "restores the asset in Asset Manager" do
+      AssetManager::AssetRestorer.expects(:call).with(asset_manager_id)
+      AssetManager::AssetUpdater.stubs(:call)
+
+      AssetManager::AttachmentUpdater.call(attachment.attachment_data)
     end
   end
 end
