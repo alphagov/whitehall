@@ -11,15 +11,7 @@ end
 require File.expand_path("../config/environment", __dir__)
 
 require "maxitest/autorun"
-# Rails 8.1 changed the test runner to load test files during Minitest.run's
-# option-parsing phase, rather than before it. This means Minitest.load_plugins
-# discovers maxitest_plugin.rb before Maxitest::ENABLE_PLUGINS is set (by
-# maxitest/autorun above), so maxitest's LineReporter never gets registered and
-# the "Focus on failing tests:" summary is lost. Explicitly loading the line
-# plugin here restores it. This can be removed if maxitest is updated to handle
-# the new Rails 8.1 plugin loading order, or if maxitest is removed.
-require "maxitest/vendor/line"
-Minitest.extensions << "line" unless Minitest.extensions.include?("line")
+require "minitest/mock"
 require "rails/test_help"
 require "mocha/minitest"
 require "factories"
@@ -61,6 +53,25 @@ class ActiveSupport::TestCase
   include ConfigurableDocumentTypeHelper
   extend GovspeakValidationTestHelper
 
+  # TODO: minitest 6 (see dependabot/bundler/minitest-6.0.6) appears to have a
+  # real, reproducible data-corruption bug with Rails' fork-based test
+  # parallelization: running more than a handful of tests together reliably
+  # produces `Mysql2::Error: Commands out of sync`, `Bind parameter count
+  # doesn't match number of arguments`, and transaction/savepoint errors -
+  # even with only 2 parallel workers. This does NOT reproduce on `main`
+  # (minitest 5.27.0) with the exact same test files/seed, so it isn't
+  # pre-existing flakiness.
+  #
+  # Root cause as far as investigated: Rails' worker code
+  # (ActiveSupport::Testing::Parallelization::Worker#perform_job) branches on
+  # `Minitest.respond_to?(:run_one_method)` to decide how to run a single
+  # test method. Minitest 6.0.0 removed `Minitest.run_one_method` (see its
+  # History.rdoc, "Removed Minitest.run_one_method"), so Rails falls back to
+  # `klass.new(method).run` - which appears to result in connections leaking
+  # or being shared across forked worker processes, even though the
+  # `after_fork` hook that should re-establish a fresh connection per worker
+  # looks unchanged. Not root-caused beyond this; may be a Rails or minitest
+  # bug worth reporting upstream before this PR is merged.
   parallelize(workers: :number_of_processors)
 
   attr_reader :feature_flags
