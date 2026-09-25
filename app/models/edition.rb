@@ -197,9 +197,9 @@ class Edition < ApplicationRecord
         .merge("state" => "draft", "creator" => user, "previously_published" => previously_published)
 
       self.class.new(draft_attributes).tap do |draft|
-        traits.each { |t| t.process_associations_before_save(draft) }
+        traits.each { |t| t.process_associations_before_draft_creation(draft) }
         if (draft.valid? || !draft.errors.key?(:base)) && draft.save(validate: false)
-          traits.each { |t| t.process_associations_after_save(draft) }
+          traits.each { |t| t.process_associations_after_draft_creation(draft) }
         end
       end
     end
