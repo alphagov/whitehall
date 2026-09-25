@@ -13,9 +13,10 @@ if User.where(name: "Test user").blank?
   )
 end
 
+Organisation.skip_callback(:commit, :after, :publish_to_publishing_api)
+Organisation.skip_callback(:save, :after, :republish_how_government_works_page_to_publishing_api)
+
 if Organisation.where(name: "HM Revenue & Customs").blank?
-  Organisation.skip_callback(:commit, :after, :publish_to_publishing_api)
-  Organisation.skip_callback(:save, :after, :republish_how_government_works_page_to_publishing_api)
   Organisation.create!(
     name: "HM Revenue & Customs",
     slug: "hm-revenue-customs",
@@ -27,8 +28,6 @@ if Organisation.where(name: "HM Revenue & Customs").blank?
 end
 
 if Organisation.where(name: "Test Organisation").blank?
-  Organisation.skip_callback(:commit, :after, :publish_to_publishing_api)
-  Organisation.skip_callback(:save, :after, :republish_how_government_works_page_to_publishing_api)
   Organisation.create!(
     name: "Test Organisation",
     slug: "government-digital-service",
@@ -48,6 +47,7 @@ if Government.where(name: "Test Government").blank?
   )
 end
 
+WorldLocation.skip_callback(:commit, :after, :publish_to_publishing_api)
 WorldLocation.skip_callback(:commit, :after, :republish_index_pages_to_publishing_api)
 WorldLocationNews.skip_callback(:commit, :after, :publish_to_publishing_api)
 
@@ -93,9 +93,9 @@ if WorldLocation.where(name: "Test International Delegation").blank?
     Role.skip_callback(:commit, :after, :publish_to_publishing_api)
     Person.skip_callback(:commit, :after, :publish_to_publishing_api)
     RoleAppointment.skip_callback(:commit, :after, :publish_to_publishing_api)
-    RoleAppointment.skip_callback(:save, :after, :republish_prime_ministers_index_page_to_publishing_api)
-    RoleAppointment.skip_callback(:save, :after, :patch_links_ministers_index_page_to_publishing_api)
-    RoleAppointment.skip_callback(:save, :after, :republish_how_government_works_page_to_publishing_api)
+    RoleAppointment.skip_callback(:commit, :after, :republish_prime_ministers_index_page_to_publishing_api)
+    RoleAppointment.skip_callback(:commit, :after, :patch_links_ministers_index_page_to_publishing_api)
+    RoleAppointment.skip_callback(:commit, :after, :republish_how_government_works_page_to_publishing_api)
     HistoricalAccount.skip_callback(:commit, :after, :publish_to_publishing_api)
     HistoricalAccount.skip_callback(:save, :after, :republish_prime_ministers_index_page_to_publishing_api)
 
@@ -148,7 +148,6 @@ if WorldLocation.where(name: "Test International Delegation").blank?
     document = Document.create!(
       content_id: SecureRandom.uuid,
       document_type: "WorldwideOrganisation",
-      slug: "test-worldwide-organisation",
     )
 
     WorldwideOrganisation.create!(
