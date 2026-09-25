@@ -43,8 +43,8 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       "presenters" => {
         "publishing_api" => {
           "details" => {
-            "attribute_one" => "raw",
-            "attribute_two" => "raw",
+            "attribute_one" => { "field" => "attribute_one", "type" => "raw" },
+            "attribute_two" => { "field" => "attribute_two", "type" => "raw" },
           },
         },
       },
@@ -109,9 +109,9 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       "presenters" => {
         "publishing_api" => {
           "details" => {
-            "string_chunk_of_content" => "raw",
-            "chunk_of_content_one" => "govspeak",
-            "chunk_of_content_two" => "govspeak",
+            "string_chunk_of_content" => { "field" => "string_chunk_of_content", "type" => "raw" },
+            "chunk_of_content_one" => { "field" => "chunk_of_content_one", "type" => "compiled_govspeak" },
+            "chunk_of_content_two" => { "field" => "chunk_of_content_two", "type" => "compiled_govspeak" },
           },
         },
       },
@@ -162,8 +162,8 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       "presenters" => {
         "publishing_api" => {
           "details" => {
-            "chunk_of_content_one" => "govspeak",
-            "chunk_of_content_two" => "govspeak",
+            "chunk_of_content_one" => { "field" => "chunk_of_content_one", "type" => "compiled_govspeak" },
+            "chunk_of_content_two" => { "field" => "chunk_of_content_two", "type" => "compiled_govspeak" },
           },
         },
       },
@@ -198,8 +198,8 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
       "presenters" => {
         "publishing_api" => {
           "details" => {
-            "chunk_of_content_one" => "govspeak",
-            "chunk_of_content_two" => "govspeak",
+            "chunk_of_content_one" => { "field" => "chunk_of_content_one", "type" => "compiled_govspeak" },
+            "chunk_of_content_two" => { "field" => "chunk_of_content_two", "type" => "compiled_govspeak" },
           },
         },
       },
