@@ -1,0 +1,45 @@
+.app-c-child-of-banner {
+  position: relative;
+  padding: 10px;
+  background: var(--govuk-surface-background-colour, #f4f8fb);
+  border-bottom: solid 1px govuk-colour("blue");
+  margin-top: govuk-spacing(-3);
+  color: govuk-functional-colour(text);
+
+  @include govuk-media-query($from: tablet) {
+    padding: govuk-spacing(5);
+  }
+}
+
+.app-c-child-of-banner__part-of {
+  display: block;
+  @include govuk-font(19, $weight: bold);
+}
+
+.app-c-child-of-banner__title {
+  @include govuk-font(24, $weight: bold);
+}
+
+.app-c-child-of-banner__link {
+  @include govuk-font(19);
+}
+
+.app-c-child-of-banner__link-container {
+  text-align: right;
+}
+
+@include govuk-media-query($media-type: print) {
+  .app-c-child-of-banner {
+    padding: 0 0 govuk-spacing(4);
+    background: none;
+    border-color: govuk-functional-colour(print-text);
+  }
+
+  .app-c-child-of-banner__part-of {
+    display: block;
+  }
+
+  .app-c-child-of-banner__title {
+    @include govuk-font(24, $weight: bold);
+  }
+}
