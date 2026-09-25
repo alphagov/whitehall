@@ -112,10 +112,6 @@ module ApplicationHelper
     end
   end
 
-  def right_to_left?
-    Locale.new(I18n.locale).rtl?
-  end
-
   def joined_list(elements)
     separator = if elements.any? { |word| word.include?(",") }
                   "; "
