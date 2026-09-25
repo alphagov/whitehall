@@ -1,0 +1,26 @@
+<%
+  render_alternative_url_field = ->(nation_key) do
+    render "govuk_publishing_components/components/input", {
+      label: { text: "URL of corresponding content" },
+      name: block.alternative_url_path(nation_key).form_control_name,
+      id: block.alternative_url_path(nation_key).form_control_id,
+      value: block.alternative_url_for(nation_key),
+      error_items: errors_for(block.edition.errors, block.alternative_url_path(nation_key).validation_error_attribute.to_sym),
+    }
+  end
+%>
+
+<%= render "govuk_publishing_components/components/checkboxes", {
+  name: "#{block.selected_path.form_control_name}[]",
+  id: block.selected_path.form_control_id,
+  heading: block.title + (block.required ? " (required)" : ""),
+  heading_size: "m",
+  hint_text: block.hint_text,
+  no_hint_text: block.hint_text.blank?,
+  error: errors_for_input(block.edition.errors, block.path.validation_error_attribute.to_sym),
+  items: block.options.map do |option|
+    option.merge(
+      conditional: block.nation_url_field_keys.include?(option[:value]) ? render_alternative_url_field.call(option[:value]) : nil,
+      )
+  end,
+} %>
