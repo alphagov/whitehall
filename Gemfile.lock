@@ -1070,7 +1070,6 @@ DEPENDENCIES
   launchy
   link_header
   mail-notify
-  marcel
   maxitest
   mime-types
   mini_magick
