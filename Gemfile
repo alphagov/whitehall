@@ -9,7 +9,6 @@ gem "after_commit_everywhere"
 gem "babosa"
 gem "bootsnap", require: false
 gem "carrierwave"
-gem "carrierwave-i18n"
 gem "chronic"
 gem "content_block_tools"
 gem "dartsass-rails"
