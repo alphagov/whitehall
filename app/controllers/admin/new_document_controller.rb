@@ -79,6 +79,17 @@ class Admin::NewDocumentController < Admin::BaseController
         "label" => "worldwide_organisation".humanize,
       },
     }
+
+    if Flipflop.enabled?(:configurable_document_types)
+      types["mini_site"] = {
+        "klass" => StandardEdition,
+        "hint_text" => ConfigurableDocumentType.find("mini_site_landing").description,
+        "label" => ConfigurableDocumentType.find("mini_site_landing").label,
+        "redirect" => new_admin_standard_edition_path(configurable_document_type: "mini_site_landing"),
+        "requires_approval" => true,
+      }
+    end
+
     if can?(current_user, ConfigurableDocumentType.find("topical_event"))
       types["topical_event"] = {
         "klass" => StandardEdition,
