@@ -18,8 +18,13 @@ class CorporateInformationPageType
   end
 
   def title(organisation)
-    translation_key = slug.tr("-", "_")
-    I18n.t("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name(organisation))
+    return title_without_organisation(organisation) if title_includes_organisation_name?
+
+    I18n.t(
+      "corporate_information_page.title_with_organisation",
+      title: title_without_organisation(organisation),
+      organisation_name: organisation.name,
+    )
   end
 
   def default_locale_title(organisation)
@@ -28,9 +33,12 @@ class CorporateInformationPageType
     end
   end
 
+  def title_without_organisation(organisation)
+    I18n.t(title_translation_key, organisation_name: organisation_name(organisation))
+  end
+
   def title_lang(organisation)
-    translation_key = slug.tr("-", "_")
-    t_lang("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name(organisation))
+    t_lang(title_translation_key, organisation_name: organisation_name(organisation))
   end
 
   def self.by_menu_heading(menu_heading)
@@ -109,6 +117,15 @@ class CorporateInformationPageType
   )
 
 private
+
+  def title_translation_key
+    "corporate_information_page.type.title.#{display_type_key}"
+  end
+
+  # Some titles already name the organisation, e.g. "Working for DBT"
+  def title_includes_organisation_name?
+    I18n.t(title_translation_key).include?("%{organisation_name}")
+  end
 
   def organisation_name(organisation)
     if organisation.respond_to?(:acronym) && organisation.acronym.present?

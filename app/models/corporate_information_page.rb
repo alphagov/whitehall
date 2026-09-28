@@ -67,6 +67,10 @@ class CorporateInformationPage < Edition
     corporate_information_page_type.title(organisation)
   end
 
+  def title_without_organisation
+    corporate_information_page_type.title_without_organisation(organisation)
+  end
+
   def title_lang
     corporate_information_page_type.title_lang(organisation)
   end

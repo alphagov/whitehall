@@ -148,7 +148,8 @@ end
 When(/^I submit the confirmation form to delete the "([^"]*)" page$/) do |type|
   worldwide_organisation_page = WorldwideOrganisationPage.last
   expect(page).to have_current_path(confirm_destroy_admin_worldwide_organisation_page_path(worldwide_organisation_page.edition, worldwide_organisation_page))
-  expect(page).to have_content "Are you sure you want to delete \"#{type}\"?"
+  expect(worldwide_organisation_page.title).to start_with(type)
+  expect(page).to have_content "Are you sure you want to delete \"#{worldwide_organisation_page.title}\"?"
 
   click_button "Delete"
 end
