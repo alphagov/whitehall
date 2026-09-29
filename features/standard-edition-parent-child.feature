@@ -5,6 +5,7 @@ Feature: Standard Editions
     And a published standard edition called "Published Edition" exists
     And the configurable document types feature flag is enabled
     When I manually navigate to the 'new document' screen with a parent_edition_id param set
+    Then I should see a banner that displays the current parent edition
     When I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
     Then the document should be created
     And the document should be designated a child of the parent document

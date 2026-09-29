@@ -7,6 +7,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
   def choose_type
     @permitted_configurable_document_types = ConfigurableDocumentType.where_group(params[:group])
                                                                      .select { |type| can?(current_user, type) }
+    @parent_edition = parent_edition
 
     render_not_found if @permitted_configurable_document_types.empty?
   end
@@ -110,6 +111,10 @@ private
 
     # Set the parent_edition_id for new editions based on the value from the query parameter submitted with the 'New document' form
     edition_params[:parent_edition_id].blank? && params[:parent_edition_id].present? ? edition_params.merge(parent_edition_id: params[:parent_edition_id]) : edition_params
+  end
+
+  def parent_edition
+    StandardEdition.find_by(id: params[:parent_edition_id]) if params[:parent_edition_id].present?
   end
 
   def set_current_tab_context

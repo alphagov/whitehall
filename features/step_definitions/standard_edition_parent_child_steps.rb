@@ -22,6 +22,12 @@ Then(/^the document should fail to save$/) do
   expect(Edition.count).to eq(0)
 end
 
+Then(/^I should see a banner that displays the current parent edition$/) do
+  expect(page).to have_css(".app-c-child-of-banner__part-of", text: "Child of")
+  expect(page).to have_css(".app-c-child-of-banner__title", text: @edition.title)
+  expect(page).to have_css(".app-c-child-of-banner__link[href='#{admin_edition_path(@edition)}']", text: "Edit child pages")
+end
+
 And(/^I should see an error message describing the corrupt parent edition ID$/) do
   expect(page).to have_content("Parent edition must correspond to an existing StandardEdition")
 end

@@ -1,0 +1,11 @@
+<% if parent_edition.present? && can?(:see, parent_edition) %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= render "components/child_of_banner", {
+        title: "#{parent_edition.title} #{parent_edition.display_type.downcase}",
+        path: admin_edition_path(parent_edition),
+        margin_bottom: 8,
+      } %>
+    </div>
+  </div>
+<% end %>
