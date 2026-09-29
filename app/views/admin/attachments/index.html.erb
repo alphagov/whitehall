@@ -1,5 +1,6 @@
 <% content_for :page_title, "Attachments for #{attachable_model_name}" %>
 <% content_for :title, "Attachments for #{attachable_model_name}" %>
+<% content_for :child_of_banner, render("admin/editions/child_of_banner", parent_edition: attachable.try(:parent_edition)) %>
 <% if attachable.is_a?(Edition) %>
   <% content_for :context, "#{attachable.title}" %>
 <% elsif attachable.is_a?(PolicyGroup) %>

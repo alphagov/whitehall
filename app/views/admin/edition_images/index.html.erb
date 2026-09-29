@@ -1,6 +1,7 @@
 <% content_for :context, "#{@edition.title}" %>
 <% content_for :page_title, "Images for #{@edition.format_name}" %>
 <% content_for :title, "Images for #{@edition.format_name}" %>
+<% content_for :child_of_banner, render("admin/editions/child_of_banner", parent_edition: @edition.try(:parent_edition)) %>
 <% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @images.flat_map { |image| image&.errors&.errors }, parent_class: "edition_images")) if @images.present? %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {

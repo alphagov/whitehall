@@ -1,6 +1,7 @@
 <% content_for :page_title, @edition.title %>
 <% content_for :title, @edition.title %>
 <% content_for :context, @edition.title %>
+<% content_for :child_of_banner, render("admin/editions/child_of_banner", parent_edition: @edition.parent_edition) %>
 <% content_for :title_margin_bottom, 4 %>
 <% content_for :back_link do %>
   <%= render "govuk_publishing_components/components/back_link", {

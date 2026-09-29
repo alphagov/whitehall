@@ -8,7 +8,8 @@ Feature: Standard Editions
     Then I should see a banner that displays the current parent edition
     When I draft a new "Test configurable document type" configurable document titled "The history of GOV.UK"
     Then the document should be created
-    And the document should be designated a child of the parent document
+    And I should be on the document summary page for the child document
+    And I should see a banner that displays the current parent edition
 
   Scenario: Error: unable to create a child document for an unknown parent edition
     Given I am a writer
@@ -17,3 +18,9 @@ Feature: Standard Editions
     And I fill in and submit the form with title 'Some Test Title'
     Then the document should fail to save
     And I should see an error message describing the corrupt parent edition ID
+
+  Scenario: Editing a child document of a parent edition
+    Given I am a writer
+    And a published standard edition called "Parent Edition" exists
+    When I edit a child document of that edition
+    Then I should see a banner that displays the current parent edition
