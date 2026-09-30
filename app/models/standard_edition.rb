@@ -98,6 +98,10 @@ class StandardEdition < Edition
     type_instance.settings["features_enabled"]
   end
 
+  def allows_child_documents?
+    type_instance.allowed_child_document_types.any?
+  end
+
   def can_be_associated_with_topical_events?
     [
       ConfigurableContentBlocks::Path.new("topical_event_ids"), # Legacy: delete when topical events migrated
