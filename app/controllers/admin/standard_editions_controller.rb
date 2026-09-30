@@ -98,6 +98,8 @@ class Admin::StandardEditionsController < Admin::EditionsController
     end
   end
 
+  def child_pages; end
+
 private
 
   def edition_class
