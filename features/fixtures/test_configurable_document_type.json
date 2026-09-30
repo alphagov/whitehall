@@ -216,7 +216,8 @@
       "details": {
         "body": "govspeak",
         "date_field": "rfc3339_date",
-        "list_of_foods": "raw"
+        "list_of_foods": "raw",
+        "nation_applicability": "national_applicability"
       },
       "links": []
     }
