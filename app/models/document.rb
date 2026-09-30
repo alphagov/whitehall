@@ -58,7 +58,7 @@ class Document < ApplicationRecord
       version = Document::PaginatedTimeline::VersionDecorator.new(
         version,
         is_first_edition: version.item_id == first_edition_id,
-        previous_version: versions[index - 1],
+        previous_version: index.zero? ? nil : versions[index - 1],
       )
       [version.id, version]
     }.to_h

@@ -525,7 +525,7 @@ class DocumentTest < ActiveSupport::TestCase
       Document::PaginatedTimeline::VersionDecorator.stubs(:new).with { |v, **args|
         v.id == version1.id &&
           args[:is_first_edition] == true &&
-          args[:previous_version] == version3
+          args[:previous_version].nil?
       }.returns(version1_stub)
 
       Document::PaginatedTimeline::VersionDecorator.stubs(:new).with { |v, **args|
