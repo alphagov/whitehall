@@ -8,6 +8,7 @@ class StandardEdition::BlockContent
   VALIDATORS = {
     "embedded_contacts_exist" => GovspeakContactEmbedValidator,
     "length" => ActiveModel::Validations::LengthValidator,
+    "nation_applicability" => NationApplicabilityValidator,
     "no_footnotes_allowed" => NoFootnotesInGovspeakValidator,
     "presence" => ActiveModel::Validations::PresenceValidator,
     "safe_html" => SafeHtmlValidator,
