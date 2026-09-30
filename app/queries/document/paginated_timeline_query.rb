@@ -36,7 +36,7 @@ class Document
     def paginated_query
       sql = <<~SQL
         #{timeline_sql}
-        ORDER BY created_at DESC
+        ORDER BY created_at DESC, model_name ASC, id DESC
         LIMIT ? OFFSET ?
       SQL
 

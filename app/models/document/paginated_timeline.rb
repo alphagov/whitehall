@@ -25,7 +25,8 @@ class Document::PaginatedTimeline
       if only.present?
         versions_and_remarks
       else
-        [*versions_and_remarks, *host_content_update_events].sort_by(&:created_at).reverse!
+        # Sort stably so that entries with identical timestamps keep the order returned by the query
+        [*versions_and_remarks, *host_content_update_events].each_with_index.sort_by { |entry, index| [entry.created_at, -index] }.reverse!.map(&:first)
       end
     end
   end
