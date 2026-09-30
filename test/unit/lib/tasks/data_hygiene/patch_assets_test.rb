@@ -26,8 +26,7 @@ class PatchAssetsTest < ActiveSupport::TestCase
 
   context "CSV file exists" do
     before do
-      Services.asset_manager.stubs(:restore_asset)
-      Services.asset_manager.stubs(:update_asset)
+      AssetManagerRestoreAssetJob.stubs(:perform_async)
       AttachmentData.stubs(:find_by).returns(stub(attachments: []))
     end
 
@@ -79,20 +78,9 @@ class PatchAssetsTest < ActiveSupport::TestCase
       assert_includes(out, "Parsed CSV. First row: #<struct CherryPickedRowData asset_manager_id=\"5a7b9cbe40f0b645ba3c571d\", ad_id=276771, redirect_url=\"https://www.gov.uk/government/publications/free-schools-site-management\">\n")
     end
 
-    it "restores every asset" do
-      Services.asset_manager.expects(:restore_asset).with("5a7b9cbe40f0b645ba3c571d")
-      Services.asset_manager.expects(:restore_asset).with("6a7b9cbe40f0b645ba3c571d")
-
-      # Swallow output to avoid messy unit test run
-      _out, _err = capture_io { task.invoke(csv_file.path) }
-    end
-
-    it "restores the asset before updating its redirect_url" do
-      stub_attachables(276_771, unpublished_edition)
-
-      restore = sequence("restore")
-      Services.asset_manager.expects(:restore_asset).with("5a7b9cbe40f0b645ba3c571d").in_sequence(restore)
-      Services.asset_manager.expects(:update_asset).with("5a7b9cbe40f0b645ba3c571d", { redirect_url: "https://www.gov.uk/example" }).in_sequence(restore)
+    it "enqueues a restore job for every asset" do
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("6a7b9cbe40f0b645ba3c571d", nil)
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
@@ -101,7 +89,7 @@ class PatchAssetsTest < ActiveSupport::TestCase
     it "ignores the redirect_url in the CSV, which may be out of sync with Whitehall" do
       stub_attachables(276_771, published_edition)
 
-      Services.asset_manager.expects(:update_asset).with("5a7b9cbe40f0b645ba3c571d", { redirect_url: nil })
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
@@ -110,7 +98,7 @@ class PatchAssetsTest < ActiveSupport::TestCase
     it "sets the redirect_url to the Unpublishing's alternative_url if the latest live edition is unpublished" do
       stub_attachables(276_771, unpublished_edition)
 
-      Services.asset_manager.expects(:update_asset).with("5a7b9cbe40f0b645ba3c571d", { redirect_url: "https://www.gov.uk/example" })
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "https://www.gov.uk/example")
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
@@ -119,7 +107,7 @@ class PatchAssetsTest < ActiveSupport::TestCase
     it "sets the redirect_url to the Edition's public_url if the latest live edition is unpublished with no alternative_url" do
       stub_attachables(276_771, unpublished_edition_without_alternative_url)
 
-      Services.asset_manager.expects(:update_asset).with("5a7b9cbe40f0b645ba3c571d", { redirect_url: "https://www.gov.uk/unpublished-edition" })
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "https://www.gov.uk/unpublished-edition")
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
@@ -128,7 +116,7 @@ class PatchAssetsTest < ActiveSupport::TestCase
     it "ignores drafts when finding the latest live edition" do
       stub_attachables(276_771, unpublished_edition, draft_edition)
 
-      Services.asset_manager.expects(:update_asset).with("5a7b9cbe40f0b645ba3c571d", { redirect_url: "https://www.gov.uk/example" })
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "https://www.gov.uk/example")
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
@@ -137,7 +125,7 @@ class PatchAssetsTest < ActiveSupport::TestCase
     it "clears the redirect_url if the latest live edition is not unpublished" do
       stub_attachables(276_771, unpublished_edition, published_edition)
 
-      Services.asset_manager.expects(:update_asset).with("5a7b9cbe40f0b645ba3c571d", { redirect_url: nil })
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
@@ -146,17 +134,16 @@ class PatchAssetsTest < ActiveSupport::TestCase
     it "clears the redirect_url if there is no live edition" do
       stub_attachables(276_771, draft_edition)
 
-      Services.asset_manager.expects(:update_asset).with("5a7b9cbe40f0b645ba3c571d", { redirect_url: nil })
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
     end
 
-    it "skips the asset, and outputs an error message, if the AttachmentData cannot be found" do
+    it "does not enqueue a restore job, and outputs an error message, if the AttachmentData cannot be found" do
       AttachmentData.stubs(:find_by).with(id: 276_771).returns(nil)
 
-      Services.asset_manager.expects(:restore_asset).with("5a7b9cbe40f0b645ba3c571d").never
-      Services.asset_manager.expects(:update_asset).with("5a7b9cbe40f0b645ba3c571d", anything).never
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", anything).never
 
       _out, err = capture_io { task.invoke(csv_file.path) }
       assert_includes(err, "Skipping asset 5a7b9cbe40f0b645ba3c571d: AttachmentData 276771 not found")

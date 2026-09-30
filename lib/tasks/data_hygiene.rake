@@ -147,10 +147,10 @@ namespace :data_hygiene do
                          latest_live_edition.unpublishing&.alternative_url.presence || latest_live_edition.public_url
                        end
 
-        # Asset Manager won't update a deleted live asset, so restore it first
-        Services.asset_manager.restore_asset(row.asset_manager_id)
-        Services.asset_manager.update_asset(row.asset_manager_id, { redirect_url: })
+        AssetManagerRestoreAssetJob.perform_async(row.asset_manager_id, redirect_url)
       end
+
+      shell.say "Enqueued restore jobs for Asset Manager"
     end
   end
 end
