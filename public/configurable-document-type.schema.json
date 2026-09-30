@@ -64,6 +64,7 @@
           "description": "Identifier for a content block. Maps to a specific block class.",
           "enum": [
             "default_array",
+            "default_checkboxes",
             "default_date",
             "default_object",
             "default_string",
@@ -109,6 +110,29 @@
         "blank_option_label": {
           "type": "string",
           "description": "Text to display for the blank/default option in a select input."
+        },
+        "items": {
+          "type": "array",
+          "description": "List of checkbox items for the default_checkboxes block.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "conditionally_reveal": {
+                "type": "array",
+                "description": "Content blocks to conditionally reveal when this checkbox is checked.",
+                "items": {
+                  "$ref": "#/$defs/form_field"
+                }
+              }
+            },
+            "required": ["label", "value"]
+          }
         },
         "container": {
           "description": "The option container to be used in the select_with_search_tagging_block",
