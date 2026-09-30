@@ -1,6 +1,7 @@
 class Document
   class PaginatedTimelineQuery
     PER_PAGE = 10
+    CHANGE_NOTE_MODEL_NAME = "ChangeNote".freeze
 
     Result = Data.define(:model, :id, :created_at)
 
@@ -27,6 +28,10 @@ class Document
 
     def version_ids
       raw_entries.select { |r| r.model == "Version" }.map(&:id)
+    end
+
+    def change_note_edition_ids
+      raw_entries.select { |r| r.model == CHANGE_NOTE_MODEL_NAME }.map(&:id)
     end
 
   private
@@ -57,8 +62,10 @@ class Document
         "(#{versions_query})"
       when "internal_notes"
         "(#{remarks_query})"
+      when "change_notes"
+        "(#{change_notes_query})"
       else
-        "(#{versions_query}) UNION (#{remarks_query})"
+        "(#{versions_query}) UNION (#{remarks_query}) UNION (#{change_notes_query})"
       end
     end
 
@@ -73,6 +80,14 @@ class Document
       document.editorial_remarks.select(
         "'#{EditorialRemark}' AS model_name",
         *common_fields,
+      ).to_sql
+    end
+
+    def change_notes_query
+      document.ever_published_editions.unscope(:order).where(minor_change: false).select(
+        "'#{CHANGE_NOTE_MODEL_NAME}' AS model_name",
+        :id,
+        "editions.major_change_published_at AS created_at",
       ).to_sql
     end
 

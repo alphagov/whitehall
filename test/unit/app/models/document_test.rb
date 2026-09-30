@@ -555,6 +555,22 @@ class DocumentTest < ActiveSupport::TestCase
     end
   end
 
+  describe "#decorated_change_notes_by_edition_ids" do
+    it "returns the requested published editions, presented as Document::PaginatedTimeline::ChangeNoteDecorator items" do
+      document = create(:document)
+      edition1 = create(:superseded_edition, document:, change_note: nil)
+      edition2 = create(:published_edition, document:, change_note: "Second change")
+      draft = create(:draft_edition, document:)
+
+      change_notes = document.decorated_change_notes_by_edition_ids([edition1.id, edition2.id, draft.id])
+
+      assert_equal [edition1.id, edition2.id], change_notes.keys
+      assert change_notes.values.all?(Document::PaginatedTimeline::ChangeNoteDecorator)
+      assert_equal "First published.", change_notes[edition1.id].note
+      assert_equal "Second change", change_notes[edition2.id].note
+    end
+  end
+
   describe "#first_edition_id" do
     it "returns the ID of the first edition" do
       document = create(:document)

@@ -12,21 +12,24 @@ class Document::PaginatedTimeline
       raw_entries = query.raw_entries
       remarks = document.remarks_by_ids(query.remark_ids)
       versions = document.decorated_edition_versions_by_ids(query.version_ids)
+      change_notes = document.decorated_change_notes_by_edition_ids(query.change_note_edition_ids)
 
-      versions_and_remarks = raw_entries.map do |entry|
+      timeline_entries = raw_entries.map do |entry|
         case entry.model
         when "Version"
           versions.fetch(entry.id)
         when "EditorialRemark"
           remarks.fetch(entry.id)
+        when Document::PaginatedTimelineQuery::CHANGE_NOTE_MODEL_NAME
+          change_notes.fetch(entry.id)
         end
       end
 
       if only.present?
-        versions_and_remarks
+        timeline_entries
       else
         # Sort stably so that entries with identical timestamps keep the order returned by the query
-        [*versions_and_remarks, *host_content_update_events].each_with_index.sort_by { |entry, index| [entry.created_at, -index] }.reverse!.map(&:first)
+        [*timeline_entries, *host_content_update_events].each_with_index.sort_by { |entry, index| [entry.created_at, -index] }.reverse!.map(&:first)
       end
     end
   end

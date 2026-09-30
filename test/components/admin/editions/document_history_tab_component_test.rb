@@ -38,6 +38,7 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
       assert_selector "option[value='']", text: "Everything"
       assert_selector "option[value=history]", text: "Document history"
       assert_selector "option[value=internal_notes]", text: "Internal notes"
+      assert_selector "option[value=change_notes]", text: "Public change notes"
     end
   end
 
@@ -67,17 +68,32 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
   end
 
   test "it renders the timeline entries in the correct sections for current and previous editions" do
-    render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @second_edition, document_history: @timeline))
+    Document::PaginatedTimelineQuery.stub_const(:PER_PAGE, 30) do
+      render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @second_edition, document_history: @timeline))
+    end
 
     assert_selector ".app-view-editions__current-edition-entries h3", text: "On this edition"
     assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 4
     assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-editorial-remark__list-item", count: 1
+    assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-change-note__list-item", count: 1
     assert_selector ".app-view-editions__current-edition-entries div.app-view-editions-host-content-update-event-entry__list-item", count: 1
 
     assert_selector ".app-view-editions__previous-edition-entries h3", text: "On previous editions"
-    assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 2
-    assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-editorial-remark__list-item", count: 0
+    assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-audit-trail-entry__list-item", count: 6
+    assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-editorial-remark__list-item", count: 2
+    assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-change-note__list-item", count: 1
     assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-host-content-update-event-entry__list-item", count: 2
+  end
+
+  test "it renders only change notes when filtered to change notes" do
+    timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "change_notes")
+    render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @second_edition, document_history: timeline))
+
+    assert_selector "div.app-view-editions-change-note__list-item", count: 2
+    assert_no_selector "div.app-view-editions-audit-trail-entry__list-item"
+    assert_no_selector "div.app-view-editions-editorial-remark__list-item"
+    assert_no_selector "div.app-view-editions-host-content-update-event-entry__list-item"
+    assert_selector "#document_history_filter option[value=change_notes][selected]"
   end
 
   def seed_document_event_history
@@ -112,6 +128,7 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
 
     acting_as(@user2) do
       @first_edition.publish!
+      @first_edition.update_column(:major_change_published_at, Time.zone.now)
     end
 
     some_time_passes
@@ -128,6 +145,7 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
       create(:editorial_remark, edition: @second_edition, author: @user, body: "Drafted to include new changes.")
       @second_edition.submit!
       @second_edition.publish!
+      @second_edition.update_column(:major_change_published_at, Time.zone.now)
     end
 
     some_time_passes
