@@ -242,7 +242,8 @@
     "publishing_api": {
       "details": {
         "body": "govspeak",
-        "social_media_links": "social_media_links"
+        "social_media_links": "social_media_links",
+        "nation_applicability": "national_applicability"
       },
       "links": [
         "organisations"
