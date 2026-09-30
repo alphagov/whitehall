@@ -44,15 +44,25 @@ module Admin::TabbedNavHelper
     on_dynamic_tab = current_tab.present? || current_path == base_url
     on_default_tab = current_tab == edition.default_tab || (current_tab.nil? && current_path == base_url)
 
-    [{ label: "Document", href: base_url, current: on_default_tab }].tap do |nav_items|
-      edition.type_instance.dynamic_tabs.each do |tab|
-        nav_items << {
-          label: tab["label"],
-          href: "#{base_url}?current_tab=#{tab['id']}",
-          current: on_dynamic_tab && current_tab == tab["id"],
-        }
-      end
+    document_tab = { label: "Document", href: base_url, current: on_default_tab }
+
+    if edition.allows_child_documents?
+      child_pages_tab = {
+        label: "Child pages",
+        href: child_pages_admin_standard_edition_path(edition),
+        current: current_path == child_pages_admin_standard_edition_path(edition),
+      }
     end
+
+    dynamic_tabs = edition.type_instance.dynamic_tabs.map do |tab|
+      {
+        label: tab["label"],
+        href: "#{base_url}?current_tab=#{tab['id']}",
+        current: on_dynamic_tab && current_tab == tab["id"],
+      }
+    end
+
+    [document_tab, child_pages_tab, *dynamic_tabs].compact
   end
 
   def features_nav_items(edition, current_path)

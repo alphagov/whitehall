@@ -564,4 +564,25 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
 
     assert_equal expected_output, secondary_navigation_tabs_items(edition, base_url)
   end
+
+  test "#secondary_navigation_tabs_items for standard editions with child document configured" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "child_type" }] } }))
+
+    edition = build_stubbed(:standard_edition)
+
+    expected_output = [
+      {
+        label: "Document",
+        href: tab_url_for_edition(edition),
+        current: true,
+      },
+      {
+        label: "Child pages",
+        href: child_pages_admin_standard_edition_path(edition),
+        current: false,
+      },
+    ]
+
+    assert_equal expected_output, secondary_navigation_tabs_items(edition, tab_url_for_edition(edition))
+  end
 end
