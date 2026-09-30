@@ -179,7 +179,7 @@
         "type": {
           "type": "string",
           "description": "Data type for the content block. Should map to an active record type, with the exception of the object type.",
-          "enum": ["string", "integer", "date", "array"]
+          "enum": ["string", "integer", "date", "array", "object"]
         },
         "attributes": {
           "description": "For array types, defines the schema of each array item using the same minimal attribute format.",
