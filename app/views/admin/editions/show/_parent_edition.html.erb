@@ -1,0 +1,44 @@
+<% if parent_edition.present? && can?(:see, parent_edition) %>
+  <section class="app-view-summary__section app-view-summary__parent-edition">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: parent_edition.configurable_document_type.humanize,
+      heading_level: 2,
+      font_size: "l",
+      margin_bottom: 3,
+    } %>
+
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Title",
+        },
+        {
+          text: "Updated by",
+        },
+        {
+          text: "Status",
+        },
+        {
+          text: "Actions",
+        },
+      ],
+      rows: [
+        [
+          { text: parent_edition.title },
+          {
+            text: tag.p("#{time_ago_in_words parent_edition.updated_at} ago", class: "govuk-!-margin-0") +
+              "by " +
+              linked_author(parent_edition.last_author, class: "govuk-link govuk-link--no-visited-state"),
+          },
+          { text: render(Admin::Editions::TagsComponent.new(parent_edition)) },
+          {
+            text: safe_join([
+              link_to(safe_join(["View", tag.span(" #{parent_edition.title}", class: "govuk-visually-hidden")]), admin_edition_path(parent_edition), class: "govuk-link govuk-link--no-visited-state app-view-summary__table-link"),
+              (link_to(safe_join(["Edit", tag.span(" #{parent_edition.title}", class: "govuk-visually-hidden")]), edit_admin_edition_path(parent_edition), class: "govuk-link govuk-link--no-visited-state") if parent_edition.editable? && can?(:update, parent_edition)),
+            ].compact),
+          },
+        ],
+      ],
+    } %>
+  </section>
+<% end %>

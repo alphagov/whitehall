@@ -24,3 +24,9 @@ Feature: Standard Editions
     And a published standard edition called "Parent Edition" exists
     When I edit a child document of that edition
     Then I should see a banner that displays the current parent edition
+
+  Scenario: Seeing the parent edition on a child document's summary page
+    Given I am a writer
+    And a published standard edition called "Parent Edition" exists
+    When I view the summary page of a child document of that edition
+    Then I should see the parent edition on the summary page

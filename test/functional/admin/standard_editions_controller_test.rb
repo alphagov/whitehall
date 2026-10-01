@@ -68,6 +68,53 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select ".app-c-child-of-banner__title", text: /Parent edition/
   end
 
+  view_test "GET show for a child edition shows its parent with links to view and edit it" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type").merge(build_configurable_document_type("parent_landing_page", { "title" => "Parent" })),
+    )
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "parent_landing_page", title: "Parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :show, params: { id: child_edition.id }
+
+    assert_select ".app-view-summary__parent-edition" do
+      assert_select "h2", text: "Parent landing page"
+      assert_select "td", text: "Parent edition"
+      assert_select "a[href='#{admin_standard_edition_path(parent_edition)}']", text: /View/
+      assert_select "a[href='#{edit_admin_standard_edition_path(parent_edition)}']", text: /Edit/
+    end
+  end
+
+  view_test "GET show for a child edition does not link to edit a parent that is not editable" do
+    parent_edition = create(:published_standard_edition, title: "Parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :show, params: { id: child_edition.id }
+
+    assert_select ".app-view-summary__parent-edition a", text: /View/
+    assert_select ".app-view-summary__parent-edition a", text: /Edit/, count: 0
+  end
+
+  view_test "GET show for a child edition does not show a parent the user cannot see" do
+    parent_edition = create(:draft_standard_edition, :access_limited_by_organisations, title: "Parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :show, params: { id: child_edition.id }
+
+    assert_select ".app-view-summary__parent-edition", count: 0
+  end
+
+  view_test "GET show for an edition without a parent does not show a parent section" do
+    edition = create(:draft_standard_edition)
+
+    get :show, params: { id: edition.id }
+
+    assert_select ".app-view-summary__parent-edition", count: 0
+  end
+
   view_test "visiting a 'new edition' page when no Organisation set on the current user" do
     login_as create(:user, organisation: nil)
 
