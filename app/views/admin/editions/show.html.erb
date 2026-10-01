@@ -1,5 +1,6 @@
 <% content_for :page_title, "#{@edition.title} - #{@edition.format_name}" %>
 <% content_for :title, @edition.title %>
+<% content_for :child_of_banner, render("admin/editions/child_of_banner", parent_edition: @edition.try(:parent_edition)) %>
 <% if @edition.document.review_reminder&.review_due? %>
   <% content_for :banner do %>
   <%= render "govuk_publishing_components/components/notice", {

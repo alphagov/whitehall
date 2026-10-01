@@ -1,0 +1,27 @@
+name: Child of banner
+description: Shows that an edition is a child of another edition
+body: |
+  The component indicates to the user that the current page has a parent page and provides a link to it.
+shared_accessibility_criteria:
+  - link
+uses_component_wrapper_helper: true
+examples:
+  default:
+    data:
+      title: 'Mini site: Campaign by Organisation'
+  with_a_link:
+    data:
+      title: 'Mini site: Campaign by Organisation'
+      path: '#'
+  with_margin_bottom:
+    description: |
+      The component accepts a number for margin bottom from `0` to `9` (`0px` to `60px`) using the [GOV.UK Frontend spacing scale](https://design-system.service.gov.uk/styles/spacing/#the-responsive-spacing-scale). It defaults to having a margin bottom of `30px`.
+    data:
+      title: 'Mini site: Campaign by Organisation'
+      margin_bottom: 9
+  without_ga4_tracking:
+    description: Disables GA4 tracking on the header. Tracking is enabled by default. This includes the `ga4-link-tracker` module and `data-ga4-link` attributes. See the [ga4-link-tracker docs](https://github.com/alphagov/govuk_publishing_components/blob/main/docs/analytics-ga4/ga4-link-tracker.md) for more information.
+    data:
+      disable_ga4: true
+      title: 'Mini site: Campaign by Organisation'
+      path: '#'

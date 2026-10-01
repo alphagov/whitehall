@@ -27,6 +27,47 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "input[type='hidden'][name='edition[parent_edition_id]'][value='#{parent_edition.id}']"
   end
 
+  view_test "GET features shows the Child Of Banner for a child edition" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "features_enabled" => true } }))
+    parent_edition = create(:draft_standard_edition, title: "Parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :features, params: { id: child_edition.id, locale: :en }
+
+    assert_select ".app-c-child-of-banner__title", text: /Parent edition/
+  end
+
+  view_test "GET new with a `parent_edition_id` shows the Child Of Banner for the parent edition" do
+    parent_edition = create(:standard_edition, title: "Parent edition")
+    get :new, params: { configurable_document_type: "test_type", parent_edition_id: parent_edition.id }
+    assert_select ".app-c-child-of-banner__title", text: /Parent edition/
+  end
+
+  view_test "GET choose_type with a `parent_edition_id` shows the Child Of Banner for the parent edition" do
+    parent_edition = create(:standard_edition, title: "Parent edition")
+    get :choose_type, params: { group: "all", parent_edition_id: parent_edition.id }
+    assert_select ".app-c-child-of-banner__title", text: /Parent edition/
+  end
+
+  view_test "GET choose_type without a `parent_edition_id` does not show the Child Of Banner" do
+    get :choose_type, params: { group: "all" }
+    assert_select ".app-c-child-of-banner", count: 0
+  end
+
+  view_test "GET choose_type with a `parent_edition_id` for an edition the user cannot see does not show the Child Of Banner" do
+    parent_edition = create(:standard_edition, :access_limited_by_organisations, title: "Parent edition")
+    get :choose_type, params: { group: "all", parent_edition_id: parent_edition.id }
+    assert_select ".app-c-child-of-banner", count: 0
+  end
+
+  view_test "POST create with a `parent_edition_id` shows the Child Of Banner when the form is invalid" do
+    parent_edition = create(:standard_edition, title: "Parent edition")
+    post :create, params: { edition: { configurable_document_type: "test_type", title: "", block_content: { "field_attribute" => "" } }, parent_edition_id: parent_edition.id }
+    assert_template "admin/editions/new"
+    assert_select ".app-c-child-of-banner__title", text: /Parent edition/
+  end
+
   view_test "visiting a 'new edition' page when no Organisation set on the current user" do
     login_as create(:user, organisation: nil)
 

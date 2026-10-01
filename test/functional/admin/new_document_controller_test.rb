@@ -18,6 +18,22 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET #index with a `parent_edition_id` shows the Child Of Banner for the parent edition" do
+    ConfigurableDocumentType.unstub(:find)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type").merge(build_configurable_document_type("topical_event")))
+    parent_edition = create(:standard_edition, title: "Parent edition")
+
+    get :index, params: { parent_edition_id: parent_edition.id }
+
+    assert_select ".app-c-child-of-banner__title", text: /Parent edition/
+  end
+
+  view_test "GET #index with a `parent_edition_id` that does not match a standard edition does not show the Child Of Banner" do
+    get :index, params: { parent_edition_id: create(:publication).id }
+
+    assert_select ".app-c-child-of-banner", count: 0
+  end
+
   view_test "GET #index with a `parent_edition_id` populates a hidden input in the form" do
     get :index, params: { parent_edition_id: 123 }
 

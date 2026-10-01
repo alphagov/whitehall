@@ -923,6 +923,25 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_redirected_to admin_edition_images_path(edition)
   end
 
+  view_test "GET :index shows the Child Of Banner for a child edition" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {},
+        },
+      },
+    }))
+    parent_edition = create(:draft_standard_edition, title: "Parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :index, params: { edition_id: child_edition.id }
+
+    assert_select ".app-c-child-of-banner__title", text: /Parent edition/
+  end
+
   def login_authorised_user
     user = create(:gds_editor)
     login_as user

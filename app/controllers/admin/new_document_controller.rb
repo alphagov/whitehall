@@ -2,6 +2,7 @@ class Admin::NewDocumentController < Admin::BaseController
   def index
     @document_types = standard_document_types
     @requires_approval_document_types = requires_approval_document_types
+    @parent_edition = parent_edition
   end
 
   def new_document_options_redirect
@@ -125,6 +126,10 @@ private
     permitted_document_types.select { |_type_key, type_hash| type_hash["requires_approval"] }
                             .sort_by { |_type_key, type_hash| type_hash["label"] }
                             .to_h
+  end
+
+  def parent_edition
+    StandardEdition.find_by(id: params[:parent_edition_id]) if params[:parent_edition_id].present?
   end
 
   def include_parent_edition_id_in_redirect(redirect)

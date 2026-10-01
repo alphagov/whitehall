@@ -67,6 +67,8 @@
         </div>
       <% end %>
 
+      <%= yield(:child_of_banner) %>
+
       <% if yield(:title).present? %>
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-<%= column_width %>">

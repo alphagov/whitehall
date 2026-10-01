@@ -192,4 +192,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     assert_response :forbidden
   end
+
+  view_test "GET :index shows the Child Of Banner for a child edition" do
+    parent_edition = create(:draft_standard_edition, title: "Parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :index, params: { edition_id: child_edition }
+
+    assert_select ".app-c-child-of-banner__title", text: /Parent edition/
+  end
 end
