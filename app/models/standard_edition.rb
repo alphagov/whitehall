@@ -12,6 +12,7 @@ class StandardEdition < Edition
   include HasBlockContent
   include StandardEdition::LeadImage
   include StandardEdition::Taxon
+  include StandardEdition::PublishingPrerequisites
   include StandardEdition::ChildDocument
   include StandardEdition::ParentDocument
 
