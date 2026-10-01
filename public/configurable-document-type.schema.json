@@ -29,6 +29,7 @@
         "enum": [
           "embedded_contacts_exist",
           "length",
+          "nation_applicability",
           "no_footnotes_allowed",
           "presence",
           "safe_html",
