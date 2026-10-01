@@ -27,7 +27,6 @@ class PatchAssetsTest < ActiveSupport::TestCase
   context "CSV file exists" do
     before do
       AssetManagerRestoreAssetJob.stubs(:perform_async)
-      AttachmentData.stubs(:find_by).returns(stub(attachments: []))
     end
 
     let(:csv_file) do
@@ -49,28 +48,9 @@ class PatchAssetsTest < ActiveSupport::TestCase
       CSV
     end
 
-    let(:unpublished_edition) do
-      stub(
-        post_published_state?: true,
-        unpublished?: true,
-        unpublishing: stub(alternative_url: "https://www.gov.uk/example"),
-        public_url: "https://www.gov.uk/unpublished-edition",
-      )
-    end
-    let(:unpublished_edition_without_alternative_url) do
-      stub(
-        post_published_state?: true,
-        unpublished?: true,
-        unpublishing: stub(alternative_url: nil),
-        public_url: "https://www.gov.uk/unpublished-edition",
-      )
-    end
-    let(:published_edition) { stub(post_published_state?: true, unpublished?: false) }
-    let(:draft_edition) { stub(post_published_state?: false) }
-
-    def stub_attachables(ad_id, *attachables)
-      attachment_data = stub(attachments: attachables.map { |attachable| stub(attachable:) })
-      AttachmentData.stubs(:find_by).with(id: ad_id).returns(attachment_data)
+    def attach_asset_to(*editions, ad_id: 276_771)
+      attachment_data = create(:attachment_data, id: ad_id, attachable: editions.first)
+      editions.each { |edition| create(:file_attachment, attachable: edition, attachment_data:) }
     end
 
     it "summarizes the CSV file" do
@@ -79,6 +59,9 @@ class PatchAssetsTest < ActiveSupport::TestCase
     end
 
     it "enqueues a restore job for every asset" do
+      attach_asset_to(create(:published_publication), ad_id: 276_771)
+      attach_asset_to(create(:published_publication), ad_id: 276_772)
+
       AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
       AssetManagerRestoreAssetJob.expects(:perform_async).with("6a7b9cbe40f0b645ba3c571d", nil)
 
@@ -87,7 +70,7 @@ class PatchAssetsTest < ActiveSupport::TestCase
     end
 
     it "ignores the redirect_url in the CSV, which may be out of sync with Whitehall" do
-      stub_attachables(276_771, published_edition)
+      attach_asset_to(create(:published_publication))
 
       AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
 
@@ -95,35 +78,80 @@ class PatchAssetsTest < ActiveSupport::TestCase
       _out, _err = capture_io { task.invoke(csv_file.path) }
     end
 
-    it "sets the redirect_url to the Unpublishing's alternative_url if the latest live edition is unpublished" do
-      stub_attachables(276_771, unpublished_edition)
+    it "sets the redirect_url to the Unpublishing's alternative_url if the document is unpublished" do
+      attach_asset_to(create(:unpublished_publication_consolidated))
 
-      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "https://www.gov.uk/example")
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "#{Whitehall.public_root}/government/another/page")
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
     end
 
-    it "sets the redirect_url to the Edition's public_url if the latest live edition is unpublished with no alternative_url" do
-      stub_attachables(276_771, unpublished_edition_without_alternative_url)
+    it "sets the redirect_url to the Unpublishing's document_url if the document is unpublished with no alternative_url" do
+      unpublished_edition = create(:unpublished_publication)
+      attach_asset_to(unpublished_edition)
 
-      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "https://www.gov.uk/unpublished-edition")
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", unpublished_edition.unpublishing.document_url)
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
     end
 
     it "ignores drafts when finding the latest live edition" do
-      stub_attachables(276_771, unpublished_edition, draft_edition)
+      unpublished_edition = create(:unpublished_publication_consolidated)
+      attach_asset_to(unpublished_edition, create(:draft_publication, document: unpublished_edition.document))
 
-      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "https://www.gov.uk/example")
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "#{Whitehall.public_root}/government/another/page")
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
     end
 
-    it "clears the redirect_url if the latest live edition is not unpublished" do
-      stub_attachables(276_771, unpublished_edition, published_edition)
+    it "sets the redirect_url from the document's unpublished edition, even if that edition does not reference the asset" do
+      superseded_edition = create(:superseded_publication)
+      create(:unpublished_publication_consolidated, document: superseded_edition.document)
+      attach_asset_to(superseded_edition, create(:rejected_publication, document: superseded_edition.document))
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "#{Whitehall.public_root}/government/another/page")
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
+    it "sets the redirect_url from an Unpublishing on a rejected edition, as documents unpublished before the `unpublished` state existed may have one" do
+      superseded_edition = create(:superseded_publication)
+      create(:rejected_publication, document: superseded_edition.document, unpublishing: build(:consolidated_unpublishing))
+      attach_asset_to(superseded_edition)
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "#{Whitehall.public_root}/government/another/page")
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
+    it "ignores withdrawals when finding the document's latest Unpublishing" do
+      superseded_edition = create(:superseded_publication, unpublishing: build(:withdrawn_unpublishing))
+      attach_asset_to(superseded_edition)
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
+    it "clears the redirect_url if the document has since been republished, even if an old Unpublishing remains" do
+      superseded_edition = create(:superseded_publication, unpublishing: build(:consolidated_unpublishing))
+      create(:published_publication, document: superseded_edition.document)
+      attach_asset_to(superseded_edition)
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
+    it "clears the redirect_url if the document is neither live nor unpublished" do
+      attach_asset_to(create(:superseded_publication))
 
       AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
 
@@ -132,7 +160,7 @@ class PatchAssetsTest < ActiveSupport::TestCase
     end
 
     it "clears the redirect_url if there is no live edition" do
-      stub_attachables(276_771, draft_edition)
+      attach_asset_to(create(:draft_publication))
 
       AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
 
@@ -141,8 +169,6 @@ class PatchAssetsTest < ActiveSupport::TestCase
     end
 
     it "does not enqueue a restore job, and outputs an error message, if the AttachmentData cannot be found" do
-      AttachmentData.stubs(:find_by).with(id: 276_771).returns(nil)
-
       AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", anything).never
 
       _out, err = capture_io { task.invoke(csv_file.path) }

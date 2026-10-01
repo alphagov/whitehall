@@ -139,12 +139,20 @@ namespace :data_hygiene do
           next
         end
 
-        # Ignore drafts (e.g. a new draft of an unpublished document) - we only care about what's publicly visible
-        latest_live_edition = attachment_data.attachments.map(&:attachable).select { |attachable| attachable.try(:post_published_state?) }.last
-
-        # Always send the redirect_url, as Asset Manager may be out of sync with Whitehall. `nil` clears any stale redirect.
-        redirect_url = if latest_live_edition&.unpublished?
-                         latest_live_edition.unpublishing&.alternative_url.presence || latest_live_edition.public_url
+        # Always send the redirect_url, as Asset Manager may be out of sync with Whitehall.
+        # As long as the document isn't live, we attempt to get its latest unpublishing and derive the redirect_url from that.
+        # We look up the Unpublishing directly rather than the edition's state, as edition states can't be trusted here:
+        # documents unpublished before the `unpublished` state existed can have their Unpublishing on a `rejected` edition.
+        # This is a known issue and will be resolved separately in https://gov-uk.atlassian.net/browse/WHIT-4086.
+        # If the document is published/withdrawn, we'll send `redirect_url: nil`, which clears any stale redirect.
+        latest_non_draft_edition = attachment_data.attachments.map(&:attachable).select { |attachable| attachable.try(:post_published_state?) }.last
+        redirect_url = if latest_non_draft_edition && !latest_non_draft_edition.document.live?
+                         unpublishing = Unpublishing
+                           .where(edition_id: Edition.unscoped.where(document_id: latest_non_draft_edition.document_id).select(:id))
+                           .where.not(unpublishing_reason_id: UnpublishingReason::WITHDRAWN_ID)
+                           .order(:edition_id)
+                           .last
+                         unpublishing&.alternative_url.presence || unpublishing&.document_url
                        end
 
         AssetManagerRestoreAssetJob.perform_async(row.asset_manager_id, redirect_url)
