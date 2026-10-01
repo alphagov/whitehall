@@ -30,6 +30,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
   view_test "GET #index with a `parent_edition_id` shows the Child Of Banner for the parent edition" do
     ConfigurableDocumentType.unstub(:find)
     required_document_types = build_configurable_document_type("test_type")
+      .merge(build_configurable_document_type("mini_site_child"))
       .merge(build_configurable_document_type("mini_site_landing"))
       .merge(build_configurable_document_type("topical_event"))
       .merge(build_configurable_document_type("case_study"))
@@ -40,6 +41,19 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     get :index, params: { parent_edition_id: parent_edition.id }
 
     assert_select ".app-c-child-of-banner__title", text: /Parent edition/
+  end
+
+  view_test "GET #index with a `parent_edition_id` only shows the child document types the parent allows" do
+    parent_edition = create_parent_edition(allowed_child_types: %w[mini_site_child])
+    @test_strategy ||= Flipflop::FeatureSet.current.test!
+    @test_strategy.switch!(:configurable_document_types, true)
+
+    get :index, params: { parent_edition_id: parent_edition.id }
+
+    assert_select ".govuk-radios__item input[type=radio][name=new_document_options]", count: 1
+    assert_select "input[type=radio][name=new_document_options][value=mini_site_child]"
+
+    @test_strategy.switch!(:configurable_document_types, false)
   end
 
   view_test "GET #index with a `parent_edition_id` that does not match a standard edition does not show the Child Of Banner" do
@@ -154,5 +168,19 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_new_document_path
     assert_equal flash[:alert], "Please select a new document option"
+  end
+
+private
+
+  def create_parent_edition(allowed_child_types:)
+    ConfigurableDocumentType.unstub(:find)
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("parent_type", { "settings" => { "allowed_child_document_types" => allowed_child_types.map { |type| { "document_type" => type } } } })
+        .merge(build_configurable_document_type("mini_site_child"))
+        .merge(build_configurable_document_type("mini_site_landing"))
+        .merge(build_configurable_document_type("topical_event"))
+        .merge(build_configurable_document_type("case_study")),
+    )
+    create(:standard_edition, configurable_document_type: "parent_type")
   end
 end

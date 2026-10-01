@@ -20,6 +20,7 @@ class DocumentTypesConcernTest < ActiveSupport::TestCase
 
     StandardEdition.stubs(:enforcer).with(@context.current_user).returns(stub(can?: true))
     ConfigurableDocumentType.stubs(:find).with("basic_page").returns({})
+    ConfigurableDocumentType.stubs(:find).with("mini_site_child").returns({})
     Flipflop.stubs(:enabled?).with(:configurable_document_types).returns(true)
   end
 
@@ -28,6 +29,12 @@ class DocumentTypesConcernTest < ActiveSupport::TestCase
     "hint_text" => "A standard ed",
     "label" => "Standard Edition",
     "configurable_document_type" => "basic_page",
+  }
+
+  basic_configurable_document_config = {
+    "schema" => {},
+    "settings" => { "images" => { "enabled" => false } },
+    "forms" => { "documents" => { "fields" => {} } },
   }
 
   test "#valid_document_type? returns true for document types createable by the user" do
@@ -81,6 +88,83 @@ class DocumentTypesConcernTest < ActiveSupport::TestCase
     assert @context.valid_document_type?("basic_page", basic_document_type) # doesn't specify a required feature flag
   end
 
+  test "#valid_document_type? returns true when the document type does not require a parent and no parent is specified" do
+    document_type = basic_document_type.merge("requires_parent" => false)
+    @context.params = {}
+    assert @context.valid_document_type?("basic_page", document_type)
+  end
+
+  test "#valid_document_type? returns false when the document type does require a parent but no parent is specified" do
+    child_document_type = basic_document_type.merge("requires_parent" => true)
+    @context.params = {}
+    assert_not @context.valid_document_type?("basic_page", child_document_type)
+  end
+
+  test "#valid_document_type? returns true when the document type does require a parent and a parent is specified" do
+    parent_document_config = { "settings" => { "allowed_child_document_types" => [{ "document_type" => "mini_site_child" }] } }
+    ConfigurableDocumentType.stubs(:find).with("test_type")
+      .returns(ConfigurableDocumentType.new(basic_configurable_document_config.deep_merge(parent_document_config)))
+
+    edition = create(:standard_edition, configurable_document_type: "test_type")
+    @context.params = { parent_edition_id: edition.id }
+
+    child_document_type = basic_document_type.merge("requires_parent" => true)
+
+    assert @context.valid_document_type?("mini_site_child", child_document_type)
+  end
+
+  test "#valid_document_type? returns false when the document type does not require a parent and a parent is specified" do
+    parent_document_config = { "settings" => { "allowed_child_document_types" => [] } }
+    ConfigurableDocumentType.stubs(:find).with("test_type")
+      .returns(ConfigurableDocumentType.new(basic_configurable_document_config.deep_merge(parent_document_config)))
+
+    edition = create(:standard_edition, configurable_document_type: "test_type")
+    @context.params = { parent_edition_id: edition.id }
+
+    child_document_type = basic_document_type.merge("requires_parent" => false)
+
+    assert_not @context.valid_document_type?("mini_site_child", child_document_type)
+  end
+
+  test "#valid_document_type? returns false when called with a parent edition ID which is not a standard edition" do
+    edition = create(:publication)
+    @context.params = { parent_edition_id: edition.id }
+
+    child_document_type = basic_document_type.merge("requires_parent" => false)
+
+    assert_not @context.valid_document_type?("mini_site_child", child_document_type)
+  end
+
+  test "#standard_document_types returns a hash of document type hashes" do
+    ConfigurableDocumentType.stubs(:find).returns(ConfigurableDocumentType.new({}))
+    assert @context.standard_document_types.is_a?(Hash)
+
+    @context.standard_document_types.each do |document_type_key, document_type|
+      assert document_type_key.is_a?(String)
+      assert document_type.is_a?(Hash)
+      assert document_type.key?("klass")
+      assert document_type.key?("hint_text")
+      assert document_type.key?("label")
+    end
+  end
+
+  test "#requires_approval_document_types returns a hash of document type hashes" do
+    ConfigurableDocumentType.stubs(:find).returns(ConfigurableDocumentType.new({}))
+    assert @context.requires_approval_document_types.is_a?(Hash)
+
+    @context.requires_approval_document_types.each do |document_type_key, document_type|
+      assert document_type_key.is_a?(String)
+      assert document_type.is_a?(Hash)
+      assert document_type.key?("klass")
+      assert document_type.key?("hint_text")
+      assert document_type.key?("label")
+    end
+  end
+
+  test "#permitted_document_types returns the union of the standard document types and the document types which require approval" do
+    ConfigurableDocumentType.stubs(:find).returns(ConfigurableDocumentType.new({}))
+    assert_equal @context.permitted_document_types, @context.standard_document_types.merge(@context.requires_approval_document_types)
+  end
 
   test "#document_type_redirect returns nil when the document type has no redirect" do
     assert_nil @context.document_type_redirect(basic_document_type)

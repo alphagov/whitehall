@@ -33,6 +33,15 @@ module DocumentTypesConcern
         "hint_text" => "Use this to provide official confirmation of the death of a member of the armed forces while on deployment. Ministry of Defence only.",
         "label" => "fatality_notice".humanize,
       },
+      "mini_site_child" => {
+        "klass" => StandardEdition,
+        "hint_text" => ConfigurableDocumentType.find("mini_site_child").description,
+        "label" => ConfigurableDocumentType.find("mini_site_child").label,
+        "configurable_document_type" => "mini_site_child",
+        "redirect" => new_admin_standard_edition_path(configurable_document_type: "mini_site_child"),
+        "requires_feature_flag" => :configurable_document_types,
+        "requires_parent" => true,
+      },
       "news_article" => {
         "klass" => StandardEdition,
         "hint_text" => "Use this for news story, press release, government response, and world news story.",
@@ -108,7 +117,8 @@ module DocumentTypesConcern
   def valid_document_type?(document_type_key, document_type)
     document_type_createable_by_user?(document_type) &&
       document_type_available_for_user?(document_type) &&
-      document_type_feature_flag_enabled?(document_type)
+      document_type_feature_flag_enabled?(document_type) &&
+      document_type_respects_parent_child_relationships?(document_type, document_type_key)
   end
 
 private
@@ -125,5 +135,22 @@ private
 
   def document_type_createable_by_user?(document_type)
     document_type["klass"].enforcer(current_user).can?(:create)
+  end
+
+  def document_type_respects_parent_child_relationships?(document_type, document_type_key)
+    parent_edition = Edition.find_by(id: params[:parent_edition_id])
+    return !document_type["requires_parent"] if parent_edition.nil?
+
+    document_type_is_child_of_parent?(document_type_key, parent_edition)
+  end
+
+  def document_type_is_child_of_parent?(document_type_key, parent)
+    return false unless parent.is_a?(StandardEdition)
+
+    parent_config = ConfigurableDocumentType.find(parent.configurable_document_type)
+    allowed_child_types = (parent_config.settings["allowed_child_document_types"] || [])
+      .map { |type_settings| type_settings["document_type"] }
+
+    allowed_child_types.include?(document_type_key)
   end
 end
