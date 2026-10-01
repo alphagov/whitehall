@@ -135,6 +135,31 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page_without_features.allows_features?
   end
 
+  test "it allows child documents if the configurable document type settings permit them" do
+    test_type_with_child_documents =
+      build_configurable_document_type(
+        "test_type_with_child_documents", {
+          "settings" => {
+            "allowed_child_document_types" => [{ "document_type" => "some_child_type" }],
+          },
+        }
+      )
+    test_type_without_child_documents =
+      build_configurable_document_type(
+        "test_type_without_child_documents", {
+          "settings" => {
+            "allowed_child_document_types" => [],
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_child_documents.merge(test_type_without_child_documents))
+    page_with_child_documents = StandardEdition.new(configurable_document_type: "test_type_with_child_documents")
+    page_without_child_documents = StandardEdition.new(configurable_document_type: "test_type_without_child_documents")
+    assert page_with_child_documents.allows_child_documents?
+    assert_not page_without_child_documents.allows_child_documents?
+  end
+
   test "it allows images if the configurable document type settings permit them" do
     test_type_with_images =
       build_configurable_document_type(
