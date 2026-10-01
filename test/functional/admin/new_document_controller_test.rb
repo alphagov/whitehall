@@ -101,7 +101,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_select "input[type=radio][name=new_document_options][value=mini_site]"
+    assert_select "input[type=radio][name=new_document_options][value=mini_site_landing]"
 
     @test_strategy.switch!(:configurable_document_types, false)
   end

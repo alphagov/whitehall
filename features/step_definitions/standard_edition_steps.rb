@@ -77,9 +77,7 @@ When(/^I draft a new "([^"]*)" configurable document titled "([^"]*)"$/) do |con
     visit admin_root_path
     find("li.app-c-sub-navigation__list-item a", text: "New document").click
   end
-  page.choose("Standard document")
-  click_button("Next")
-  page.choose(configurable_document_type)
+  page.find("label", text: configurable_document_type, match: :first).click
   click_button("Next")
   step "I fill in and submit the form with title '#{title}'"
 end
