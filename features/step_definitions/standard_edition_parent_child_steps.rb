@@ -34,3 +34,17 @@ end
 And(/^I should see an error message describing the corrupt parent edition ID$/) do
   expect(page).to have_content("Parent edition must correspond to an existing StandardEdition")
 end
+
+When(/^I view the summary page of a child document of that edition$/) do
+  child_edition = create(:draft_standard_edition)
+  ParentChildRelationship.create!(parent_edition: @edition, child_document: child_edition.document)
+  visit admin_edition_path(child_edition)
+end
+
+Then(/^I should see the parent edition on the summary page$/) do
+  within ".app-view-summary__parent-edition" do
+    expect(page).to have_css("h2", text: "Test type")
+    expect(page).to have_css("td", text: @edition.title)
+    expect(page).to have_css(".govuk-tag", text: /published/i)
+  end
+end
