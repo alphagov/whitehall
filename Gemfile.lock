@@ -207,7 +207,7 @@ GEM
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
-    excon (1.7.1)
+    excon (1.7.2)
       logger
     execjs (2.10.1)
     expgen (0.1.1)
@@ -233,7 +233,7 @@ GEM
       path_expander (~> 2.0)
       prism (~> 1.7)
       sexp_processor (~> 4.8)
-    fog-aws (3.33.3)
+    fog-aws (3.33.4)
       base64 (>= 0.2, < 0.4)
       fog-core (~> 2.6)
       fog-json (~> 1.1)
@@ -243,9 +243,9 @@ GEM
       excon (~> 1.0)
       formatador (>= 0.2, < 2.0)
       mime-types
-    fog-json (1.4.0)
+    fog-json (1.5.0)
       fog-core
-      json (~> 2.19)
+      json (>= 2.19, < 4)
     fog-xml (0.1.5)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
@@ -446,7 +446,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.0921)
+    mime-types-data (3.2026.0929)
     mini_magick (5.4.0)
       logger
     mini_mime (1.1.5)
