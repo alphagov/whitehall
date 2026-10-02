@@ -63,7 +63,7 @@ class CallForEvidenceResponse < ApplicationRecord
     to_model.class.name.underscore
   end
 
-  delegate :public_timestamp, :first_published_version?, :slug, :document, :images, :content_id, to: :call_for_evidence
+  delegate :public_timestamp, :first_published_version?, :slug, :document, :images, :content_id, :primary_locale, to: :call_for_evidence
 
   def parent_attachable
     call_for_evidence || Attachable::Null.new

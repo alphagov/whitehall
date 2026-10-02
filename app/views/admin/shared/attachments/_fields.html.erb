@@ -22,6 +22,10 @@
   } %>
 </div>
 
+<% if attachable.respond_to?(:primary_locale) && attachable.primary_locale != "en" %>
+  <%= form.hidden_field :locale, value: attachable.primary_locale %>
+<% end %>
+
 <% if attachable.allows_attachment_references? %>
   <%= render "admin/shared/attachments/reference_fields", attachable:, form:, attachment:, heading_size:, subheading_size:, name:, margin_bottom: %>
 <% end %>

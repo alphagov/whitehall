@@ -79,6 +79,22 @@ class Admin::HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
   end
 
+  view_test "GET :new for a consultation outcome includes hidden locale field with value set to consultation primary locale" do
+    consultation = create(:consultation, primary_locale: "cy")
+    outcome = create(:consultation_outcome, consultation:)
+    get :new, params: { consultation_response_id: outcome }
+
+    assert_select "input[type='hidden'][name='attachment[locale]'][value='cy']"
+  end
+
+  view_test "GET :new for a call for evidence outcome includes hidden locale field with value set to call for evidence primary locale" do
+    call_for_evidence = create(:call_for_evidence, primary_locale: "cy")
+    outcome = create(:call_for_evidence_outcome, call_for_evidence:)
+    get :new, params: { call_for_evidence_response_id: outcome }
+
+    assert_select "input[type='hidden'][name='attachment[locale]'][value='cy']"
+  end
+
   view_test "GET :edit links the preview to the draft host with a cachebust query param when the edition is a draft" do
     attachment = create(:html_attachment, attachable: @edition)
 

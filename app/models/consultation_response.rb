@@ -63,7 +63,7 @@ class ConsultationResponse < ApplicationRecord
     to_model.class.name.underscore
   end
 
-  delegate :public_timestamp, :first_published_version?, :slug, :document, :images, :content_id, to: :consultation
+  delegate :public_timestamp, :first_published_version?, :slug, :document, :images, :content_id, :primary_locale, to: :consultation
 
   def parent_attachable
     consultation || Attachable::Null.new
