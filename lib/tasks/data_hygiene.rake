@@ -145,7 +145,8 @@ namespace :data_hygiene do
         # documents unpublished before the `unpublished` state existed can have their Unpublishing on a `rejected` edition.
         # This is a known issue and will be resolved separately in https://gov-uk.atlassian.net/browse/WHIT-4086.
         # If the document is published/withdrawn, we'll send `redirect_url: nil`, which clears any stale redirect.
-        latest_non_draft_edition = attachment_data.attachments.map(&:attachable).select { |attachable| attachable.try(:post_published_state?) }.last
+        # Ignore drafts. Count editions holding an Unpublishing too, as those may be legacy unpublished editions (see above).
+        latest_non_draft_edition = attachment_data.attachments.map(&:attachable).select { |attachable| attachable.try(:post_published_state?) || attachable.try(:unpublishing).present? }.last
         redirect_url = if latest_non_draft_edition && !latest_non_draft_edition.document.live?
                          unpublishing = Unpublishing
                            .where(edition_id: Edition.unscoped.where(document_id: latest_non_draft_edition.document_id).select(:id))

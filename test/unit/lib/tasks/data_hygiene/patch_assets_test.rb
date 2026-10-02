@@ -129,6 +129,33 @@ class PatchAssetsTest < ActiveSupport::TestCase
       _out, _err = capture_io { task.invoke(csv_file.path) }
     end
 
+    it "sets the redirect_url if the only edition referencing the asset is a rejected edition with an Unpublishing" do
+      attach_asset_to(create(:rejected_publication, unpublishing: build(:consolidated_unpublishing)))
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "#{Whitehall.public_root}/government/another/page")
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
+    it "sets the redirect_url if the only edition referencing the asset is a submitted edition with an Unpublishing" do
+      attach_asset_to(create(:submitted_publication, unpublishing: build(:consolidated_unpublishing)))
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "#{Whitehall.public_root}/government/another/page")
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
+    it "clears the redirect_url if the only edition referencing the asset is a rejected edition without an Unpublishing" do
+      attach_asset_to(create(:rejected_publication))
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
     it "ignores withdrawals when finding the document's latest Unpublishing" do
       superseded_edition = create(:superseded_publication, unpublishing: build(:withdrawn_unpublishing))
       attach_asset_to(superseded_edition)
