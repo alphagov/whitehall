@@ -1698,6 +1698,32 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_select ".govuk-warning-text", text: /You need to add topic tags before you can publish this document./
   end
 
+  view_test "GET :show warns that the parent must be published first when the parent is not published" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+
+    get :show, params: { id: child_edition }
+
+    assert_select ".app-view-summary__main .govuk-warning-text", /You need to publish the parent test type before you can publish this page./
+    assert_select ".app-view-summary__sidebar-notices", /You need to publish the parent test type before you can publish this page./
+  end
+
+  view_test "GET :show does not warn about the parent when the parent is published" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    parent_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+
+    get :show, params: { id: child_edition }
+
+    refute_select ".app-view-summary__main .govuk-warning-text", text: /You need to publish the parent/
+    refute_select ".app-view-summary__sidebar-notices", text: /You need to publish the parent/
+  end
+
   def tabbed_document_type(validations: {})
     config = {
       "forms" => {
