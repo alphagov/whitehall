@@ -139,15 +139,38 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   end
 
   test "should derive title from type" do
-    corporate_information_page = build(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
-    assert_equal "Terms of reference", corporate_information_page.title
+    organisation = build(:organisation, name: "Department for Business and Trade", acronym: "DBT")
+    corporate_information_page = build(:corporate_information_page, organisation:, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
+    assert_equal "Terms of reference - Department for Business and Trade", corporate_information_page.title
   end
 
-  test "should translate title" do
-    welsh_language_scheme_page = build(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme)
-    assert_equal "Welsh language scheme", welsh_language_scheme_page.title
+  test "should not append organisation name when calling `title_without_organisation`" do
+    organisation = build(:organisation, name: "Department for Business and Trade", acronym: "DBT")
+    corporate_information_page = build(:corporate_information_page, organisation:, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
+    assert_equal "Terms of reference", corporate_information_page.title_without_organisation
+  end
+
+  test "should not append organisation name to titles that already include it" do
+    organisation = build(:organisation, name: "Department for Business and Trade", acronym: "DBT")
+    corporate_information_page = build(:corporate_information_page, organisation:, corporate_information_page_type: CorporateInformationPageType::Statistics)
+    assert_equal "Statistics at DBT", corporate_information_page.title
+    assert_equal "Statistics at DBT", corporate_information_page.title_without_organisation
+  end
+
+  test "should translate title, including the organisation's Welsh name" do
+    organisation = build(:organisation, name: "Wales Office", translated_into: { cy: { name: "Swyddfa Cymru" } })
+    welsh_language_scheme_page = build(:corporate_information_page, organisation:, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme)
+    assert_equal "Welsh language scheme - Wales Office", welsh_language_scheme_page.title
     I18n.with_locale(:cy) do
-      assert_equal "Cynllun iaith Gymraeg", welsh_language_scheme_page.title
+      assert_equal "Cynllun iaith Gymraeg - Swyddfa Cymru", welsh_language_scheme_page.title
+    end
+  end
+
+  test "should fall back to the organisation's English name in a translated title if it has no translation" do
+    organisation = build(:organisation, name: "Department for Business and Trade")
+    welsh_language_scheme_page = build(:corporate_information_page, organisation:, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme)
+    I18n.with_locale(:cy) do
+      assert_equal "Cynllun iaith Gymraeg - Department for Business and Trade", welsh_language_scheme_page.title
     end
   end
 

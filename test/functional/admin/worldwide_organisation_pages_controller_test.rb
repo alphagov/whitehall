@@ -16,7 +16,7 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
     assert_template :index
     assert_select "h1", "British Antarctic Territory"
     assert_select "h2", "Pages within this organisation"
-    assert_select "h2", "Publication scheme"
+    assert_select "h2", "Publication scheme - British Antarctic Territory"
     assert_select "h2", "Working for the British Antarctic Territory"
   end
 
@@ -97,7 +97,7 @@ class Admin::WorldwideOrganisationPagesControllerTest < ActionController::TestCa
     assert_response :success
     assert_template :confirm_destroy
 
-    assert_select "p.govuk-body", text: "Are you sure you want to delete \"Publication scheme\"?"
+    assert_select "p.govuk-body", text: "Are you sure you want to delete \"Publication scheme - #{worldwide_organisation_page.edition.name}\"?"
   end
 
   test "DELETE :destroy removes the worldwide organisation page" do
