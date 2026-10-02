@@ -48,9 +48,9 @@ class PatchAssetsTest < ActiveSupport::TestCase
       CSV
     end
 
-    def attach_asset_to(*editions, ad_id: 276_771)
-      attachment_data = create(:attachment_data, id: ad_id, attachable: editions.first)
-      editions.each { |edition| create(:file_attachment, attachable: edition, attachment_data:) }
+    def attach_asset_to(*attachables, ad_id: 276_771)
+      attachment_data = create(:attachment_data, id: ad_id, attachable: attachables.first)
+      attachables.each { |attachable| create(:file_attachment, attachable:, attachment_data:) }
     end
 
     it "summarizes the CSV file" do
@@ -151,6 +151,33 @@ class PatchAssetsTest < ActiveSupport::TestCase
       attach_asset_to(create(:rejected_publication))
 
       AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", nil)
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
+    it "sets the redirect_url for an asset attached to a consultation outcome, using the consultation's document" do
+      attach_asset_to(create(:consultation_outcome, consultation: create(:unpublished_consultation, unpublishing: build(:consolidated_unpublishing))))
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "#{Whitehall.public_root}/government/another/page")
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
+    it "sets the redirect_url for an asset attached to a call for evidence outcome, using the call for evidence's document" do
+      attach_asset_to(create(:call_for_evidence_outcome, call_for_evidence: create(:unpublished_call_for_evidence, unpublishing: build(:consolidated_unpublishing))))
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "#{Whitehall.public_root}/government/another/page")
+
+      # Swallow output to avoid messy unit test run
+      _out, _err = capture_io { task.invoke(csv_file.path) }
+    end
+
+    it "sets the redirect_url for an asset attached to a worldwide organisation page, using the worldwide organisation's document" do
+      attach_asset_to(create(:worldwide_organisation_page, edition: create(:unpublished_worldwide_organisation_consolidated)))
+
+      AssetManagerRestoreAssetJob.expects(:perform_async).with("5a7b9cbe40f0b645ba3c571d", "#{Whitehall.public_root}/government/another/page")
 
       # Swallow output to avoid messy unit test run
       _out, _err = capture_io { task.invoke(csv_file.path) }
