@@ -20,6 +20,7 @@ Given(/^a published standard edition called (.+) exists$/) do |title|
       primary_locale: "en",
       block_content: {
         "body" => "...",
+        "nation_applicability" => { "selected" => %w[all] },
       },
     },
   )

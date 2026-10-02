@@ -9,6 +9,7 @@ class ConfigurableDocumentType
     "default_select" => ConfigurableContentBlocks::DefaultSelect,
     "default_object" => ConfigurableContentBlocks::DefaultObject,
     "default_array" => ConfigurableContentBlocks::DefaultArray,
+    "default_checkboxes" => ConfigurableContentBlocks::DefaultCheckboxes,
     "ordered_select_with_search_tagging" => ConfigurableContentBlocks::OrderedSelectWithSearchTagging,
     "select_with_search_tagging" => ConfigurableContentBlocks::SelectWithSearchTagging,
   }.freeze
