@@ -79,6 +79,7 @@ group :test do
   gem "i18n-coverage"
   gem "maxitest"
   gem "minitest"
+  gem "minitest-mock"
   gem "minitest-fail-fast"
   gem "minitest-stub-const"
   gem "mocha"
