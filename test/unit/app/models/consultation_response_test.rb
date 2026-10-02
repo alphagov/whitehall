@@ -159,4 +159,11 @@ class ConsultationResponseTest < ActiveSupport::TestCase
     public_feedback = build(:consultation_public_feedback)
     assert_equal public_feedback.path_name, "consultation_public_feedback"
   end
+
+  test "returns the primary_locale of the consultation" do
+    consultation = build(:consultation, primary_locale: "cy")
+    response = build(:consultation_outcome, consultation:)
+
+    assert_equal "cy", response.primary_locale
+  end
 end

@@ -143,4 +143,11 @@ class CallForEvidenceResponseTest < ActiveSupport::TestCase
     assert_equal [lead_organisation], response.lead_organisations
     assert_equal [supporting_organisation], response.supporting_organisations
   end
+
+  test "returns the primary_locale of the call for evidence" do
+    call_for_evidence = build(:call_for_evidence, primary_locale: "cy")
+    response = build(:call_for_evidence_outcome, call_for_evidence:)
+
+    assert_equal "cy", response.primary_locale
+  end
 end
