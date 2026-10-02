@@ -9,7 +9,7 @@ module StandardEdition::PublishingPrerequisites
     []
   end
 
-  private
+private
 
   def publishing_prerequisites_must_be_met
     unmet_publishing_prerequisites.each { |message| errors.add(:base, message) }

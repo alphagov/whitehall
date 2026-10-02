@@ -29,6 +29,16 @@ module StandardEdition::ChildDocument
     parent_edition.child_editions.where.not(document_id:)
   end
 
+  def parent_publication_requirement_met?
+    parent_edition.blank? || parent_edition.document.live?
+  end
+
+  def unmet_publishing_prerequisites
+    return super if parent_publication_requirement_met?
+
+    super + ["You need to publish the parent #{parent_edition.format_name} before you can publish this page."]
+  end
+
 private
 
   def parent_edition_must_exist
