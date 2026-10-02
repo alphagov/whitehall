@@ -1,4 +1,7 @@
+require "csv"
 require "thor"
+
+CherryPickedRowData = Struct.new(:asset_manager_id, :ad_id, :redirect_url, keyword_init: true)
 
 def shell
   @shell ||= Thor::Shell::Basic.new
@@ -109,5 +112,63 @@ namespace :data_hygiene do
     end
 
     shell.say "Speeches reassigned to #{new_role_appointment.role_name}"
+  end
+
+  desc "Patch assets - this is a temporary rake task used to reconcile around 9k assets which have been incorrectly marked as deleted in Asset Manager (out of sync with Whitehall's state of `deleted: false`). Owing to the size of the dataset, a data migration is not feasible - we'll work with a local CSV instead."
+  task :patch_assets, %i[csv_file_path] => :environment do |_, args|
+    csv_file_path = args[:csv_file_path]
+    if csv_file_path.blank?
+      shell.say_error "CSV file arg missing"
+    elsif !File.exist?(csv_file_path)
+      shell.say_error "CSV file not found: #{csv_file_path}"
+    else
+      rows = CSV.read(csv_file_path, headers: true).map do |row|
+        CherryPickedRowData.new(
+          asset_manager_id: row["asset_manager_id"],
+          ad_id: row["ad_id"].to_i,
+          redirect_url: row["redirect_url"].presence,
+        )
+      end
+
+      shell.say "Parsed CSV. First row: #{rows.first.inspect}"
+
+      rows.each do |row|
+        attachment_data = AttachmentData.find_by(id: row.ad_id)
+        if attachment_data.nil?
+          shell.say_error "Skipping asset #{row.asset_manager_id}: AttachmentData #{row.ad_id} not found"
+          next
+        end
+
+        # Always send the redirect_url, as Asset Manager may be out of sync with Whitehall.
+        # As long as the document isn't live, we attempt to get its latest unpublishing and derive the redirect_url from that.
+        # We look up the Unpublishing directly rather than the edition's state, as edition states can't be trusted here:
+        # documents unpublished before the `unpublished` state existed can have their Unpublishing on a `rejected` edition.
+        # This is a known issue and will be resolved separately in https://gov-uk.atlassian.net/browse/WHIT-4086.
+        # If the document is published/withdrawn, we'll send `redirect_url: nil`, which clears any stale redirect.
+        editions = attachment_data.attachments.filter_map do |attachment|
+          case attachment.attachable
+          when Edition then attachment.attachable
+          # e.g. consultation/call for evidence outcomes and public feedback
+          when ConsultationResponse then attachment.attachable.consultation
+          when CallForEvidenceResponse then attachment.attachable.call_for_evidence
+          when WorldwideOrganisationPage then attachment.attachable.edition
+          end
+        end
+        # Ignore drafts. Count editions holding an Unpublishing too, as those may be legacy unpublished editions (see above).
+        latest_non_draft_edition = editions.select { |edition| edition.post_published_state? || edition.unpublishing.present? }.last
+        redirect_url = if latest_non_draft_edition && !latest_non_draft_edition.document.live?
+                         unpublishing = Unpublishing
+                           .where(edition_id: Edition.unscoped.where(document_id: latest_non_draft_edition.document_id).select(:id))
+                           .where.not(unpublishing_reason_id: UnpublishingReason::WITHDRAWN_ID)
+                           .order(:edition_id)
+                           .last
+                         unpublishing&.alternative_url.presence || unpublishing&.document_url
+                       end
+
+        AssetManagerRestoreAssetJob.perform_async(row.asset_manager_id, redirect_url)
+      end
+
+      shell.say "Enqueued restore jobs for Asset Manager"
+    end
   end
 end
