@@ -61,6 +61,11 @@ class DocumentTypesConcernTest < ActiveSupport::TestCase
     assert_not @context.valid_document_type?("basic_page", basic_document_type)
   end
 
+  test "#valid_document_type? returns true for *legacy* document types the user has access to " do
+    @context.user_can = true
+    assert @context.valid_document_type?("publication", basic_document_type.merge("klass" => Publication))
+  end
+
   test "#valid_document_type? returns true when the specified feature flag is enabled" do
     Flipflop.stubs(:enabled?).with(:configurable_document_types).returns(true)
     feature_flagged_document_type = basic_document_type.merge("requires_feature_flag" => :configurable_document_types)

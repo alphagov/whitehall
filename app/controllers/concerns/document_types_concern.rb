@@ -41,7 +41,6 @@ module DocumentTypesConcern
         "requires_parent" => true,
       },
       "news_article" => {
-        "klass" => StandardEdition,
         "hint_text" => "Use this for news story, press release, government response, and world news story.",
         "label" => "news_article".humanize,
         "redirect" => choose_type_admin_standard_editions_path(group: "news_article"),
@@ -67,7 +66,6 @@ module DocumentTypesConcern
         "label" => "worldwide_organisation".humanize,
       },
       "standard_edition" => {
-        "klass" => StandardEdition,
         "hint_text" => "EXPERIMENTAL - DEVELOPERS ONLY Use this to create config-driven documents.",
         "label" => "Standard document",
         "redirect" => choose_type_admin_standard_editions_path(group: "all"),
@@ -112,7 +110,7 @@ module DocumentTypesConcern
 
   def valid_document_type?(document_type_key, document_type)
     document_type_createable_by_user?(document_type) &&
-      document_type_available_for_user?(document_type_key) &&
+      document_type_available_for_user?(document_type_key, document_type) &&
       document_type_feature_flag_enabled?(document_type) &&
       document_type_respects_parent_child_relationships?(document_type, document_type_key)
   end
@@ -123,11 +121,15 @@ private
     document_type["requires_feature_flag"].nil? || Flipflop.enabled?(document_type["requires_feature_flag"])
   end
 
-  def document_type_available_for_user?(document_type_key)
+  def document_type_available_for_user?(document_type_key, document_type)
+    return true unless document_type["klass"] == StandardEdition
+
     can?(current_user, ConfigurableDocumentType.find(document_type_key))
   end
 
   def document_type_createable_by_user?(document_type)
+    return true unless document_type["klass"]
+
     document_type["klass"].enforcer(current_user).can?(:create)
   end
 
