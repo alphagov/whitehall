@@ -1,70 +1,13 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "1cd0d52207c30fa69ab870b4a189ac2dec884f294d35319c8204160aba69d577",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/document/paginated_timeline.rb",
-      "line": 63,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ApplicationRecord.connection.exec_query(\"SELECT COUNT(*) FROM (#{timeline_sql}) x\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Document::PaginatedTimeline",
-        "method": "total_count"
-      },
-      "user_input": "timeline_sql",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": "Custom SQL UNION query formed of two Rails-generated SQL statements. No user input is included."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "1dad920afa130e7281c0058f43c5b2466a1fb0f899c8f17f7eb9d057388919a0",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/admin/edition_workflow/confirm_approve_retrospectively.html.erb",
-      "line": 10,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"View this on the website (opens in new tab)\", Edition.find(params[:edition_id]).public_url(:draft => true), :class => \"govuk-link\", :target => \"_blank\", :rel => \"noopener\")",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::EditionWorkflowController",
-          "method": "confirm_approve_retrospectively",
-          "line": 157,
-          "file": "app/controllers/admin/edition_workflow_controller.rb",
-          "rendered": {
-            "name": "admin/edition_workflow/confirm_approve_retrospectively",
-            "file": "app/views/admin/edition_workflow/confirm_approve_retrospectively.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "admin/edition_workflow/confirm_approve_retrospectively"
-      },
-      "user_input": "Edition.find(params[:edition_id]).public_url(:draft => true)",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "2077ddd55d2cec15aa57aea698c801daa599019d9664dadbf36fe974da8826ac",
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/uploaders/attachment_uploader.rb",
-      "line": 95,
+      "line": 38,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`#{Whitehall.system_binaries[:zipinfo]} -1 \"#{zip_path}\" | grep -v /$ | while read -r line ; do basename \"$line\"; done`",
       "render_path": null,
@@ -95,7 +38,7 @@
           "type": "controller",
           "class": "Admin::TopicalEventFeaturingsController",
           "method": "index",
-          "line": 21,
+          "line": 22,
           "file": "app/controllers/admin/topical_event_featurings_controller.rb",
           "rendered": {
             "name": "admin/topical_event_featurings/index",
@@ -116,83 +59,6 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "6424c67cb57b3d28c1ee036f0240b73ab2bf3738f929c9f77614964e58d405e1",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/admin/editions/show/_main_notices.html.erb",
-      "line": 13,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"View this on the website\", Edition.find(params[:edition_id]).public_url(:draft => true), :class => \"govuk-link\", :target => \"_blank\", :rel => \"noopener\")",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::EditionsController",
-          "method": "show",
-          "line": 77,
-          "file": "app/controllers/admin/editions_controller.rb",
-          "rendered": {
-            "name": "admin/editions/show",
-            "file": "app/views/admin/editions/show.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "admin/editions/show",
-          "line": 29,
-          "file": "app/views/admin/editions/show.html.erb",
-          "rendered": {
-            "name": "admin/editions/show/_main",
-            "file": "app/views/admin/editions/show/_main.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "admin/editions/show/_main",
-          "line": 30,
-          "file": "app/views/admin/editions/show/_main.html.erb",
-          "rendered": {
-            "name": "admin/editions/show/_main_notices",
-            "file": "app/views/admin/editions/show/_main_notices.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "admin/editions/show/_main_notices"
-      },
-      "user_input": "Edition.find(params[:edition_id]).public_url(:draft => true)",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "83cb07b23845591c7f6f25cf9670c4d48c87e8a7fd77abce67a88f2ca3912733",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/models/upload.rb",
-      "line": 149,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "Open3.popen3(\"#{Whitehall.system_binaries[:zipinfo]} -1 #{temp_location.shellescape} > /dev/null\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ZipFile",
-        "method": "is_a_zip?"
-      },
-      "user_input": "Whitehall.system_binaries[:zipinfo]",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
       "warning_code": 84,
       "fingerprint": "91ba2d0b918eb5164d91a19f4154f2afa2240c1ad4bfb58c4363f1d46a02b7c0",
       "check_name": "RenderInline",
@@ -206,7 +72,7 @@
           "type": "controller",
           "class": "Admin::PeopleController",
           "method": "show",
-          "line": 24,
+          "line": 25,
           "file": "app/controllers/admin/people_controller.rb",
           "rendered": {
             "name": "admin/people/show",
@@ -250,29 +116,6 @@
       "note": ""
     },
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "b89cebdbb22d112483e8b53f35c626063221fe6b3d58f7ac8f84a0d4c8844ba8",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/document/paginated_timeline.rb",
-      "line": 149,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ApplicationRecord.connection.exec_query(\"#{timeline_sql}\\nORDER BY created_at DESC\\nLIMIT ? OFFSET ?\\n\", \"SQL\", [ActiveRecord::Relation::QueryAttribute.new(\"\", 10, ActiveRecord::Type::Integer.new), ActiveRecord::Relation::QueryAttribute.new(\"\", ((@page - 1) * 10), ActiveRecord::Type::Integer.new)])",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Document::PaginatedTimeline",
-        "method": "paginated_query"
-      },
-      "user_input": "timeline_sql",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": "Custom SQL UNION query formed of two Rails-generated SQL statements. No user input is included."
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 84,
       "fingerprint": "c4b5157a5184f935bbe15ecfc3a443b6e4e4ce57fe6969bf8bf5afa988ae4779",
@@ -287,7 +130,7 @@
           "type": "controller",
           "class": "Admin::HistoricalAccountsController",
           "method": "index",
-          "line": 8,
+          "line": 7,
           "file": "app/controllers/admin/historical_accounts_controller.rb",
           "rendered": {
             "name": "admin/historical_accounts/index",
@@ -303,29 +146,6 @@
       "confidence": "Medium",
       "cwe_id": [
         79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "d4d3ca2e3f25f46fa84a65737ad237cbe532de2dd2ebd50b2a1abb341589c058",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/models/upload.rb",
-      "line": 138,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`#{Whitehall.system_binaries[:unzip]} -o -d #{File.join(temp_dir, \"extracted\")} #{temp_location.shellescape}`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ZipFile",
-        "method": "extract_contents"
-      },
-      "user_input": "Whitehall.system_binaries[:unzip]",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
       ],
       "note": ""
     },
@@ -353,6 +173,5 @@
       "note": "As this only affects internal users and only allows them to pick from a set of paths to nagivate to, I don't think it's particularly dangerous"
     }
   ],
-  "updated": "2023-09-21 12:41:40 +0100",
-  "brakeman_version": "5.3.1"
+  "brakeman_version": "8.0.4"
 }
