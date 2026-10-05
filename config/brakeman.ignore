@@ -328,6 +328,29 @@
         77
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "d05ace691832cc26469b6a66e54150f7b1402a47f9a4f135638949f20369910a",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/admin/new_document_controller.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "send(\"new_admin_#{params[:new_document_options]}_path\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::NewDocumentController",
+        "method": "new_document_options_redirect"
+      },
+      "user_input": "params[:new_document_options]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": "As this only affects internal users and only allows them to pick from a set of paths to nagivate to, I don't think it's particularly dangerous"
     }
   ],
   "updated": "2023-09-21 12:41:40 +0100",
