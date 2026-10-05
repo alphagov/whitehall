@@ -20,7 +20,23 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 
   view_test "GET #index with a `parent_edition_id` shows the Child Of Banner for the parent edition" do
     ConfigurableDocumentType.unstub(:find)
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type").merge(build_configurable_document_type("topical_event")))
+    required_document_types = build_configurable_document_type("test_type")
+      .merge(build_configurable_document_type("mini_site_child"))
+      .merge(build_configurable_document_type("mini_site_landing"))
+      .merge(build_configurable_document_type("topical_event"))
+      .merge(build_configurable_document_type("call_for_evidence"))
+      .merge(build_configurable_document_type("case_study"))
+      .merge(build_configurable_document_type("consultation"))
+      .merge(build_configurable_document_type("detailed_guide"))
+      .merge(build_configurable_document_type("document_collection"))
+      .merge(build_configurable_document_type("news_article"))
+      .merge(build_configurable_document_type("publication"))
+      .merge(build_configurable_document_type("speech"))
+      .merge(build_configurable_document_type("statistical_data_set"))
+      .merge(build_configurable_document_type("worldwide_organisation"))
+      .merge(build_configurable_document_type("standard_edition"))
+
+    ConfigurableDocumentType.setup_test_types(required_document_types)
     parent_edition = create(:standard_edition, title: "Parent edition")
 
     get :index, params: { parent_edition_id: parent_edition.id }
@@ -41,7 +57,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     assert_select "input[type=hidden][name=parent_edition_id][value=123]"
   end
 
-  view_test "POST #new_document_options with a `parent_edition_id` includes parent_edition_id in the redirect for StandardEdition content types" do
+  view_test "POST #new_document_options with a `parent_edition_id` includes parent_edition_id in the redirect when specified" do
     post :new_document_options_redirect, params: { new_document_options: "news_article", parent_edition_id: 123 }
 
     assert_redirected_to choose_type_admin_standard_editions_path(group: "news_article", parent_edition_id: 123)
@@ -85,7 +101,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_select "input[type=radio][name=new_document_options][value=mini_site]"
+    assert_select "input[type=radio][name=new_document_options][value=mini_site_landing]"
 
     @test_strategy.switch!(:configurable_document_types, false)
   end
