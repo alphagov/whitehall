@@ -9,7 +9,7 @@ namespace :taxonomy do
   task populate_end_to_end_test_data: [:environment] do
     taxon_content_id = "44171085-15e5-4524-89ca-b409d3675f93"
     taxon_payload = {
-      base_path: "/test_taxon",
+      base_path: "/test-taxon",
       document_type: "taxon",
       schema_name: "taxon",
       title: "Test taxon",
@@ -23,7 +23,7 @@ namespace :taxonomy do
         visible_to_departmental_editors: true,
       },
       routes: [
-        { path: "/test_taxon", type: "exact" },
+        { path: "/test-taxon", type: "exact" },
       ],
       update_type: "major",
       phase: "live",
