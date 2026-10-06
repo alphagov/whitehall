@@ -119,13 +119,15 @@ module Whitehall
     @image_kinds ||= ImageKinds.build_image_kinds(YAML.load_file(Rails.root.join("config/image_kinds.yml")))
   end
 
+  # Based on GOVUK_ENVIRONMENT (set for every GOV.UK app), rather than
+  # inferred from GOVUK_WEBSITE_ROOT, so that the website root can point
+  # anywhere - e.g. at a preview environment's own frontend - without
+  # changing which environment Whitehall thinks it's in.
   def self.integration_or_staging?
-    website_root = ENV.fetch("GOVUK_WEBSITE_ROOT", "")
-    %w[integration staging].any? { |environment| website_root.include?(environment) }
+    %w[integration staging].include?(GovukEnvironment.current)
   end
 
   def self.integration?
-    website_root = ENV.fetch("GOVUK_WEBSITE_ROOT", "")
-    %w[integration].any? { |environment| website_root.include?(environment) }
+    GovukEnvironment.current == "integration"
   end
 end
