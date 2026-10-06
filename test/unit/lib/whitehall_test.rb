@@ -47,17 +47,45 @@ class WhitehallTest < ActiveSupport::TestCase
   end
 
   test "Whitehall.integration_or_staging? tells us if we are in the right env" do
-    before = ENV["GOVUK_WEBSITE_ROOT"]
+    before = ENV["GOVUK_ENVIRONMENT"]
 
-    ENV["GOVUK_WEBSITE_ROOT"] = "https://www.integration.publishing.service.gov.uk"
+    ENV["GOVUK_ENVIRONMENT"] = "integration"
     assert Whitehall.integration_or_staging?
 
-    ENV["GOVUK_WEBSITE_ROOT"] = "https://www.staging.publishing.service.gov.uk"
+    ENV["GOVUK_ENVIRONMENT"] = "staging"
     assert Whitehall.integration_or_staging?
 
-    ENV["GOVUK_WEBSITE_ROOT"] = "https://www.publishing.service.gov.uk"
+    ENV["GOVUK_ENVIRONMENT"] = "production"
+    assert_equal false, Whitehall.integration_or_staging?
+
+    ENV.delete("GOVUK_ENVIRONMENT")
     assert_equal false, Whitehall.integration_or_staging?
   ensure
-    ENV["GOVUK_WEBSITE_ROOT"] = before
+    ENV["GOVUK_ENVIRONMENT"] = before
+  end
+
+  test "Whitehall.integration? is only true on integration" do
+    before = ENV["GOVUK_ENVIRONMENT"]
+
+    ENV["GOVUK_ENVIRONMENT"] = "integration"
+    assert Whitehall.integration?
+
+    ENV["GOVUK_ENVIRONMENT"] = "staging"
+    assert_equal false, Whitehall.integration?
+
+    ENV.delete("GOVUK_ENVIRONMENT")
+    assert_equal false, Whitehall.integration?
+  ensure
+    ENV["GOVUK_ENVIRONMENT"] = before
+  end
+
+  test "Whitehall's environment doesn't depend on where GOVUK_WEBSITE_ROOT points" do
+    before = ENV.values_at("GOVUK_ENVIRONMENT", "GOVUK_WEBSITE_ROOT")
+
+    ENV["GOVUK_ENVIRONMENT"] = "integration"
+    ENV["GOVUK_WEBSITE_ROOT"] = "http://frontend-abc1234.govuk-preview-app.dev.gov.uk"
+    assert Whitehall.integration_or_staging?
+  ensure
+    ENV["GOVUK_ENVIRONMENT"], ENV["GOVUK_WEBSITE_ROOT"] = before
   end
 end
