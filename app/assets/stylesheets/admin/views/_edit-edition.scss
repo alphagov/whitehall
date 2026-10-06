@@ -38,3 +38,11 @@
   min-width: 0;
   width: 100%;
 }
+
+@media (max-width: 1024px) {
+  .edit-draft-body.govuk-grid-column-two-thirds,
+  .edit-draft-info.govuk-grid-column-one-third {
+    float: none;
+    width: 100%;
+  }
+}

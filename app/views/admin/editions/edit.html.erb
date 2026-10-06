@@ -31,7 +31,7 @@
 <% else %>
   <% on_document_tab = @current_tab_context.blank? || @current_tab_context == "documents" %>
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="edit-draft-body govuk-grid-column-two-thirds">
       <%= render "components/secondary_navigation", {
         aria_label: "Document navigation",
         items: secondary_navigation_tabs_items(@edition, request.path, @current_tab_context),
@@ -45,7 +45,7 @@
     </div>
 
     <% if on_document_tab && @edition.editable? %>
-      <div class="govuk-grid-column-one-third">
+      <div class="edit-draft-info govuk-grid-column-one-third">
         <%= render "govuk_publishing_components/components/tabs", {
           disable_ga4: true,
           tabs: [
