@@ -8,6 +8,17 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert_equal [1, 2], series.groups.reload.map(&:ordering)
   end
 
+  test "new groups are added to the top of the collection, pushing existing groups down" do
+    collection = create(:document_collection, :with_group)
+    existing_group = collection.groups.first
+
+    new_group = create(:document_collection_group, document_collection: collection)
+
+    assert_equal 1, new_group.ordering
+    assert_equal 2, existing_group.reload.ordering
+    assert_equal new_group, collection.groups.reload.first
+  end
+
   test "#set_membership_ids_in_order! should associate documents and set their\
         membership's ordering to the position of the membership id in the passed in array" do
     group = build(:document_collection_group)

@@ -147,8 +147,10 @@ end
 class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection, :with_groups)
-    group_one = document_collection.groups.first
-    group_two = document_collection.groups.second
+    groups = document_collection.groups.reload
+
+    group_one = groups.first
+    group_two = groups.second
 
     group_one.stubs(:content_ids).returns(%w[aaa bbb])
     group_two.stubs(:content_ids).returns(%w[fff eee])
