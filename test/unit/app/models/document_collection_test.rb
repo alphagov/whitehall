@@ -12,9 +12,9 @@ class DocumentCollectionTest < ActiveSupport::TestCase
         build(:document_collection_group),
       ],
     )
-    groups[0].update!(ordering: 2)
-    groups[1].update!(ordering: 1)
-    groups[2].update!(ordering: 3)
+    groups[0].reload.update!(ordering: 2)
+    groups[1].reload.update!(ordering: 1)
+    groups[2].reload.update!(ordering: 3)
 
     assert_equal [groups[1], groups[0], groups[2]], doc_collection.reload.groups
   end
@@ -95,8 +95,8 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     doc = create(:published_speech).document
     non_whitehall_link = create(:document_collection_non_whitehall_link)
     groups = [
-      build(:document_collection_group, documents: [doc]),
-      build(:document_collection_group, non_whitehall_links: [non_whitehall_link]),
+      build(:document_collection_group, ordering: 1, documents: [doc]),
+      build(:document_collection_group, ordering: 2, non_whitehall_links: [non_whitehall_link]),
     ]
     doc_collection = create(:document_collection, groups:)
 

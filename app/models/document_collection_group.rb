@@ -69,7 +69,9 @@ class DocumentCollectionGroup < ApplicationRecord
 private
 
   def assign_ordering
-    peers = document_collection.present? ? document_collection.groups.maximum(:ordering).to_i : 0
-    self.ordering = peers + 1
+    return unless ordering.nil?
+
+    document_collection.groups.update_all("ordering = ordering + 1") if document_collection.present?
+    self.ordering = 1
   end
 end
