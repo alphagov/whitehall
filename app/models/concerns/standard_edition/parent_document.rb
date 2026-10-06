@@ -7,4 +7,8 @@ module StandardEdition::ParentDocument
              foreign_key: :parent_edition_id
     has_many :child_documents, through: :child_relationships, source: :child_document
   end
+
+  def child_editions
+    Edition.where(id: child_documents.select(:latest_edition_id))
+  end
 end

@@ -1,0 +1,51 @@
+<section class="app-view-summary__section app-view-summary__child-documents">
+  <%= render "govuk_publishing_components/components/heading", {
+    text: "Child pages",
+    heading_level: 2,
+    font_size: "l",
+    margin_bottom: 3,
+  } %>
+
+  <% if can?(:update, edition) %>
+    <p class="govuk-body">
+      <%= link_to("#{child_editions.any? ? "Edit" : "Add"} child pages",
+                  child_pages_admin_standard_edition_path(edition),
+                  class: "govuk-link") %>
+    </p>
+  <% end %>
+
+  <% if child_editions.any? %>
+    <%= render "govuk_publishing_components/components/table", {
+      head: [
+        {
+          text: "Title",
+        },
+        {
+          text: "Updated by",
+        },
+        {
+          text: "State",
+        },
+        {
+          text: "Actions",
+        },
+      ],
+      rows: child_editions.map do |child_edition|
+        [
+          { text: child_edition.title },
+          {
+            text: tag.p("#{time_ago_in_words child_edition.updated_at} ago", class: "govuk-!-margin-0") +
+              "by " +
+              linked_author(child_edition.last_author, class: "govuk-link govuk-link--no-visited-state"),
+          },
+          { text: render(Admin::Editions::TagsComponent.new(child_edition)) },
+          {
+            text: link_to(safe_join(["View", tag.span(" #{child_edition.title}", class: "govuk-visually-hidden")]), admin_edition_path(child_edition), class: "govuk-link govuk-link--no-visited-state"),
+          },
+        ]
+      end,
+    } %>
+  <% else %>
+    <p class="govuk-body">No child pages for this document</p>
+  <% end %>
+</section>

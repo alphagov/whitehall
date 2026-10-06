@@ -115,6 +115,61 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select ".app-view-summary__parent-edition", count: 0
   end
 
+  view_test "GET show for a parent edition without child pages shows an empty child pages section" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+    parent_edition = create(:draft_standard_edition)
+
+    get :show, params: { id: parent_edition.id }
+
+    assert_select ".app-view-summary__child-documents" do
+      assert_select "h2", text: "Child pages"
+      assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Add child pages"
+      assert_select "p", text: "No child pages for this document"
+    end
+  end
+
+  view_test "GET show for a parent edition with child pages lists them with links to view them and edit the child pages" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition, title: "Child edition")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :show, params: { id: parent_edition.id }
+
+    assert_select ".app-view-summary__child-documents" do
+      assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Edit child pages"
+      assert_select "td", text: "Child edition"
+      assert_select "td", text: /ago\s*by #{child_edition.last_author.name}/
+      assert_select ".govuk-tag", text: /draft/i
+      assert_select "a[href='#{admin_standard_edition_path(child_edition)}']", text: /View/
+    end
+  end
+
+  view_test "GET show for a parent edition does not show child pages the user cannot see" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+    parent_edition = create(:draft_standard_edition)
+    hidden_child = create(:draft_standard_edition, :access_limited_by_organisations, title: "Hidden child")
+    ParentChildRelationship.create!(parent_edition:, child_document: hidden_child.document)
+
+    get :show, params: { id: parent_edition.id }
+
+    assert_select ".app-view-summary__child-documents p", text: "No child pages for this document"
+  end
+
+  view_test "GET show for an edition whose type does not allow child pages does not show a child pages section" do
+    edition = create(:draft_standard_edition)
+
+    get :show, params: { id: edition.id }
+
+    assert_select ".app-view-summary__child-documents", count: 0
+  end
+
   view_test "visiting a 'new edition' page when no Organisation set on the current user" do
     login_as create(:user, organisation: nil)
 
