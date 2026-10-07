@@ -5,6 +5,7 @@ class Admin::NewDocumentController < Admin::BaseController
     @document_types = standard_document_types
     @requires_approval_document_types = requires_approval_document_types
     @parent_edition = parent_edition
+    @no_child_document_types = no_child_document_types?
   end
 
   def new_document_options_redirect
@@ -23,6 +24,10 @@ private
 
   def parent_edition
     StandardEdition.find_by(id: params[:parent_edition_id]) if params[:parent_edition_id].present?
+  end
+
+  def no_child_document_types?
+    params[:parent_edition_id].present? && permitted_document_types.empty?
   end
 
   def include_parent_edition_id_in_redirect(redirect)

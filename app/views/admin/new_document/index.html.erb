@@ -3,39 +3,52 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with url: admin_new_document_options_path do %>
-      <% if params[:parent_edition_id].present? %>
-        <%= hidden_field_tag :parent_edition_id, params[:parent_edition_id] %>
-      <% end %>
-
-      <%= render "govuk_publishing_components/components/radio", {
-        heading: "New document",
+    <% if @no_child_document_types %>
+      <%= render "govuk_publishing_components/components/heading", {
+        text: "New document",
         heading_level: 1,
-        name: "new_document_options",
-        id: "new_document_options",
-        items: radio_buttons_for(@document_types),
+        font_size: "l",
+        margin_bottom: 6,
       } %>
 
-      <% if @requires_approval_document_types.present? %>
+      <%= render "govuk_publishing_components/components/error_alert", {
+        message: "No children allowed for this content type",
+      } %>
+    <% else %>
+      <%= form_with url: admin_new_document_options_path do %>
+        <% if params[:parent_edition_id].present? %>
+          <%= hidden_field_tag :parent_edition_id, params[:parent_edition_id] %>
+        <% end %>
+
         <%= render "govuk_publishing_components/components/radio", {
-          heading: "Requires approval from GDS",
+          heading: "New document",
+          heading_level: 1,
           name: "new_document_options",
-          id: "new_document_options_requires_approval",
-          hint: sanitize("Before using these content types, #{link_to("submit a GOV.UK support request", "#{Whitehall.support_url}/content_advice_request/new", class: "govuk-link")}, for review by GDS."),
-          items: radio_buttons_for(@requires_approval_document_types),
+          id: "new_document_options",
+          items: radio_buttons_for(@document_types),
         } %>
+
+        <% if @requires_approval_document_types.present? %>
+          <%= render "govuk_publishing_components/components/radio", {
+            heading: "Requires approval from GDS",
+            name: "new_document_options",
+            id: "new_document_options_requires_approval",
+            hint: sanitize("Before using these content types, #{link_to("submit a GOV.UK support request", "#{Whitehall.support_url}/content_advice_request/new", class: "govuk-link")}, for review by GDS."),
+            items: radio_buttons_for(@requires_approval_document_types),
+          } %>
+        <% end %>
+
+        <%= render "govuk_publishing_components/components/inset_text", {
+          text: sanitize("Check the #{link_to("content types guidance", "#{Plek.website_root}/guidance/content-design/content-types", class: "govuk-link")}" +
+                           " if you need more help in choosing a content type."),
+        } %>
+
+        <div class="govuk-button-group">
+          <%= render "govuk_publishing_components/components/button", { text: "Next" } %>
+
+          <%= link_to("Cancel", root_path, class: "govuk-link govuk-link--no-visited-state") %>
+        </div>
       <% end %>
-
-      <%= render "govuk_publishing_components/components/inset_text", {
-        text: sanitize("Check the #{link_to("content types guidance", "#{Plek.website_root}/guidance/content-design/content-types", class: "govuk-link")}" +
-                         " if you need more help in choosing a content type."),
-      } %>
-
-      <div class="govuk-button-group">
-        <%= render "govuk_publishing_components/components/button", { text: "Next" } %>
-
-        <%= link_to("Cancel", root_path, class: "govuk-link govuk-link--no-visited-state") %>
-      </div>
     <% end %>
   </div>
 </div>

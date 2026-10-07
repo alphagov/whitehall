@@ -56,6 +56,15 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     @test_strategy.switch!(:configurable_document_types, false)
   end
 
+  view_test "GET #index with a `parent_edition_id` for a type that allows no children shows an error" do
+    parent_edition = create_parent_edition(allowed_child_types: [])
+
+    get :index, params: { parent_edition_id: parent_edition.id }
+
+    assert_select ".gem-c-error-alert", text: /No children allowed for this content type/
+    assert_select "input[type=radio]", count: 0
+  end
+
   view_test "GET #index with a `parent_edition_id` that does not match a standard edition does not show the Child Of Banner" do
     get :index, params: { parent_edition_id: create(:publication).id }
 
