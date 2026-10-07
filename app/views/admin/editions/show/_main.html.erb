@@ -38,6 +38,9 @@
   </section>
 
   <%= render partial: "admin/editions/show/parent_edition", locals: { parent_edition: @edition.try(:parent_edition) } %>
+  <% if @edition.try(:allows_child_documents?) %>
+    <%= render partial: "admin/editions/show/child_documents", locals: { edition: @edition, child_editions: @child_editions } %>
+  <% end %>
   <%= render partial: "admin/editions/show/main_notices", locals: { edition: @edition } %>
   <%= render Admin::Editions::Show::PreviewComponent.new(edition: @edition, invalid_tab_forms: @invalid_tab_forms) %>
 

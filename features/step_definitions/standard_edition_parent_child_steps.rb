@@ -48,3 +48,19 @@ Then(/^I should see the parent edition on the summary page$/) do
     expect(page).to have_css(".govuk-tag", text: /published/i)
   end
 end
+
+When(/^I view the summary page of that edition after adding a child document to it$/) do
+  @child_edition = create(:draft_standard_edition, title: "Child Edition")
+  ParentChildRelationship.create!(parent_edition: @edition, child_document: @child_edition.document)
+  visit admin_edition_path(@edition)
+end
+
+Then(/^I should see the child document on the summary page$/) do
+  within ".app-view-summary__child-documents" do
+    expect(page).to have_link("Edit child pages", href: child_pages_admin_standard_edition_path(@edition))
+    expect(page).to have_css("td", text: @child_edition.title)
+    expect(page).to have_css("td", text: /ago\s+by #{@child_edition.last_author.name}/)
+    expect(page).to have_css(".govuk-tag", text: /draft/i)
+    expect(page).to have_link(href: admin_edition_path(@child_edition))
+  end
+end

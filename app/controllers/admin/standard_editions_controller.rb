@@ -97,6 +97,9 @@ class Admin::StandardEditionsController < Admin::EditionsController
       tab_form = StandardEdition::TabForm.new(@edition, tab_key)
       { tab_key:, label: type_instance.form(tab_key)["label"] || tab_key.humanize } unless tab_form.valid?
     end
+    if @edition.allows_child_documents?
+      @child_editions = @edition.child_editions.select { |child_edition| can?(:see, child_edition) }
+    end
   end
 
   def child_pages; end
