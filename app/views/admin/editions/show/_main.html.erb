@@ -38,6 +38,16 @@
   </section>
 
   <%= render partial: "admin/editions/show/parent_edition", locals: { parent_edition: @edition.try(:parent_edition) } %>
+  <% if @edition.try(:parent_edition).present? %>
+    <%= render partial: "admin/editions/show/child_documents", locals: {
+      edition: @edition.parent_edition,
+      child_editions: @other_child_editions,
+      heading: "Other child pages",
+      link_text: "Edit child pages",
+      empty_message: "No other child pages for this document",
+      section_class: "app-view-summary__other-child-documents",
+    } %>
+  <% end %>
   <% if @edition.try(:allows_child_documents?) %>
     <%= render partial: "admin/editions/show/child_documents", locals: {
       edition: @edition,
