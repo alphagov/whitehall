@@ -18,14 +18,51 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET #index renders with the real configurable document types" do
+    ConfigurableDocumentType.unstub(:find)
+    ConfigurableDocumentType.setup_test_types(nil)
+
+    get :index
+
+    assert_response :success
+  end
+
   view_test "GET #index with a `parent_edition_id` shows the Child Of Banner for the parent edition" do
     ConfigurableDocumentType.unstub(:find)
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type").merge(build_configurable_document_type("topical_event")))
+    required_document_types = build_configurable_document_type("test_type")
+      .merge(build_configurable_document_type("mini_site_child"))
+      .merge(build_configurable_document_type("mini_site_landing"))
+      .merge(build_configurable_document_type("topical_event"))
+      .merge(build_configurable_document_type("case_study"))
+
+    ConfigurableDocumentType.setup_test_types(required_document_types)
     parent_edition = create(:standard_edition, title: "Parent edition")
 
     get :index, params: { parent_edition_id: parent_edition.id }
 
     assert_select ".app-c-child-of-banner__title", text: /Parent edition/
+  end
+
+  view_test "GET #index with a `parent_edition_id` only shows the child document types the parent allows" do
+    parent_edition = create_parent_edition(allowed_child_types: %w[mini_site_child])
+    @test_strategy ||= Flipflop::FeatureSet.current.test!
+    @test_strategy.switch!(:configurable_document_types, true)
+
+    get :index, params: { parent_edition_id: parent_edition.id }
+
+    assert_select ".govuk-radios__item input[type=radio][name=new_document_options]", count: 1
+    assert_select "input[type=radio][name=new_document_options][value=mini_site_child]"
+
+    @test_strategy.switch!(:configurable_document_types, false)
+  end
+
+  view_test "GET #index with a `parent_edition_id` for a type that allows no children shows an error" do
+    parent_edition = create_parent_edition(allowed_child_types: [])
+
+    get :index, params: { parent_edition_id: parent_edition.id }
+
+    assert_select ".gem-c-error-alert", text: /No children allowed for this content type/
+    assert_select "input[type=radio]", count: 0
   end
 
   view_test "GET #index with a `parent_edition_id` that does not match a standard edition does not show the Child Of Banner" do
@@ -41,7 +78,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     assert_select "input[type=hidden][name=parent_edition_id][value=123]"
   end
 
-  view_test "POST #new_document_options with a `parent_edition_id` includes parent_edition_id in the redirect for StandardEdition content types" do
+  view_test "POST #new_document_options with a `parent_edition_id` includes parent_edition_id in the redirect when specified" do
     post :new_document_options_redirect, params: { new_document_options: "news_article", parent_edition_id: 123 }
 
     assert_redirected_to choose_type_admin_standard_editions_path(group: "news_article", parent_edition_id: 123)
@@ -85,7 +122,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_select "input[type=radio][name=new_document_options][value=mini_site]"
+    assert_select "input[type=radio][name=new_document_options][value=mini_site_landing]"
 
     @test_strategy.switch!(:configurable_document_types, false)
   end
@@ -140,5 +177,19 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_new_document_path
     assert_equal flash[:alert], "Please select a new document option"
+  end
+
+private
+
+  def create_parent_edition(allowed_child_types:)
+    ConfigurableDocumentType.unstub(:find)
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("parent_type", { "settings" => { "allowed_child_document_types" => allowed_child_types.map { |type| { "document_type" => type } } } })
+        .merge(build_configurable_document_type("mini_site_child"))
+        .merge(build_configurable_document_type("mini_site_landing"))
+        .merge(build_configurable_document_type("topical_event"))
+        .merge(build_configurable_document_type("case_study")),
+    )
+    create(:standard_edition, configurable_document_type: "parent_type")
   end
 end
