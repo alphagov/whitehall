@@ -2,9 +2,10 @@ name: Build image from PR
 
 # Lets govuk-preview-app preview any branch of Whitehall itself, not just
 # releases - ImageResolver looks up ghcr.io/alphagov/govuk/whitehall tagged
-# with a branch's own HEAD commit SHA, and waits for it to appear.
-# github.event.pull_request.head.sha is that same SHA (the PR branch's real
-# tip, not GitHub's synthetic merge commit).
+# with the branch name itself (falling back to its HEAD commit SHA, which
+# is always tagged too, for a branch name Docker can't use as a tag - e.g.
+# one with a "/" in it). github.event.pull_request.head.sha is that same
+# SHA (the PR branch's real tip, not GitHub's synthetic merge commit).
 #
 # (Whitehall's own *dependencies* - publishing-api, frontend,
 # draft-frontend - are always built from main regardless, so this is only
@@ -22,6 +23,10 @@ jobs:
     uses: alphagov/govuk-infrastructure/.github/workflows/build-push-arm-image.yml@main
     with:
       gitRef: ${{ github.event.pull_request.head.sha }}
+      # Omitted (rather than pushed invalid) for a branch name Docker can't
+      # use as a tag as-is, e.g. one with a "/" in it - ImageResolver's own
+      # fallback to the SHA tag above covers that case already.
+      additionalTags: type=raw,value=${{ github.event.pull_request.head.ref }},enable=${{ !contains(github.event.pull_request.head.ref, '/') }}
     permissions:
       id-token: write
       contents: read
