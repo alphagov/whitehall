@@ -5,6 +5,7 @@ cy:
     contact_form: Ffurflen gysylltu
     email: E-bost
   corporate_information_page:
+    title_with_organisation: "%{title} - %{organisation_name}"
     type:
       link_text:
         welsh_language_scheme: cyhoeddi yn y Gymraeg

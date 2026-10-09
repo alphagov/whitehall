@@ -63,12 +63,12 @@ class CorporateInformationPage < Edition
     organisations
   end
 
-  def title_prefix_organisation_name
-    [organisation.name, title].join(" \u2013 ")
-  end
-
   def title(_locale = :en)
     corporate_information_page_type.title(organisation)
+  end
+
+  def title_without_organisation
+    corporate_information_page_type.title_without_organisation(organisation)
   end
 
   def title_lang
