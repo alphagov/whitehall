@@ -170,11 +170,6 @@ class EditionRulesTest < ActiveSupport::TestCase
     assert enforcer_for(user, historic_unrestricted_edition).can?(:unpublish)
   end
 
-  test "a Historic Content Publisher Managing Editor can :force_publish a historic edition that is not access-limited" do
-    user = user_in(org, managing_editor?: true)
-    assert enforcer_for(user, historic_unrestricted_edition).can?(:force_publish)
-  end
-
   test "a Historic Content Publisher Managing Editor cannot :publish a historic edition that is not access-limited, if they are the ones to have submitted it for 2i" do
     user = user_in(org, managing_editor?: true)
     assert_not enforcer_for(user, historic_unrestricted_edition(user)).can?(:publish)

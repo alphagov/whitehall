@@ -100,10 +100,6 @@ module Whitehall::Authority::Rules
       # there's no way they should be allowed to take it on a historic edition
       return false unless can_with_an_instance?(action)
 
-      # Allow Managing Editors to take any action on historic editions for the 2024 Starmer Labour Government
-      # except for selecting a government for history mode. This temporary measure will be removed in mid Sept.
-      return true if actor.managing_editor? && subject.government.slug == "2024-starmer-labour-government" && action != :select_government_for_history_mode
-
       # Allow viewing of historic editions to all users, but no other actions
       action == :see
     end
