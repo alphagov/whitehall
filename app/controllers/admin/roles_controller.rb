@@ -1,5 +1,6 @@
 class Admin::RolesController < Admin::BaseController
   before_action :load_role, only: %i[edit update destroy]
+  before_action :enforce_permissions!, only: %i[edit update destroy]
 
   def index
     @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations])
@@ -47,6 +48,10 @@ class Admin::RolesController < Admin::BaseController
   end
 
 private
+
+  def enforce_permissions!
+    enforce_permission!(:administer, @role)
+  end
 
   def index_or_edit_path
     if params[:save_and_continue].present?

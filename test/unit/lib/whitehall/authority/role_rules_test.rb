@@ -45,18 +45,38 @@ class RoleRulesTest < ActiveSupport::TestCase
   include AuthorityTestHelper
 
   test "GDS editor can reorder cabinet ministers" do
-    assert enforcer_for(gds_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
+    assert enforcer_for(gds_editor, build(:ministerial_role)).can?(:reorder_cabinet_ministers)
   end
 
   test "Managing editor cannot reorder cabinet ministers" do
-    assert_not enforcer_for(managing_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
+    assert_not enforcer_for(managing_editor, build(:ministerial_role)).can?(:reorder_cabinet_ministers)
   end
 
   test "Departmental editor cannot reorder cabinet ministers" do
-    assert_not enforcer_for(departmental_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
+    assert_not enforcer_for(departmental_editor, build(:ministerial_role)).can?(:reorder_cabinet_ministers)
   end
 
   test "Writer cannot reorder cabinet ministers" do
-    assert_not enforcer_for(writer, MinisterialRole).can?(:reorder_cabinet_ministers)
+    assert_not enforcer_for(writer, build(:ministerial_role)).can?(:reorder_cabinet_ministers)
+  end
+
+  test "GDS editor can administer ministerial roles" do
+    assert enforcer_for(gds_editor, build(:ministerial_role)).can?(:administer)
+  end
+
+  test "Managing editor can administer ministerial roles" do
+    assert enforcer_for(managing_editor, build(:ministerial_role)).can?(:administer)
+  end
+
+  test "Departmental editor can administer ministerial roles" do
+    assert enforcer_for(departmental_editor, build(:ministerial_role)).can?(:administer)
+  end
+
+  test "Writer can't administer ministerial roles" do
+    assert_not enforcer_for(writer, build(:ministerial_role)).can?(:administer)
+  end
+
+  test "Writer can administer normal roles" do
+    assert enforcer_for(writer, build(:non_ministerial_role_without_organisations)).can?(:administer)
   end
 end

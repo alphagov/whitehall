@@ -400,4 +400,22 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert Role.find_by(id: role.id)
     assert_equal "Cannot destroy a role with appointments, organisations, or documents", flash[:alert]
   end
+
+  test "destroy works for GDS editors" do
+    role = create(:role)
+
+    login_as :gds_editor
+    delete :destroy, params: { id: role.id }
+
+    assert_redirected_to admin_roles_path
+  end
+
+  test "destroy is forbidden for writers" do
+    role = create(:role)
+
+    login_as :writer
+    delete :destroy, params: { id: role.id }
+
+    assert_response :forbidden
+  end
 end
