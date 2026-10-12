@@ -11,7 +11,7 @@ module Edition::Workflow
     end
 
     def valid_state?(state)
-      %w[active draft submitted rejected published scheduled force_published withdrawn not_published unpublished].include?(state)
+      %w[active draft submitted rejected approved published scheduled force_published withdrawn not_published unpublished].include?(state)
     end
   end
 
@@ -24,6 +24,7 @@ module Edition::Workflow
       state :draft
       state :submitted
       state :rejected
+      state :approved
       state :scheduled
       state :published
       state :superseded
@@ -44,7 +45,7 @@ module Edition::Workflow
       end
 
       event :schedule do
-        transitions from: :submitted, to: :scheduled
+        transitions from: :approved, to: :scheduled
       end
 
       event :force_schedule do
@@ -56,7 +57,7 @@ module Edition::Workflow
       end
 
       event :publish do
-        transitions from: %i[submitted scheduled], to: :published
+        transitions from: %i[approved scheduled], to: :published
       end
 
       event :force_publish do
@@ -65,6 +66,19 @@ module Edition::Workflow
 
       event :unpublish do
         transitions from: %i[published unpublished], to: :unpublished
+      end
+
+      # TODO: presumably we need some governance around how an edition can become
+      # approved. I guess whoever has the power to 'reject' a submitted edition
+      # should also have the power to 'approve'.
+      #
+      # And there should be implications for the publishing workflow, i.e. right now
+      # it is possible to publish (not force publish) a submitted edition), but
+      # we're saying that an edition that is merely 'submitted' should now only have
+      # the force-publish/force-schedule options available to it. Only "approved"
+      # editions should be able to be published or scheduled normally.
+      event :approve do
+        transitions from: %i[submitted], to: :approved
       end
 
       event :supersede, success: :destroy_associations_with_edition_dependencies_and_dependants do
