@@ -1,0 +1,24 @@
+name: Build image from PR
+
+# Lets govuk-preview-app preview any branch of Whitehall, building
+# and pushing to ghcr.io/alphagov/govuk/whitehall with the branch
+# name as the image tag, unless the branch name contains a '/' (which
+# cannot be used as a Docker tag), in which case no image is pushed.
+on:
+  pull_request:
+
+concurrency:
+  group: build-image-from-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-publish-image:
+    name: Build and publish image
+    uses: alphagov/govuk-infrastructure/.github/workflows/build-push-arm-image.yml@main
+    with:
+      gitRef: ${{ github.event.pull_request.head.sha }}
+      additionalTags: type=raw,value=${{ github.event.pull_request.head.ref }},enable=${{ !contains(github.event.pull_request.head.ref, '/') }}
+    permissions:
+      id-token: write
+      contents: read
+      packages: write
