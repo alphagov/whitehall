@@ -1,5 +1,6 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
+  before_action :enforce_permissions!, except: %i[index show]
   before_action :load_promotional_feature, only: %i[show edit update destroy confirm_destroy]
   before_action :clean_image_or_youtube_video_url_param, only: %i[create]
 
@@ -65,6 +66,10 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
   end
 
 private
+
+  def enforce_permissions!
+    enforce_permission!(:edit, @organisation)
+  end
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])

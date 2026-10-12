@@ -2,8 +2,8 @@ require "test_helper"
 
 class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   setup do
-    login_as :writer
     @organisation = create(:executive_office)
+    login_as :writer, @organisation
   end
 
   should_be_an_admin_controller
@@ -144,5 +144,71 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_equal promotional_feature, assigns(:promotional_feature)
+  end
+
+  test "Permissions are enforced for a writer who doesn't belong to the organisation or a parent" do
+    promotional_feature = create(:promotional_feature, organisation: @organisation)
+    login_as :writer, create(:organisation)
+
+    get :new, params: { organisation_id: @organisation }
+    assert_response :forbidden
+
+    post :create, params: { organisation_id: @organisation, promotional_feature: { title: "Promotional feature title" } }
+    assert_response :forbidden
+
+    get :edit, params: { organisation_id: @organisation, id: promotional_feature }
+    assert_response :forbidden
+
+    put :update, params: { organisation_id: @organisation, id: promotional_feature, promotional_feature: { title: "New title" } }
+    assert_response :forbidden
+
+    get :confirm_destroy, params: { organisation_id: @organisation, id: promotional_feature }
+    assert_response :forbidden
+
+    delete :destroy, params: { organisation_id: @organisation, id: promotional_feature }
+    assert_response :forbidden
+
+    get :reorder, params: { organisation_id: @organisation }
+    assert_response :forbidden
+
+    put :update_order, params: { organisation_id: @organisation, promotional_features: { ordering: {} } }
+    assert_response :forbidden
+  end
+
+  test "a signin-only writer with no organisation cannot manage another organisation's promotional features" do
+    login_as :writer
+
+    post :create, params: { organisation_id: @organisation, promotional_feature: { title: "Promotional feature title" } }
+
+    assert_response :forbidden
+  end
+
+  test "index and show remain accessible to any signed-in user" do
+    promotional_feature = create(:promotional_feature, organisation: @organisation)
+    login_as :writer, create(:organisation)
+
+    get :index, params: { organisation_id: @organisation }
+    assert_response :success
+
+    get :show, params: { organisation_id: @organisation, id: promotional_feature }
+    assert_response :success
+  end
+
+  test "gds admins can manage promotional features for any organisation" do
+    login_as :gds_admin
+
+    post :create, params: { organisation_id: @organisation, promotional_feature: { title: "Promotional feature title" } }
+
+    assert_response :redirect
+  end
+
+  test "writers belonging to a parent organisation can manage a child organisation's promotional features" do
+    parent_organisation = create(:organisation)
+    @organisation.parent_organisations << parent_organisation
+    login_as :writer, parent_organisation
+
+    post :create, params: { organisation_id: @organisation, promotional_feature: { title: "Promotional feature title" } }
+
+    assert_response :redirect
   end
 end

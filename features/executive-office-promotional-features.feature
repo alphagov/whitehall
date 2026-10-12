@@ -1,8 +1,8 @@
 Feature: Promotional features for executive offices
 
   Background:
-    Given I am an admin
-    And the executive office organisation "Number 32 - The Cheese Office" exists
+    Given the executive office organisation "Number 32 - The Cheese Office" exists
+    And I am an admin in the organisation "Number 32 - The Cheese Office"
 
   Scenario: Add a promotional feature with an image to an executive office
     When I add a new promotional feature with a single item which has an image
