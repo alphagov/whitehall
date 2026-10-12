@@ -45,6 +45,7 @@ module Whitehall::Authority
     "StandardEdition" => Rules::StandardEditionRules,
     "ConfigurableDocumentType" => Rules::ConfigurableDocumentTypeRules,
     "Role" => Rules::RoleRules,
+    "RoleAppointment" => Rules::RoleRules,
     "Person" => Rules::PersonRules,
     "PolicyGroup" => Rules::PolicyGroupRules,
     "Organisation" => Rules::OrganisationRules,

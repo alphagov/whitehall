@@ -1,5 +1,7 @@
 class Admin::RoleAppointmentsController < Admin::BaseController
   before_action :load_role_appointment, only: %i[edit update destroy confirm_destroy]
+  before_action :build_role_appointment, only: %i[create]
+  before_action :enforce_permissions!, only: %i[create edit update destroy]
 
   def new
     role = Role.find(params[:role_id])
@@ -8,10 +10,8 @@ class Admin::RoleAppointmentsController < Admin::BaseController
   end
 
   def create
-    role = Role.find(params[:role_id])
-    @role_appointment = role.role_appointments.build(role_appointment_params)
     if @role_appointment.save
-      redirect_to edit_admin_role_path(role), notice: "Appointment created"
+      redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment created"
     else
       @current_appointment = params[:role_appointment][:make_current]
       render :new
@@ -42,8 +42,17 @@ class Admin::RoleAppointmentsController < Admin::BaseController
 
 private
 
+  def enforce_permissions!
+    enforce_permission!(:administer, @role_appointment)
+  end
+
   def load_role_appointment
     @role_appointment = RoleAppointment.find(params[:id])
+  end
+
+  def build_role_appointment
+    role = Role.find(params[:role_id])
+    @role_appointment = role.role_appointments.build(role_appointment_params)
   end
 
   def role_appointment_params

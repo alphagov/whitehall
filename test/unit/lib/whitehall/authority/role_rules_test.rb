@@ -79,4 +79,24 @@ class RoleRulesTest < ActiveSupport::TestCase
   test "Writer can administer normal roles" do
     assert enforcer_for(writer, build(:non_ministerial_role_without_organisations)).can?(:administer)
   end
+
+  test "GDS editor can administer ministerial role appointments" do
+    assert enforcer_for(gds_editor, build(:ministerial_role_appointment)).can?(:administer)
+  end
+
+  test "Managing editor can administer ministerial role appointments" do
+    assert enforcer_for(managing_editor, build(:ministerial_role_appointment)).can?(:administer)
+  end
+
+  test "Departmental editor can administer ministerial role appointments" do
+    assert enforcer_for(departmental_editor, build(:ministerial_role_appointment)).can?(:administer)
+  end
+
+  test "Writer can't administer ministerial role appointments" do
+    assert_not enforcer_for(writer, build(:ministerial_role_appointment)).can?(:administer)
+  end
+
+  test "Writer can administer normal role appointments" do
+    assert enforcer_for(writer, build(:board_member_role_appointment)).can?(:administer)
+  end
 end

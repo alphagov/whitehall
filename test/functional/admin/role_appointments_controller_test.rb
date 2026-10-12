@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   setup do
-    login_as(:writer)
+    login_as(:gds_editor)
   end
 
   should_be_an_admin_controller
@@ -141,6 +141,42 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     assert_select ".govuk-error-message", text: "Error: Started at should not be in the future"
   end
 
+  test "edit is forbidden for writers, for ministerial roles" do
+    appointment = create(:role_appointment)
+
+    login_as :writer
+    get :edit, params: { id: appointment.id }
+
+    assert_response :forbidden
+  end
+
+  test "edit works for writers, for non-ministerial roles" do
+    appointment = create(:board_member_role_appointment)
+
+    login_as :writer
+    get :edit, params: { id: appointment.id }
+
+    assert_response :success
+  end
+
+  test "update is forbidden for writers, for ministerial roles" do
+    appointment = create(:role_appointment, started_at: 3.days.ago, ended_at: 2.days.ago)
+
+    login_as :writer
+    put :update, params: { id: appointment.id, role_appointment: { ended_at: 1.day.ago } }
+
+    assert_response :forbidden
+  end
+
+  test "update works for writers, for non-ministerial roles" do
+    appointment = create(:board_member_role_appointment, started_at: 3.days.ago, ended_at: 2.days.ago)
+
+    login_as :writer
+    put :update, params: { id: appointment.id, role_appointment: { ended_at: 1.day.ago } }
+
+    assert_redirected_to edit_admin_role_path(appointment.role)
+  end
+
   view_test "confirm_destroy should display form for deleting an existing appointment" do
     appointment = create(:role_appointment)
 
@@ -171,5 +207,52 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     delete :destroy, params: { id: appointment.id }
     assert_equal appointment, appointment.reload, "appointment should still be in the database"
     assert_equal "Appointment can not be deleted", flash[:alert]
+  end
+
+  test "destroy works for GDS editors" do
+    appointment = create(:role_appointment)
+
+    login_as :gds_editor
+    delete :destroy, params: { id: appointment.id }
+
+    assert_redirected_to edit_admin_role_path(appointment.role)
+  end
+
+  test "destroy is forbidden for writers, for ministerial roles" do
+    appointment = create(:role_appointment)
+
+    login_as :writer
+    delete :destroy, params: { id: appointment.id }
+
+    assert_response :forbidden
+  end
+
+  test "destroy works for writers, for non-ministerial roles" do
+    appointment = create(:board_member_role_appointment)
+
+    login_as :writer
+    delete :destroy, params: { id: appointment.id }
+
+    assert_redirected_to edit_admin_role_path(appointment.role)
+  end
+
+  test "create is forbidden for writers, for ministerial roles" do
+    role = create(:ministerial_role)
+    person = create(:person)
+
+    login_as :writer
+    post :create, params: { role_id: role.id, role_appointment: { person_id: person.id, started_at: 3.days.ago } }
+
+    assert_response :forbidden
+  end
+
+  test "create works for writers, for non-ministerial roles" do
+    role = create(:board_member_role)
+    person = create(:person)
+
+    login_as :writer
+    post :create, params: { role_id: role.id, role_appointment: { person_id: person.id, started_at: 3.days.ago } }
+
+    assert_redirected_to edit_admin_role_path(role)
   end
 end
