@@ -100,6 +100,9 @@ class Admin::StandardEditionsController < Admin::EditionsController
     if @edition.allows_child_documents?
       @child_editions = @edition.child_editions.select { |child_edition| can?(:see, child_edition) }
     end
+    if @edition.parent_edition.present?
+      @other_child_editions = @edition.other_child_editions.select { |other_child_edition| can?(:see, other_child_edition) }
+    end
   end
 
   def child_pages; end

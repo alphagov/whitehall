@@ -64,3 +64,21 @@ Then(/^I should see the child document on the summary page$/) do
     expect(page).to have_link(href: admin_edition_path(@child_edition))
   end
 end
+
+When(/^I view the summary page of a child document of that edition that has another child document$/) do
+  @child_edition = create(:draft_standard_edition, title: "Child Edition")
+  @other_child_edition = create(:draft_standard_edition, title: "Other Child Edition")
+  ParentChildRelationship.create!(parent_edition: @edition, child_document: @child_edition.document)
+  ParentChildRelationship.create!(parent_edition: @edition, child_document: @other_child_edition.document)
+  visit admin_edition_path(@child_edition)
+end
+
+Then(/^I should see the other child document on the summary page$/) do
+  within ".app-view-summary__other-child-documents" do
+    expect(page).to have_link("Edit child pages", href: child_pages_admin_standard_edition_path(@edition))
+    expect(page).to have_css("td", text: @other_child_edition.title)
+    expect(page).to have_css("td", text: /ago\s+by #{@other_child_edition.last_author.name}/)
+    expect(page).to have_css(".govuk-tag", text: /draft/i)
+    expect(page).to have_link(href: admin_edition_path(@other_child_edition))
+  end
+end

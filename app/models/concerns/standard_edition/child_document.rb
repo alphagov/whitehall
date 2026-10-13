@@ -25,6 +25,10 @@ module StandardEdition::ChildDocument
     end
   end
 
+  def other_child_editions
+    parent_edition.child_editions.where.not(document_id:)
+  end
+
 private
 
   def parent_edition_must_exist

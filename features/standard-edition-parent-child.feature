@@ -36,3 +36,9 @@ Feature: Standard Editions
     And a published standard edition called "Parent Edition" exists
     When I view the summary page of that edition after adding a child document to it
     Then I should see the child document on the summary page
+
+  Scenario: Seeing other child pages on a child document's summary page
+    Given I am a writer
+    And a published standard edition called "Parent Edition" exists
+    When I view the summary page of a child document of that edition that has another child document
+    Then I should see the other child document on the summary page

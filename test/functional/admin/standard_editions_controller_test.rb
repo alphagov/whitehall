@@ -115,6 +115,39 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select ".app-view-summary__parent-edition", count: 0
   end
 
+  view_test "GET show for a child edition without other child pages shows an empty other child pages section" do
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :show, params: { id: child_edition.id }
+
+    assert_select ".app-view-summary__other-child-documents" do
+      assert_select "h2", text: "Other child pages"
+      assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Edit child pages"
+      assert_select "p", text: "No other child pages for this document"
+    end
+  end
+
+  view_test "GET show for a child edition lists the other child pages of its parent" do
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition, title: "This child")
+    other_child_edition = create(:draft_standard_edition, title: "Other child")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    ParentChildRelationship.create!(parent_edition:, child_document: other_child_edition.document)
+
+    get :show, params: { id: child_edition.id }
+
+    assert_select ".app-view-summary__other-child-documents" do
+      assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Edit child pages"
+      assert_select "td", text: "Other child"
+      assert_select "td", text: /ago\s*by #{other_child_edition.last_author.name}/
+      assert_select ".govuk-tag", text: /draft/i
+      assert_select "a[href='#{admin_standard_edition_path(other_child_edition)}']", text: /View/
+      assert_select "td", text: "This child", count: 0
+    end
+  end
+
   view_test "GET show for a parent edition without child pages shows an empty child pages section" do
     ConfigurableDocumentType.setup_test_types(
       build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
