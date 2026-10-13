@@ -188,7 +188,7 @@ module PublishingApi
         item.pages.by_menu_heading(page_type).each do |page|
           links << {
             content_id: page.content_id,
-            title: page.title,
+            title: page.title_without_organisation,
           }
         end
       end

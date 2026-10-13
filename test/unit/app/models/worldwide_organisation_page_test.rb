@@ -63,15 +63,31 @@ class WorldwideOrganisationPageTest < ActiveSupport::TestCase
   end
 
   test "should derive title from type" do
-    page = build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
-    assert_equal "Terms of reference", page.title
+    worldwide_organisation = build(:worldwide_organisation, title: "British Embassy Paris")
+    page = build(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
+    assert_equal "Terms of reference - British Embassy Paris", page.title
   end
 
-  test "should translate title" do
-    welsh_language_scheme_page = build(:worldwide_organisation_page, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme)
-    assert_equal "Welsh language scheme", welsh_language_scheme_page.title
+  test "should not append worldwide organisation name when calling `title_without_organisation`" do
+    worldwide_organisation = build(:worldwide_organisation, title: "British Embassy Paris")
+    page = build(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
+    assert_equal "Terms of reference", page.title_without_organisation
+  end
+
+  test "should translate title, including the worldwide organisation's Welsh name" do
+    worldwide_organisation = build(:worldwide_organisation, title: "British Embassy Paris", translated_into: { cy: { title: "Llysgenhadaeth Prydain Paris" } })
+    welsh_language_scheme_page = build(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme)
+    assert_equal "Welsh language scheme - British Embassy Paris", welsh_language_scheme_page.title
     I18n.with_locale(:cy) do
-      assert_equal "Cynllun iaith Gymraeg", welsh_language_scheme_page.title
+      assert_equal "Cynllun iaith Gymraeg - Llysgenhadaeth Prydain Paris", welsh_language_scheme_page.title
+    end
+  end
+
+  test "should fall back to the worldwide organisation's English name in a translated title if it has no translation" do
+    worldwide_organisation = build(:worldwide_organisation, title: "British Embassy Paris")
+    welsh_language_scheme_page = build(:worldwide_organisation_page, edition: worldwide_organisation, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme)
+    I18n.with_locale(:cy) do
+      assert_equal "Cynllun iaith Gymraeg - British Embassy Paris", welsh_language_scheme_page.title
     end
   end
 

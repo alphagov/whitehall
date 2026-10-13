@@ -29,6 +29,10 @@ class WorldwideOrganisationPage < ApplicationRecord
     corporate_information_page_type.title(edition)
   end
 
+  def title_without_organisation
+    corporate_information_page_type.title_without_organisation(edition)
+  end
+
   def default_locale_title
     corporate_information_page_type.default_locale_title(edition)
   end

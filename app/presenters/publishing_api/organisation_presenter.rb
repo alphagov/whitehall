@@ -188,14 +188,14 @@ module PublishingApi
 
       item.corporate_information_pages.published.by_menu_heading(:our_information).each do |cip|
         cips << {
-          title: cip.title,
+          title: cip.title_without_organisation,
           href: cip.public_path,
         }
       end
 
       item.corporate_information_pages.published.by_menu_heading(:jobs_and_contracts).each do |cip|
         cips << {
-          title: cip.title,
+          title: cip.title_without_organisation,
           href: cip.public_path,
         }
       end

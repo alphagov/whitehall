@@ -406,4 +406,20 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
     assert_not presenter.content[:details].key? :default_news_image
   end
+
+  test "presents short corporate information page titles, without the organisation name, in the organisation's lists and sentences" do
+    organisation = create(:organisation, name: "Department for Business and Trade", acronym: "DBT")
+    create(:published_corporate_information_page, organisation:, corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
+    create(:published_corporate_information_page, organisation:, corporate_information_page_type_id: CorporateInformationPageType::Recruitment.id)
+    create(:published_corporate_information_page, organisation:, corporate_information_page_type_id: CorporateInformationPageType::PublicationScheme.id)
+
+    details = present(organisation).content[:details]
+
+    assert_equal(
+      ["Complaints procedure", "Working for DBT"],
+      details[:ordered_corporate_information_pages].map { |cip| cip[:title] },
+    )
+    assert_includes details[:secondary_corporate_information_pages], ">Publication scheme</a>"
+    assert_not_includes details[:secondary_corporate_information_pages], "Department for Business and Trade"
+  end
 end
