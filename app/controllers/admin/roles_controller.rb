@@ -1,6 +1,7 @@
 class Admin::RolesController < Admin::BaseController
   before_action :load_role, only: %i[edit update destroy]
-  before_action :enforce_permissions!, only: %i[edit update destroy]
+  before_action :build_role, only: %i[create]
+  before_action :enforce_permissions!, only: %i[create edit update destroy]
 
   def index
     @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations])
@@ -12,7 +13,6 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def create
-    @role = Role.new(role_params)
     if @role.save
       redirect_to index_or_edit_path, notice: %("#{@role.name}" created.)
     else
@@ -63,6 +63,10 @@ private
 
   def load_role
     @role = Role.find(params[:id])
+  end
+
+  def build_role
+    @role = Role.new(role_params)
   end
 
   def role_params

@@ -264,6 +264,37 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_select ".govuk-error-summary"
   end
 
+  test "create is forbidden for writers, for ministerial roles" do
+    login_as :writer
+
+    post :create,
+         params: {
+           role: attributes_for(
+             :ministerial_role,
+             name: "role-name",
+             role_type: "minister",
+           ),
+         }
+
+    assert_response :forbidden
+  end
+
+  test "create works for writers, for non-ministerial roles" do
+    login_as :writer
+
+    post :create,
+         params: {
+           role: attributes_for(
+             :board_member_role,
+             name: "role-name",
+             role_type: "board_level_manager",
+           ),
+         }
+
+    assert role = BoardMemberRole.last
+    assert_equal "role-name", role.name
+  end
+
   view_test "edit should display form for updating an existing role" do
     org = create(:organisation, name: "org-name")
     role = create(:board_member_role, name: "role-name", permanent_secretary: true, organisations: [org])
@@ -367,6 +398,43 @@ class Admin::RolesControllerTest < ActionController::TestCase
     put :update, params: { id: role, role: attributes_for(:role, name: nil) }
 
     assert_select ".govuk-error-summary"
+  end
+
+  test "edit is forbidden for writers, for ministerial roles" do
+    role = create(:ministerial_role)
+
+    login_as :writer
+    get :edit, params: { id: role }
+
+    assert_response :forbidden
+  end
+
+  test "edit works for writers, for non-ministerial roles" do
+    role = create(:board_member_role)
+
+    login_as :writer
+    get :edit, params: { id: role }
+
+    assert_response :success
+  end
+
+  test "update is forbidden for writers, for ministerial roles" do
+    role = create(:ministerial_role, name: "role-name")
+
+    login_as :writer
+    put :update, params: { id: role, role: { name: "new-name", role_type: "minister" } }
+
+    assert_response :forbidden
+  end
+
+  test "update works for writers, for non-ministerial roles" do
+    role = create(:board_member_role, name: "role-name")
+
+    login_as :writer
+    put :update, params: { id: role, role: { name: "new-name", role_type: "board_level_manager" } }
+
+    assert_redirected_to admin_roles_path
+    assert_equal "new-name", role.reload.name
   end
 
   view_test "confirm_destroy should display form for deleting an existing role" do
