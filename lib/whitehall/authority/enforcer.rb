@@ -2,10 +2,10 @@ require "whitehall/authority/rules/object_rules"
 require "whitehall/authority/rules/edition_rules"
 require "whitehall/authority/rules/fatality_notice_rules"
 require "whitehall/authority/rules/document_rules"
-require "whitehall/authority/rules/ministerial_role_rules"
 require "whitehall/authority/rules/person_rules"
 require "whitehall/authority/rules/policy_group_rules"
 require "whitehall/authority/rules/miscellaneous_rules"
+require "whitehall/authority/rules/role_rules"
 require "whitehall/authority/rules/social_media_account_rules"
 
 module Whitehall::Authority
@@ -44,7 +44,8 @@ module Whitehall::Authority
     "FatalityNotice" => Rules::FatalityNoticeRules,
     "StandardEdition" => Rules::StandardEditionRules,
     "ConfigurableDocumentType" => Rules::ConfigurableDocumentTypeRules,
-    "MinisterialRole" => Rules::MinisterialRoleRules,
+    "Role" => Rules::RoleRules,
+    "RoleAppointment" => Rules::RoleRules,
     "Person" => Rules::PersonRules,
     "PolicyGroup" => Rules::PolicyGroupRules,
     "Organisation" => Rules::OrganisationRules,
