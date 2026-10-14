@@ -9,6 +9,8 @@ class EditionUnpublisher < EditionService
                           "An edition that is #{edition.current_state} cannot be #{past_participle}"
                         elsif edition.unpublishing.blank?
                           "The reason for unpublishing must be present"
+                        elsif edition.try(:allows_child_documents?) && edition.child_editions.where(state: "draft").present?
+                          "There are draft editions of child documents associated with this edition of this document. You must discard the draft editions of those child documents before unpublishing the parent edition."
                         elsif !edition.unpublishing.valid?
                           edition.unpublishing.errors.full_messages.to_sentence
                         end

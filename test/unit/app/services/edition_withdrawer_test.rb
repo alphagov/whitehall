@@ -113,6 +113,34 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
     assert_not_equal previous_edition.unpublishing, edition.unpublishing
   end
 
+  test "cannot unpublish an edition that has draft editions of associated child documents" do
+    test_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "test_type",
+          },
+        ],
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition.build_parent_relationship(parent_edition: parent_edition, child_document: child_edition.document)
+    child_edition.save!
+
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    parent_edition.build_unpublishing(unpublishing_params)
+
+    unpublisher = EditionWithdrawer.new(parent_edition)
+
+    assert_not unpublisher.can_perform?
+    assert_equal "There are draft editions of child documents associated with this edition of this document. You must discard the draft editions of those child documents before withdrawing the parent edition.", unpublisher.failure_reason
+  end
+
 private
 
   def unpublishing_params
