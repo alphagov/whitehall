@@ -10,6 +10,7 @@ module StandardEdition::ChildDocument
 
     validate :parent_edition_must_exist
     validate :child_document_type_must_be_allowed_by_parent
+    validate :valid_parent_relationship
   end
 
   def parent_edition_id
@@ -40,6 +41,16 @@ module StandardEdition::ChildDocument
   end
 
 private
+
+  def valid_parent_relationship
+    return unless parent_relationship
+
+    parent_relationship.valid?
+
+    return if parent_relationship.errors.blank?
+
+    parent_relationship.errors.each { |error| errors.add(:parent_edition_id, error.type) }
+  end
 
   def parent_edition_must_exist
     return if parent_edition_id.blank?

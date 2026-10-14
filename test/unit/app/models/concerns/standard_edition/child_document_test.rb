@@ -94,4 +94,35 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
     assert_not child_edition.valid?(:publish)
     assert_includes child_edition.errors[:base], message
   end
+
+  test "only_descended_from_one_parent validation works correctly" do
+    test_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "test_type",
+          },
+        ],
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    create(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    )
+
+    another_parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+
+    child_edition.build_parent_relationship(
+      parent_edition: another_parent_edition,
+      child_document: child_edition.document,
+    )
+
+    assert_not child_edition.valid?
+    assert_includes child_edition.errors[:parent_edition_id], "must have the same document as previous parent edition"
+  end
 end
