@@ -14,6 +14,8 @@ concurrency:
 jobs:
   build-and-publish-image:
     name: Build and publish image
+    # Don't build and push the image for forks
+    if: github.event.pull_request.head.repo.full_name == github.repository
     uses: alphagov/govuk-infrastructure/.github/workflows/build-push-arm-image.yml@main
     with:
       gitRef: ${{ github.event.pull_request.head.sha }}
