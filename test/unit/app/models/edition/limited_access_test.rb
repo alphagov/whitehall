@@ -256,26 +256,26 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses separated with commas"
   end
 
-  test "shows both the format error and the Signon-match error, when different emails have different problems" do
+  test "shows both the format error and the Whitehall user match error, when different emails have different problems" do
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "no_such_user@example.com, gibberish"
 
     assert_not edition.valid?
     assert_includes edition.errors[:access_limiting_individual_emails], "must contain valid email addresses separated with commas"
-    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user: no_such_user@example.com"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Whitehall user: no_such_user@example.com"
   end
 
-  test "is invalid when access_limiting is set to 'individuals' and the provided email does not match an existing Signon user" do
+  test "is invalid when access_limiting is set to 'individuals' and the provided email does not match an existing Whitehall user" do
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "no_such_user@example.com"
 
     assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user: no_such_user@example.com"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Whitehall user: no_such_user@example.com"
   end
 
-  test "recognizes an existing Signon user regardless of email case" do
+  test "recognizes an existing Whitehall user regardless of email case" do
     create(:user, email: "User@Example.com")
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
@@ -284,36 +284,36 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test "is invalid when a Signon email is mixed in with an email that does not match any Signon user" do
+  test "is invalid when a Whitehall user email is mixed in with an email that does not match any Whitehall user" do
     create(:user, email: "user@example.com")
     edition = create(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "user@example.com, no_such_user@example.com"
 
     assert_not edition.valid?
-    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user: no_such_user@example.com"
+    assert_includes edition.errors[:access_limiting_individual_emails], "must match an existing Whitehall user: no_such_user@example.com"
   end
 
-  test "does not require a Signon match for an individual email marked for destruction" do
+  test "does not require a Whitehall user match for an individual email marked for destruction" do
     create(:user, email: "user@example.com")
     edition = build(:limited_access_edition)
     edition.access_limiting = :individuals
     edition.access_limiting_individual_emails = "user@example.com"
     edition.save!
 
-    # Bypass the edition-level Signon validation to simulate a pre-existing
-    # individual whose email doesn't match any Signon user - e.g. one added
+    # Bypass the edition-level Whitehall user validation to simulate a pre-existing
+    # individual whose email doesn't match any Whitehall user - e.g. one added
     # before this validation existed, or whose Signon account was later removed.
     edition.access_limiting_individuals.create!(email: "no_such_user@example.com")
     assert edition.access_limiting_individuals.exists?(email: "no_such_user@example.com")
 
-    # Replacing the emails list marks the non-Signon email for destruction,
+    # Replacing the emails list marks the non-Whitehall-user email for destruction,
     # rather than removing it from the in-memory association immediately.
     edition.access_limiting_individual_emails = "user@example.com"
 
     assert edition.access_limiting_individuals.detect { |i| i.email == "no_such_user@example.com" }.marked_for_destruction?
     assert edition.valid?
-    assert_not_includes edition.errors[:access_limiting_individual_emails], "must match an existing Signon user"
+    assert_not_includes edition.errors[:access_limiting_individual_emails], "must match an existing Whitehall user"
   end
 
   test "is valid when access_limiting is set to 'none' regardless of access limiting individuals" do

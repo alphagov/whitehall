@@ -148,7 +148,7 @@ private
     well_formed = individuals - invalid_format
     unmatched = well_formed.reject { |individual| User.exists?(["LOWER(email) = ?", individual.email.to_s.downcase]) }
     if unmatched.any?
-      errors.add(:access_limiting_individual_emails, "must match an existing Signon user: #{unmatched.map(&:email).join(', ')}")
+      errors.add(:access_limiting_individual_emails, "must match an existing Whitehall user: #{unmatched.map(&:email).join(', ')}")
     end
   end
 end
