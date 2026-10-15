@@ -38,6 +38,7 @@
   </section>
 
   <%= render partial: "admin/editions/show/parent_edition", locals: { parent_edition: @edition.try(:parent_edition) } %>
+  <%= render Admin::Editions::PublishingPrerequisitesComponent.new(edition: @edition) %>
   <% if @edition.try(:parent_edition).present? %>
     <%= render partial: "admin/editions/show/child_documents", locals: {
       edition: @edition.parent_edition,

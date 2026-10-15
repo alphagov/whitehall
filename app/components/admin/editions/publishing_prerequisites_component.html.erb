@@ -1,0 +1,7 @@
+<div class="app-c-publishing-prerequisites">
+  <% messages.each do |message| %>
+    <%= render "govuk_publishing_components/components/warning_text", {
+      text: message,
+    } %>
+  <% end %>
+</div>
