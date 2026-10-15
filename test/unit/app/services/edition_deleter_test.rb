@@ -69,4 +69,45 @@ class EditionDeleterTest < ActiveSupport::TestCase
     assert_equal [offsite_link_1, offsite_link_2], published_edition.offsite_links.reload, "Offsite links associated with the published edition should not be deleted"
     assert_equal [], draft_edition.offsite_links.reload, "Offsite links should be unlinked from deleted draft"
   end
+
+  test "cannot delete an edition with a child document that is only associated with the edition to be deleted" do
+    test_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    create(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    )
+
+    deleter = EditionDeleter.new(parent_edition)
+    assert_not deleter.can_perform?
+    assert_equal "An edition cannot be deleted with children that are only linked to the current draft", deleter.failure_reason
+  end
+
+  test "can delete an edition with a child document associated with another edition" do
+    test_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    create(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    )
+
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    child_edition.major_change_published_at = Time.zone.now
+    child_edition.force_publish!
+
+    draft_parent_edition = parent_edition.create_draft(child_edition.authors.first)
+    child_edition.create_draft(child_edition.authors.first)
+
+    assert EditionDeleter.new(draft_parent_edition).perform!
+  end
 end
