@@ -6,7 +6,7 @@
     margin_bottom: 3,
   } %>
 
-  <% if can?(:update, edition) %>
+  <% if link_text %>
     <p class="govuk-body">
       <%= link_to(link_text,
                   child_pages_admin_standard_edition_path(edition),

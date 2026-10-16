@@ -11,4 +11,8 @@ module StandardEdition::ParentDocument
   def child_editions
     Edition.where(id: child_documents.select(:latest_edition_id))
   end
+
+  def can_create_new_child_documents?
+    pre_publication?
+  end
 end
