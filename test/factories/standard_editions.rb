@@ -4,7 +4,7 @@ FactoryBot.define do
     summary { "standard-edition-summary" }
     previously_published { false }
     configurable_document_type { "test_type" }
-    block_content { {} }
+    block_content { { "nation_applicability" => { "selected" => %w[all] } } }
     body { nil }
 
     factory :draft_standard_edition, parent: :standard_edition, traits: [:draft]

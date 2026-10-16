@@ -13,6 +13,7 @@ def create_configurable_document(title:, locale: "en", summary: nil, body: nil, 
           "street" => street,
           "city" => city,
           "list_of_foods" => list_of_foods,
+          "nation_applicability" => { "selected" => %w[all] },
         },
       },
     )
@@ -33,6 +34,7 @@ def default_block_content_for_locale(locale)
   default_content_for_locale(locale)
     .stringify_keys
     .except("title", "summary")
+    .merge("nation_applicability" => { "selected" => %w[all] })
 end
 
 def default_content_for_locale(locale)
@@ -94,6 +96,7 @@ When(/^I fill in and submit the form with title '([^']*)'$/) do |title|
     fill_in "edition[block_content][street]", with: "Bakers Street"
     fill_in "edition[block_content][city]", with: "London"
     fill_in "edition[block_content][list_of_foods][0][food]", with: "Apple"
+    check "Applies to all UK nations"
   end
   click_button "Save and go to document summary"
 end
@@ -238,6 +241,7 @@ When(/^I create a new "([^"]*)" with Welsh as the primary locale titled "([^"]*)
     fill_in "edition[block_content][date_field][2]", with: "11"
     fill_in "edition[block_content][date_field][1]", with: "2011"
     select "Welsh (Cymraeg)", from: "Language"
+    check "Applies to all UK nations"
   end
   click_button "Save and go to document summary"
 end

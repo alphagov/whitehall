@@ -254,4 +254,51 @@ class PublishingApi::PayloadBuilder::BlockContentTest < ActiveSupport::TestCase
       assert_equal expected_payload, builder.send(:social_media_links, :some_attribute)
     end
   end
+
+  context "national_applicability builder" do
+    test "national_applicability returns nil when nothing has been selected" do
+      @block_content.stubs(:nation_applicability).returns(nil)
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+
+      assert_nil builder.send(:national_applicability, :nation_applicability)
+    end
+
+    test "national_applicability marks every nation as applicable when 'all' is selected" do
+      @block_content.stubs(:nation_applicability).returns({ "selected" => %w[all] })
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+      result = builder.send(:national_applicability, :nation_applicability)
+
+      assert_equal(
+        {
+          england: { label: "England", applicable: true },
+          scotland: { label: "Scotland", applicable: true },
+          wales: { label: "Wales", applicable: true },
+          northern_ireland: { label: "Northern Ireland", applicable: true },
+        },
+        result,
+      )
+    end
+
+    test "national_applicability marks excluded nations as inapplicable, with their alternative URL" do
+      @block_content.stubs(:nation_applicability).returns({
+        "selected" => %w[scotland northern_ireland],
+        "scotland" => { "alternative_url" => "https://example.com" },
+      })
+
+      builder = PublishingApi::PayloadBuilder::BlockContent.new(@item)
+      result = builder.send(:national_applicability, :nation_applicability)
+
+      assert_equal(
+        {
+          england: { label: "England", applicable: true },
+          scotland: { label: "Scotland", applicable: false, alternative_url: "https://example.com" },
+          wales: { label: "Wales", applicable: true },
+          northern_ireland: { label: "Northern Ireland", applicable: false, alternative_url: "" },
+        },
+        result,
+      )
+    end
+  end
 end

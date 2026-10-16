@@ -29,6 +29,7 @@
         "enum": [
           "embedded_contacts_exist",
           "length",
+          "nation_applicability",
           "no_footnotes_allowed",
           "presence",
           "safe_html",
@@ -64,6 +65,7 @@
           "description": "Identifier for a content block. Maps to a specific block class.",
           "enum": [
             "default_array",
+            "default_checkboxes",
             "default_date",
             "default_object",
             "default_string",
@@ -110,6 +112,29 @@
           "type": "string",
           "description": "Text to display for the blank/default option in a select input."
         },
+        "items": {
+          "type": "array",
+          "description": "List of checkbox items for the default_checkboxes block.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "conditionally_reveal": {
+                "type": "array",
+                "description": "Content blocks to conditionally reveal when this checkbox is checked.",
+                "items": {
+                  "$ref": "#/$defs/form_field"
+                }
+              }
+            },
+            "required": ["label", "value"]
+          }
+        },
         "container": {
           "description": "The option container to be used in the select_with_search_tagging_block",
           "type": "string",
@@ -154,7 +179,7 @@
         "type": {
           "type": "string",
           "description": "Data type for the content block. Should map to an active record type, with the exception of the object type.",
-          "enum": ["string", "integer", "date", "array"]
+          "enum": ["string", "integer", "date", "array", "object"]
         },
         "attributes": {
           "description": "For array types, defines the schema of each array item using the same minimal attribute format.",
@@ -285,6 +310,7 @@
                     "govspeak",
                     "rfc3339_date",
                     "image",
+                    "national_applicability",
                     "raw",
                     "social_media_links"
                   ]

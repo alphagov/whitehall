@@ -1,0 +1,18 @@
+<%= render "govuk_publishing_components/components/checkboxes", {
+  name: "#{block.selected_path.form_control_name}[]",
+  id: block.selected_path.form_control_id,
+  heading: block.title + (block.required ? " (required)" : ""),
+  heading_size: "m",
+  hint_text: block.hint_text,
+  no_hint_text: block.hint_text.blank?,
+  error: errors_for_input(block.edition.errors, block.path.validation_error_attribute.to_sym),
+  items: block.items.map do |item|
+    field_blocks = block.conditional_field_blocks(item)
+    {
+      label: item["label"],
+      value: item["value"],
+      checked: block.checked?(item),
+      conditional: field_blocks.any? ? safe_join(field_blocks.map { |field_block| render(field_block) }) : nil,
+    }
+  end,
+} %>
