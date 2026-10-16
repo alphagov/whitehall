@@ -47,11 +47,9 @@ class TopicalEventFeaturing < ApplicationRecord
   end
 
   def public_timestamp
-    if offsite?
-      offsite_link.date
-    else
-      edition.public_timestamp
-    end
+    return nil if offsite?
+
+    edition.public_timestamp
   end
 
   def display_type
