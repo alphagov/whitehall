@@ -19,18 +19,22 @@ class ConfigurableContentBlocks::BaseBlock
     @config["required"]
   end
 
-  def value(locale = nil)
-    @path.reduce(@edition) do |obj, segment|
-      return nil if obj.nil?
+  def inherit_from_parent
+    @config["inherit_from_parent"]
+  end
 
-      if segment == "block_content"
-        obj.public_send(segment, locale)
-      elsif obj.is_a?(Hash) || obj.is_a?(Array)
-        obj[segment]
-      else
-        obj.public_send(segment)
-      end
+  def value(locale = nil)
+    edition_value = get_value(@edition, locale)
+
+    return edition_value unless inherit_from_parent
+
+    if @edition.parent_edition_id && edition_value.blank?
+      get_value(Edition.find(@edition.parent_edition_id), locale)
+    else
+      edition_value
     end
+  rescue ActiveRecord::RecordNotFound
+    edition_value
   end
 
   def primary_locale_value
@@ -48,6 +52,20 @@ class ConfigurableContentBlocks::BaseBlock
   end
 
 private
+
+  def get_value(edition, locale = nil)
+    @path.reduce(edition) do |obj, segment|
+      return nil if obj.nil?
+
+      if segment == "block_content"
+        obj.public_send(segment, locale)
+      elsif obj.is_a?(Hash) || obj.is_a?(Array)
+        obj[segment]
+      else
+        obj.public_send(segment)
+      end
+    end
+  end
 
   def template_name
     raise NotImplementedError
