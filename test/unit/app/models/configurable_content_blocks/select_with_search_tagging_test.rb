@@ -7,14 +7,14 @@ class ConfigurableContentBlocks::SelectWithSearchTaggingTest < ActionView::TestC
     @field = {
       "title" => "Test attribute",
       "description" => "A test attribute",
-      "required" => true,
       "block" => "select_with_search_tagging",
       "attribute_path" => %w[worldwide_organisation_document_ids],
       "translatable" => true,
       "container" => "worldwide_organisations",
+      "inherit_from_parent" => true,
     }
     @path = Path.new(%w[worldwide_organisation_document_ids])
-    @edition = StandardEdition.new(configurable_document_type: "test_type")
+    @edition = create(:draft_standard_edition, configurable_document_type: "test_type")
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "forms" => {
         "documents" => {
@@ -34,7 +34,7 @@ class ConfigurableContentBlocks::SelectWithSearchTaggingTest < ActionView::TestC
 
     render @block
 
-    assert_dom "label", text: "Test attribute (required)"
+    assert_dom "label", text: "Test attribute"
     # The select with search component adds the trailing [] on to the select name automatically, but not the search input.
     # If the input doesn't have it as well, Rails treats the parameter as a string and this causes a controller params error
     # because the controller expects an array
@@ -53,5 +53,82 @@ class ConfigurableContentBlocks::SelectWithSearchTaggingTest < ActionView::TestC
     render @block
 
     assert_dom ".govuk-error-message", text: "Error: #{messages.map { |m| "Test attribute #{m}" }.join}"
+  end
+
+  test "it inherits from parent, if `inherit_from_parent` set and value of field is blank" do
+    options = build_list(:worldwide_organisation, 3)
+    options.each_with_index { |wo, index| wo.document = create(:document, id: index) }
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type", worldwide_organisation_documents: [options.first.document, options.last.document])
+
+    parent_relationship = ParentChildRelationship.new(parent_edition:, child_document: @edition.document)
+
+    parent_relationship.save!(validate: false)
+
+    WorldwideOrganisation.stubs(:with_translations).returns(stub(latest_edition: options))
+
+    render @block
+
+    # The select with search component adds the trailing [] on to the select name automatically, but not the search input.
+    # If the input doesn't have it as well, Rails treats the parameter as a string and this causes a controller params error
+    # because the controller expects an array
+    assert_dom "input[name='edition[worldwide_organisation_document_ids][]']"
+    assert_dom "select[name='edition[worldwide_organisation_document_ids][]']"
+    options.each do |option|
+      selected_attr = @edition.worldwide_organisation_documents.include?(option.document) ? "[selected=\"selected\"]" : ""
+      assert_dom "option#{selected_attr}[value=\"#{option.document.id}\"]", text: option.title
+    end
+  end
+
+  test "it does not inherit from parent, if `inherit_from_parent` set and value of field is filled in" do
+    options = build_list(:worldwide_organisation, 3)
+    options.each_with_index { |wo, index| wo.document = create(:document, id: index) }
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type", worldwide_organisation_documents: [options.first.document])
+
+    @edition.update!(worldwide_organisation_documents: [options.last.document])
+
+    parent_relationship = ParentChildRelationship.new(parent_edition:, child_document: @edition.document)
+
+    parent_relationship.save!(validate: false)
+
+    WorldwideOrganisation.stubs(:with_translations).returns(stub(latest_edition: options))
+
+    render @block
+
+    # The select with search component adds the trailing [] on to the select name automatically, but not the search input.
+    # If the input doesn't have it as well, Rails treats the parameter as a string and this causes a controller params error
+    # because the controller expects an array
+    assert_dom "input[name='edition[worldwide_organisation_document_ids][]']"
+    assert_dom "select[name='edition[worldwide_organisation_document_ids][]']"
+    options.each do |option|
+      selected_attr = @edition.worldwide_organisation_documents.include?(option.document) ? "[selected=\"selected\"]" : ""
+      assert_dom "option#{selected_attr}[value=\"#{option.document.id}\"]", text: option.title
+    end
+  end
+
+  test "it does not inherit from parent, if `inherit_from_parent` set and value of field is not filled in" do
+    options = build_list(:worldwide_organisation, 3)
+    options.each_with_index { |wo, index| wo.document = create(:document, id: index) }
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type", worldwide_organisation_documents: [options.first.document])
+
+    parent_relationship = ParentChildRelationship.new(parent_edition:, child_document: @edition.document)
+
+    parent_relationship.save!(validate: false)
+
+    WorldwideOrganisation.stubs(:with_translations).returns(stub(latest_edition: options))
+
+    render @block
+
+    # The select with search component adds the trailing [] on to the select name automatically, but not the search input.
+    # If the input doesn't have it as well, Rails treats the parameter as a string and this causes a controller params error
+    # because the controller expects an array
+    assert_dom "input[name='edition[worldwide_organisation_document_ids][]']"
+    assert_dom "select[name='edition[worldwide_organisation_document_ids][]']"
+    options.each do |option|
+      selected_attr = @edition.worldwide_organisation_documents.include?(option.document) ? "[selected=\"selected\"]" : ""
+      assert_dom "option#{selected_attr}[value=\"#{option.document.id}\"]", text: option.title
+    end
   end
 end
