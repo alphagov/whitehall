@@ -134,6 +134,10 @@
         "add_another_button_text": {
           "type": "string",
           "description": "Text to display for the 'Add another' button in default_array block. If empty, it defaults to 'Add another'."
+        },
+        "inherit_from_parent": {
+          "type": "boolean",
+          "description": "If this is a child document and the field is blank then set the value of the field to the value of the parent's field."
         }
       },
       "required": ["title", "block", "attribute_path", "translatable"],
