@@ -87,6 +87,10 @@ class ConfigurableDocumentType
     @schema["attributes"] || {}
   end
 
+  def parts
+    (presenter("publishing_api")["details"]["parts"] || []).map { |part| part["slug"]["hardcoded_value"] }
+  end
+
   def form(key = nil)
     return nil if @forms.empty?
 

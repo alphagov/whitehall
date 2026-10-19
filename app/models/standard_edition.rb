@@ -125,6 +125,10 @@ class StandardEdition < Edition
     "#{prefix}/#{slug}"
   end
 
+  def additional_routes
+    type_instance.settings["additional_routes"] || []
+  end
+
   def type_instance
     ConfigurableDocumentType.find(configurable_document_type)
   end
