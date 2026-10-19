@@ -116,4 +116,16 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal parent_edition.child_relationships.first.child_document,
                  new_parent_edition.child_relationships.first.child_document
   end
+
+  test "nests the child edition path under the parent edition path" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+
+    parent_edition = create(:standard_edition, title: "My Parent")
+    child_edition = create(:standard_edition, title: "My Child", parent_edition_id: parent_edition.id)
+
+    assert_equal "/government/test/my-parent", parent_edition.base_path
+    assert_equal "/government/test/my-parent/my-child", child_edition.base_path
+  end
 end

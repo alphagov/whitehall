@@ -324,8 +324,8 @@
       "description": "A list of configurations to enable certain edition behaviours.",
       "properties": {
         "base_path_prefix": {
-          "type": "string",
-          "description": "URL prefix for where documents of this type are published. E.g. /government/history.",
+          "type": ["string", "null"],
+          "description": "URL prefix for where documents of this type are published. E.g. /government/history. Can be set to null for child document types that use their parent's base path prefix.",
           "pattern": "^\/[\/.a-zA-Z0-9-]+$",
           "x-error": {
             "pattern": "string at `settings/base_path_prefix` is not a valid URL"
