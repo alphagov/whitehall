@@ -310,6 +310,7 @@
                     "govspeak",
                     "rfc3339_date",
                     "image",
+                    "national_applicability",
                     "raw",
                     "social_media_links"
                   ]
