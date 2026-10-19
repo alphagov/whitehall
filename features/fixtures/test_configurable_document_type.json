@@ -55,6 +55,67 @@
               "translatable": true
             }
           }
+        },
+        "nation_applicability": {
+          "title": "Nation applicability",
+          "description": "Which UK nations this content applies to",
+          "block": "default_checkboxes",
+          "attribute_path": ["block_content", "nation_applicability"],
+          "translatable": false,
+          "items": [
+            {
+              "label": "Applies to all UK nations",
+              "value": "all"
+            },
+            {
+              "label": "Does not apply to England",
+              "value": "england",
+              "conditionally_reveal": [
+                {
+                  "title": "URL of corresponding content",
+                  "block": "default_string",
+                  "attribute_path": ["alternative_url"],
+                  "translatable": false
+                }
+              ]
+            },
+            {
+              "label": "Does not apply to Scotland",
+              "value": "scotland",
+              "conditionally_reveal": [
+                {
+                  "title": "URL of corresponding content",
+                  "block": "default_string",
+                  "attribute_path": ["alternative_url"],
+                  "translatable": false
+                }
+              ]
+            },
+            {
+              "label": "Does not apply to Wales",
+              "value": "wales",
+              "conditionally_reveal": [
+                {
+                  "title": "URL of corresponding content",
+                  "block": "default_string",
+                  "attribute_path": ["alternative_url"],
+                  "translatable": false
+                }
+              ]
+            },
+            {
+              "label": "Does not apply to Northern Ireland",
+              "value": "northern_ireland",
+              "conditionally_reveal": [
+                {
+                  "title": "URL of corresponding content",
+                  "block": "default_string",
+                  "attribute_path": ["alternative_url"],
+                  "translatable": false
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -195,6 +256,14 @@
             "type": "string"
           }
         }
+      },
+      "nation_applicability": {
+        "type": "object"
+      }
+    },
+    "validations": {
+      "nation_applicability": {
+        "attributes": ["nation_applicability"]
       }
     }
   },
