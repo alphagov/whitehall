@@ -78,6 +78,11 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
           end
         end
 
+        it "should accept nulls" do
+          document["settings"]["base_path_prefix"] = nil
+          assert SchemaValidator.for(document).empty?, "Schema should be valid if `settings.base_path_prefix` is null"
+        end
+
         [
           "government/history", # does not start with /
           "/", # has no characters after initial /

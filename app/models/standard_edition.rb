@@ -121,7 +121,8 @@ class StandardEdition < Edition
   end
 
   def base_path
-    "#{type_instance.settings['base_path_prefix']}/#{slug}"
+    prefix = parent_edition ? parent_edition.base_path : type_instance.settings["base_path_prefix"]
+    "#{prefix}/#{slug}"
   end
 
   def type_instance

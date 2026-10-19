@@ -103,7 +103,10 @@ module Edition::Identifiable
 
     def where_base_path_prefix_matches(edition)
       scope = Edition.where(type: edition.type)
-      if edition.configurable_document_type.present?
+      if edition.respond_to?(:parent_edition_id) && edition.parent_edition_id.present?
+        parent = StandardEdition.find(edition.parent_edition_id)
+        scope = scope.where(document_id: parent.child_documents.select(:id))
+      elsif edition.configurable_document_type.present?
         configurable_types = ConfigurableDocumentType.find_by_base_path_prefix(edition.type_instance.settings["base_path_prefix"])
         scope = scope.where(configurable_document_type: configurable_types.map(&:key))
       end
