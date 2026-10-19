@@ -6,7 +6,18 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
   ITEMS = [
     { "label" => "Option one", "value" => "one" },
     { "label" => "Option two", "value" => "two" },
-    { "label" => "Option three", "value" => "three" },
+    {
+      "label" => "Option three",
+      "value" => "three",
+      "conditionally_reveal" => [
+        {
+          "title" => "Details for option three",
+          "block" => "default_string",
+          "attribute_path" => %w[details],
+          "translatable" => false,
+        },
+      ],
+    },
   ].freeze
 
   setup do
@@ -70,5 +81,36 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
     render @block
 
     assert_dom ".govuk-error-message"
+  end
+
+  test "it renders the conditionally_reveal fields for items that have them, but not for items without" do
+    render @block
+
+    assert_dom "input[name='edition[block_content][choices][three][details]']"
+    assert_dom "label", text: "Details for option three"
+    assert_dom "input[name='edition[block_content][choices][one][details]']", count: 0
+    assert_dom "input[name='edition[block_content][choices][two][details]']", count: 0
+  end
+
+  test "it pre-fills the conditionally revealed field with the currently stored value" do
+    @edition.block_content = {
+      "choices" => {
+        "selected" => %w[three],
+        "three" => { "details" => "Some extra detail" },
+      },
+    }
+
+    render @block
+
+    assert_dom "input[name='edition[block_content][choices][three][details]'][value='Some extra detail']"
+  end
+
+  test "it displays validation errors for an individual conditionally revealed field" do
+    @edition.errors.add(:"choices.three.details", "is not valid")
+
+    render @block
+
+    assert_dom "input#edition_choices_three_details.govuk-input--error"
+    assert_dom ".govuk-error-message", text: /is not valid/
   end
 end

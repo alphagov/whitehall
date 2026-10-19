@@ -122,6 +122,13 @@
               },
               "value": {
                 "type": "string"
+              },
+              "conditionally_reveal": {
+                "type": "array",
+                "description": "Content blocks to conditionally reveal when this checkbox is checked.",
+                "items": {
+                  "$ref": "#/$defs/form_field"
+                }
               }
             },
             "required": ["label", "value"]
