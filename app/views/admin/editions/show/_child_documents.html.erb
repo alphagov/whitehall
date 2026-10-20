@@ -30,7 +30,7 @@
           text: "Actions",
         },
       ],
-      rows: child_editions.map do |child_edition|
+      rows: child_editions.sort_by(&:created_at).map do |child_edition|
         [
           { text: child_edition.title },
           {
