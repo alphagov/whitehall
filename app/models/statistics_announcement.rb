@@ -69,6 +69,7 @@ class StatisticsAnnouncement < ApplicationRecord
   default_scope { published }
 
   delegate :release_date,
+           :calendar_release_date,
            :display_date,
            :confirmed?,
            to: :current_release_date,

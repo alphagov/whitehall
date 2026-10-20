@@ -25,6 +25,17 @@ class StatisticsAnnouncementDate < ApplicationRecord
     end
   end
 
+  def calendar_release_date
+    case precision
+    when PRECISION[:one_month]
+      release_date.end_of_month.change(usec: 0)
+    when PRECISION[:two_month]
+      (release_date + 1.month).end_of_month.change(usec: 0)
+    else
+      release_date
+    end
+  end
+
 private
 
   def update_statistics_announcement_current_release_date

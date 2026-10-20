@@ -39,6 +39,46 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
     assert_equal "December to January 2015", annoucement_date.display_date
   end
 
+  test "#calendar_release_date is the release date when precision is :exact" do
+    announcement_date = build(
+      :statistics_announcement_date,
+      precision: StatisticsAnnouncementDate::PRECISION[:exact],
+      release_date: Time.zone.local(2026, 10, 1, 9, 30),
+    )
+
+    assert_equal Time.zone.local(2026, 10, 1, 9, 30), announcement_date.calendar_release_date
+  end
+
+  test "#calendar_release_date is the end of the month when precision is :one_month" do
+    announcement_date = build(
+      :statistics_announcement_date,
+      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
+      release_date: Time.zone.local(2026, 10, 1, 9, 30),
+    )
+
+    assert_equal Time.zone.local(2026, 10, 31, 23, 59, 59), announcement_date.calendar_release_date
+  end
+
+  test "#calendar_release_date is the end of the second month when precision is :two_month" do
+    announcement_date = build(
+      :statistics_announcement_date,
+      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+      release_date: Time.zone.local(2026, 10, 1, 9, 30),
+    )
+
+    assert_equal Time.zone.local(2026, 11, 30, 23, 59, 59), announcement_date.calendar_release_date
+  end
+
+  test "#calendar_release_date handles a two month range that crosses into the next year" do
+    announcement_date = build(
+      :statistics_announcement_date,
+      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+      release_date: Time.zone.local(2026, 12, 15, 9, 30),
+    )
+
+    assert_equal Time.zone.local(2027, 1, 31, 23, 59, 59), announcement_date.calendar_release_date
+  end
+
   test "a confirmed date must be of exact precision" do
     assert_not build(
       :statistics_announcement_date,
