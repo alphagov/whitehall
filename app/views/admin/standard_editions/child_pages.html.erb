@@ -22,6 +22,19 @@
 } %>
 <p class="govuk-body">Child pages can be added to the navigation menu or featured section.</p>
 
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render partial: "admin/editions/show/child_documents", locals: {
+      heading: nil,
+      section_class: nil,
+      edition: @edition,
+      child_editions: @child_editions,
+      link_text: "Edit child pages",
+      empty_message: "There are currently no child pages.",
+    } %>
+  </div>
+</div>
+
 <% if @edition.can_create_new_child_documents? %>
   <%= render "govuk_publishing_components/components/button", {
     text: "Add new child page",

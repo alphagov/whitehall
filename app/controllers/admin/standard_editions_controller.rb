@@ -3,7 +3,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
   rescue_from ConfigurableDocumentType::NotFoundError, with: :render_not_found
 
   before_action :set_current_tab_context, only: %i[edit update]
-  before_action :set_child_editions, only: %i[show]
+  before_action :set_child_editions, only: %i[show child_pages]
 
   def choose_type
     @permitted_configurable_document_types = ConfigurableDocumentType.where_group(params[:group])
