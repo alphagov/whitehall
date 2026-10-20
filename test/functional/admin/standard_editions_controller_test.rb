@@ -1323,7 +1323,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_dom "#currently_featured_tab p", text: unfeatured_offsite_link.title
   end
 
-  view_test "GET child_pages renders the child pages tab with an add new child page button" do
+  view_test "GET child_pages links the add new child page button straight to the form when only one child type is allowed" do
     child_page_type = build_configurable_document_type("test_type_with_child_pages", {
       "settings" => { "allowed_child_document_types" => [{ "document_type" => "some_child_type" }] },
     })
@@ -1337,6 +1337,21 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "h2", text: "Child pages"
     assert_select "p", text: "Child pages can be added to the navigation menu or featured section."
+    assert_select "a[href=?]", new_admin_standard_edition_path(configurable_document_type: "some_child_type", parent_edition_id: edition.id), text: "Add new child page"
+  end
+
+  view_test "GET child_pages links the add new child page button to the new document screen when several child types are allowed" do
+    child_page_type = build_configurable_document_type("test_type_with_child_pages", {
+      "settings" => { "allowed_child_document_types" => [{ "document_type" => "some_child_type" }, { "document_type" => "another_child_type" }] },
+    })
+    ConfigurableDocumentType.setup_test_types(child_page_type)
+
+    edition = create(:standard_edition, configurable_document_type: "test_type_with_child_pages")
+
+    login_as :managing_editor
+    get :child_pages, params: { id: edition.id }
+
+    assert_response :success
     assert_select "a[href=?]", admin_new_document_path(parent_edition_id: edition.id), text: "Add new child page"
   end
 
