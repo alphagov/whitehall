@@ -3,6 +3,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
   rescue_from ConfigurableDocumentType::NotFoundError, with: :render_not_found
 
   before_action :set_current_tab_context, only: %i[edit update]
+  before_action :set_child_editions, only: %i[show]
 
   def choose_type
     @permitted_configurable_document_types = ConfigurableDocumentType.where_group(params[:group])
@@ -97,12 +98,6 @@ class Admin::StandardEditionsController < Admin::EditionsController
       tab_form = StandardEdition::TabForm.new(@edition, tab_key)
       { tab_key:, label: type_instance.form(tab_key)["label"] || tab_key.humanize } unless tab_form.valid?
     end
-    if @edition.allows_child_documents?
-      @child_editions = @edition.child_editions.select { |child_edition| can?(:see, child_edition) }
-    end
-    if @edition.parent_edition.present?
-      @other_child_editions = @edition.other_child_editions.select { |other_child_edition| can?(:see, other_child_edition) }
-    end
   end
 
   def child_pages
@@ -158,5 +153,14 @@ private
 
   def render_not_found
     render "admin/errors/not_found", status: :not_found
+  end
+
+  def set_child_editions
+    if @edition.allows_child_documents?
+      @child_editions = @edition.child_editions.select { |child_edition| can?(:see, child_edition) }
+    end
+    if @edition.parent_edition.present?
+      @other_child_editions = @edition.other_child_editions.select { |other_child_edition| can?(:see, other_child_edition) }
+    end
   end
 end
