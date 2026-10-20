@@ -791,6 +791,10 @@ GEM
     rinku (2.0.6)
     rouge (5.1.0)
       strscan (~> 3.1)
+    rspec-expectations (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.7)
     rubocop (1.86.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -1008,6 +1012,7 @@ DEPENDENCIES
   record_tag_helper
   redis
   rinku
+  rspec-expectations
   rubocop-govuk
   sentry-sidekiq
   sidekiq-scheduler
