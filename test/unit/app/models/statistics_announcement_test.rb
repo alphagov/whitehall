@@ -164,6 +164,59 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal "confirmed", announcement.state
   end
 
+  test "#awaiting_release? is true for an announcement that has not been cancelled or published" do
+    assert build(:statistics_announcement).awaiting_release?
+  end
+
+  test "#awaiting_release? is false for a cancelled announcement" do
+    assert_not build(:cancelled_statistics_announcement).awaiting_release?
+  end
+
+  test "#awaiting_release? is false when the connected publication has been published" do
+    announcement = build(:statistics_announcement, publication: build(:published_statistics))
+
+    assert_not announcement.awaiting_release?
+  end
+
+  test "#calendar_release_date_passed? is true when an exact release date has passed" do
+    announcement = build(
+      :statistics_announcement,
+      current_release_date: build(
+        :statistics_announcement_date,
+        precision: StatisticsAnnouncementDate::PRECISION[:exact],
+        release_date: 1.day.ago,
+      ),
+    )
+
+    assert announcement.calendar_release_date_passed?
+  end
+
+  test "#calendar_release_date_passed? is false when the day has passed but the provisional period has not ended" do
+    announcement = build(
+      :statistics_announcement,
+      current_release_date: build(
+        :statistics_announcement_date,
+        precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+        release_date: 1.day.ago,
+      ),
+    )
+
+    assert_not announcement.calendar_release_date_passed?
+  end
+
+  test "#calendar_release_date_passed? is false for a cancelled announcement" do
+    announcement = build(
+      :cancelled_statistics_announcement,
+      current_release_date: build(
+        :statistics_announcement_date,
+        precision: StatisticsAnnouncementDate::PRECISION[:exact],
+        release_date: 1.day.ago,
+      ),
+    )
+
+    assert_not announcement.calendar_release_date_passed?
+  end
+
   test "cannot cancel without a reason" do
     announcement = create(:statistics_announcement)
 
