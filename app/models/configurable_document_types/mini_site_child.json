@@ -70,7 +70,7 @@
   "settings": {
     "base_path_prefix": null,
     "publishing_api_schema_name": "mini_site",
-    "publishing_api_document_type": "mini_site_landing",
+    "publishing_api_document_type": "mini_site_child",
     "rendering_app": "frontend",
     "images": {
       "enabled": true,
