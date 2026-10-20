@@ -2,6 +2,7 @@ module PublishingApi
   module PayloadBuilder
     class BlockContent
       include GovspeakHelper
+      include Presenters::PublishingApi::NationApplicabilityHelper
 
       def self.for(item)
         new(item).call
@@ -61,6 +62,20 @@ module PublishingApi
             service_type: service_name.parameterize, # "Google Plus" => "google-plus"
             href: service_url,
           }
+        end
+      end
+
+      def national_applicability(_attribute)
+        entries = cast_nation_applicability(item.block_content&.nation_applicability)
+        return nil if entries.empty?
+
+        excluded_nations = entries.index_by { |entry| entry["nation"] }
+
+        Nation.potentially_inapplicable.each_with_object({}) do |nation, payload|
+          key = nation.name.tr(" ", "_").downcase
+          exclusion = excluded_nations[key]
+          payload[key.to_sym] = { label: nation.name, applicable: exclusion.nil? }
+          payload[key.to_sym][:alternative_url] = exclusion["alternative_url"].to_s if exclusion
         end
       end
     end
