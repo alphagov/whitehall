@@ -167,6 +167,14 @@ class StatisticsAnnouncement < ApplicationRecord
     cancelled_at.present?
   end
 
+  def awaiting_release?
+    !cancelled? && !publication_has_been_published?
+  end
+
+  def calendar_release_date_passed?
+    awaiting_release? && calendar_release_date.past?
+  end
+
   def national_statistic?
     publication_type == PublicationType::NationalStatistics
   end
