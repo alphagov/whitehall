@@ -57,6 +57,26 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
     assert_includes child_edition.errors[:parent_edition_id], "must correspond to an existing StandardEdition"
   end
 
+  test "validates parent_relationship is valid" do
+    test_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "test_type",
+          },
+        ],
+      },
+    })
+
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition.build_parent_relationship(child_document: child_edition.document)
+
+    assert_not child_edition.valid?
+    assert_includes child_edition.errors[:parent_edition_id], "cannot be blank"
+  end
+
   test "has no unmet publishing prerequisites when it has no parent" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
 
