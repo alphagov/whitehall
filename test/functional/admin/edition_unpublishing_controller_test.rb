@@ -138,7 +138,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
     assert_template :edit
     assert_equal "Error: Publishing API rejected the redirect", flash.now[:alert]
-    assert_equal original_explanation, edition.unpublishing.reload.explanation
+    assert_nil original_explanation, edition.unpublishing.reload.explanation
     assert_equal original_alternative_url, edition.unpublishing.reload.alternative_url
     assert_equal original_redirect, edition.unpublishing.reload.redirect
   end

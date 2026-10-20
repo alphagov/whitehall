@@ -453,6 +453,7 @@ GEM
       prism (~> 1.5)
     minitest-fail-fast (0.2.0)
       minitest (>= 5.0, < 7)
+    minitest-mock (5.27.0)
     minitest-stub-const (0.6)
     mize (0.6.1)
     mocha (3.1.0)
@@ -1067,6 +1068,7 @@ DEPENDENCIES
   mini_magick
   minitest
   minitest-fail-fast
+  minitest-mock
   minitest-stub-const
   mocha
   mysql2

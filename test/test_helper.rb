@@ -11,6 +11,7 @@ end
 require File.expand_path("../config/environment", __dir__)
 
 require "maxitest/autorun"
+require "minitest/mock"
 require "rails/test_help"
 require "mocha/minitest"
 require "factories"
