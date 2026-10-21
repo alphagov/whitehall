@@ -448,7 +448,7 @@ GEM
     mini_magick (5.4.0)
       logger
     mini_mime (1.1.5)
-    minitest (6.0.2)
+    minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
     minitest-fail-fast (0.2.0)
