@@ -94,4 +94,5 @@ group :cucumber, :test do
   gem "cucumber-rails", require: false
   gem "govuk_test"
   gem "launchy"
+  gem "rspec-expectations"
 end
