@@ -89,7 +89,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   view_test "GET show for a child edition does not link to edit a parent that is not editable" do
     parent_edition = create(:published_standard_edition, title: "Parent edition")
     child_edition = create(:draft_standard_edition)
-    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_relationship = ParentChildRelationship.new(parent_edition:, child_document: child_edition.document)
+    parent_relationship.save!(validate: false)
 
     get :show, params: { id: child_edition.id }
 
@@ -1819,7 +1820,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     parent_edition = create(:published_standard_edition, configurable_document_type: "test_type")
     child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
-    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+    parent_relationship = ParentChildRelationship.new(parent_edition:, child_document: child_edition.document)
+    parent_relationship.save!(validate: false)
 
     get :show, params: { id: child_edition }
 

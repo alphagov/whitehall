@@ -1,4 +1,4 @@
-Given(/^a published standard edition called (.+) exists$/) do |title|
+def create_standard_edition(title)
   # Ignore topic taxon validation
   TaxonValidator.any_instance.stubs(:validate)
   # By default allow all attachment types (HtmlAttachment not a thing for StandardEdition
@@ -10,7 +10,6 @@ Given(/^a published standard edition called (.+) exists$/) do |title|
       true
     end
   end
-
   @edition = create(
     :draft_standard_edition,
     :with_alternative_format_provider,
@@ -24,31 +23,33 @@ Given(/^a published standard edition called (.+) exists$/) do |title|
       },
     },
   )
-
   html_attachment = create(:html_attachment, title: "HTML attachment", attachable: @edition)
   external_attachment = create(:external_attachment, title: "External attachment", attachable: @edition)
   file_attachment = create(:file_attachment, title: "File attachment", attachable: @edition)
-
   single_usage_image = build(:image, usage: "lead", caption: "This is my lead image")
   edition_single_usage_image = @edition.images.build(single_usage_image.attributes)
   edition_single_usage_image.build_image_data(single_usage_image.image_data.attributes)
   edition_single_usage_image.image_data.file = upload_fixture("minister-of-funk.960x640.jpg")
   edition_single_usage_image.image_data.images << edition_single_usage_image
-
   embeddable_image = build(:image, usage: "govspeak_embed")
   edition_embeddable_image = @edition.images.build(embeddable_image.attributes)
   edition_embeddable_image.build_image_data(embeddable_image.image_data.attributes)
   edition_embeddable_image.image_data.file = upload_fixture("images/960x640_jpeg.jpg")
   edition_embeddable_image.image_data.images << edition_embeddable_image
-
   @edition.update!(
     attachments: [html_attachment, external_attachment, file_attachment],
   )
-
   feature_list = create(:feature_list, featurable: @edition, locale: :en)
   create(:feature, :with_offsite_link_association, feature_list:, ordering: 1)
   create(:feature, document: create(:published_edition).document, feature_list:, ordering: 2)
+end
 
+Given(/^a draft standard edition called (.+) exists$/) do |title|
+  create_standard_edition(title)
+end
+
+Given(/^a published standard edition called (.+) exists$/) do |title|
+  create_standard_edition(title)
   publisher = EditionForcePublisher.new(@edition)
   raise "Could not publish edition: #{publisher.failure_reason}" unless publisher.perform!
 end

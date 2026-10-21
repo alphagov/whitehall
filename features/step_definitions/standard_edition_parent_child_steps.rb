@@ -17,7 +17,8 @@ end
 
 When(/^I edit a child document of that edition$/) do
   child_edition = create(:draft_standard_edition)
-  ParentChildRelationship.create!(parent_edition: @edition, child_document: child_edition.document)
+  parent_relationship = ParentChildRelationship.new(parent_edition: @edition, child_document: child_edition.document)
+  parent_relationship.save!(validate: false)
   visit edit_admin_edition_path(child_edition)
 end
 
@@ -37,7 +38,8 @@ end
 
 When(/^I view the summary page of a child document of that edition$/) do
   child_edition = create(:draft_standard_edition)
-  ParentChildRelationship.create!(parent_edition: @edition, child_document: child_edition.document)
+  parent_relationship = ParentChildRelationship.new(parent_edition: @edition, child_document: child_edition.document)
+  parent_relationship.save!(validate: false)
   visit admin_edition_path(child_edition)
 end
 
