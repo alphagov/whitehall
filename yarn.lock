@@ -1319,10 +1319,10 @@ eslint-plugin-n@^15.7.0:
     resolve "^1.22.1"
     semver "^7.3.8"
 
-eslint-plugin-n@^18.4.1:
-  version "18.4.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-n/-/eslint-plugin-n-18.4.1.tgz#c9c6673550e92082858c6cd14ab590e4c25bb27d"
-  integrity sha512-2sBReWOvCbzgkPri9M5SFmD5EbIwZLa1xz6B5RZsrI19WSFKpyx1sOMr+pdk8puCiXuEgCbErEHy1PuaUrc/4w==
+eslint-plugin-n@^18.5.0:
+  version "18.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-n/-/eslint-plugin-n-18.5.0.tgz#f1c8a888ad3c573ab0d155939336eb529932f7fb"
+  integrity sha512-M7uF6MTN/An+AXqvyIbXq7npJIZOkd5eKo8iMMvWrcDVNyZVdA6TF2lw01aKQfCEidRfpnR78GhAjZorlXNHiw==
   dependencies:
     "@eslint-community/eslint-utils" "^4.5.0"
     enhanced-resolve "^5.17.1"
