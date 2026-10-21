@@ -181,4 +181,53 @@ class Admin::OrganisationHelperTest < ActionView::TestCase
 
     assert_equal expected_output, organisation_index_rows(nil, [organisation1, organisation2, organisation3])
   end
+
+  test "#organisation_index_rows contain delete links when the user can delete the organisation" do
+    organisation = build_stubbed(:executive_office, name: "Org 1", govuk_status: "live")
+    stubs(:can?).with(:delete, organisation).returns(true)
+
+    expected_output = [
+      [
+        {
+          text: tag.span(organisation.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: organisation.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(organisation.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(organisation), class: "govuk-link") +
+            link_to(sanitize("Delete #{tag.span(organisation.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(organisation), class: "govuk-link gem-link--destructive govuk-!-margin-left-3"),
+        },
+      ],
+    ]
+
+    assert_equal expected_output, organisation_index_rows(nil, [organisation])
+  end
+
+  test "#organisation_index_rows do not contain delete links when the user cannot delete the organisation" do
+    organisation = build_stubbed(:executive_office, name: "Org 1", govuk_status: "live")
+    stubs(:can?).with(:delete, organisation).returns(false)
+
+    expected_output = [
+      [
+        {
+          text: tag.span(organisation.name, class: "govuk-!-font-weight-bold"),
+        },
+        {
+          text: organisation.govuk_status,
+        },
+        {
+          text: link_to(sanitize("View #{tag.span(organisation.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(organisation), class: "govuk-link"),
+        },
+      ],
+    ]
+
+    assert_equal expected_output, organisation_index_rows(nil, [organisation])
+  end
+
+private
+
+  def can?(_action, _subject)
+    true
+  end
 end

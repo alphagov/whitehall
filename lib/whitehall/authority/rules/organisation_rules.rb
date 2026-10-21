@@ -2,7 +2,7 @@ module Whitehall::Authority::Rules
   OrganisationRules = Struct.new(:actor, :subject) do
     def can?(action)
       case action
-      when :create
+      when :create, :delete
         actor.gds_admin?
       when :edit
         actor.gds_admin? || actor.gds_editor? || actor_is_from_organisation_or_parent?(actor, subject)

@@ -1,7 +1,7 @@
 class Admin::OrganisationsController < Admin::BaseController
   before_action :build_organisation, only: %i[new create]
   before_action :load_organisation, except: %i[index new create]
-  before_action :enforce_permissions!, only: %i[new create edit update]
+  before_action :enforce_permissions!, only: %i[new create edit update confirm_destroy destroy]
   before_action :build_dependencies, only: %i[new edit]
   before_action :clean_organisation_params, only: %i[create update]
 
@@ -85,6 +85,8 @@ private
       enforce_permission!(:create, Organisation)
     when "edit", "update"
       enforce_permission!(:edit, @organisation)
+    when "confirm_destroy", "destroy"
+      enforce_permission!(:delete, @organisation)
     end
   end
 
