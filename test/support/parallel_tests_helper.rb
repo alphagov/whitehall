@@ -22,3 +22,5 @@ module Kernel
     anonymous_class
   end
 end
+
+Minitest::Spec::DSL.send(:alias_method, :context, :describe)

@@ -79,6 +79,7 @@ group :test do
   gem "maxitest"
   gem "minitest"
   gem "minitest-fail-fast"
+  gem "minitest-mock"
   gem "minitest-stub-const"
   gem "mocha"
   gem "rack-test"
