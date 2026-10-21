@@ -105,9 +105,18 @@ class Admin::StandardEditionsController < Admin::EditionsController
     end
   end
 
-  def child_pages; end
+  def child_pages
+    @new_child_page_path = new_child_page_path
+  end
 
 private
+
+  def new_child_page_path
+    child_document_types = @edition.type_instance.allowed_child_document_types
+    return admin_new_document_path(parent_edition_id: @edition.id) unless child_document_types.one?
+
+    new_admin_standard_edition_path(configurable_document_type: child_document_types.first["document_type"], parent_edition_id: @edition.id)
+  end
 
   def edition_class
     StandardEdition
