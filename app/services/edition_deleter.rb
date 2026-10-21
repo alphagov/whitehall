@@ -17,14 +17,14 @@ class EditionDeleter < EditionService
       "A draft edition cannot be deleted if it has been unpublished"
     elsif !edition.public_send("can_#{verb}?")
       "An edition that is #{edition.current_state} cannot be deleted"
-    elsif has_orphaned_children?
-      "An edition cannot be deleted with children that are only linked to the current draft"
+    elsif deletion_would_cause_orphaned_children?
+      "You must delete this document's draft children before you can delete this document"
     end
   end
 
 private
 
-  def has_orphaned_children?
+  def deletion_would_cause_orphaned_children?
     return unless edition.try(:child_documents)
 
     return if edition.child_documents.empty?

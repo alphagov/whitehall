@@ -84,7 +84,7 @@ class EditionDeleterTest < ActiveSupport::TestCase
 
     deleter = EditionDeleter.new(parent_edition)
     assert_not deleter.can_perform?
-    assert_equal "An edition cannot be deleted with children that are only linked to the current draft", deleter.failure_reason
+    assert_equal "You must delete this document's draft children before you can delete this document", deleter.failure_reason
   end
 
   test "can delete an edition with a child document associated with another edition" do
