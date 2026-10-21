@@ -95,7 +95,7 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
 
     parent_edition.major_change_published_at = Time.zone.now
     parent_edition.force_publish!
-    
+
     child_edition.reload
 
     assert child_edition.parent_publication_requirement_met?
