@@ -115,10 +115,6 @@ class ManagingEditorTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, force_scheduled_edition(user)).can?(:approve)
   end
 
-  test "can limit access to an edition" do
-    assert enforcer_for(managing_editor, normal_edition).can?(:limit_access)
-  end
-
   test "can unpublish an edition" do
     assert enforcer_for(managing_editor, normal_edition).can?(:unpublish)
   end

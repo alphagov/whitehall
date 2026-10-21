@@ -94,10 +94,6 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
     assert_not enforcer_for(me, force_published_fatality_notice(me)).can?(:approve)
   end
 
-  test "can limit access to a fatality notice" do
-    assert enforcer_for(gds_editor, normal_fatality_notice).can?(:limit_access)
-  end
-
   test "can unpublish a fatality notice" do
     assert enforcer_for(gds_editor, normal_fatality_notice).can?(:unpublish)
   end

@@ -59,6 +59,10 @@ class EditionRulesTest < ActiveSupport::TestCase
     edition
   end
 
+  test "does not support the unused :limit_access action" do
+    assert_not_includes Whitehall::Authority::Rules::EditionRules.actions, :limit_access
+  end
+
   test "grants access when access limiting is 'none'" do
     user = user_in(org)
     edition = build(:edition, access_limiting: "none")
