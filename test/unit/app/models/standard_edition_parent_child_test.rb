@@ -100,7 +100,7 @@ class StandardEditionTest < ActiveSupport::TestCase
     parent_edition = create(
       :standard_edition,
       configurable_document_type: "test_type",
-      state: "published",
+      state: "draft",
       major_change_published_at: 1.day.ago,
     )
 
@@ -109,6 +109,9 @@ class StandardEditionTest < ActiveSupport::TestCase
       parent_edition_id: parent_edition.id,
       configurable_document_type: "test_type",
     )
+
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
 
     new_parent_edition = parent_edition.create_draft(create(:user))
 

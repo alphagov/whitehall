@@ -22,7 +22,9 @@
 } %>
 <p class="govuk-body">Child pages can be added to the navigation menu or featured section.</p>
 
-<%= render "govuk_publishing_components/components/button", {
-  text: "Add new child page",
-  href: @new_child_page_path,
-} %>
+<% if @edition.can_create_new_child_documents? %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Add new child page",
+    href: @new_child_page_path,
+  } %>
+<% end %>

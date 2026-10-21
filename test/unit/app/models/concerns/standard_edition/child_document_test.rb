@@ -89,9 +89,13 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
   test "has no unmet publishing prerequisites when its parent has been published" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
 
-    parent_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
     child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
     create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
     child_edition.reload
 
     assert child_edition.parent_publication_requirement_met?
@@ -113,5 +117,53 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
     assert_equal [message], child_edition.unmet_publishing_prerequisites
     assert_not child_edition.valid?(:publish)
     assert_includes child_edition.errors[:base], message
+  end
+
+  test "validates that the parent edition is in a pre-publication state on create" do
+    test_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "test_type",
+          },
+        ],
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition.build_parent_relationship(parent_edition: parent_edition, child_document: child_edition.document)
+
+    assert_not child_edition.parent_relationship.valid?
+    assert_includes child_edition.parent_relationship.errors[:parent_edition_id], "must be in a draft state in order to create a child page"
+
+    assert_not child_edition.valid?
+    assert_includes child_edition.errors[:parent_edition_id], "must be in a draft state in order to create a child page"
+  end
+
+  test "can edit and save existing child edition if parent has been published" do
+    test_type = build_configurable_document_type("test_type", {
+      "settings" => {
+        "allowed_child_document_types" => [
+          {
+            "document_type" => "test_type",
+          },
+        ],
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:standard_edition, configurable_document_type: "test_type", parent_edition_id: parent_edition.id)
+
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    assert child_edition.valid?
   end
 end

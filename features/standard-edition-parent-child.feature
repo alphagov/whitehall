@@ -2,7 +2,7 @@ Feature: Standard Editions
 
   Scenario: Creating a child document for a parent edition
     Given I am a writer
-    And a published standard edition called "Published Edition" exists
+    And a draft standard edition called "Published Edition" exists
     And the configurable document types feature flag is enabled
     When I manually navigate to the 'new document' screen with a parent_edition_id param set
     Then I should see a banner that displays the current parent edition
@@ -33,12 +33,12 @@ Feature: Standard Editions
 
   Scenario: Seeing child pages on a parent edition's summary page
     Given I am a writer
-    And a published standard edition called "Parent Edition" exists
+    And a draft standard edition called "Parent Edition" exists
     When I view the summary page of that edition after adding a child document to it
     Then I should see the child document on the summary page
 
   Scenario: Seeing other child pages on a child document's summary page
     Given I am a writer
-    And a published standard edition called "Parent Edition" exists
+    And a draft standard edition called "Parent Edition" exists
     When I view the summary page of a child document of that edition that has another child document
     Then I should see the other child document on the summary page

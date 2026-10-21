@@ -89,7 +89,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   view_test "GET show for a child edition does not link to edit a parent that is not editable" do
     parent_edition = create(:published_standard_edition, title: "Parent edition")
     child_edition = create(:draft_standard_edition)
-    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_relationship = ParentChildRelationship.new(parent_edition:, child_document: child_edition.document)
+    parent_relationship.save!(validate: false)
 
     get :show, params: { id: child_edition.id }
 
@@ -161,6 +162,34 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Add child pages"
       assert_select "p", text: "No child pages for this document"
     end
+  end
+
+  view_test "GET show for a published parent edition without child pages does not show \"Add child pages\" link" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+
+    parent_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+
+    get :show, params: { id: parent_edition.id }
+
+    assert_select ".app-view-summary__child-documents" do
+      assert_select "h2", text: "Child pages"
+      assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Add child pages", count: 0
+      assert_select "p", text: "No child pages for this document"
+    end
+  end
+
+  view_test "GET child_pages for a published parent edition without child pages does not show \"Add Child Pages\" button in read only preview" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+
+    parent_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+
+    get :child_pages, params: { id: parent_edition.id }
+
+    assert_select "a[href='#{admin_new_document_path(parent_edition_id: parent_edition.id)}']", text: /Add new child page/, count: 0
   end
 
   view_test "GET show for a parent edition with child pages lists them with links to view them and edit the child pages" do
@@ -1819,7 +1848,8 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
     parent_edition = create(:published_standard_edition, configurable_document_type: "test_type")
     child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
-    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+    parent_relationship = ParentChildRelationship.new(parent_edition:, child_document: child_edition.document)
+    parent_relationship.save!(validate: false)
 
     get :show, params: { id: child_edition }
 
