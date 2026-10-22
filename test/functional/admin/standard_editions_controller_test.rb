@@ -211,6 +211,37 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET show for a parent edition with child pages lists them in order of date created" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+    parent_edition = create(:draft_standard_edition)
+    child_edition_1 = create(:draft_standard_edition, title: "Child edition 1")
+    child_edition_2 = create(:draft_standard_edition, title: "Child edition 2")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition_1.document)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition_2.document)
+
+    get :show, params: { id: parent_edition.id }
+
+    rendered_text = ActionController::Base.helpers.strip_tags(response.body)
+
+    assert_match(/View Child edition 1.*View Child edition 2/m, rendered_text)
+  end
+
+  view_test "GET child-pages for a parent edition with child pages shows the child pages table" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition, title: "Child edition 1")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :child_pages, params: { id: parent_edition.id }
+
+    assert_select "td", text: "Child edition 1"
+  end
+
   view_test "GET show for a parent edition does not show child pages the user cannot see" do
     ConfigurableDocumentType.setup_test_types(
       build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
