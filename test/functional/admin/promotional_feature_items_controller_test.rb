@@ -2,9 +2,9 @@ require "test_helper"
 
 class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   setup do
-    login_as :writer
     @promotional_feature = create(:promotional_feature)
     @organisation = @promotional_feature.organisation
+    login_as :writer, @organisation
   end
 
   should_be_an_admin_controller
@@ -202,5 +202,57 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
     promotional_feature_item = PromotionalFeatureItem.last
     assert_equal "big-cheese.960x640.jpg", promotional_feature_item.image.file.filename
+  end
+
+  test "permissions are enforced for a writer who doesn't belong to the organisation or a parent" do
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, summary: "Original summary")
+    login_as :writer, create(:organisation)
+
+    get :new, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature }
+    assert_response :forbidden
+
+    post :create, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, promotional_feature_item: { summary: "New summary" } }
+    assert_response :forbidden
+
+    get :edit, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
+    assert_response :forbidden
+
+    put :update, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item, promotional_feature_item: { summary: "Hacked summary" } }
+    assert_response :forbidden
+
+    get :confirm_destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
+    assert_response :forbidden
+
+    delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
+    assert_response :forbidden
+
+    assert_equal [promotional_feature_item], @promotional_feature.reload.promotional_feature_items
+    assert_equal "Original summary", promotional_feature_item.reload.summary
+  end
+
+  test "a signin-only writer with no organisation cannot manage another organisation's promotional feature items" do
+    login_as :writer
+
+    post :create, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, promotional_feature_item: { summary: "New summary" } }
+
+    assert_response :forbidden
+  end
+
+  test "gds admins can manage promotional feature items for any organisation" do
+    login_as :gds_admin
+
+    get :new, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature }
+
+    assert_response :success
+  end
+
+  test "writers belonging to a parent organisation can manage a child organisation's promotional feature items" do
+    parent_organisation = create(:organisation)
+    @organisation.parent_organisations << parent_organisation
+    login_as :writer, parent_organisation
+
+    get :new, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature }
+
+    assert_response :success
   end
 end
