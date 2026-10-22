@@ -17,5 +17,5 @@ end
 Then(/^the publication "([^"]*)" should have a force publish reason$/) do |publication_title|
   publication = Publication.find_by(title: publication_title)
   ensure_path(admin_edition_path(publication))
-  expect(page).to have_content("Force published: because")
+  expect(page).to have_content("Force published: urgent")
 end
