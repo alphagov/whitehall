@@ -86,6 +86,42 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     assert_equal "Alternative url must be provided to redirect the document", unpublisher.failure_reason
   end
 
+  test "cannot unpublish a parent with a published, withdrawn or scheduled child" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    %i[published_standard_edition withdrawn_standard_edition scheduled_standard_edition].each do |child_factory|
+      parent = create(:published_standard_edition, configurable_document_type: "test_type")
+      build(:parent_child_relationship, parent_edition: parent, child_document: create(child_factory, configurable_document_type: "test_type").document).save!(validate: false)
+      parent.build_unpublishing(unpublishing_params)
+      unpublisher = EditionUnpublisher.new(parent)
+
+      assert_not unpublisher.perform!
+      assert parent.reload.published?
+      assert_equal "You cannot unpublish this #{parent.format_name} while it has published, withdrawn or scheduled child pages.", unpublisher.failure_reason
+    end
+  end
+
+  test "cannot unpublish a parent with a published child linked only to the parent's newer draft" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    parent = create(:published_standard_edition, configurable_document_type: "test_type")
+    parent_draft = create(:draft_standard_edition, configurable_document_type: "test_type", document: parent.document)
+    create(:parent_child_relationship, parent_edition: parent_draft, child_document: create(:published_standard_edition, configurable_document_type: "test_type").document)
+    parent.build_unpublishing(unpublishing_params)
+    unpublisher = EditionUnpublisher.new(parent)
+
+    assert_not unpublisher.perform!
+    assert parent.reload.published?
+  end
+
+  test "can unpublish a parent whose children are unpublished" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    parent = create(:published_standard_edition, configurable_document_type: "test_type")
+    build(:parent_child_relationship, parent_edition: parent, child_document: create(:unpublished_standard_edition, configurable_document_type: "test_type").document).save!(validate: false)
+    parent.build_unpublishing(unpublishing_params)
+
+    assert EditionUnpublisher.new(parent).perform!
+  end
+
 private
 
   def unpublishing_params

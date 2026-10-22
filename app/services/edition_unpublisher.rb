@@ -7,6 +7,8 @@ class EditionUnpublisher < EditionService
   def failure_reason
     @failure_reason ||= if !can_transition?
                           "An edition that is #{edition.current_state} cannot be #{past_participle}"
+                        elsif edition.try(:has_publicly_visible_or_scheduled_children?)
+                          "You cannot unpublish this #{edition.format_name} while it has published, withdrawn or scheduled child pages."
                         elsif edition.unpublishing.blank?
                           "The reason for unpublishing must be present"
                         elsif !edition.unpublishing.valid?

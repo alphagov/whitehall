@@ -20,6 +20,10 @@ module StandardEdition::ParentDocument
     all_editions_of_child_documents.where(state: %w[published scheduled]).exists?
   end
 
+  def has_publicly_visible_or_scheduled_children?
+    all_editions_of_child_documents.where(state: %w[published withdrawn scheduled]).exists?
+  end
+
 private
 
   def all_editions_of_child_documents
