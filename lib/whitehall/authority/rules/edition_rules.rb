@@ -7,7 +7,6 @@ module Whitehall::Authority::Rules
         delete
         export
         force_publish
-        limit_access
         make_editorial_remark
         make_fact_check
         mark_political

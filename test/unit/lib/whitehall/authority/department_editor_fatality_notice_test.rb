@@ -96,10 +96,6 @@ class DepartmentEditorFatalityNoticeTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, force_published_fatality_notice(user)).can?(:approve)
   end
 
-  test "can limit access to a fatality notice if their organisation can handle fatalities" do
-    assert enforcer_for(fatality_department_editor, normal_fatality_notice).can?(:limit_access)
-  end
-
   test "cannot unpublish a fatality notice if their organisation can handle fatalities" do
     assert_not enforcer_for(fatality_department_editor, normal_fatality_notice).can?(:unpublish)
   end
