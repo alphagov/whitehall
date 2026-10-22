@@ -113,6 +113,32 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
     assert_not_equal previous_edition.unpublishing, edition.unpublishing
   end
 
+  test "cannot withdraw a parent with a published or scheduled child" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    %i[published_standard_edition scheduled_standard_edition].each do |child_factory|
+      parent = create(:published_standard_edition, configurable_document_type: "test_type")
+      build(:parent_child_relationship, parent_edition: parent, child_document: create(child_factory, configurable_document_type: "test_type").document).save!(validate: false)
+      parent.build_unpublishing(unpublishing_params)
+      unpublisher = EditionWithdrawer.new(parent)
+
+      assert_not unpublisher.perform!
+      assert parent.reload.published?
+      assert_equal "You cannot withdraw this #{parent.format_name} while it has published or scheduled child pages.", unpublisher.failure_reason
+    end
+  end
+
+  test "can withdraw a parent whose children are withdrawn or unpublished" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    parent = create(:published_standard_edition, configurable_document_type: "test_type")
+    %i[withdrawn_standard_edition unpublished_standard_edition].each do |child_factory|
+      build(:parent_child_relationship, parent_edition: parent, child_document: create(child_factory, configurable_document_type: "test_type").document).save!(validate: false)
+    end
+    parent.build_unpublishing(unpublishing_params)
+
+    assert EditionWithdrawer.new(parent).perform!
+  end
+
 private
 
   def unpublishing_params

@@ -13,6 +13,8 @@ class EditionWithdrawer < EditionUnpublisher
                           "An edition that is #{edition.current_state} cannot be #{past_participle}"
                         elsif (other_edition = edition.other_editions.in_pre_publication_state.first)
                           "There is already a #{other_edition.state} edition of this document. You must discard it before you can #{verb} this edition."
+                        elsif edition.try(:has_published_or_scheduled_children?)
+                          "You cannot withdraw this #{edition.format_name} while it has published or scheduled child pages."
                         elsif edition.unpublishing.blank?
                           "The reason for unpublishing must be present"
                         elsif !edition.unpublishing.valid?
