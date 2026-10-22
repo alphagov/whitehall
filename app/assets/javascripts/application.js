@@ -39,6 +39,8 @@
 //= require admin/views/organisation-form
 //= require admin/views/unpublish-display-conditions
 
+//= require content-block-picker
+
 'use strict'
 window.GOVUK.approveAllCookieTypes()
 window.GOVUK.cookie('cookies_preferences_set', 'true', { days: 365 })
