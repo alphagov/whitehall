@@ -47,6 +47,7 @@ Feature: Administering Organisations
 
   Scenario: deleting an organisation with no children or roles
     Given I am an editor in the organisation "Department of Fun"
+    And I have the "GDS Admin" permission
     When I delete the organisation "Department of Fun"
     Then there should not be an organisation called "Department of Fun"
 

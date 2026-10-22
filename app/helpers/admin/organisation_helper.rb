@@ -127,7 +127,7 @@ module Admin::OrganisationHelper
         },
         {
           text: link_to(sanitize("View #{tag.span(organisation.name, class: 'govuk-visually-hidden')}"), admin_organisation_path(organisation), class: "govuk-link") +
-            if organisation.destroyable?
+            if organisation.destroyable? && can?(:delete, organisation)
               link_to(sanitize("Delete #{tag.span(organisation.name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_path(organisation), class: "govuk-link gem-link--destructive govuk-!-margin-left-3")
             else
               ""

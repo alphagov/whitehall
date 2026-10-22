@@ -537,4 +537,41 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
           },
         }
   end
+
+  test "GET on :confirm_destroy is denied if performed by a user who is not a GDS Admin" do
+    %i[writer departmental_editor managing_editor gds_editor].each do |user|
+      login_as user
+      get :confirm_destroy, params: { id: create(:organisation) }
+
+      assert_response :forbidden
+    end
+  end
+
+  test "GET on :confirm_destroy is successful if performed by a GDS Admin" do
+    login_as :gds_admin
+    organisation = create(:organisation)
+    get :confirm_destroy, params: { id: organisation }
+
+    assert_response :success
+  end
+
+  test "DELETE on :destroy denied if performed by a user who is not a GDS admin" do
+    %i[writer departmental_editor managing_editor gds_editor].each do |user|
+      login_as user
+      organisation = create(:organisation)
+      delete :destroy, params: { id: organisation }
+
+      assert_response :forbidden
+      assert Organisation.exists?(organisation.id)
+    end
+  end
+
+  test "DELETE on :destroy is successful if performed by a GDS Admin" do
+    login_as :gds_admin
+    organisation = create(:organisation)
+    delete :destroy, params: { id: organisation }
+
+    assert_redirected_to admin_organisations_path
+    assert_not Organisation.exists?(organisation.id)
+  end
 end
