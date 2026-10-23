@@ -22,7 +22,7 @@ FactoryBot.define do
     disabled { true }
   end
 
-  factory :writer, parent: :user, aliases: %i[author creator fact_check_requestor] do
+  factory :writer, parent: :user, aliases: %i[author creator] do
   end
 
   factory :vip_editor, parent: :user do

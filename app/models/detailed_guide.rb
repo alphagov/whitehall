@@ -4,7 +4,6 @@ class DetailedGuide < Edition
 
   include ::Attachable
   include Edition::AlternativeFormatProvider
-  include Edition::FactCheckable
   include Edition::HasDocumentCollections
   include Edition::Organisations
   include Edition::TaggableOrganisations
