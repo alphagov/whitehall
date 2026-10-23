@@ -1,0 +1,13 @@
+<div class="app-view-editions-change-note__list-item govuk-!-margin-bottom-4">
+  <h4 class="govuk-heading-s govuk-!-margin-bottom-1">Public change note</h4>
+
+  <% if change_note.note.present? %>
+    <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-0">
+      <%= change_note.note %>
+    </p>
+  <% end %>
+
+  <p class="app-view-editions-change-note__list-item-datetime govuk-body govuk-body-s govuk-!-margin-bottom-0 govuk-!-margin-top-0">
+    <%= time %> by <%= actor %>
+  </p>
+</div>
