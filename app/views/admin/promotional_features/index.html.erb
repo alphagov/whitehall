@@ -26,13 +26,15 @@
       text: "Changes to promotional features appear instantly on the live site.",
     } %>
 
-    <%= render "govuk_publishing_components/components/button", {
-      text: "New promotional feature",
-      href: new_admin_organisation_promotional_feature_path,
-      margin_bottom: 6,
-    } %>
+    <% if can?(:edit, @organisation) %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "New promotional feature",
+        href: new_admin_organisation_promotional_feature_path,
+        margin_bottom: 6,
+      } %>
+    <% end %>
 
-    <% if @promotional_features.many? %>
+    <% if @promotional_features.many? && can?(:edit, @organisation) %>
       <p class="govuk-body">
         <%= link_to "Reorder promotional features", reorder_admin_organisation_promotional_features_path(@organisation), class: "govuk-link" %>
       </p>
@@ -48,8 +50,8 @@
               },
               {
                 text: link_to(sanitize("View #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link govuk-!-margin-right-2") +
-                  (link_to(sanitize("Rename #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), edit_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link")) +
-                  (link_to(sanitize("Delete #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")),
+                  (link_to(sanitize("Rename #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), edit_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link") if can?(:edit, @organisation)).to_s +
+                  (link_to(sanitize("Delete #{tag.span(promotional_feature.title, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_promotional_feature_path(@organisation, promotional_feature), class: "govuk-link gem-link--destructive govuk-!-margin-left-2") if can?(:edit, @organisation)).to_s,
               },
             ]
           end,

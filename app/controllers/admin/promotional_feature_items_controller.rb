@@ -1,5 +1,6 @@
 class Admin::PromotionalFeatureItemsController < Admin::BaseController
   before_action :load_organisation
+  before_action :enforce_permissions!
   before_action :load_promotional_feature
   before_action :load_promotional_feature_item, only: %i[edit update destroy confirm_destroy]
   before_action :clean_promotional_feature_item_params, only: %i[create update]
@@ -40,6 +41,10 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   def confirm_destroy; end
 
 private
+
+  def enforce_permissions!
+    enforce_permission!(:edit, @organisation)
+  end
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])

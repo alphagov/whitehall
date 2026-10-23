@@ -211,4 +211,53 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
     assert_response :redirect
   end
+
+  view_test "GET :index shows feature actions to users who can edit the organisation" do
+    promotional_feature = create(:promotional_feature, organisation: @organisation)
+    create(:promotional_feature, organisation: @organisation)
+
+    get :index, params: { organisation_id: @organisation }
+
+    assert_select "a[href=?]", new_admin_organisation_promotional_feature_path(@organisation)
+    assert_select "a[href=?]", reorder_admin_organisation_promotional_features_path(@organisation)
+    assert_select "a[href=?]", edit_admin_organisation_promotional_feature_path(@organisation, promotional_feature)
+    assert_select "a[href=?]", confirm_destroy_admin_organisation_promotional_feature_path(@organisation, promotional_feature)
+  end
+
+  view_test "GET :index hides feature actions from users who cannot edit the organisation" do
+    promotional_feature = create(:promotional_feature, organisation: @organisation)
+    create(:promotional_feature, organisation: @organisation)
+    login_as :writer, create(:organisation)
+
+    get :index, params: { organisation_id: @organisation }
+
+    assert_select "a[href=?]", admin_organisation_promotional_feature_path(@organisation, promotional_feature)
+    assert_select "a[href=?]", new_admin_organisation_promotional_feature_path(@organisation), count: 0
+    assert_select "a[href=?]", reorder_admin_organisation_promotional_features_path(@organisation), count: 0
+    assert_select "a[href=?]", edit_admin_organisation_promotional_feature_path(@organisation, promotional_feature), count: 0
+    assert_select "a[href=?]", confirm_destroy_admin_organisation_promotional_feature_path(@organisation, promotional_feature), count: 0
+  end
+
+  view_test "GET :show shows item actions to users who can edit the organisation" do
+    promotional_feature = create(:promotional_feature, organisation: @organisation)
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature:)
+
+    get :show, params: { organisation_id: @organisation, id: promotional_feature }
+
+    assert_select "a[href=?]", new_admin_organisation_promotional_feature_item_path(@organisation, promotional_feature)
+    assert_select "a[href=?]", edit_admin_organisation_promotional_feature_item_path(@organisation, promotional_feature, promotional_feature_item)
+    assert_select "a[href=?]", confirm_destroy_admin_organisation_promotional_feature_item_path(@organisation, promotional_feature, promotional_feature_item)
+  end
+
+  view_test "GET :show hides item actions from users who cannot edit the organisation" do
+    promotional_feature = create(:promotional_feature, organisation: @organisation)
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature:)
+    login_as :writer, create(:organisation)
+
+    get :show, params: { organisation_id: @organisation, id: promotional_feature }
+
+    assert_select "a[href=?]", new_admin_organisation_promotional_feature_item_path(@organisation, promotional_feature), count: 0
+    assert_select "a[href=?]", edit_admin_organisation_promotional_feature_item_path(@organisation, promotional_feature, promotional_feature_item), count: 0
+    assert_select "a[href=?]", confirm_destroy_admin_organisation_promotional_feature_item_path(@organisation, promotional_feature, promotional_feature_item), count: 0
+  end
 end
