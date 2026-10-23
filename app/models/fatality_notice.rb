@@ -1,6 +1,5 @@
 class FatalityNotice < Edition
   include Edition::RoleAppointments
-  include Edition::FactCheckable
   include Edition::Images
   include Edition::Organisations
   include Edition::TaggableOrganisations

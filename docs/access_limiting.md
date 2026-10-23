@@ -50,7 +50,7 @@ The access-limiting check is handled by [`EditionRules#access_limit_enforced?`](
 
 Access is controlled entirely through these two lists. Note that until mid 2026, access-limiting was a boolean choice: on or off. If 'on', the document's chosen lead and supporting organisations would double up as the list of organisations the document was access-limited to. When introducing the new mode of 'individual' access-limiting, we also refactored the 'organisation' access-limiting to introduce a separate 'access_limiting_organisations' field, no longer coupling access-limiting to the publisher's choice of lead and supporting organisations.
 
-If a user isn't on the allow-list, they're blocked from every action on the edition - viewing, editing, publishing, deleting - and this applies just as much to GDS Editors and GDS Admins who aren't on the list. The check runs across the editions interface and its related areas (tags, translations, change notes, workflow, fact-check requests). Anyone blocked sees a 403 (forbidden) page.
+If a user isn't on the allow-list, they're blocked from every action on the edition - viewing, editing, publishing, deleting - and this applies just as much to GDS Editors and GDS Admins who aren't on the list. The check runs across the editions interface and its related areas (tags, translations, change notes, workflow). Anyone blocked sees a 403 (forbidden) page.
 
 Beyond Whitehall's UI, the access-limiting also applies:
 

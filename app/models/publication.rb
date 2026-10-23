@@ -7,7 +7,6 @@ class Publication < Edition
   include Edition::Images
   include Edition::NationalApplicability
   include Edition::RoleAppointments
-  include Edition::FactCheckable
   include Edition::AlternativeFormatProvider
   include Edition::WorldLocations
   include Edition::StatisticalDataSets
