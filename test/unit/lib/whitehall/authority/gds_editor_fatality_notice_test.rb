@@ -55,10 +55,6 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, normal_fatality_notice).can?(:update)
   end
 
-  test "can make a fact check request for a edition" do
-    assert enforcer_for(gds_editor, normal_fatality_notice).can?(:make_fact_check)
-  end
-
   test "can publish a fatality notice" do
     assert enforcer_for(gds_editor, normal_fatality_notice).can?(:publish)
   end

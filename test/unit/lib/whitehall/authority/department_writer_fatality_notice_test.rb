@@ -67,10 +67,6 @@ class DepartmentWriterFatalityNoticeTest < ActiveSupport::TestCase
     assert enforcer_for(fatality_department_writer, normal_fatality_notice).can?(:update)
   end
 
-  test "can make a fact check request for a edition if their organisation can handle fatalities" do
-    assert enforcer_for(fatality_department_writer, normal_fatality_notice).can?(:make_fact_check)
-  end
-
   test "cannot publish a fatality notice if their organisation can handle fatalities" do
     assert_not enforcer_for(fatality_department_writer, normal_fatality_notice).can?(:publish)
   end

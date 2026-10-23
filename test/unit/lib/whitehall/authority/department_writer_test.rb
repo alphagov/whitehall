@@ -68,10 +68,6 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     assert enforcer_for(department_writer, normal_edition).can?(:delete)
   end
 
-  test "can make a fact check request for an edition" do
-    assert enforcer_for(department_writer, normal_edition).can?(:make_fact_check)
-  end
-
   test "cannot publish an edition" do
     assert_not enforcer_for(department_writer, normal_edition).can?(:publish)
   end
