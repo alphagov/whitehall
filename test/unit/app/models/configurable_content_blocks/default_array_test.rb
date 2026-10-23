@@ -8,7 +8,7 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
       "title" => "List of foods",
       "block" => "default_array",
       "translatable" => true,
-      "attribute_path" => %w[list_of_foods],
+      "attribute_path" => %w[block_content list_of_foods],
       "fields" => {
         "food" => {
           "title" => "Name of food",
@@ -19,13 +19,13 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
       },
     }
     @path = Path.new(%w[block_content list_of_foods])
-    @edition = StandardEdition.new(configurable_document_type: "array_type")
+    @configurable_document_type = "array_type"
+    @edition = StandardEdition.new(configurable_document_type: @configurable_document_type)
     setup_type("list_of_foods", @field)
-    @block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
   end
 
   test "it renders a fieldset with the schema title as the main legend, followed by a secondary legend for each item" do
-    render @block
+    render block
     assert_dom "legend.govuk-fieldset__legend--l", text: "List of foods"
     assert_dom "legend.govuk-fieldset__legend--m", text: "List of food 1"
     assert_dom "label[for=edition_list_of_foods_0_food]", text: "Name of food"
@@ -33,19 +33,15 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
   end
 
   test "it includes a 'Remove' checkbox for the first empty item, so that noJS users can 'remove' the empty element before submitting the form" do
-    render @block
+    render block
     assert_dom "input[type=checkbox][name='edition[block_content][list_of_foods][0][_destroy]']"
     assert_dom "label.govuk-checkboxes__label", text: "Remove"
   end
 
   test "it prepopulates existing items and includes an 'empty' item at the end" do
-    @edition.block_content = {
-      "list_of_foods" => [
-        { "food" => "Apples" },
-        { "food" => "Bananas" },
-      ],
-    }
-    render @block
+    fill_in_field
+    render block
+
     assert_dom "input#edition_list_of_foods_0_food[value='Apples']"
     assert_dom "input#edition_list_of_foods_1_food[value='Bananas']"
     assert_dom "input#edition_list_of_foods_2_food", text: ""
@@ -53,7 +49,7 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
 
   test "it renders an error message if there are validation errors" do
     @edition.errors.add(:list_of_foods, "invalid")
-    render @block
+    render block
     assert_dom ".govuk-error-message", "Error: List of foods invalid"
     @edition.errors.clear
   end
@@ -70,7 +66,7 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
           { "food" => "Manzanas" },
         ],
       }
-      render @block
+      render block
     end
     assert_dom "input#edition_list_of_foods_0_food[value='Manzanas']"
     refute_dom "input#edition_list_of_foods_0_food[value='Apples']"
@@ -92,8 +88,8 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
     }
     @path = Path.new(%w[block_content list_of_publish_dates])
     setup_type("list_of_publish_dates", @field)
-    @block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
-    render @block
+    block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
+    render block
     assert_dom "legend.govuk-fieldset__legend--l", text: "List of publish dates"
     assert_dom "legend.govuk-fieldset__legend--m", text: "List of publish date 1"
     assert_dom ".govuk-hint", text: "For example, 01 08 2015"
@@ -103,7 +99,7 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
   end
 
   test "it renders the default 'Add another' button label when no custom label is provided" do
-    render @block
+    render block
     assert_dom "[data-add-button-text='Add another']"
   end
 
@@ -124,8 +120,8 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
     }
     @path = Path.new(%w[block_content list_of_publish_dates])
     setup_type("list_of_publish_dates", @field)
-    @block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
-    render @block
+    block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
+    render block
     assert_dom "[data-add-button-text='Click to add another']"
   end
 
@@ -159,5 +155,28 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
         },
       },
     }))
+  end
+
+  def block
+    ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
+  end
+
+  def field_with_value
+    [
+      "input#edition_list_of_foods_0_food[value='Apples']",
+      "input#edition_list_of_foods_1_food[value='Bananas']",
+      "input#edition_list_of_foods_2_food",
+    ]
+  end
+
+  def fill_in_field(edition = nil)
+    edition ||= @edition
+
+    edition.block_content = {
+      "list_of_foods" => [
+        { "food" => "Apples" },
+        { "food" => "Bananas" },
+      ],
+    }
   end
 end

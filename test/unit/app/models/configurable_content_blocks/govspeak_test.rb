@@ -27,7 +27,7 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
         },
       },
     }))
-    @block = ConfigurableContentBlocks::Govspeak.new(@edition, @field, @path)
+    @content = "## foo"
   end
 
   test "it renders a govspeak editor with attachments and images for embedding" do
@@ -38,31 +38,45 @@ class ConfigurableContentBlocks::GovspeakRenderingTest < ActionView::TestCase
     @edition.images = [image]
     @edition.attachments = [file_attachment]
 
-    render @block
+    render block
 
     assert_dom ".app-c-govspeak-editor[data-attachment-ids=\"[#{file_attachment.id}]\"][data-image-ids=\"[#{image.id}]\"]"
   end
 
   test "it sets the direction on the textarea to right to left when the locale is set to Arabic" do
     with_locale(:ar) do
-      render @block
+      render block
     end
     assert_dom ".app-c-govspeak-editor textarea[dir=\"rtl\"]"
   end
 
   test "it renders the primary locale content under the textarea when the translated content is provided" do
-    govspeak_content = "## foo"
-    @edition.block_content = { "test_attribute" => govspeak_content }
+    @edition.block_content = { "test_attribute" => @content }
     with_locale(:es) do
-      render @block
+      render block
     end
-    assert_dom ".govuk-details__text", text: govspeak_content
+    assert_dom ".govuk-details__text", text: @content
   end
 
   test "it renders any validation errors when they are present" do
     messages = %w[foo bar]
     messages.each { |m| @edition.errors.add(:test_attribute, m) }
-    render @block
+    render block
     assert_dom ".govuk-error-message", "Error: #{messages.map { |m| "Test attribute #{m}" }.join}"
+  end
+
+  def field_with_value
+    [
+      [".govuk-textarea", { text: @content }],
+    ]
+  end
+
+  def block
+    ConfigurableContentBlocks::Govspeak.new(@edition, @field, @path)
+  end
+
+  def fill_in_field(edition = nil)
+    edition ||= @edition
+    edition.block_content = { "test_attribute" => @content }
   end
 end

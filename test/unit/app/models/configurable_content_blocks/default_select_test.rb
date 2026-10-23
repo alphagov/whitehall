@@ -31,11 +31,11 @@ class ConfigurableContentBlocks::DefaultSelectRenderingTest < ActionView::TestCa
         },
       },
     }))
-    @block = ConfigurableContentBlocks::DefaultSelect.new(@edition, @field, @path)
+    @content = @field["options"].last["value"]
   end
 
   test "it renders a select with the provided options" do
-    render @block
+    render block
 
     assert_dom "select[name='edition[block_content][test_attribute]']"
     @field["options"].each do |option|
@@ -48,7 +48,7 @@ class ConfigurableContentBlocks::DefaultSelectRenderingTest < ActionView::TestCa
     selected_option_label = @field["options"].last["label"]
     @edition.block_content = { "test_attribute" => selected_option_value }
 
-    render @block
+    render block
 
     assert_dom "select[name='edition[block_content][test_attribute]']"
     assert_dom "option[selected]", text: selected_option_label, value: selected_option_value
@@ -56,7 +56,7 @@ class ConfigurableContentBlocks::DefaultSelectRenderingTest < ActionView::TestCa
 
   test "it renders the blank option with a custom label" do
     @field["blank_option_label"] = "Choose something"
-    render @block
+    render block
 
     assert_dom "option[value='']", text: "Choose something"
     @field["options"].each do |option|
@@ -69,8 +69,23 @@ class ConfigurableContentBlocks::DefaultSelectRenderingTest < ActionView::TestCa
     messages = %w[foo bar]
     messages.each { |m| @edition.errors.add(:test_attribute, m) }
 
-    render @block
+    render block
 
     assert_dom ".govuk-error-message", text: "Error: #{messages.map { |m| "Test attribute #{m}" }.join}"
+  end
+
+  def block
+    ConfigurableContentBlocks::DefaultSelect.new(@edition, @field, @path)
+  end
+
+  def field_with_value
+    [
+      "option[selected][value=\"#{@content}\"]",
+    ]
+  end
+
+  def fill_in_field(edition = nil)
+    edition ||= @edition
+    edition.block_content = { "test_attribute" => @content }
   end
 end
