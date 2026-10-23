@@ -1,9 +1,6 @@
 require_relative "./locale"
 
 module Whitehall
-  autoload :Random, "whitehall/random"
-  autoload :RandomKey, "whitehall/random_key"
-
   mattr_accessor :content_store
   mattr_accessor :default_cache_max_age
   mattr_accessor :default_api_cache_max_age

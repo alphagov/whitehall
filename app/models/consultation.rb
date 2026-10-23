@@ -2,7 +2,6 @@ class Consultation < Edition
   include Edition::Images
   include Edition::NationalApplicability
   include Edition::RoleAppointments
-  include Edition::FactCheckable
   include Edition::AlternativeFormatProvider
   include Edition::TopicalEvents
   include Edition::HasOpeningAndClosingDates
