@@ -91,7 +91,7 @@ class ImageDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
     def force_publish_document
       click_link "Force publish"
-      fill_in "Reason for force publishing", with: "testing"
+      choose "Urgent or time sensitive"
       click_button "Force publish"
       assert_text %r{The document .* has been published}
     end

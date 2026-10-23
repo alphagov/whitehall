@@ -156,7 +156,7 @@ module DocumentHelper
       click_link "Force publish"
       has_selector?(".force-publish-form", visible: true)
       within ".force-publish-form" do
-        fill_in "reason", with: "because"
+        choose "Urgent or time sensitive"
         click_button "Force publish"
       end
     else
