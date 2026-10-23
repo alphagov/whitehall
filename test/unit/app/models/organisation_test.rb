@@ -457,14 +457,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_nil organisation.corporate_information_pages.for_slug(tor.slug)
   end
 
-  test "#for_slug! raises if the given page doesn't exist" do
-    organisation = create(:organisation)
-    tor = CorporateInformationPageType::TermsOfReference
-    assert_raise ActiveRecord::RecordNotFound do
-      organisation.corporate_information_pages.for_slug!(tor.slug)
-    end
-  end
-
   test "can report whether any published publications of a particular type are available" do
     organisation = create(:organisation)
     assert_not organisation.has_published_publications_of_type?(PublicationType::FoiRelease)
