@@ -31,7 +31,10 @@ module StandardEdition::ChildDocument
   end
 
   def parent_publication_requirement_met?
-    parent_edition.blank? || parent_edition.document.live?
+    return true if parent_edition.blank?
+    return false if parent_edition.document.live_edition.blank?
+
+    !parent_edition.pre_publication? && parent_edition.document.live_edition.published?
   end
 
   def unmet_publishing_prerequisites

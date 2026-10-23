@@ -119,6 +119,52 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
     assert_includes child_edition.errors[:base], message
   end
 
+  test "cannot be published if its parent is in a pre-published state" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    Edition::PRE_PUBLICATION_STATES.each do |state|
+      parent_edition = create("#{state}_standard_edition".to_sym, configurable_document_type: "test_type")
+      child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+      create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+      child_edition.reload
+
+      assert_not child_edition.parent_publication_requirement_met?
+      assert_not child_edition.valid?(:publish)
+      assert_includes child_edition.errors[:base], "You need to publish the parent test type before you can publish this page."
+    end
+  end
+
+  test "cannot be published if its parent has been previously published but subsequently re-editioned, and the child is associated only with the draft parent" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    parent_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+    parent_second_edition = parent_edition.reload.create_draft(create(:writer))
+    child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    create(:parent_child_relationship, parent_edition: parent_second_edition, child_document: child_edition.document)
+    child_edition.reload
+
+    assert_not child_edition.parent_publication_requirement_met?
+    assert_not child_edition.valid?(:publish)
+    assert_includes child_edition.errors[:base], "You need to publish the parent test type before you can publish this page."
+  end
+
+  test "can be published if its parent was in draft when it was created but has since been published and reditioned" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+    child_edition.reload
+
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    parent_edition.reload.create_draft(create(:writer))
+
+    assert child_edition.parent_publication_requirement_met?
+    assert_empty child_edition.unmet_publishing_prerequisites
+    child_edition.valid?(:publish)
+    assert_empty child_edition.errors[:base]
+  end
+
   test "validates that the parent edition is in a pre-publication state on create" do
     test_type = build_configurable_document_type("test_type", {
       "settings" => {
