@@ -1,5 +1,6 @@
 class ParentChildRelationship < ApplicationRecord
   validate :parent_edition_must_be_in_prepublication_state, on: :create
+  validate :only_descended_from_one_parent, on: :create
 
   belongs_to :parent_edition,
              class_name: "Edition"
@@ -22,5 +23,18 @@ private
     return if parent_edition.pre_publication?
 
     errors.add(:parent_edition_id, "must be in a draft state in order to create a child page")
+  end
+
+  def only_descended_from_one_parent
+    return if child_document.blank?
+
+    relationship_records = ParentChildRelationship.where(child_document_id: child_document.id)
+    parent_document_ids = Edition.where(id: relationship_records.pluck(:parent_edition_id)).pluck(:document_id).compact.uniq
+
+    return if parent_document_ids.empty?
+
+    return unless (parent_document_ids & [parent_edition.document.id]).empty?
+
+    errors.add(:parent_edition_id, "must have the same document as previous parent edition")
   end
 end
