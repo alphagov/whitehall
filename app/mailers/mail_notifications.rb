@@ -6,31 +6,6 @@ class MailNotifications < ApplicationMailer
   default from: "<winston@alphagov.co.uk>"
   CONTENT_SECOND_LINE_EMAIL_ADDRESS = "second-line-content@digital.cabinet-office.gov.uk".freeze
 
-  def fact_check_request(request, url_options)
-    @fact_check_request = request
-    @url_options = url_options
-
-    to_address = request.email_address
-    subject = "Fact checking request from #{request.requestor.name}: #{request.edition_title}"
-
-    view_mail template_id,
-              to: to_address,
-              subject:
-  end
-
-  def fact_check_response(request, url_options)
-    @fact_check_request = request
-    @url_options = url_options
-    @comment_url = admin_edition_url(request.edition, url_options.merge(anchor: "fact_checking_tab"))
-
-    to_address = request.requestor.email
-    subject = "Fact check comment added by #{request.email_address}: #{request.edition_title}"
-
-    view_mail template_id,
-              to: to_address,
-              subject:
-  end
-
   def edition_published(author, edition, admin_url, public_url)
     @author = author
     @edition = edition

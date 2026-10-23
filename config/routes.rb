@@ -251,7 +251,6 @@ Whitehall::Application.routes.draw do
         resources :editorial_remarks, only: %i[new create destroy], shallow: true do
           get :confirm_destroy, on: :member
         end
-        resources :fact_check_requests, only: %i[show create edit update], shallow: true
         resources :images, controller: "edition_images", only: %i[create new destroy edit update index show] do
           get :confirm_destroy, on: :member
           get :confirm_toggle_default_lead_image_behaviour, on: :collection

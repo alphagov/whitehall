@@ -69,10 +69,6 @@ class ManagingEditorTest < ActiveSupport::TestCase
     assert enforcer_for(managing_editor, normal_edition).can?(:delete)
   end
 
-  test "can make a fact check request for a edition" do
-    assert enforcer_for(managing_editor, normal_edition).can?(:make_fact_check)
-  end
-
   test "can publish an edition" do
     assert enforcer_for(managing_editor, normal_edition).can?(:publish)
   end
