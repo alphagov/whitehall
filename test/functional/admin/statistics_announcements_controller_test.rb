@@ -113,6 +113,36 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_select "h1.govuk-heading-xl", text: announcement.title
   end
 
+  view_test "GET :show says how long the announcement is shown in the statistics release calendar" do
+    announcement = create(:statistics_announcement)
+    stub_publishing_api_expanded_links_with_taxons(announcement.content_id, [])
+    get :show, params: { id: announcement }
+
+    assert_response :success
+    assert_select "p", text: "Shown in the GOV.UK statistics release calendar until #{announcement.calendar_release_date.to_fs(:date_with_time)}."
+    assert_select "a[href=?]", "#{Plek.website_root}/search/research-and-statistics?content_store_document_type=upcoming_statistics&order=release-date-oldest", text: "GOV.UK statistics release calendar"
+    refute_select ".govuk-warning-text", text: /no longer shown in the statistics release calendar/
+  end
+
+  view_test "GET :show warns when the announcement is no longer shown in the statistics release calendar" do
+    announcement = create(
+      :statistics_announcement,
+      statistics_announcement_dates: [
+        build(
+          :statistics_announcement_date,
+          precision: StatisticsAnnouncementDate::PRECISION[:exact],
+          release_date: 1.day.ago,
+        ),
+      ],
+    )
+    stub_publishing_api_expanded_links_with_taxons(announcement.content_id, [])
+    get :show, params: { id: announcement }
+
+    assert_response :success
+    assert_select ".govuk-warning-text", text: /no longer shown in the statistics release calendar/
+    refute_select "p", text: /Shown in the GOV.UK statistics release calendar until/
+  end
+
   view_test "GET :show renders when announcement is not tagged to the new taxonomy" do
     sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
 

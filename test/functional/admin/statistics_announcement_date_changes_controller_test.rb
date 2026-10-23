@@ -38,6 +38,15 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     end
   end
 
+  view_test "GET :new explains how one and two month dates are shown in the statistics release calendar" do
+    get :new, params: { statistics_announcement_id: @announcement }
+
+    assert_response :success
+    assert_select "#statistics_announcement_date_change_precision .govuk-hint",
+                  text: /stays in the statistics release calendar until the end of the period/,
+                  count: 1
+  end
+
   view_test "GET :new only shows change notes field when the release date is confirmed" do
     get :new, params: { statistics_announcement_id: @announcement }
 
@@ -67,5 +76,27 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     assert @announcement.confirmed?
     assert_equal "11 May 2013 9:30am", @announcement.display_date
     assert_equal @user, @announcement.statistics_announcement_dates.last.creator
+  end
+
+  test "POST :create tells the user how long the announcement will be shown in the statistics release calendar" do
+    post :create,
+         params: { statistics_announcement_id: @announcement,
+                   statistics_announcement_date_change: {
+                     release_date: Time.zone.local(2011, 12, 11, 9, 30),
+                     precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+                   } }
+
+    assert_equal "Release date changed. This announcement will be shown in the statistics release calendar until 31 January 2012 11:59pm.", flash[:notice]
+  end
+
+  test "POST :create tells the user when the new date has already passed" do
+    post :create,
+         params: { statistics_announcement_id: @announcement,
+                   statistics_announcement_date_change: {
+                     release_date: 1.day.ago,
+                     precision: "exact_confirmed",
+                   } }
+
+    assert_equal "Release date changed. This date has passed, so the announcement will not be shown in the statistics release calendar.", flash[:notice]
   end
 end

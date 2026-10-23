@@ -69,6 +69,7 @@ class StatisticsAnnouncement < ApplicationRecord
   default_scope { published }
 
   delegate :release_date,
+           :calendar_release_date,
            :display_date,
            :confirmed?,
            to: :current_release_date,
@@ -164,6 +165,14 @@ class StatisticsAnnouncement < ApplicationRecord
 
   def cancelled?
     cancelled_at.present?
+  end
+
+  def awaiting_release?
+    !cancelled? && !publication_has_been_published?
+  end
+
+  def calendar_release_date_passed?
+    awaiting_release? && calendar_release_date.past?
   end
 
   def national_statistic?
