@@ -8,8 +8,4 @@ module Edition::FactCheckable
   def all_completed_fact_check_requests
     FactCheckRequest.completed.for_editions(document.editions).order("updated_at DESC")
   end
-
-  def can_be_fact_checked?
-    true
-  end
 end

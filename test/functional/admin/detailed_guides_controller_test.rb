@@ -25,7 +25,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_allow_overriding_of_first_published_at_for :detailed_guide
   access_limiting_organisations_should_allow_access_limiting_of :detailed_guide
   access_limiting_individuals_should_allow_access_limiting_of :detailed_guide
-  should_render_govspeak_history_and_fact_checking_tabs_for :detailed_guide
+  should_render_govspeak_and_history_tabs_for :detailed_guide
 
 private
 
