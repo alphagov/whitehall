@@ -171,12 +171,16 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
 private
 
+  def effective_force_publish_reason
+    params[:reason] == "other" ? params[:other_reason] : params[:reason]
+  end
+
   def force_publish_reason
-    "Force published: #{params[:reason]}"
+    "Force published: #{effective_force_publish_reason}"
   end
 
   def ensure_reason_given_for_force_publishing
-    if params[:reason].blank?
+    if effective_force_publish_reason.blank?
       redirect_to admin_edition_path(@edition), alert: "You cannot force publish a document without a reason"
     end
   end

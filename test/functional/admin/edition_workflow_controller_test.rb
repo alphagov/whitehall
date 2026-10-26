@@ -67,17 +67,35 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test "POST #force_publish force publishes the edition" do
+  test "POST #force_publish with radio chosen as urgent force publishes the edition" do
     stub_publishing_api_links_with_taxons(draft_edition.content_id, %w[a-taxon-content-id])
     stub_publishing_api_registration_for(draft_edition)
-    post :force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version, reason: "Urgent change" }
+    post :force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version, reason: "urgent" }
 
     assert_redirected_to admin_editions_path(state: :published)
     assert draft_edition.reload.force_published?
   end
 
+  test "POST #force_publish with 'other' option records the reason entered" do
+    stub_publishing_api_links_with_taxons(draft_edition.content_id, %w[a-taxon-content-id])
+    stub_publishing_api_registration_for(draft_edition)
+    post :force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version, reason: "other", other_reason: "Custom reason" }
+
+    assert_redirected_to admin_editions_path(state: :published)
+    assert draft_edition.reload.force_published?
+    assert_equal "Force published: Custom reason", draft_edition.editorial_remarks.last.body
+  end
+
   test "POST #force_publish without a reason is not allowed" do
     post :force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
+
+    assert_redirected_to admin_publication_path(draft_edition)
+    assert_equal "You cannot force publish a document without a reason", flash[:alert]
+    assert draft_edition.reload.draft?
+  end
+
+  test "POST #force_publish with 'other' and a blank reason is not allowed" do
+    post :force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version, reason: "other", other_reason: "" }
 
     assert_redirected_to admin_publication_path(draft_edition)
     assert_equal "You cannot force publish a document without a reason", flash[:alert]

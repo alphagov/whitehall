@@ -52,7 +52,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           visit admin_edition_path(edition)
           click_link "Force publish"
           assert_text "Reason for force publishing"
-          fill_in "Reason for force publishing", with: "testing"
+          choose "Urgent or time sensitive"
           click_button "Force publish"
           assert_text "The document #{edition.title} has been published"
 
@@ -144,7 +144,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         visit admin_edition_path(latest_attachable)
         click_link "Force publish"
         assert_text "Reason for force publishing"
-        fill_in "Reason for force publishing", with: "testing"
+        choose "Urgent or time sensitive"
         click_button "Force publish"
         assert_text "The document #{latest_attachable.title} has been published"
 
@@ -184,7 +184,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
           visit admin_edition_path(latest_attachable)
           click_link "Force publish"
           assert_text "Reason for force publishing"
-          fill_in "Reason for force publishing", with: "testing"
+          choose "Urgent or time sensitive"
           click_button "Force publish"
           assert_text "The document #{latest_attachable.title} has been published"
 
@@ -233,7 +233,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         visit admin_consultation_path(edition)
         click_link "Force publish"
         assert_text "Reason for force publishing"
-        fill_in "Reason for force publishing", with: "testing"
+        choose "Urgent or time sensitive"
         click_button "Force publish"
         assert_text "The document #{edition.title} has been published"
 
