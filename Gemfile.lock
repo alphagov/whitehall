@@ -917,10 +917,9 @@ GEM
       i18n (>= 0.8.0)
       simpleidn
     version_gem (1.1.14)
-    view_component (4.16.0)
+    view_component (4.19.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
-      concurrent-ruby (~> 1)
     warden (1.2.9)
       rack (>= 2.0.9)
     warden-oauth2 (0.0.1)
