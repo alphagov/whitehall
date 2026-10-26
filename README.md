@@ -2,6 +2,8 @@
 
 Whitehall (also known as 'Whitehall Admin' or 'Whitehall Publisher') is used by publishers to create and manage content.
 
+**New to Whitehall? Start with [Getting familiar with Whitehall](docs/getting_familiar_with_whitehall.md).**
+
 ## Running the Application
 
 **Use [GOV.UK Docker](https://github.com/alphagov/govuk-docker) to run any commands that follow.**
