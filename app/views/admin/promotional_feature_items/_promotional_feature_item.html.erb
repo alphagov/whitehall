@@ -85,15 +85,20 @@
           end
         end),
     ],
-  summary_card_actions: [
-    {
-      label: "Edit",
-      href: edit_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item),
-    },
-    {
-      label: "Delete",
-      href: confirm_destroy_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item),
-      destructive: true,
-    },
-  ],
+  summary_card_actions:
+    if can?(:edit, @organisation)
+      [
+        {
+          label: "Edit",
+          href: edit_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item),
+        },
+        {
+          label: "Delete",
+          href: confirm_destroy_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item),
+          destructive: true,
+        },
+      ]
+    else
+      []
+    end,
 } %>
