@@ -42,7 +42,7 @@
   .app-c-secondary-navigation__list-item-link:visited {
     background-color: inherit;
     border-left: 4px solid transparent;
-    color: govuk-colour("blue");
+    color: govuk-functional-colour(link);
     display: block;
     padding: govuk-spacing(2);
     text-decoration: none;
@@ -56,7 +56,7 @@
   }
 
   .app-c-secondary-navigation__list-item-link:hover {
-    color: govuk-functional-colour(hover);
+    color: govuk-functional-colour(link-hover);
   }
 
   .app-c-secondary-navigation__list-item-link:focus {
