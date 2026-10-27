@@ -62,6 +62,20 @@ private
     @current_banner = redis_client.hgetall("emergency_banner").try(:symbolize_keys)
   end
 
+  def load_current_banner_from_configmap
+    config_map = k8s_client.api("v1").resource("configmaps").get("govuk-apps-emergency-banner")
+    @current_banner = YAML.load(config_map[:data]["config.yaml"])
+  end
+
+  def write_configmap_from_emergency_banner_params
+    config_map = k8s_client.api("v1").resource("configmaps").get("govuk-apps-emergency-banner")
+
+    config_maponfig_map[:data]["config.yaml"] = emergency_banner_params.to_yaml
+
+    k8s_client.api('v1').resource('configmaps').update_resource(config_map)
+  end
+
+
   def redis_client
     Redis.new(
       url: ENV["EMERGENCY_BANNER_REDIS_URL"],
@@ -70,4 +84,14 @@ private
       reconnect_delay_max: 60,
     )
   end
+
+  def k8s_client
+    @k8s_client ||= K8s::Client.in_cluster_config
+  end
+
+  node = client.api('v1').resource('nodes').get('test-node')
+
+node[:spec][:unschedulable] = true
+
+client.api('v1').resource('nodes').update_resource(node)
 end
