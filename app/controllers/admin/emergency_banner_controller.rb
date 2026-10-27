@@ -88,10 +88,4 @@ private
   def k8s_client
     @k8s_client ||= K8s::Client.in_cluster_config
   end
-
-  node = client.api('v1').resource('nodes').get('test-node')
-
-node[:spec][:unschedulable] = true
-
-client.api('v1').resource('nodes').update_resource(node)
 end
