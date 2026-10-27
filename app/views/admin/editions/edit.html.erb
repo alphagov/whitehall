@@ -70,11 +70,6 @@
                 data: { module: "document-history-paginator" },
                 ),
             },
-            *([{
-                 id: "fact_checking_tab",
-                 label: "Fact checking",
-                 content: render(Admin::Editions::FactCheckingTabComponent.new(edition: @edition)),
-               }] if @edition.can_be_fact_checked?),
           ],
         } %>
       </div>

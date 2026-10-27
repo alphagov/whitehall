@@ -1,6 +1,6 @@
 # Email delivery
 
-Whitehall sends various kinds of [email notifications](https://github.com/alphagov/whitehall/blob/ad86a5ea8d7538f787c71cb586adb1b771ea08d9/app/mailers/mail_notifications.rb) to users – for example, fact check requests and responses. These emails are delivered via [GOV.UK Notify](https://www.notifications.service.gov.uk/) using the [mail-notify](https://github.com/dxw/mail-notify) gem.
+Whitehall sends various kinds of [email notifications](https://github.com/alphagov/whitehall/blob/ad86a5ea8d7538f787c71cb586adb1b771ea08d9/app/mailers/mail_notifications.rb) to users – for example, when their edition is published or rejected. These emails are delivered via [GOV.UK Notify](https://www.notifications.service.gov.uk/) using the [mail-notify](https://github.com/dxw/mail-notify) gem.
 
 ## Non-production environments
 

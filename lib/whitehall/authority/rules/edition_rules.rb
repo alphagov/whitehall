@@ -8,7 +8,6 @@ module Whitehall::Authority::Rules
         export
         force_publish
         make_editorial_remark
-        make_fact_check
         mark_political
         perform_administrative_tasks
         publish
