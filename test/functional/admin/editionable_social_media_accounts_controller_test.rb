@@ -8,10 +8,14 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     @edition = create(:worldwide_organisation, :with_social_media_account, translated_into: [:cy])
 
     I18n.with_locale(:cy) do
-      @edition.social_media_accounts.first.update(
+      @edition.social_media_accounts.first.update!(
         title: "Translated title",
         url: "https://www.newurl.gov.cymru",
       )
+
+      @worldwide_org_1 = create(:worldwide_organisation)
+      @worldwide_org_2 = create(:worldwide_organisation)
+      @wwo1_social_media_account = create(:social_media_account, socialable: @worldwide_org_1, ordering: 1)
     end
   end
 
@@ -173,5 +177,38 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
 
     assert_response :redirect
     assert_equal [social_media_account2, social_media_account1], edition.reload.social_media_accounts
+  end
+
+  test "GET social media account of another org cannot be fetched via a different organisation" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      get :edit, params: { edition_id: @worldwide_org_2.id, id: @wwo1_social_media_account.id }
+    end
+
+    assert_raises(ActiveRecord::RecordNotFound) do
+      get :confirm_destroy, params: { edition_id: @worldwide_org_2.id, id: @wwo1_social_media_account.id }
+    end
+  end
+
+  test "PATCH social media account of another org cannot be updated via a different organisation" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      patch :update, params: {
+        edition_id: @worldwide_org_2.id,
+        id: @wwo1_social_media_account.id,
+        social_media_account: {
+          title: "Updated title",
+          url: "https://www.example.com/bad",
+          locale: "en",
+        },
+      }
+    end
+  end
+
+  test "DELETE :social media accounts of another org cannot be destroyed via a different organisation" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      delete :destroy, params: {
+        edition_id: @worldwide_org_2.id,
+        id: @wwo1_social_media_account.id,
+      }
+    end
   end
 end

@@ -62,7 +62,7 @@ private
   end
 
   def find_social_media_account
-    @social_media_account = SocialMediaAccount.find(params[:id])
+    @social_media_account = @edition.social_media_accounts.find(params[:id])
   end
 
   def social_media_account_params
