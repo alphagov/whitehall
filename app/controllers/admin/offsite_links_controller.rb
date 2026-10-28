@@ -49,7 +49,7 @@ private
   end
 
   def load_offsite_link
-    @offsite_link = OffsiteLink.find(params[:id])
+    @offsite_link = @parent.offsite_links.find(params[:id])
   end
 
   def offsite_link_path(offsite_link)
