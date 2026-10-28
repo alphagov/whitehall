@@ -1,6 +1,6 @@
 class Admin::EmergencyBannerController < Admin::BaseController
   before_action :enforce_permissions!
-  before_action :load_current_banner
+  before_action :load_current_banner_from_configmap
 
   def enforce_permissions!
     enforce_permission!(:administer, :emergency_banner)
@@ -36,6 +36,8 @@ class Admin::EmergencyBannerController < Admin::BaseController
         emergency_banner_params[:link_text],
       )
 
+      write_configmap_from_emergency_banner_params
+
       redirect_to admin_emergency_banner_path, notice: "Emergency banner updated sucessfully"
     else
       @errors = {}
@@ -63,16 +65,16 @@ private
   end
 
   def load_current_banner_from_configmap
-    config_map = k8s_client.api("v1").resource("configmaps").get("govuk-apps-emergency-banner")
-    @current_banner = YAML.load(config_map[:data]["config.yaml"])
+    config_map = k8s_client.api("v1").resource("configmaps", namespace: "apps").get("govuk-apps-emergency-banner")
+    @current_banner = YAML.load(config_map[:data]["config.yaml"], symbolize_names: true)
   end
 
   def write_configmap_from_emergency_banner_params
-    config_map = k8s_client.api("v1").resource("configmaps").get("govuk-apps-emergency-banner")
+    config_map = k8s_client.api("v1").resource("configmaps", namespace: "apps").get("govuk-apps-emergency-banner")
 
-    config_maponfig_map[:data]["config.yaml"] = emergency_banner_params.to_yaml
+    config_map[:data]["config.yaml"] = emergency_banner_params.to_yaml
 
-    k8s_client.api("v1").resource("configmaps").update_resource(config_map)
+    k8s_client.api("v1").resource("configmaps", namespace: "apps").update_resource(config_map)
   end
 
   def redis_client
