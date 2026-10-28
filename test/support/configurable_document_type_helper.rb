@@ -49,11 +49,6 @@ module ConfigurableDocumentTypeHelper
           "history_mode_enabled" => false,
           "translations_enabled" => false,
           "send_change_history" => true,
-          "allowed_child_document_types" => [
-            {
-              "document_type" => type,
-            },
-          ],
         },
       }.deep_merge(attributes),
     }

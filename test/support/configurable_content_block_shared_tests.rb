@@ -38,6 +38,21 @@ module ConfigurableContentBlockSharedTests
     end
 
     test "it does not inherit from parent, if `inherit_from_parent` set and it is an empty field of a saved edition" do
+      @configurable_document_type ||= "test_type"
+
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type(
+        @configurable_document_type,
+        ConfigurableDocumentType.types["#{@configurable_document_type}"].deep_merge({
+          "settings" => {
+            "allowed_child_document_types" => [
+              {
+                "document_type" => @configurable_document_type,
+              },
+            ],
+          }
+        })
+      ))
+
       parent_edition = setup_and_create_parent_edition
 
       @edition = create(
