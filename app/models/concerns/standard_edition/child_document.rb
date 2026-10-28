@@ -38,12 +38,19 @@ module StandardEdition::ChildDocument
   end
 
   def unmet_publishing_prerequisites
-    return super if parent_publication_requirement_met?
-
-    super + ["You need to publish the parent #{parent_edition.format_name} before you can publish this page."]
+    super + issues_with_parent_preventing_publishing
   end
 
 private
+
+  def issues_with_parent_preventing_publishing
+    return [] if parent_edition.blank?
+
+    return ["You need to unwithdraw the parent #{parent_edition.format_name} before you can publish this page."] if parent_edition.document.withdrawn_edition.present?
+    return ["You need to publish the parent #{parent_edition.format_name} before you can publish this page."] unless parent_publication_requirement_met?
+
+    []
+  end
 
   def parent_edition_must_exist
     return if parent_edition_id.blank?

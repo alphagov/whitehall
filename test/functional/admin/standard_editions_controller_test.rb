@@ -1,6 +1,7 @@
 require "test_helper"
 
 class Admin::StandardEditionsControllerTest < ActionController::TestCase
+  extend Minitest::Spec::DSL
   include TaxonomyHelper
 
   should_be_an_admin_controller
@@ -1861,31 +1862,76 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     refute_select ".govuk-warning-text", text: /You need to add topic tags before you can publish this document./
   end
 
-  view_test "GET :show warns that the parent must be published first when the parent is not published" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+  describe "when editing the child pages of parent editions" do
+    let(:parent_edition) { create(:draft_standard_edition, configurable_document_type: "test_type") }
+    let(:child_edition) { create(:draft_standard_edition, configurable_document_type: "test_type") }
+    let!(:relationship) { create(:parent_child_relationship, parent_edition:, child_document: child_edition.document) }
 
-    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
-    child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
-    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+    setup do
+      ConfigurableDocumentType.setup_test_types(
+        build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+      )
 
-    get :show, params: { id: child_edition }
+      # Need to be a departmental editor to schedule
+      login_as :departmental_editor
+    end
 
-    assert_select ".app-view-summary__main .govuk-warning-text", /You need to publish the parent test type before you can publish this page./
-    assert_select ".app-view-summary__sidebar-notices", /You need to publish the parent test type before you can publish this page./
-  end
+    view_test "GET :show warns that the parent must be published first when the parent is not published" do
+      get :show, params: { id: child_edition }
 
-  view_test "GET :show does not warn about the parent when the parent is published" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+      assert_select ".app-view-summary__main .govuk-warning-text", /You need to publish the parent test type before you can publish this page./
+      assert_select ".app-view-summary__sidebar-notices", /You need to publish the parent test type before you can publish this page./
+    end
 
-    parent_edition = create(:published_standard_edition, configurable_document_type: "test_type")
-    child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
-    parent_relationship = ParentChildRelationship.new(parent_edition:, child_document: child_edition.document)
-    parent_relationship.save!(validate: false)
+    view_test "GET :show warns that the parent must be unwithdrawn first when the parent is withdrawn" do
+      parent_edition.update!(state: :withdrawn)
 
-    get :show, params: { id: child_edition }
+      get :show, params: { id: child_edition }
 
-    refute_select ".app-view-summary__main .govuk-warning-text", text: /You need to publish the parent/
-    refute_select ".app-view-summary__sidebar-notices", text: /You need to publish the parent/
+      assert_select ".app-view-summary__main .govuk-warning-text", /You need to unwithdraw the parent test type before you can publish this page./
+      assert_select ".app-view-summary__sidebar-notices", /You need to unwithdraw the parent test type before you can publish this page./
+
+      refute_select ".govuk-button", text: "Force publish"
+    end
+
+    describe "when the child has been submitted for second eyes" do
+      let(:child_edition) { create(:submitted_standard_edition, configurable_document_type: "test_type", submitter: create(:user)) }
+
+      view_test "GET :show warns that the parent must be unwithdrawn first when the parent is withdrawn and the child has a proposed schedule" do
+        parent_edition.update!(state: :withdrawn)
+        child_edition.update!(scheduled_publication: 1.day.from_now)
+
+        get :show, params: { id: child_edition }
+
+        assert_select ".app-view-summary__main .govuk-warning-text", /You need to unwithdraw the parent test type before you can publish this page./
+        assert_select ".app-view-summary__sidebar-notices", /You need to unwithdraw the parent test type before you can publish this page./
+
+        refute_select '.govuk-button[type="submit"]', text: "Schedule"
+      end
+
+      view_test "GET :show allows the user to schedule a child when the parent is published" do
+        parent_edition.update!(state: :published)
+        child_edition.update!(scheduled_publication: 1.day.from_now)
+
+        get :show, params: { id: child_edition }
+
+        refute_select ".app-view-summary__main .govuk-warning-text", text: /You need to unwithdraw the parent test type before you can publish this page./
+        refute_select ".app-view-summary__sidebar-notices", text: /You need to unwithdraw the parent test type before you can publish this page./
+
+        assert_select '.govuk-button[type="submit"]', text: "Schedule"
+      end
+
+      view_test "GET :show allows the user to publish the child when the parent is published" do
+        parent_edition.update!(state: :published)
+
+        get :show, params: { id: child_edition }
+
+        refute_select ".app-view-summary__main .govuk-warning-text", text: /You need to publish the parent/
+        refute_select ".app-view-summary__sidebar-notices", text: /You need to publish the parent/
+
+        assert_select ".govuk-button", text: "Publish"
+      end
+    end
   end
 
   def tabbed_document_type(validations: {})

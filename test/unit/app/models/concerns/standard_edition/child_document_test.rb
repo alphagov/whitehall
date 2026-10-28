@@ -104,6 +104,43 @@ class StandardEdition::ChildDocumentTest < ActiveSupport::TestCase
     assert_empty child_edition.errors[:base]
   end
 
+  test "cannot be published if the parent has been withdrawn" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+    parent_edition.update!(state: "withdrawn")
+    child_edition.reload
+
+    message = "You need to unwithdraw the parent test type before you can publish this page."
+
+    assert_equal [message], child_edition.unmet_publishing_prerequisites
+    assert_not child_edition.valid?(:publish)
+    assert_includes child_edition.errors[:base], message
+  end
+
+  test "cannot be published if the parent has been withdrawn, even if a newer draft has been made" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, configurable_document_type: "test_type")
+    create(:parent_child_relationship, parent_edition: parent_edition, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    # create a new draft of the parent, including relationships
+    parent_edition.create_draft(parent_edition.creator)
+    parent_edition.update!(state: "withdrawn")
+
+    child_edition.reload
+    message = "You need to unwithdraw the parent test type before you can publish this page."
+
+    assert_equal [message], child_edition.unmet_publishing_prerequisites
+    assert_not child_edition.valid?(:publish)
+    assert_includes child_edition.errors[:base], message
+  end
+
   test "cannot be published until its parent has been published" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
 
