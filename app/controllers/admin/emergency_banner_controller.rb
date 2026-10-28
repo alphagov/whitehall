@@ -72,9 +72,8 @@ private
 
     config_maponfig_map[:data]["config.yaml"] = emergency_banner_params.to_yaml
 
-    k8s_client.api('v1').resource('configmaps').update_resource(config_map)
+    k8s_client.api("v1").resource("configmaps").update_resource(config_map)
   end
-
 
   def redis_client
     Redis.new(
