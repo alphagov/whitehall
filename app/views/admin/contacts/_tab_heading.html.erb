@@ -4,7 +4,7 @@
       text: title_text,
     } %>
   </div>
-  <% if contactable.home_page_contacts.many? && contacts.none?(&:foi?) %>
+  <% if can?(:edit, contactable) && contactable.home_page_contacts.many? && contacts.none?(&:foi?) %>
     <div class="govuk-grid-column-one-third">
       <p class="govuk-body govuk-!-text-align-right govuk-!-margin-bottom-0">
         <%= link_to("Reorder",reorder_admin_organisation_contacts_path, class: "govuk-link") %>

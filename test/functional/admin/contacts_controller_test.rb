@@ -312,4 +312,30 @@ class Admin::ContactsControllerTest < ActionController::TestCase
       assert_response :forbidden
     end
   end
+
+  view_test "GET :index shows actions to users who can edit the organisation" do
+    contact = create(:contact, contactable: @organisation, translated_into: [:fr])
+
+    get :index, params: { organisation_id: @organisation }
+
+    assert_select "a[href=?]", new_admin_organisation_contact_path(@organisation)
+    assert_select "a[href=?]", edit_admin_organisation_contact_path(@organisation, contact)
+    assert_select "a[href=?]", confirm_destroy_admin_organisation_contact_path(@organisation, contact)
+    assert_select "a[href=?]", confirm_destroy_admin_organisation_contact_translation_path(@organisation, contact, "fr")
+  end
+
+  view_test "GET :index hides actions from users who cannot edit the organisation" do
+    other_organisation = create(:organisation)
+    contact = create(:contact, contactable: other_organisation, translated_into: [:fr])
+
+    get :index, params: { organisation_id: other_organisation }
+
+    assert_response :success
+    refute_select "a[href=?]", new_admin_organisation_contact_path(other_organisation)
+    refute_select "a[href=?]", edit_admin_organisation_contact_path(other_organisation, contact)
+    refute_select "a[href=?]", confirm_destroy_admin_organisation_contact_path(other_organisation, contact)
+    refute_select "a[href=?]", admin_organisation_contact_translations_path(other_organisation, contact)
+    refute_select "a[href=?]", edit_admin_organisation_contact_translation_path(other_organisation, contact, "fr")
+    refute_select "a[href=?]", confirm_destroy_admin_organisation_contact_translation_path(other_organisation, contact, "fr")
+  end
 end
