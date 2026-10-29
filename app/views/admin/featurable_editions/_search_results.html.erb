@@ -1,3 +1,4 @@
+<% read_only ||= false %>
 <p id="js-result-count" class="govuk-heading-s govuk-!-margin-bottom-3"><%= pluralize(number_with_delimiter(paginator.total_count), "page") %></p>
 
 <% if paginator.blank? %>
@@ -33,7 +34,7 @@
             text: localize(edition.major_change_published_at.to_date),
           },
           {
-            text: featurable_search_results_table_actions(edition, feature_path),
+            text: featurable_search_results_table_actions(edition, feature_path, read_only:),
             format: "numeric",
           },
         ]
