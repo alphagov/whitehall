@@ -9,7 +9,7 @@ class Admin::EmergencyBannerController < Admin::BaseController
   def confirm_destroy; end
 
   def destroy
-    redis_client.del(:emergency_banner)
+    k8s_client.update_params(Kubernetes::EmergencyBannerConfigmapClient::EMPTY_PARAMS)
 
     redirect_to admin_emergency_banner_path
   end
@@ -22,19 +22,7 @@ class Admin::EmergencyBannerController < Admin::BaseController
 
   def update
     if emergency_banner_params[:campaign_class].present? && emergency_banner_params[:heading].present?
-      redis_client.hmset(
-        :emergency_banner,
-        :campaign_class,
-        emergency_banner_params[:campaign_class],
-        :heading,
-        emergency_banner_params[:heading],
-        :short_description,
-        emergency_banner_params[:short_description],
-        :link,
-        emergency_banner_params[:link],
-        :link_text,
-        emergency_banner_params[:link_text],
-      )
+      k8s_client.update_params(emergency_banner_params)
 
       redirect_to admin_emergency_banner_path, notice: "Emergency banner updated sucessfully"
     else
@@ -59,15 +47,10 @@ private
   end
 
   def load_current_banner
-    @current_banner = redis_client.hgetall("emergency_banner").try(:symbolize_keys)
+    @current_banner = k8s_client.load_params
   end
 
-  def redis_client
-    Redis.new(
-      url: ENV["EMERGENCY_BANNER_REDIS_URL"],
-      reconnect_attempts: 4,
-      reconnect_delay: 15,
-      reconnect_delay_max: 60,
-    )
+  def k8s_client
+    Kubernetes::EmergencyBannerConfigmapClient.new
   end
 end
