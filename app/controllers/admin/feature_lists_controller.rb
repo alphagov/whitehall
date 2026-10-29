@@ -1,5 +1,6 @@
 class Admin::FeatureListsController < Admin::BaseController
   before_action :find_feature_list
+  before_action :enforce_organisation_permissions!, only: %i[reorder update_order]
 
   def show
     redirect_to feature_list_path(@feature_list)
@@ -29,6 +30,11 @@ private
 
   def find_feature_list
     @feature_list = FeatureList.find(params[:id] || params[:feature_list_id])
+  end
+
+  def enforce_organisation_permissions!
+    featurable = @feature_list.featurable
+    enforce_permission!(:edit, featurable) if featurable.is_a?(Organisation)
   end
 
   def feature_list_path(feature_list)
