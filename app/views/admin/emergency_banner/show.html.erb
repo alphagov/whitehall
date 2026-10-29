@@ -4,7 +4,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <% if @current_banner.present? %>
+    <% if !@current_banner[:campaign_class].blank? && !@current_banner[:heading].blank? %>
       <p class="govuk-body"><%= I18n.t("emergency_banner.status.deployed") %></p>
 
       <%= render "govuk_publishing_components/components/table", {

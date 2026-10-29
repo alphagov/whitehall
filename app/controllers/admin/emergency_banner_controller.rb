@@ -22,7 +22,7 @@ class Admin::EmergencyBannerController < Admin::BaseController
 
   def update
     if emergency_banner_params[:campaign_class].present? && emergency_banner_params[:heading].present?
-      k8s_client.update_params(emergency_banner_params)
+      k8s_client.update_params(emergency_banner_params.to_h)
 
       redirect_to admin_emergency_banner_path, notice: "Emergency banner updated sucessfully"
     else
