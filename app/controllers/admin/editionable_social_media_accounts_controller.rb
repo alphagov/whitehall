@@ -1,6 +1,7 @@
 class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
   before_action :find_edition
   before_action :find_social_media_account, only: %i[confirm_destroy destroy edit update]
+  before_action :prevent_modification_of_unmodifiable_edition, except: :index
   before_action :enforce_permissions, except: :index
 
   def confirm_destroy; end

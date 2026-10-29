@@ -278,4 +278,68 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
 
     assert_response :redirect
   end
+
+  test "unmodifiable orgs cannot have their social media accounts updated" do
+    %i[scheduled published superseded unpublished].each do |state|
+      org = create("#{state}_worldwide_organisation".to_sym) # rubocop:disable Rails/SaveBang
+
+      title = "Social media account for #{state}"
+      social_media_account = create(:social_media_account, socialable: org, title:,
+                                                           ordering: 1)
+
+      patch :update, params: {
+        edition_id: org.id,
+        id: social_media_account.id,
+        social_media_account: {
+          title: "Updated title",
+          url: "https://www.example.com/",
+          locale: "en",
+        },
+      }
+
+      assert_response :redirect
+      assert_equal flash.alert, "You cannot modify a #{state} Worldwide organisation"
+    end
+  end
+
+  test "unmodifiable orgs cannot have their social media accounts deleted" do
+    %i[scheduled published superseded unpublished].each do |state|
+      org = create("#{state}_worldwide_organisation".to_sym) # rubocop:disable Rails/SaveBang
+
+      title = "Social media account for #{state}"
+      social_media_account = create(:social_media_account, socialable: org, title:,
+                                                           ordering: 1)
+
+      delete :destroy, params: {
+        edition_id: org.id,
+        id: social_media_account.id,
+      }
+
+      assert_response :redirect
+      assert_equal flash.alert, "You cannot modify a #{state} Worldwide organisation"
+    end
+  end
+
+  test "unmodifiable orgs cannot have their social media accounts re-ordered" do
+    %i[scheduled published superseded unpublished].each do |state|
+      org = create("#{state}_worldwide_organisation".to_sym) # rubocop:disable Rails/SaveBang
+
+      title = "Social media account for #{state}"
+      social_media_account_1 = create(:social_media_account, socialable: org, title:,
+                                                             ordering: 1)
+      social_media_account_2 = create(:social_media_account, socialable: org, title:,
+                                                             ordering: 2)
+
+      put :order, params: {
+        edition_id: org.id,
+        ordering: {
+          social_media_account_1.id.to_s => "2",
+          social_media_account_2.id.to_s => "1",
+        },
+      }
+
+      assert_response :redirect
+      assert_equal flash.alert, "You cannot modify a #{state} Worldwide organisation"
+    end
+  end
 end
