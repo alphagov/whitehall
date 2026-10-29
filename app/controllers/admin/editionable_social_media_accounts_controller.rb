@@ -1,6 +1,7 @@
 class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
   before_action :find_edition
   before_action :find_social_media_account, only: %i[confirm_destroy destroy edit update]
+  before_action :enforce_permissions, except: :index
 
   def confirm_destroy; end
 
@@ -29,6 +30,7 @@ class Admin::EditionableSocialMediaAccountsController < Admin::BaseController
   end
 
   def index
+    enforce_permission!(:see, @edition)
     @editionable_social_media_accounts_index_presenter = EditionableSocialMediaAccountsIndexPresenter.new(@edition)
   end
 
@@ -74,5 +76,9 @@ private
     ).merge(
       socialable: @edition,
     )
+  end
+
+  def enforce_permissions
+    enforce_permission!(:update, @edition)
   end
 end

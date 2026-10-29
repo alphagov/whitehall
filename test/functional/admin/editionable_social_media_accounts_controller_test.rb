@@ -16,6 +16,10 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
       @worldwide_org_1 = create(:worldwide_organisation)
       @worldwide_org_2 = create(:worldwide_organisation)
       @wwo1_social_media_account = create(:social_media_account, socialable: @worldwide_org_1, ordering: 1)
+
+      @access_limited_org = create(:worldwide_organisation, :access_limited_by_organisations)
+      @access_limited_social_media_account = create(:social_media_account, socialable: @access_limited_org, ordering: 1)
+      @allowed_user = create(:gds_editor, organisation: @access_limited_org.access_limiting_organisations.first)
     end
   end
 
@@ -210,5 +214,68 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
         id: @wwo1_social_media_account.id,
       }
     end
+  end
+
+  test "GET access limited orgs cannot have their social media accounts fetched by users from other orgs" do
+    get :index, params: { edition_id: @access_limited_org.id }
+
+    assert_response :forbidden
+  end
+
+  test "GET access limited orgs can have their social media accounts fetched by users from the allowed org" do
+    login_as @allowed_user
+    get :index, params: { edition_id: @access_limited_org.id }
+
+    assert_response :ok
+  end
+
+  test "PATCH access limited orgs cannot have their social media accounts updated by users from other orgs" do
+    patch :update, params: {
+      edition_id: @access_limited_org.id,
+      id: @access_limited_social_media_account.id,
+      social_media_account: {
+        title: "Updated title",
+        url: "https://www.example.com/",
+        locale: "en",
+      },
+    }
+
+    assert_response :forbidden
+  end
+
+  test "PATCH access limited orgs can have their social media accounts updated by users from the allowed org" do
+    login_as @allowed_user
+
+    patch :update, params: {
+      edition_id: @access_limited_org.id,
+      id: @access_limited_social_media_account.id,
+      social_media_account: {
+        title: "Updated title",
+        url: "https://www.example.com/",
+        locale: "en",
+      },
+    }
+
+    assert_response :redirect
+  end
+
+  test "DELETE access limited orgs cannot have their social media accounts deleted by users from other orgs" do
+    delete :destroy, params: {
+      edition_id: @access_limited_org.id,
+      id: @access_limited_social_media_account.id,
+    }
+
+    assert_response :forbidden
+  end
+
+  test "DELETE access limited orgs can have their social media accounts deleted by users from the allowed org" do
+    login_as @allowed_user
+
+    delete :destroy, params: {
+      edition_id: @access_limited_org.id,
+      id: @access_limited_social_media_account.id,
+    }
+
+    assert_response :redirect
   end
 end

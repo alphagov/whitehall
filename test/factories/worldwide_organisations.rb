@@ -71,6 +71,13 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait(:access_limited_by_organisations) do
+      access_limiting { "organisations" }
+      after(:build) do |edition|
+        edition.access_limiting_organisations = [FactoryBot.build(:organisation)]
+      end
+    end
   end
 
   factory :draft_worldwide_organisation, parent: :worldwide_organisation, traits: [:draft]
