@@ -1,4 +1,3 @@
-require "fakeredis/minitest"
 require "test_helper"
 
 class Admin::EmergencyBannerControllerTest < ActionController::TestCase
@@ -32,6 +31,21 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
   end
 
   context "when the banner is disabled" do
+    before do
+      initial_params = {
+        campaign_class: "",
+        heading: "",
+        link: "",
+        link_text: "",
+        short_description: "",
+      }
+
+      client = mock("Kubernetes::EmergencyBannerConfigmapClient")
+      Kubernetes::EmergencyBannerConfigmapClient.stubs(:new).returns(client)
+      client.allow(:load_params).returns(initial_params)
+    end
+
+
     view_test "GET :show does not list the current banner" do
       get :show
 
@@ -51,6 +65,18 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
     end
 
     view_test "PATCH :update saves the values" do
+      expected_params = {
+        campaign_class: "national-emergency",
+        heading: "Some information",
+        short_description: "Something has happened",
+        link: "https://www.emergency.gov.uk",
+        link_text: "A link",
+      }
+
+      client = mock("Kubernetes::EmergencyBannerConfigmapClient")
+      Kubernetes::EmergencyBannerConfigmapClient.stubs(:new).returns(client)
+      client.expects(:update_params).with(expected_params)
+
       patch :update, params: {
         emergency_banner: {
           campaign_class: "national-emergency",
@@ -61,34 +87,23 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
         },
       }
 
-      expected_response = {
-        campaign_class: "national-emergency",
-        heading: "Some information",
-        short_description: "Something has happened",
-        link: "https://www.emergency.gov.uk",
-        link_text: "A link",
-      }
-
       assert_response :redirect
-      assert_equal expected_response, Redis.new.hgetall("emergency_banner").symbolize_keys
     end
   end
 
   context "when the banner is enabled" do
     before do
-      Redis.new.hmset(
-        :emergency_banner,
-        :campaign_class,
-        "national-emergency",
-        :heading,
-        "Some important information",
-        :short_description,
-        "Something important has happened",
-        :link,
-        "https://www.emergency.gov.uk",
-        :link_text,
-        "See more",
-      )
+      initial_params = {
+        campaign_class: "national-emergency",
+        heading: "Some important information",
+        short_description: "Something important has happened",
+        link: "https://www.emergency.gov.uk",
+        link_text: "See more",
+      }
+
+      client = mock("Kubernetes::EmergencyBannerConfigmapClient")
+      Kubernetes::EmergencyBannerConfigmapClient.stubs(:new).returns(client)
+      client.expects(:load_params).returns(initial_params)
     end
 
     view_test "GET :show lists the current banner" do
@@ -125,6 +140,18 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
     end
 
     view_test "PATCH :update saves the values" do
+      expected_params = {
+        campaign_class: "local-emergency",
+        heading: "Some updated information",
+        short_description: "An update has been made",
+        link: "https://www.updated-emergency.gov.uk",
+        link_text: "An updated link",
+      }
+
+      client = mock("Kubernetes::EmergencyBannerConfigmapClient")
+      Kubernetes::EmergencyBannerConfigmapClient.stubs(:new).returns(client)
+      client.expects(:update_params).with(expected_params)
+
       patch :update, params: {
         emergency_banner: {
           campaign_class: "local-emergency",
@@ -135,16 +162,7 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
         },
       }
 
-      expected_response = {
-        campaign_class: "local-emergency",
-        heading: "Some updated information",
-        short_description: "An update has been made",
-        link: "https://www.updated-emergency.gov.uk",
-        link_text: "An updated link",
-      }
-
       assert_response :redirect
-      assert_equal expected_response, Redis.new.hgetall("emergency_banner").symbolize_keys
     end
 
     view_test "GET :confirm_destroy requests confirmation" do
@@ -154,13 +172,14 @@ class Admin::EmergencyBannerControllerTest < ActionController::TestCase
       assert_select "p.govuk-body", text: "Are you sure you want to remove the emergency banner?"
     end
 
-    view_test "DELETE :destroy removes the values" do
+    view_test "DELETE :destroy clears the banner config" do
+      client = mock("Kubernetes::EmergencyBannerConfigmapClient")
+      Kubernetes::EmergencyBannerConfigmapClient.stubs(:new).returns(client)
+      client.expects(:update_params).with(Kubernetes::EmergencyBannerConfigmapClient::EMPTY_PARAMS)
+
       delete :destroy
 
-      expected_response = {}
-
       assert_response :redirect
-      assert_equal expected_response, Redis.new.hgetall("emergency_banner").symbolize_keys
     end
   end
 end
