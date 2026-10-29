@@ -183,6 +183,34 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
+  test "cannot edit, update, confirm destroy or destroy an offsite link belonging to a different organisation" do
+    organisation = create(:organisation)
+    other_offsite_link = create(:offsite_link, title: "Original title", organisations: [create(:organisation)])
+    params = { organisation_id: organisation.slug, id: other_offsite_link.id }
+
+    assert_raise(ActiveRecord::RecordNotFound) { get :edit, params: }
+    assert_raise(ActiveRecord::RecordNotFound) { get :confirm_destroy, params: }
+    assert_raise(ActiveRecord::RecordNotFound) do
+      put :update, params: params.merge(offsite_link: { title: "Not allowed" })
+    end
+    assert_no_difference("OffsiteLink.count") do
+      assert_raise(ActiveRecord::RecordNotFound) { delete :destroy, params: }
+    end
+
+    assert_equal "Original title", other_offsite_link.reload.title
+  end
+
+  test "cannot update an offsite link belonging to a different edition" do
+    edition = create(:standard_edition, :published)
+    other_offsite_link = create(:offsite_link, title: "Original title", editions: [create(:standard_edition, :published)])
+
+    assert_raise(ActiveRecord::RecordNotFound) do
+      put :update, params: { standard_edition_id: edition, id: other_offsite_link.id, offsite_link: { title: "Not allowed" } }
+    end
+
+    assert_equal "Original title", other_offsite_link.reload.title
+  end
+
   def assert_offsite_links_form(path)
     assert_select "form[action=?] div", path do
       assert_select "div input[id=offsite_link_title]"
