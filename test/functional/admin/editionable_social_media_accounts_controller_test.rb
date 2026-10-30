@@ -8,10 +8,18 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
     @edition = create(:worldwide_organisation, :with_social_media_account, translated_into: [:cy])
 
     I18n.with_locale(:cy) do
-      @edition.social_media_accounts.first.update(
+      @edition.social_media_accounts.first.update!(
         title: "Translated title",
         url: "https://www.newurl.gov.cymru",
       )
+
+      @worldwide_org_1 = create(:worldwide_organisation)
+      @worldwide_org_2 = create(:worldwide_organisation)
+      @wwo1_social_media_account = create(:social_media_account, socialable: @worldwide_org_1, ordering: 1)
+
+      @access_limited_org = create(:worldwide_organisation, :access_limited_by_organisations)
+      @access_limited_social_media_account = create(:social_media_account, socialable: @access_limited_org, ordering: 1)
+      @allowed_user = create(:gds_editor, organisation: @access_limited_org.access_limiting_organisations.first)
     end
   end
 
@@ -173,5 +181,165 @@ class Admin::EditionableSocialMediaAccountsControllerTest < ActionController::Te
 
     assert_response :redirect
     assert_equal [social_media_account2, social_media_account1], edition.reload.social_media_accounts
+  end
+
+  test "GET social media account of another org cannot be fetched via a different organisation" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      get :edit, params: { edition_id: @worldwide_org_2.id, id: @wwo1_social_media_account.id }
+    end
+
+    assert_raises(ActiveRecord::RecordNotFound) do
+      get :confirm_destroy, params: { edition_id: @worldwide_org_2.id, id: @wwo1_social_media_account.id }
+    end
+  end
+
+  test "PATCH social media account of another org cannot be updated via a different organisation" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      patch :update, params: {
+        edition_id: @worldwide_org_2.id,
+        id: @wwo1_social_media_account.id,
+        social_media_account: {
+          title: "Updated title",
+          url: "https://www.example.com/bad",
+          locale: "en",
+        },
+      }
+    end
+  end
+
+  test "DELETE :social media accounts of another org cannot be destroyed via a different organisation" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      delete :destroy, params: {
+        edition_id: @worldwide_org_2.id,
+        id: @wwo1_social_media_account.id,
+      }
+    end
+  end
+
+  test "GET access limited orgs cannot have their social media accounts fetched by users from other orgs" do
+    get :index, params: { edition_id: @access_limited_org.id }
+
+    assert_response :forbidden
+  end
+
+  test "GET access limited orgs can have their social media accounts fetched by users from the allowed org" do
+    login_as @allowed_user
+    get :index, params: { edition_id: @access_limited_org.id }
+
+    assert_response :ok
+  end
+
+  test "PATCH access limited orgs cannot have their social media accounts updated by users from other orgs" do
+    patch :update, params: {
+      edition_id: @access_limited_org.id,
+      id: @access_limited_social_media_account.id,
+      social_media_account: {
+        title: "Updated title",
+        url: "https://www.example.com/",
+        locale: "en",
+      },
+    }
+
+    assert_response :forbidden
+  end
+
+  test "PATCH access limited orgs can have their social media accounts updated by users from the allowed org" do
+    login_as @allowed_user
+
+    patch :update, params: {
+      edition_id: @access_limited_org.id,
+      id: @access_limited_social_media_account.id,
+      social_media_account: {
+        title: "Updated title",
+        url: "https://www.example.com/",
+        locale: "en",
+      },
+    }
+
+    assert_response :redirect
+  end
+
+  test "DELETE access limited orgs cannot have their social media accounts deleted by users from other orgs" do
+    delete :destroy, params: {
+      edition_id: @access_limited_org.id,
+      id: @access_limited_social_media_account.id,
+    }
+
+    assert_response :forbidden
+  end
+
+  test "DELETE access limited orgs can have their social media accounts deleted by users from the allowed org" do
+    login_as @allowed_user
+
+    delete :destroy, params: {
+      edition_id: @access_limited_org.id,
+      id: @access_limited_social_media_account.id,
+    }
+
+    assert_response :redirect
+  end
+
+  test "unmodifiable orgs cannot have their social media accounts updated" do
+    %i[scheduled published superseded unpublished].each do |state|
+      org = create("#{state}_worldwide_organisation".to_sym) # rubocop:disable Rails/SaveBang
+
+      title = "Social media account for #{state}"
+      social_media_account = create(:social_media_account, socialable: org, title:,
+                                                           ordering: 1)
+
+      patch :update, params: {
+        edition_id: org.id,
+        id: social_media_account.id,
+        social_media_account: {
+          title: "Updated title",
+          url: "https://www.example.com/",
+          locale: "en",
+        },
+      }
+
+      assert_response :redirect
+      assert_equal flash.alert, "You cannot modify a #{state} Worldwide organisation"
+    end
+  end
+
+  test "unmodifiable orgs cannot have their social media accounts deleted" do
+    %i[scheduled published superseded unpublished].each do |state|
+      org = create("#{state}_worldwide_organisation".to_sym) # rubocop:disable Rails/SaveBang
+
+      title = "Social media account for #{state}"
+      social_media_account = create(:social_media_account, socialable: org, title:,
+                                                           ordering: 1)
+
+      delete :destroy, params: {
+        edition_id: org.id,
+        id: social_media_account.id,
+      }
+
+      assert_response :redirect
+      assert_equal flash.alert, "You cannot modify a #{state} Worldwide organisation"
+    end
+  end
+
+  test "unmodifiable orgs cannot have their social media accounts re-ordered" do
+    %i[scheduled published superseded unpublished].each do |state|
+      org = create("#{state}_worldwide_organisation".to_sym) # rubocop:disable Rails/SaveBang
+
+      title = "Social media account for #{state}"
+      social_media_account_1 = create(:social_media_account, socialable: org, title:,
+                                                             ordering: 1)
+      social_media_account_2 = create(:social_media_account, socialable: org, title:,
+                                                             ordering: 2)
+
+      put :order, params: {
+        edition_id: org.id,
+        ordering: {
+          social_media_account_1.id.to_s => "2",
+          social_media_account_2.id.to_s => "1",
+        },
+      }
+
+      assert_response :redirect
+      assert_equal flash.alert, "You cannot modify a #{state} Worldwide organisation"
+    end
   end
 end
