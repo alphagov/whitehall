@@ -45,11 +45,10 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
         },
       },
     }))
-    @block = ConfigurableContentBlocks::DefaultCheckboxes.new(@edition, @field, @path)
   end
 
   test "it renders a checkbox for each item" do
-    render @block
+    render block
 
     assert_dom "input[type=checkbox][name='edition[block_content][choices][selected][]'][value='one']"
     assert_dom "label", text: "Option one"
@@ -60,7 +59,7 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
   end
 
   test "it renders the required label" do
-    render @block
+    render block
 
     assert_dom "legend, .govuk-fieldset__legend", text: /Choices \(required\)/
   end
@@ -68,7 +67,7 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
   test "it checks the boxes for the currently selected values" do
     @edition.block_content = { "choices" => { "selected" => %w[two] } }
 
-    render @block
+    render block
 
     assert_dom "input[value='two'][checked]"
     assert_dom "input[value='one']:not([checked])"
@@ -78,13 +77,13 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
   test "it displays validation errors" do
     @edition.errors.add(:choices, "- you must select an option")
 
-    render @block
+    render block
 
     assert_dom ".govuk-error-message"
   end
 
   test "it renders the conditionally_reveal fields for items that have them, but not for items without" do
-    render @block
+    render block
 
     assert_dom "input[name='edition[block_content][choices][three][details]']"
     assert_dom "label", text: "Details for option three"
@@ -100,7 +99,7 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
       },
     }
 
-    render @block
+    render block
 
     assert_dom "input[name='edition[block_content][choices][three][details]'][value='Some extra detail']"
   end
@@ -108,9 +107,24 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
   test "it displays validation errors for an individual conditionally revealed field" do
     @edition.errors.add(:"choices.three.details", "is not valid")
 
-    render @block
+    render block
 
     assert_dom "input#edition_choices_three_details.govuk-input--error"
     assert_dom ".govuk-error-message", text: /is not valid/
+  end
+
+  def field_with_value
+    [
+      "input[value='two'][checked]",
+    ]
+  end
+
+  def fill_in_field(edition = nil)
+    edition ||= @edition
+    edition.block_content = { "choices" => { "selected" => %w[two] } }
+  end
+
+  def block
+    ConfigurableContentBlocks::DefaultCheckboxes.new(@edition, @field, @path)
   end
 end
