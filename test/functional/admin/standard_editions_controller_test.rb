@@ -1057,7 +1057,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  view_test "GET features renders the documents search tab with editions tagged to a featurable edition" do
+  view_test "GET features renders the documents search tab with all editions, not just those tagged" do
     topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
@@ -1083,7 +1083,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     tagged_editions.each do |edition|
       assert_select "#documents_tab p", text: edition.title
     end
-    refute_dom "#documents_tab p", text: untagged_edition.title
+    assert_dom "#documents_tab p", text: untagged_edition.title # even the untagged edition appears because tagging is no longer a requirement
   end
 
   view_test "GET features renders the documents search tab without editions already featured" do

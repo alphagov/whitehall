@@ -9,7 +9,7 @@ Feature:
     And the configurable document types feature flag is enabled
 
   Scenario: Featuring an edition
-    Given the featurable standard edition is linked to an edition with the title "Featured edition"
+    Given a published standard edition called Featured edition exists
     When I visit the standard edition featuring index page
     And I feature "Featured edition"
     Then I see that "Featured edition" has been featured

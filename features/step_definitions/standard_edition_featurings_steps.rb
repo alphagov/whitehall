@@ -2,13 +2,6 @@ And(/^a featurable standard edition called "([^"]*)" exists$/) do |title|
   @featurable_edition = create(:standard_edition, title:)
 end
 
-Given(/^the featurable standard edition is linked to an edition with the title "([^"]*)"$/) do |title|
-  # Only topical events can be linked through configurable associations at the moment,
-  # so we need to use the topical_event_documents association to link the standard edition to another edition.
-  # In future, we should make a generic association suitable for both topical events and any other associable document type.
-  create(:publication, :published, title:, topical_event_documents: [@featurable_edition.document])
-end
-
 And(/^two featurings exist for the edition$/) do
   featured_edition_1 = create(:published_standard_edition, title: "Featured Edition 1")
   featured_edition_2 = create(:published_standard_edition, title: "Featured Edition 2")

@@ -81,9 +81,8 @@ class Admin::StandardEditionsController < Admin::EditionsController
                           .permit!
                           .to_h
                           .merge(
-                            page_title: "GOV.UK content tagged to this topical event",
+                            page_title: "GOV.UK content",
                             state: "published",
-                            linked_document: @edition.document,
                             per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
                             feature_list: @feature_list,
                           )
