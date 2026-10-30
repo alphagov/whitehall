@@ -74,8 +74,10 @@ module Whitehall
         Services.publishing_api.put_content(presenter.content_id, content)
       end
     rescue GdsApi::HTTPUnprocessableEntity => e
-      if e.message =~ /already reserved/
-        raise UnpublishableInstanceError, e.message
+      publishing_api_error_code = e.error_details&.dig("error", "error_code")
+
+      if publishing_api_error_code == "base_path_already_in_use"
+        raise UnpublishableInstanceError, "Cannot save draft (content_id #{model_instance.content_id}). #{e.error_details.dig('error', 'message')}. Try changing your title to resolve the conflict."
       else
         raise
       end

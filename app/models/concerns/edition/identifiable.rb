@@ -24,6 +24,24 @@ module Edition::Identifiable
 
   delegate :change_history, :content_id, to: :document, allow_nil: true
 
+  LEGACY_RESERVED_BASE_PATHS = %w[/government/announcements
+                                  /government/calls-for-evidence
+                                  /government/collections
+                                  /government/consultations
+                                  /government/fatalities
+                                  /government/fields-of-operation
+                                  /government/generic-editions
+                                  /government/groups
+                                  /government/how-government-works
+                                  /government/ministers
+                                  /government/organisations
+                                  /government/people
+                                  /government/publications
+                                  /government/speeches
+                                  /government/statistical-data-sets
+                                  /government/statistics
+                                  /government/world].freeze
+
   def set_slug_from_title
     # Translations return nil from `string_to_slug`, in which case we return early as we should not set the slug based on a translation title
     # Corporate information pages also return nil from `string_to_slug`, because their slugs are set based on document type.
@@ -54,7 +72,7 @@ module Edition::Identifiable
                                              .where("document_id != ?", document_id)
                                              .where.not(state: Edition::FROZEN_STATES)
 
-      if edition_with_conflicting_slug.exists?
+      if edition_with_conflicting_slug.exists? || path_is_reserved?(candidate_slug)
         attempt += 1
       else
         candidate_slug_is_a_duplicate = false
@@ -118,5 +136,16 @@ private
 
   def string_for_slug
     non_english_edition? ? nil : title(:en)
+  end
+
+  def reserved_base_paths
+    @reserved_base_paths ||= ConfigurableDocumentType.all.filter_map { |doc_type| doc_type.settings["base_path_prefix"] }.uniq + LEGACY_RESERVED_BASE_PATHS
+  end
+
+  def path_is_reserved?(slug)
+    return false unless is_a?(StandardEdition)
+    return false if parent_edition_id.present?
+
+    reserved_base_paths.include?("#{type_instance.settings['base_path_prefix']}/#{slug}")
   end
 end

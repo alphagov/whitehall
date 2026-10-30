@@ -252,6 +252,63 @@ class Edition::SluggingTest < ActiveSupport::TestCase
 
       assert_equal "shared-title", first_edition.slug
     end
+
+    describe "reserved path slug behaviour" do
+      setup do
+        top_level_test_type = build_configurable_document_type("top_level_test_type", { "settings" => { "base_path_prefix" => "/government" } })
+        nested_test_type = build_configurable_document_type("nested_test_type", { "settings" => { "base_path_prefix" => "/government/something" } })
+
+        news = build_configurable_document_type("news", { "settings" => { "base_path_prefix" => "/government/news" } })
+        topical_events = build_configurable_document_type("topical_events", { "settings" => { "base_path_prefix" => "/government/topical-events" } })
+        my_document_type = build_configurable_document_type("my_document", { "settings" => { "base_path_prefix" => "/government/my-document" } })
+
+        ConfigurableDocumentType.setup_test_types(top_level_test_type.merge(nested_test_type).merge(news).merge(topical_events).merge(my_document_type))
+      end
+
+      test "it generates a unique slug when a slug would conflict with a path reserved by a configurable document type" do
+        %w[news
+           topical-events
+           my-document].each do |title|
+          edition = create(:standard_edition, configurable_document_type: "top_level_test_type", title:)
+
+          assert_equal "#{title}--2", edition.slug, "Expected edition with title '#{title}' to have a unique slug, but got the original slug '#{edition.slug}'"
+        end
+      end
+
+      test "it generates a unique slug when a slug would conflict with a path reserved by a legacy document type" do
+        %w[announcements
+           calls-for-evidence
+           collections].each do |title|
+          edition = create(:standard_edition, configurable_document_type: "top_level_test_type", title:)
+
+          assert_equal "#{title}--2", edition.slug, "Expected edition with title '#{title}' to have a unique slug, but got the original slug '#{edition.slug}'"
+        end
+      end
+
+      test "it does not generate a unique slug when a slug does not conflict with a document type" do
+        %w[some
+           other
+           normal
+           things].each do |title|
+          edition = create(:standard_edition, configurable_document_type: "top_level_test_type", title:)
+
+          assert_equal title, edition.slug, "Expected edition with title '#{title}' to have a normal slug, but it has been uniquified to '#{edition.slug}'"
+        end
+      end
+
+      test "it does not generate a unique slug when a slug does not conflict with a document type, due to the base path adding nesting" do
+        %w[news
+           topical-events
+           my-document
+           announcements
+           calls-for-evidence
+           collections].each do |title|
+          edition = create(:standard_edition, configurable_document_type: "nested_test_type", title:) # has a base path of /government/something, so should not conflict with the reserved paths
+
+          assert_equal title, edition.slug, "Expected edition with title '#{title}' to have a normal slug, but it has been uniquified to '#{edition.slug}'"
+        end
+      end
+    end
   end
 
   # Edition state is listed in UNMODIFIABLE_STATES. Changing the title or the override requires skipping validations.
