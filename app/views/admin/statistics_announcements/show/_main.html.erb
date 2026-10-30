@@ -59,6 +59,15 @@
           (provisional)
         <% end %></span>
     </p>
+    <% if @statistics_announcement.calendar_release_date_passed? %>
+      <%= render "govuk_publishing_components/components/warning_text", {
+        text: "This announcement is no longer shown in the statistics release calendar because its release date has passed. If the release has been delayed, change the release date.",
+      } %>
+    <% elsif @statistics_announcement.awaiting_release? %>
+      <p class="govuk-body">
+        Shown in the <%= link_to("GOV.UK statistics release calendar", "#{Plek.website_root}/search/research-and-statistics?content_store_document_type=upcoming_statistics&order=release-date-oldest", class: "govuk-link") %> until <%= @statistics_announcement.calendar_release_date.to_fs(:date_with_time) %>.
+      </p>
+    <% end %>
   </section>
 
   <section class="app-view-summary__section">
