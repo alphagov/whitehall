@@ -115,7 +115,7 @@ class StandardEditionTest < ActiveSupport::TestCase
       build_configurable_document_type(
         "test_type_with_features", {
           "settings" => {
-            "features_enabled" => true,
+            "features" => { "enabled" => true },
           },
         }
       )
@@ -123,7 +123,7 @@ class StandardEditionTest < ActiveSupport::TestCase
       build_configurable_document_type(
         "test_type_without_features", {
           "settings" => {
-            "features_enabled" => false,
+            "features" => { "enabled" => false },
           },
         }
       )

@@ -518,6 +518,19 @@
             "required": ["document_type"],
             "additionalProperties": false
           }
+        },
+        "features": {
+          "type": "object",
+          "description": "Featured links help users to highlight important internal and external links on a page.",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether featured links can be set for this document type. When enabled, it renders the 'Featured' tab."
+            }
+          },
+          "if": { "properties": { "enabled": { "const": true } } },
+          "then": { "required": ["display_limit"] }
         }
       },
       "required": [

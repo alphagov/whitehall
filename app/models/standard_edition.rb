@@ -96,7 +96,7 @@ class StandardEdition < Edition
   end
 
   def allows_features?
-    type_instance.settings["features_enabled"]
+    type_instance.settings.dig("features", "enabled")
   end
 
   def allows_child_documents?
