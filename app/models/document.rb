@@ -58,9 +58,21 @@ class Document < ApplicationRecord
       version = Document::PaginatedTimeline::VersionDecorator.new(
         version,
         is_first_edition: version.item_id == first_edition_id,
-        previous_version: versions[index - 1],
+        previous_version: index.zero? ? nil : versions[index - 1],
       )
       [version.id, version]
+    }.to_h
+  end
+
+  def decorated_change_notes_by_edition_ids(edition_ids)
+    first_published_edition_id = ever_published_editions.pick(:id)
+
+    ever_published_editions.where(id: edition_ids).map { |edition|
+      change_note = Document::PaginatedTimeline::ChangeNoteDecorator.new(
+        edition,
+        is_first_published_edition: edition.id == first_published_edition_id,
+      )
+      [edition.id, change_note]
     }.to_h
   end
 

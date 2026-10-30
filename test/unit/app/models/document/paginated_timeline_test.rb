@@ -17,14 +17,14 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
       assert_equal entry_timestamps.sort.reverse, entry_timestamps
     end
 
-    it "is a list of Document::PaginatedTimeline::VersionDecorator and EditorialRemark objects when 'only' argument is not present" do
+    it "is a list of Document::PaginatedTimeline::VersionDecorator, EditorialRemark and Document::PaginatedTimeline::ChangeNoteDecorator objects when 'only' argument is not present" do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      assert_equal [Document::PaginatedTimeline::VersionDecorator, EditorialRemark].to_set,
+      assert_equal [Document::PaginatedTimeline::VersionDecorator, EditorialRemark, Document::PaginatedTimeline::ChangeNoteDecorator].to_set,
                    timeline.entries.map(&:class).to_set
     end
 
     it "paginates correctly" do
-      expect_total_count = 11
+      expect_total_count = 12
       results_per_page = 4
       expect_total_pages = 3
 
@@ -63,17 +63,20 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
     end
 
     it "correctly determines actors" do
-      timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedTimeline::VersionDecorator) }
-      expected_actors = [@user,
-                         @user,
-                         @user2,
-                         @user,
-                         @user,
-                         @user2,
-                         @user]
+      mock_pagination(per_page: 30) do
+        timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
+        entries = timeline.entries.select { |e| e.instance_of?(Document::PaginatedTimeline::VersionDecorator) }
+        expected_actors = [@user,
+                           @user,
+                           @user2,
+                           @user,
+                           @user,
+                           @user2,
+                           @user,
+                           @user]
 
-      assert_equal expected_actors, entries.map(&:actor)
+        assert_equal expected_actors, entries.map(&:actor)
+      end
     end
 
     describe "when there are HostContentUpdateEvents present" do
@@ -89,9 +92,9 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
         assert_equal entry_timestamps.sort.reverse, entry_timestamps
       end
 
-      it "is a list of Document::PaginatedTimeline::VersionDecorator and EditorialRemark and HostContentUpdateEvent objects when 'only' argument is not present" do
+      it "is a list of Document::PaginatedTimeline::VersionDecorator, EditorialRemark, Document::PaginatedTimeline::ChangeNoteDecorator and HostContentUpdateEvent objects when 'only' argument is not present" do
         timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-        assert_equal [Document::PaginatedTimeline::VersionDecorator, EditorialRemark, HostContentUpdateEvent].to_set,
+        assert_equal [Document::PaginatedTimeline::VersionDecorator, EditorialRemark, Document::PaginatedTimeline::ChangeNoteDecorator, HostContentUpdateEvent].to_set,
                      timeline.entries.map(&:class).to_set
       end
 
@@ -195,6 +198,22 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
       end
     end
 
+    describe "when only argument is set to change_notes" do
+      it "is a list of Document::PaginatedTimeline::ChangeNoteDecorator objects" do
+        timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "change_notes")
+
+        assert_equal [Document::PaginatedTimeline::ChangeNoteDecorator], timeline.entries.map(&:class)
+        assert_equal @first_edition.id, timeline.entries.first.id
+        assert_equal @first_edition.change_note, timeline.entries.first.note
+      end
+
+      it "does not fetch any HostContentUpdateEvents" do
+        HostContentUpdateEvent.expects(:all_for_date_window).never
+
+        Document::PaginatedTimeline.new(document: @document, page: 1, only: "change_notes").entries
+      end
+    end
+
     describe "when only argument is set to internal_notes" do
       it "is a list of EditorialRemark objects when 'internal_notes'" do
         timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
@@ -212,14 +231,19 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
   end
 
   describe "#total_count" do
-    it "counts the list of Document::PaginatedTimeline::VersionDecorator and EditorialRemark objects when no 'only' argument is passed in" do
+    it "counts the list of Document::PaginatedTimeline::VersionDecorator, EditorialRemark and Document::PaginatedTimeline::ChangeNoteDecorator objects when no 'only' argument is passed in" do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1)
-      assert_equal 11, timeline.total_count
+      assert_equal 12, timeline.total_count
     end
 
     it "counts the total EditorialRemark objects when 'internal_notes' is passed into the 'only' argument" do
       timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "internal_notes")
       assert_equal 3, timeline.total_count
+    end
+
+    it "counts the total Document::PaginatedTimeline::ChangeNoteDecorator objects when 'change_notes' is passed into the 'only' argument" do
+      timeline = Document::PaginatedTimeline.new(document: @document, page: 1, only: "change_notes")
+      assert_equal 1, timeline.total_count
     end
 
     it "counts the total Document::PaginatedTimeline::VersionDecorator objects when 'history' is passed into the 'only' argument" do
@@ -243,7 +267,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
 
   it "implements methods required by Kaminari for pagination" do
     results_per_page = 4
-    expect_total_count = 11
+    expect_total_count = 12
     expect_total_pages = 3
 
     mock_pagination(per_page: results_per_page) do
@@ -365,6 +389,7 @@ class PaginatedTimelineTest < ActiveSupport::TestCase
 
     acting_as(@user2) do
       @first_edition.publish!
+      @first_edition.update_column(:major_change_published_at, Time.zone.now)
     end
 
     some_time_passes
