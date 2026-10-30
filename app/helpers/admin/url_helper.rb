@@ -71,10 +71,4 @@ module Admin::UrlHelper
       admin_link "Retag content", admin_retagging_index_path
     end
   end
-
-private
-
-  def active_link_class(path_matcher)
-    request.path.match?(path_matcher) ? "active" : ""
-  end
 end
