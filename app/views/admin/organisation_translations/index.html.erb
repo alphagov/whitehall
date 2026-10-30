@@ -39,14 +39,17 @@
             },
           ],
           rows: @organisation.non_english_translated_locales.map do |locale|
+            actions = link_to(sanitize("View #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), @organisation.public_url(draft: true, locale: locale.code), class: "govuk-link")
+            if can?(:edit, @organisation)
+              actions += link_to(sanitize("Edit #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), edit_admin_organisation_translation_path(@organisation, locale.code), class: "govuk-link govuk-!-margin-left-2") +
+                link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_translation_path(@organisation, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2")
+            end
             [
               {
                 text: locale.native_and_english_language_name,
               },
               {
-                text: link_to(sanitize("View #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), @organisation.public_url(draft: true, locale: locale.code), class: "govuk-link") +
-                  link_to(sanitize("Edit #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), edit_admin_organisation_translation_path(@organisation, locale.code), class: "govuk-link govuk-!-margin-left-2") +
-                  link_to(sanitize("Delete #{tag.span(locale.native_and_english_language_name, class: 'govuk-visually-hidden')}"), confirm_destroy_admin_organisation_translation_path(@organisation, locale.code), class: "govuk-link gem-link--destructive govuk-!-margin-left-2"),
+                text: actions,
               },
             ]
           end,
@@ -58,7 +61,7 @@
       } %>
     <% end %>
 
-    <% if @organisation.missing_translations.any? %>
+    <% if can?(:edit, @organisation) && @organisation.missing_translations.any? %>
       <%= form_with url: admin_organisation_translations_path(@organisation) do %>
         <%= render "govuk_publishing_components/components/select", {
           id: "translation_locale",

@@ -1,5 +1,6 @@
 class Admin::ContactsController < Admin::BaseController
   before_action :find_contactable
+  before_action :enforce_permissions!, except: %i[index]
   before_action :find_contact, only: %i[edit update destroy confirm_destroy]
   before_action :destroy_blank_contact_numbers, only: %i[create update]
   extend Admin::HomePageListController
@@ -93,6 +94,10 @@ private
 
   def find_contactable
     @contactable = Organisation.friendly.find(params[:organisation_id])
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:edit, @contactable)
   end
 
   def find_contact

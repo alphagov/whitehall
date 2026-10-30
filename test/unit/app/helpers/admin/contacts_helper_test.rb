@@ -3,6 +3,10 @@ require "test_helper"
 class Admin::ContactsHelperTest < ActionView::TestCase
   include Admin::OrganisationHelper
 
+  setup do
+    view.define_singleton_method(:can?) { |_action, _subject| true }
+  end
+
   test "method contact_rows return correct default rows" do
     organisation = build_stubbed(:organisation)
     contact = build_stubbed(:contact, contactable: organisation)
