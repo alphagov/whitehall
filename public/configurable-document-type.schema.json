@@ -371,6 +371,7 @@
           "enum": [
             "history",
             "topical_event",
+            "topical_event_about_page",
             "news_article",
             "case_study",
             "mini_site"
@@ -386,6 +387,7 @@
             "world_news_story",
             "history",
             "topical_event",
+            "topical_event_about_page",
             "case_study",
             "mini_site_landing",
             "mini_site_child"

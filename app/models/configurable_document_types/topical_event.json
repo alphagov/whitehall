@@ -213,6 +213,11 @@
       "enabled": true,
       "required": false
     },
-    "translations_enabled": false
+    "translations_enabled": false,
+    "allowed_child_document_types": [
+      {
+        "document_type": "topical_event_about_page"
+      }
+    ]
   }
 }
