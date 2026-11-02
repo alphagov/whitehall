@@ -441,6 +441,39 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_match(/You can feature up to [\d+] pages.*/, response.body)
   end
 
+  view_test "GET :features shows actions to users who can edit the organisation" do
+    organisation = create(:organisation)
+    login_as(:writer, organisation)
+    feature_list = create(:feature_list, locale: :en, featurable: organisation)
+    create_list(:feature, 2, feature_list:, document: create(:published_publication).document)
+    create(:published_publication, organisations: [organisation])
+    organisation.offsite_links << create(:offsite_link)
+
+    get :features, params: { id: organisation, locale: "en" }
+
+    assert_select "a", text: /Reorder pages/
+    assert_select "a", text: /Unfeature/
+    assert_select "a[href*=?]", "/features/new"
+    assert_select "a", text: "Add an external link"
+  end
+
+  view_test "GET :features hides actions from users who cannot edit the organisation" do
+    organisation = create(:organisation)
+    login_as(:writer, create(:organisation))
+    feature_list = create(:feature_list, locale: :en, featurable: organisation)
+    create_list(:feature, 2, feature_list:, document: create(:published_publication).document)
+    create(:published_publication, organisations: [organisation])
+    organisation.offsite_links << create(:offsite_link)
+
+    get :features, params: { id: organisation, locale: "en" }
+
+    assert_response :success
+    refute_select "a", text: /Reorder pages/
+    refute_select "a", text: /Unfeature/
+    refute_select "a[href*=?]", "/features/new"
+    refute_select "a", text: "Add an external link"
+  end
+
   test "POST: create - discards logo cache if file is present" do
     filename = "logo.png"
     Services.asset_manager.stubs(:create_asset).returns("id" => "http://asset-manager/assets/asset_manager_id", "name" => filename)

@@ -235,7 +235,7 @@ module Admin::EditionsHelper
     sanitize(actions, attributes: %w[href class data-ga4-ecommerce-content-id])
   end
 
-  def featurable_search_results_table_actions(edition, feature_path)
+  def featurable_search_results_table_actions(edition, feature_path, read_only: false)
     content_id = edition.document.content_id
     actions = ""
     actions << link_to(
@@ -247,14 +247,16 @@ module Admin::EditionsHelper
       },
     )
 
-    actions << link_to(
-      sanitize("Feature #{tag.span(edition.title, class: 'govuk-visually-hidden')}"),
-      polymorphic_url(feature_path, edition_id: edition),
-      class: "govuk-link govuk-!-margin-left-2",
-      data: {
-        "ga4-ecommerce-content-id": content_id,
-      },
-    )
+    unless read_only
+      actions << link_to(
+        sanitize("Feature #{tag.span(edition.title, class: 'govuk-visually-hidden')}"),
+        polymorphic_url(feature_path, edition_id: edition),
+        class: "govuk-link govuk-!-margin-left-2",
+        data: {
+          "ga4-ecommerce-content-id": content_id,
+        },
+      )
+    end
 
     sanitize(actions, attributes: %w[href class data-ga4-ecommerce-content-id])
   end

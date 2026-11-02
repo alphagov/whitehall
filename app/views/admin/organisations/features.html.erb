@@ -25,6 +25,8 @@
   margin_bottom: 6,
 } %>
 
+<% read_only = !can?(:manage_features, @organisation) %>
+
 <%= render "govuk_publishing_components/components/tabs", {
   disable_ga4: true,
   tabs: [
@@ -34,37 +36,41 @@
       content: render(Admin::CurrentlyFeaturedTabComponent.new(
         features: @feature_list.features.current,
         maximum_featured_documents: @organisation.featured_documents_display_limit,
-      )),
+        read_only:,
+        )),
     },
     {
       id: "documents_tab",
       label: "GOV.UK content",
       content: render("admin/shared/featurable_editions",
-        filter: @filter,
-        paginator: @filter.editions(@feature_list.locale),
-        featurable_editions: featurable_editions_for_feature_list(@filter.editions(@feature_list.locale), @feature_list),
-        filter_by: [:title, :type, :author, :organisation],
-        anchor: "#documents_tab",
-        filter_action: polymorphic_url([:features, :admin, @feature_list.featurable], locale: @feature_list.locale),
-        feature_path: [:new, :admin, @feature_list, :feature],
-      ),
+                      filter: @filter,
+                      paginator: @filter.editions(@feature_list.locale),
+                      featurable_editions: featurable_editions_for_feature_list(@filter.editions(@feature_list.locale), @feature_list),
+                      filter_by: [:title, :type, :author, :organisation],
+                      anchor: "#documents_tab",
+                      filter_action: polymorphic_url([:features, :admin, @feature_list.featurable], locale: @feature_list.locale),
+                      feature_path: [:new, :admin, @feature_list, :feature],
+                      read_only:,
+                      ),
     },
     {
       id: "topical_events_tab",
       label: "Topical events",
       content: render("admin/feature_lists/featureable_topical_events",
-        feature_list: @feature_list,
-        featurable_topical_events: featurable_topical_events_for_feature_list(@featurable_topical_events, @feature_list),
-      ),
+                      feature_list: @feature_list,
+                      featurable_topical_events: featurable_topical_events_for_feature_list(@featurable_topical_events, @feature_list),
+                      read_only:,
+                      ),
     },
     {
       id: "non_govuk_government_links_tab",
       label: "External websites",
       content: render("admin/feature_lists/featureable_offsite_links",
-        model: @organisation,
-        featurable_offsite_links: featurable_offsite_links_for_feature_list(@featurable_offsite_links, @feature_list),
-        featuring_path: [:new, :admin, @feature_list, :feature],
-      ),
+                      model: @organisation,
+                      featurable_offsite_links: featurable_offsite_links_for_feature_list(@featurable_offsite_links, @feature_list),
+                      featuring_path: [:new, :admin, @feature_list, :feature],
+                      read_only:,
+                      ),
     },
   ],
 } %>

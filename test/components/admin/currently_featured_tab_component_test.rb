@@ -180,4 +180,15 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
                     maximum_featured_documents: @maximum_featured_documents,
                   ))
   end
+
+  test "does not render link to the reorder features page when read only" do
+    feature_list = build_stubbed(:feature_list)
+    render_inline(Admin::CurrentlyFeaturedTabComponent.new(
+                    features: build_list(:feature, 2, feature_list:),
+                    maximum_featured_documents: @maximum_featured_documents,
+                    read_only: true,
+                  ))
+
+    assert_no_selector ".govuk-link", text: "Reorder pages"
+  end
 end
