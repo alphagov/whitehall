@@ -19,7 +19,7 @@
           type_of_document,
           { field: "Status", value: status_text(@edition).html_safe },
           { field: "Change type", value: @edition.minor_change? ? "Minor" : "Major" },
-          *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations)),
+          *([{ field: "Organisations", value: joined_list(@edition.organisations.map { |o| o.name }) }] if @edition.respond_to?(:organisations) && @edition.organisations.any?),
           {
             field: "Document access",
             value: document_access_text(@edition),
