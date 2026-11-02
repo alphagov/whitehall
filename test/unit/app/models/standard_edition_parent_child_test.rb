@@ -162,4 +162,62 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal "/government/test/my-first-parent/my-child", child_edition_1.base_path
     assert_equal "/government/test/my-first-parent/my-child--2", child_edition_2.base_path
   end
+
+  context "when a published parent with child pages is reslugged via a new draft" do
+    setup do
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+        "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+      }))
+
+      @parent = create(
+        :standard_edition,
+        title: "Mini Site",
+        configurable_document_type: "test_type",
+        state: "draft",
+        major_change_published_at: 1.day.ago,
+      )
+
+      @live_child = create(
+        :standard_edition,
+        title: "Live Child",
+        parent_edition_id: @parent.id,
+        configurable_document_type: "test_type",
+        state: "draft",
+        major_change_published_at: 1.day.ago,
+      )
+
+      @draft_child = create(
+        :standard_edition,
+        title: "Draft Child",
+        parent_edition_id: @parent.id,
+        configurable_document_type: "test_type",
+      )
+
+      Sidekiq::Testing.inline! do
+        assert EditionForcePublisher.new(@parent).perform!
+        assert EditionForcePublisher.new(@live_child.reload).perform!
+
+        @new_parent_draft = @parent.reload.create_draft(create(:user))
+        @new_parent_draft.title = "Renamed Mini Site"
+        @new_parent_draft.minor_change = true
+        @new_parent_draft.save!(validate: false)
+      end
+    end
+
+    test "assigns the parent's new slug to the draft child, while the live child keeps the old slug until the updated parent is published" do
+      assert_equal "/government/test/renamed-mini-site/draft-child", @draft_child.reload.base_path
+      assert_equal "/government/test/mini-site/live-child", @live_child.reload.base_path
+    end
+
+    test "assigns the parent's new slug to the live child once the updated parent is published" do
+      Sidekiq::Testing.inline! do
+        @new_parent_draft.update!(minor_change: true)
+        assert EditionForcePublisher.new(@new_parent_draft).perform!
+      end
+
+      assert_equal "/government/test/renamed-mini-site/live-child", @live_child.reload.base_path
+      assert @draft_child.reload.draft?
+      assert_equal "/government/test/renamed-mini-site/draft-child", @draft_child.reload.base_path
+    end
+  end
 end

@@ -121,7 +121,7 @@ class StandardEdition < Edition
   end
 
   def base_path
-    prefix = parent_edition ? parent_edition.base_path : type_instance.settings["base_path_prefix"]
+    prefix = parent_edition ? live_or_latest_parent_edition.base_path : type_instance.settings["base_path_prefix"]
     "#{prefix}/#{slug}"
   end
 
@@ -209,6 +209,11 @@ class StandardEdition < Edition
   end
 
 private
+
+  def live_or_latest_parent_edition
+    parent_document = parent_edition.document
+    publicly_visible? ? parent_document.live_edition : parent_document.latest_edition
+  end
 
   def field_paths(&block)
     [].tap do |paths|

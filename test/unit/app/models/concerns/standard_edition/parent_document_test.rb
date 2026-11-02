@@ -91,4 +91,82 @@ class StandardEdition::ParentDocumentTest < ActiveSupport::TestCase
 
     assert parent_edition.reload.has_publicly_visible_or_scheduled_children?
   end
+
+  test "republishes each child document when the parent is updated via its title" do
+    test_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    create(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    )
+
+    Whitehall::PublishingApi.expects(:republish_document_async).with(child_edition.document)
+
+    parent_edition.update!(title: "Renamed")
+  end
+
+  test "republishes each child document when the parent's slug is updated directly" do
+    test_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    create(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    )
+
+    Whitehall::PublishingApi.expects(:republish_document_async).with(child_edition.document)
+
+    parent_edition.update!(slug_override: "custom-parent-slug")
+
+    assert_equal "custom-parent-slug", parent_edition.slug
+    assert_equal "/government/test/custom-parent-slug/#{child_edition.slug}", child_edition.reload.base_path
+    assert_equal "draft", parent_edition.state
+  end
+
+  test "republishes each child document when the parent's state changes" do
+    test_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(
+      :standard_edition,
+      configurable_document_type: "test_type",
+      state: "draft",
+      major_change_published_at: 1.day.ago,
+    )
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    create(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    )
+
+    Whitehall::PublishingApi.expects(:republish_document_async).with(child_edition.document)
+
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+  end
+
+  test "does not republish child documents when the parent is saved without its slug or state changing" do
+    test_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    create(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    )
+
+    Whitehall::PublishingApi.expects(:republish_document_async).never
+
+    parent_edition.update!(summary: "Updated summary")
+  end
 end
