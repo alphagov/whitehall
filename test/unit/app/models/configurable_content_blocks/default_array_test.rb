@@ -8,7 +8,7 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
       "title" => "List of foods",
       "block" => "default_array",
       "translatable" => true,
-      "attribute_path" => %w[list_of_foods],
+      "attribute_path" => %w[block_content list_of_foods],
       "fields" => {
         "food" => {
           "title" => "Name of food",
@@ -127,6 +127,50 @@ class ConfigurableContentBlocks::DefaultArrayRenderingTest < ActionView::TestCas
     @block = ConfigurableContentBlocks::DefaultArray.new(@edition, @field, @path)
     render @block
     assert_dom "[data-add-button-text='Click to add another']"
+  end
+
+  test "it does inherit from parent, if `inherit_from_parent` set and it is an empty field of a new edition" do
+    selectors = [
+      [
+        "input#edition_list_of_foods_0_food[value='Apples']",
+      ],
+      [
+        "input#edition_list_of_foods_1_food[value='Bananas']",
+      ],
+    ]
+
+    fill_in_field = proc do |edition|
+      edition.block_content = {
+        "list_of_foods" => [
+          { "food" => "Apples" },
+          { "food" => "Bananas" },
+        ],
+      }
+    end
+
+    it_correctly_inherits_from_parent(ConfigurableContentBlocks::DefaultArray, @field, @path, selectors, fill_in_field, "array_type")
+  end
+
+  test "it does not inherit from parent, if `inherit_from_parent` set and it is an empty field of a saved edition" do
+    selectors = [
+      [
+        "input#edition_list_of_foods_0_food[value='Apples']",
+      ],
+      [
+        "input#edition_list_of_foods_1_food[value='Bananas']",
+      ],
+    ]
+
+    fill_in_field = proc do |edition|
+      edition.block_content = {
+        "list_of_foods" => [
+          { "food" => "Apples" },
+          { "food" => "Bananas" },
+        ],
+      }
+    end
+
+    it_does_not_inherit_from_parent(ConfigurableContentBlocks::DefaultArray, @field, @path, selectors, fill_in_field, "array_type")
   end
 
   def setup_type(key, field)

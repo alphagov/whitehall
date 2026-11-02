@@ -113,4 +113,32 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
     assert_dom "input#edition_choices_three_details.govuk-input--error"
     assert_dom ".govuk-error-message", text: /is not valid/
   end
+
+  test "it does inherit from parent, if `inherit_from_parent` set and it is an empty field of a new edition" do
+    selectors = [
+      [
+        "input[value='two'][checked]",
+      ],
+    ]
+
+    fill_in_field = proc do |edition|
+      edition.block_content = { "choices" => { "selected" => %w[two] } }
+    end
+
+    it_correctly_inherits_from_parent(ConfigurableContentBlocks::DefaultCheckboxes, @field, @path, selectors, fill_in_field)
+  end
+
+  test "it does not inherit from parent, if `inherit_from_parent` set and it is an empty field of a saved edition" do
+    selectors = [
+      [
+        "input[value='two'][checked]",
+      ],
+    ]
+
+    fill_in_field = proc do |edition|
+      edition.block_content = { "choices" => { "selected" => %w[two] } }
+    end
+
+    it_does_not_inherit_from_parent(ConfigurableContentBlocks::DefaultCheckboxes, @field, @path, selectors, fill_in_field)
+  end
 end
