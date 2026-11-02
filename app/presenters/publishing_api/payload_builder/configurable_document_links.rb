@@ -52,5 +52,9 @@ module PublishingApi::PayloadBuilder
     def self.government(item)
       { government: [item.government&.content_id].compact }
     end
+
+    def self.parent(item)
+      { parent: [item.parent_edition&.content_id].compact }
+    end
   end
 end

@@ -13,6 +13,7 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
               organisations
               worldwide_organisations
               government
+              parent
             ],
           },
         },
@@ -28,6 +29,19 @@ class PublishingApi::PayloadBuilder::ConfigurableDocumentLinksTest < ActiveSuppo
 
     links = PublishingApi::PayloadBuilder::ConfigurableDocumentLinks.for(edition)
     assert_equal [government.content_id], links[:government]
+  end
+
+  test "it include the parent content ID for 'parent' links" do
+    parent_edition = create(:standard_edition)
+    child_edition = create(:standard_edition)
+    create(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    )
+
+    links = PublishingApi::PayloadBuilder::ConfigurableDocumentLinks.for(child_edition)
+    assert_equal [parent_edition.content_id], links[:parent]
   end
 
   test "it presents the selected organisations, emphasised organisations and primary publishing organisation links" do
