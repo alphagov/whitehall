@@ -1,7 +1,7 @@
 <%= render "components/summary_card", {
   title: contact.title,
   rows: contact_rows(contact),
-  summary_card_actions: [
+  summary_card_actions: can?(:edit, contactable) ? [
     {
       label: "Edit",
       href: edit_polymorphic_path([:admin, contactable, contact]),
@@ -19,5 +19,5 @@
       href: polymorphic_path([:confirm_destroy, :admin, contactable, contact]),
       destructive: true,
     },
-  ],
+  ] : [],
 } %>

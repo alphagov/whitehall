@@ -199,4 +199,17 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     assert_not organisation.reload.translated_locales.include?(:fr)
     assert_redirected_to admin_organisation_translations_path(organisation)
   end
+
+  view_test "index hides actions from users who cannot edit the organisation" do
+    login_as(:writer, create(:organisation))
+    organisation = create(:organisation, translated_into: [:fr])
+
+    get :index, params: { organisation_id: organisation }
+
+    assert_response :success
+    assert_select "a", text: /View/
+    refute_select "a[href=?]", edit_admin_organisation_translation_path(organisation, "fr")
+    refute_select "a[href=?]", confirm_destroy_admin_organisation_translation_path(organisation, "fr")
+    refute_select "form[action=?]", admin_organisation_translations_path(organisation)
+  end
 end
