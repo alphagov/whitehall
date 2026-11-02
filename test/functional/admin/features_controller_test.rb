@@ -6,8 +6,9 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
   end
 
   test "get :new loads the given edition" do
-    world_location = create(:world_location)
-    feature_list = create(:feature_list, featurable: world_location, locale: :en)
+    world_location_news = build(:world_location_news)
+    world_location = create(:world_location, world_location_news:)
+    feature_list = create(:feature_list, featurable: world_location_news, locale: :en)
     edition = create(:published_speech, world_locations: [world_location])
 
     get :new, params: { feature_list_id: feature_list, edition_id: edition.id }
@@ -31,6 +32,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
   test "post :unfeature republishes the organisation when the featurable is an organisation" do
     organisation = create(:organisation)
+    login_as(:writer, organisation)
     feature_list = create(:feature_list, featurable: organisation, locale: :en)
     edition = create(:published_speech)
     feature = create(:feature, document: edition.document, feature_list:)
@@ -54,6 +56,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
   test "post :feature creates a feature and republishes the document & organisation when the featurable is an organisation" do
     organisation = create(:organisation)
+    login_as(:writer, organisation)
     feature_list = create(:feature_list, featurable: organisation, locale: :en)
     edition = create(:published_speech)
 
@@ -119,5 +122,56 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     post :unfeature, params: { feature_list_id: feature_list.id, id: feature }
 
     assert_response :forbidden
+  end
+
+  test "post :create is forbidden for users outside the organisation" do
+    organisation = create(:organisation)
+    feature_list = create(:feature_list, featurable: organisation, locale: :en)
+    edition = create(:published_speech)
+
+    post :create, params: { feature_list_id: feature_list.id, feature: { document_id: edition.document_id, alt_text: "some text" } }
+
+    assert_response :forbidden
+    assert_empty feature_list.reload.features
+  end
+
+  test "post :unfeature is forbidden for users outside the organisation" do
+    organisation = create(:organisation)
+    feature_list = create(:feature_list, featurable: organisation, locale: :en)
+    edition = create(:published_speech)
+    feature = create(:feature, document: edition.document, feature_list:)
+
+    post :unfeature, params: { feature_list_id: feature_list, id: feature }
+
+    assert_response :forbidden
+    assert_nil feature.reload.ended_at
+  end
+
+  test "get :new and :confirm_unfeature are forbidden for users outside the organisation" do
+    organisation = create(:organisation)
+    feature_list = create(:feature_list, featurable: organisation, locale: :en)
+    edition = create(:published_speech)
+    feature = create(:feature, document: edition.document, feature_list:)
+
+    get :new, params: { feature_list_id: feature_list, edition_id: edition.id }
+    assert_response :forbidden
+
+    get :confirm_unfeature, params: { feature_list_id: feature_list, id: feature }
+    assert_response :forbidden
+  end
+
+  test "post :create and :unfeature are forbidden for users who cannot update the featurable edition" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    feature_list = build(:feature_list, locale: :en)
+    create(:draft_standard_edition, :access_limited_by_organisations, configurable_document_type: "test_type", feature_lists: [feature_list])
+    edition_to_feature = create(:published_publication)
+    feature = create(:feature, document: create(:published_publication).document, feature_list:)
+
+    post :create, params: { feature_list_id: feature_list.id, feature: { document_id: edition_to_feature.document_id } }
+    assert_response :forbidden
+
+    post :unfeature, params: { feature_list_id: feature_list.id, id: feature }
+    assert_response :forbidden
+    assert_nil feature.reload.ended_at
   end
 end

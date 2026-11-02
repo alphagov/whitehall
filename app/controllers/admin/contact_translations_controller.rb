@@ -1,6 +1,8 @@
 class Admin::ContactTranslationsController < Admin::BaseController
   include TranslationControllerConcern
 
+  before_action :enforce_permissions!
+
   def index; end
 
   def edit; end
@@ -22,6 +24,10 @@ private
   def load_translatable_item
     @contactable = Organisation.friendly.find(params[:organisation_id])
     @contact = @contactable.contacts.find(params[:contact_id])
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:edit, @contactable)
   end
 
   def load_translated_models

@@ -1,5 +1,6 @@
 class Admin::ContactsController < Admin::BaseController
   before_action :find_contactable
+  before_action :enforce_permissions!, except: %i[index]
   before_action :find_contact, only: %i[edit update destroy confirm_destroy]
   before_action :destroy_blank_contact_numbers, only: %i[create update]
   extend Admin::HomePageListController
@@ -85,14 +86,18 @@ private
   def extract_items_from_ordering_params
     item_ordering = params[:ordering] || {}
     item_ordering.permit!.to_h
-      .map { |item_id, ordering| [Contact.find_by(id: item_id), ordering.to_i] }
-      .sort_by { |_, ordering| ordering }
-      .map { |item, _| item }
-      .compact
+                 .map { |item_id, ordering| [Contact.find_by(id: item_id), ordering.to_i] }
+                 .sort_by { |_, ordering| ordering }
+                 .map { |item, _| item }
+                 .compact
   end
 
   def find_contactable
     @contactable = Organisation.friendly.find(params[:organisation_id])
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:edit, @contactable)
   end
 
   def find_contact

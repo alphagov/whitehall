@@ -169,4 +169,34 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     assert_not organisation.translated_locales.include?(:fr)
     assert_redirected_to admin_organisation_translations_path(organisation)
   end
+
+  test "actions are forbidden for users outside the organisation" do
+    login_as(:writer, create(:organisation))
+    organisation = create(:organisation, translated_into: [:fr])
+
+    post :create, params: { organisation_id: organisation, translation_locale: "es" }
+    assert_response :forbidden
+
+    put :update, params: { organisation_id: organisation, id: "fr", organisation: { name: "Nouveau" } }
+    assert_response :forbidden
+
+    delete :destroy, params: { organisation_id: organisation, id: "fr" }
+    assert_response :forbidden
+    assert organisation.reload.translated_locales.include?(:fr)
+
+    %i[edit confirm_destroy].each do |action|
+      get action, params: { organisation_id: organisation, id: "fr" }
+      assert_response :forbidden
+    end
+  end
+
+  test "actions are allowed for users in the organisation" do
+    organisation = create(:organisation, translated_into: [:fr])
+    login_as(:writer, organisation)
+
+    delete :destroy, params: { organisation_id: organisation, id: "fr" }
+
+    assert_not organisation.reload.translated_locales.include?(:fr)
+    assert_redirected_to admin_organisation_translations_path(organisation)
+  end
 end
