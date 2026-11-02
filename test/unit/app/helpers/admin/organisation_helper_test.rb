@@ -1,6 +1,10 @@
 require "test_helper"
 
 class Admin::OrganisationHelperTest < ActionView::TestCase
+  setup do
+    define_singleton_method(:can?) { |_action, _subject| true }
+  end
+
   test "#topical_event_dates_string handles a topical event with a start date but no end date" do
     topical_event = create(:topical_event, start_date: Time.zone.today)
 
@@ -223,11 +227,5 @@ class Admin::OrganisationHelperTest < ActionView::TestCase
     ]
 
     assert_equal expected_output, organisation_index_rows(nil, [organisation])
-  end
-
-private
-
-  def can?(_action, _subject)
-    true
   end
 end
