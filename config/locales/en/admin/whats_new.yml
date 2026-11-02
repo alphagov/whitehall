@@ -27,6 +27,24 @@ en:
       recent_changes:
         heading: Recent changes
         updates:
+          - heading: Fact checking removed from Whitehall
+            area: Publishing workflow
+            type: improvement
+            date: 26 October 2026
+            body_govspeak: |
+              Only around 0.001% of content was going through the fact-check process within Whitehall. This is because publishers use other methods such as the 2i process or off-line checks instead. As a result, fact checking has been removed from Whitehall, simplifying the interface and our codebase. [See the basecamp post for details](https://app.basecamp.com/4322319/buckets/15005645/messages/10441872769).
+          - heading: Standardised reasons for force publishing
+            area: Publishing workflow
+            type: improvement
+            date: 26 October 2026
+            body_govspeak: |
+              Publishers can now choose from a set of predefined reasons when force publishing content in Whitehall. This helps maintain a clear record of why content was force published, improving accountability and transparency. [See the basecamp post for details](https://app.basecamp.com/4322319/buckets/15005645/messages/10427686088).
+          - heading: New documents default to the top of the document collections
+            area: Managing documents and editions
+            type: improvement
+            date: 6 October 2026
+            body_govspeak: |
+              Previously, publishers had an extra job to shuffle the newly added document to the top of the pile. This is no longer the case as new documents default to the top of the list. [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/10333285529).
           - heading: More space to edit documents
             area: Managing documents and editions
             type: improvement
