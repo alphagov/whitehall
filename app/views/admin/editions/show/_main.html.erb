@@ -37,7 +37,6 @@
     </div>
   </section>
 
-  <%= render Admin::Editions::PublishingPrerequisitesComponent.new(edition: @edition) %>
   <%= render partial: "admin/editions/show/main_notices", locals: { edition: @edition } %>
   <%= render Admin::Editions::Show::PreviewComponent.new(edition: @edition, invalid_tab_forms: @invalid_tab_forms) %>
 
