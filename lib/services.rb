@@ -27,13 +27,6 @@ module Services
     )
   end
 
-  def self.search_api_client
-    @search_api_client ||= GdsApi::Search.new(
-      Plek.find("search-api"),
-      bearer_token: ENV["RUMMAGER_BEARER_TOKEN"] || "example",
-    )
-  end
-
   def self.signon_api_client
     GdsApi::SignonApi.new(
       Plek.find("signon", external: true),
