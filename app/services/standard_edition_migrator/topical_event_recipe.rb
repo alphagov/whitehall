@@ -67,6 +67,9 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
 
       # 'image' (logo) is replaced by 'images'
       content[:details].delete(:image)
+
+      # 'about_page_link_text' will now be replaced by appended text on the Topical Event body
+      content[:details].delete(:about_page_link_text)
     end
 
     if content[:details] && content[:details][:body] == "<div class=\"govspeak\">\n</div>"

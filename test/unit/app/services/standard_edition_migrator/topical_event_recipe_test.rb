@@ -424,6 +424,13 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       expected_content = { details: { body: "<div class=\"govspeak\"><p>&nbsp;</p>\n</div>" } }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
+
+    it "ignores about_page_link_text as this will now be appended to the Topical Event body" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = { details: { some: "content", about_page_link_text: "Read more about this event" } }
+      expected_content = { details: { some: "content" } }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
   end
 
   describe "#ignore_new_content_fields" do
