@@ -203,8 +203,7 @@ GEM
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
-    excon (1.7.2)
-      logger
+    excon (1.10.0)
     execjs (2.10.1)
     factory_bot (6.6.0)
       activesupport (>= 6.1.0)
@@ -226,7 +225,7 @@ GEM
       path_expander (~> 2.0)
       prism (~> 1.7)
       sexp_processor (~> 4.8)
-    fog-aws (3.33.4)
+    fog-aws (3.33.5)
       base64 (>= 0.2, < 0.4)
       fog-core (~> 2.6)
       fog-json (~> 1.1)
