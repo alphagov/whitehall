@@ -281,9 +281,9 @@ GEM
     google-protobuf (4.36.2-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    googleapis-common-protos-types (1.24.0)
+    googleapis-common-protos-types (1.25.0)
       google-protobuf (~> 4.26)
-    govspeak (10.11.7)
+    govspeak (10.11.8)
       actionview (>= 6, < 8.1.5)
       addressable (>= 2.3.8, < 2.9.1)
       govuk_publishing_components (>= 43)
