@@ -97,10 +97,6 @@ module Whitehall
     %w[speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities collections supporting-pages calls-for-evidence worldwide-organisations standard-editions]
   end
 
-  def self.search_api_work_queue_name
-    "search_api-delayed-indexing"
-  end
-
   def self.edition_services
     @edition_services ||= EditionServiceCoordinator.new
   end
