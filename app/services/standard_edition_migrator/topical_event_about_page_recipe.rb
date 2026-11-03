@@ -20,7 +20,13 @@ class StandardEditionMigrator::TopicalEventAboutPageRecipe < StandardEditionMigr
       # is that the initial publication was a major change.
       major_change_published_at: record.created_at,
     }
-    StandardEdition.new(attributes)
+    edition = StandardEdition.new(attributes)
+    edition.parent_edition_id = find_migrated_topical_event(record)
+    edition
+  end
+
+  def after_save_edition(edition, _legacy_record)
+    edition.parent_relationship.save!(validate: false)
   end
 
   def ignore_new_content_fields(content)
@@ -39,5 +45,14 @@ class StandardEditionMigrator::TopicalEventAboutPageRecipe < StandardEditionMigr
     content[:public_updated_at] = content[:public_updated_at].rfc3339 if content[:public_updated_at].respond_to?(:rfc3339)
 
     content
+  end
+
+private
+
+  def find_migrated_topical_event(record)
+    edition = Edition.find_by(configurable_document_type: "topical_event", slug: record.topical_event.slug)
+    raise WhitehallError, "You must migrate the Topical Event parent (#{record.topical_event.slug}) before migrating its About Page (ID: #{record.id})" unless edition
+
+    edition.id
   end
 end
