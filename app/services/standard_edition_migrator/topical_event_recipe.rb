@@ -3,6 +3,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
 
   def initialize
     @artefacts_to_save = []
+    @appended_about_page_link_govspeak = false
     super
   end
 
@@ -117,6 +118,13 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       content[:details][:social_media_links].each do |social_media_link|
         social_media_link[:title] = social_media_link[:title].gsub(/\s+\(\d+\)$/, "") # Remove the "(1)" or "(2)" suffixes that are added in the StandardEdition equivalent
       end
+    end
+
+    if content[:details] && content[:details][:body] && @appended_about_page_link_govspeak
+      # Remove appended 'read more link text' on the Topical Event body
+      doc = Nokogiri::HTML::Document.new
+      html_string = doc.fragment(Govspeak::Document.new(@appended_about_page_link_govspeak).to_html).to_html
+      content[:details][:body] = content[:details][:body].gsub(html_string, "")
     end
 
     # Delete the 'images' array (replacing old 'image' property)
@@ -239,7 +247,8 @@ private
 
   def append_about_page_link_text(record, body)
     if record.topical_event_about_page&.read_more_link_text.present?
-      body += "\n\n[#{record.topical_event_about_page.read_more_link_text}](/government/topical-events/#{record.slug}/about)"
+      @appended_about_page_link_govspeak = "\n\n[#{record.topical_event_about_page.read_more_link_text}](/government/topical-events/#{record.slug}/about)"
+      body += @appended_about_page_link_govspeak
     end
     body
   end
