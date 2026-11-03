@@ -131,6 +131,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
 
     assert_offsite_links_form(
       admin_standard_edition_offsite_links_path(edition),
+      date_field: false,
     )
   end
 
@@ -143,6 +144,7 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
 
     assert_offsite_links_form(
       admin_standard_edition_offsite_link_path(edition, offsite_link),
+      date_field: false,
     )
 
     assert_select "div input[id=offsite_link_title][value='#{offsite_link.title}']"
@@ -211,12 +213,12 @@ class Admin::OffsiteLinksControllerTest < ActionController::TestCase
     assert_equal "Original title", other_offsite_link.reload.title
   end
 
-  def assert_offsite_links_form(path)
+  def assert_offsite_links_form(path, date_field: true)
     assert_select "form[action=?] div", path do
       assert_select "div input[id=offsite_link_title]"
       assert_select "div textarea[id=offsite_link_summary]"
       assert_select "div select[id=offsite_link_link_type]"
-      (1..3).each { |n| assert_select "div input[id=offsite_link_date_#{n}i]" }
+      (1..3).each { |n| assert_select "div input[id=offsite_link_date_#{n}i]", count: date_field ? 1 : 0 }
       assert_select "div input[id=offsite_link_url]"
 
       assert_select "button[type=submit]"
