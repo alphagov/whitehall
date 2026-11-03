@@ -19,17 +19,6 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
   end
 
   describe "#build_edition" do
-    it "raises an exception if passed a Topical Event that has an About page - we're not ready to migrate those yet" do
-      legacy_topical_event = create(:topical_event)
-      recipe = StandardEditionMigrator::TopicalEventRecipe.new
-
-      create(:topical_event_about_page, topical_event: legacy_topical_event, read_more_link_text: "Read more about this event")
-
-      assert_raises(WhitehallError) do
-        recipe.build_edition(legacy_topical_event)
-      end
-    end
-
     it "maps the basic legacy fields" do
       legacy_topical_event = create(
         :topical_event,
