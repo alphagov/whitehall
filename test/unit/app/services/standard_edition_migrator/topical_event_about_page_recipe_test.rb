@@ -83,4 +83,15 @@ class TopicalEventAboutPageRecipeTest < ActiveSupport::TestCase
       assert_equal "value", content[:other_key]
     end
   end
+
+  describe "#ignore_legacy_content_fields" do
+    it "removes the read_more key from the content details hash" do
+      content = { details: { read_more: "Read more" , some_key: "foo", }, other_key: "value" }
+      recipe = StandardEditionMigrator::TopicalEventAboutPageRecipe.new
+      recipe.ignore_legacy_content_fields(content)
+      assert_not content[:details].key?(:read_more)
+      assert_equal "value", content[:other_key]
+      assert_equal "foo", content[:details][:some_key]
+    end
+  end
 end
