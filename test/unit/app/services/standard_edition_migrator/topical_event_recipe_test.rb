@@ -85,6 +85,19 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal("Sample body content", edition.block_content.to_h["body"])
     end
 
+    it "appends the 'about_page_link_text' to  block_content" do
+      legacy_topical_event = create(
+        :topical_event,
+        description: "Sample body content",
+        slug: "slug-of-my-topical-event",
+        topical_event_about_page: create(:topical_event_about_page, read_more_link_text: "Read more about this event"),
+      )
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      assert_equal "Sample body content\n\n[Read more about this event](/government/topical-events/slug-of-my-topical-event/about)", edition.block_content.to_h["body"]
+    end
+
     it "creates a non-empty body for the new edition, even if the legacy record has no body" do
       legacy_topical_event = create(
         :topical_event,
