@@ -21,7 +21,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       slug_override: record.slug,
       block_content: {
         # A body is now required, and we don't want to loosen the validation on new topical events
-        "body" => record.description || "&nbsp;",
+        "body" => append_about_page_link_text(record, record.description || "&nbsp;"),
         "social_media_links" => social_media_links(record),
       },
       lead_organisations: record.topical_event_organisations.where(lead: true).order(:lead_ordering).map(&:organisation),
@@ -235,5 +235,12 @@ private
     # So deliberately don't save ImageData or its Assets again.
     @artefacts_to_save << image
     image
+  end
+
+  def append_about_page_link_text(record, body)
+    if record.topical_event_about_page&.read_more_link_text.present?
+      body += "\n\n[#{record.topical_event_about_page.read_more_link_text}](/government/topical-events/#{record.slug}/about)"
+    end
+    body
   end
 end
