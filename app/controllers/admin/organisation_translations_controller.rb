@@ -1,6 +1,8 @@
 class Admin::OrganisationTranslationsController < Admin::BaseController
   include TranslationControllerConcern
 
+  before_action :enforce_permissions!, except: %i[index]
+
   def index; end
 
 private
@@ -39,5 +41,9 @@ private
 
   def load_translatable_item
     @organisation = Organisation.friendly.find(params[:organisation_id])
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:edit, @organisation)
   end
 end

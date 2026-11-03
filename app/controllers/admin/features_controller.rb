@@ -1,6 +1,7 @@
 class Admin::FeaturesController < Admin::BaseController
   before_action :find_feature_list
   before_action :determine_if_read_only
+  before_action :enforce_permissions!
   before_action :build_feature, only: %i[new create]
   before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
 
@@ -65,6 +66,10 @@ private
 
   def find_offsite_link
     @feature.offsite_link = OffsiteLink.find(params[:offsite_link_id]) if params[:offsite_link_id]
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:manage_features, @feature_list.featurable)
   end
 
   def determine_if_read_only

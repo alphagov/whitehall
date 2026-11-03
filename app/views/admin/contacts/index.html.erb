@@ -24,11 +24,13 @@
   margin_bottom: 6,
 } %>
 
-<%= render "govuk_publishing_components/components/button", {
-  text: "Add contact",
-  href: new_polymorphic_path([:admin, @contactable, Contact.new]),
-  margin_bottom: 6,
-} %>
+<% if can?(:edit, @contactable) %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Add contact",
+    href: new_polymorphic_path([:admin, @contactable, Contact.new]),
+    margin_bottom: 6,
+  } %>
+<% end %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if @contactable.contacts.present? %>

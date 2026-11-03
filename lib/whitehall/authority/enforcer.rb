@@ -49,6 +49,7 @@ module Whitehall::Authority
     "Person" => Rules::PersonRules,
     "PolicyGroup" => Rules::PolicyGroupRules,
     "Organisation" => Rules::OrganisationRules,
+    "WorldLocationNews" => Rules::WorldLocationNewsRules,
     "Government" => Rules::GovernmentRules,
     "StatisticsAnnouncement" => Rules::StatisticsAnnouncementRules,
     "SocialMediaAccount" => Rules::SocialMediaAccountRules,

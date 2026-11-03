@@ -22,8 +22,8 @@
 - **Organisations:**
   - `index`, `show`, `features`, `about`, `organisations/people#index`, `promotional_features#index`, `#show`
   - `destroy`, `confirm_destroy`
-  - `edit`/`update`, `organisation_people#reorder`/`#order` and `promotional_features` (create/edit/destroy/reorder), only for **own org or a child org**
-  - contacts, contact translations, organisation translations, offsite links and promotional feature items for **any** org
+  - `edit`/`update`, `organisation_people#reorder`/`#order`, `promotional_features` (create/edit/destroy/reorder), contacts, contact translations, organisation translations and features (feature, unfeature, reorder), only for **own org or a child org**
+  - offsite links and promotional feature items for **any** org
 - **People and roles:**
   - people: new, create, show, index; edit/update/destroy/reorder for anyone who isn't a PM
   - roles and role appointments: create/edit/update/destroy for non-ministerial roles
@@ -34,7 +34,7 @@
   - world location news (edit, update, translations, offsite links)
   - statistics announcements: everything except unpublishing (create, edit, cancel, date changes, tags, link to publication)
   - policy groups: create and edit
-  - features and feature lists
+  - features and feature lists (feature, unfeature, reorder) on world location news, and on editions the user can update
   - `users#index`, `#show`; `authors#show`; dashboard; `new_document`; `more`; `whats_new`; `bookmarklets`; `preview`; `by-content-id`; `/export/...` downloads; `/component-guide`
 
 ### Departmental Editor and above
@@ -53,7 +53,7 @@
 
 ### GDS Editor
 
-- Editing any organisation, and managing featured links
+- Editing any organisation (including its contacts, translations and features), and managing featured links
 - `cabinet_ministers#*` (reordering)
 - `policy_groups#destroy`
 - `sitewide_settings#*`

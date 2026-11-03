@@ -4,7 +4,7 @@ module Whitehall::Authority::Rules
       case action
       when :create, :delete
         actor.gds_admin?
-      when :edit
+      when :edit, :manage_features
         actor.gds_admin? || actor.gds_editor? || actor_is_from_organisation_or_parent?(actor, subject)
       when :manage_featured_links
         actor.gds_admin? || actor.gds_editor? || managing_editor_for_org?(actor, subject)

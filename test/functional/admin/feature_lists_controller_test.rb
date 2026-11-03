@@ -51,4 +51,41 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
 
     assert_redirected_to features_admin_world_location_news_path(feature_list.featurable, locale: feature_list.locale)
   end
+
+  test "post update_order is forbidden for users outside the organisation" do
+    organisation = create(:organisation)
+    feature_list = create(:feature_list, featurable: organisation, locale: :en)
+    feature1 = create(:feature, feature_list:, ordering: 1)
+    feature2 = create(:feature, feature_list:, ordering: 2)
+
+    post :update_order, params: { id: feature_list, ordering: { feature1.id.to_s => "2", feature2.id.to_s => "1" } }
+
+    assert_response :forbidden
+    assert_equal [feature1, feature2], feature_list.reload.features
+  end
+
+  test "post update_order is allowed for users in the organisation" do
+    organisation = create(:organisation)
+    login_as(:writer, organisation)
+    feature_list = create(:feature_list, featurable: organisation, locale: :en)
+    feature1 = create(:feature, feature_list:, ordering: 1)
+    feature2 = create(:feature, feature_list:, ordering: 2)
+
+    post :update_order, params: { id: feature_list, ordering: { feature1.id.to_s => "2", feature2.id.to_s => "1" } }
+
+    assert_equal [feature2, feature1], feature_list.reload.features
+  end
+
+  test "post update_order is forbidden for users who cannot update the featurable edition" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+    feature_list = build(:feature_list, locale: :en)
+    create(:draft_standard_edition, :access_limited_by_organisations, configurable_document_type: "test_type", feature_lists: [feature_list])
+    feature1 = create(:feature, feature_list:, ordering: 1)
+    feature2 = create(:feature, feature_list:, ordering: 2)
+
+    post :update_order, params: { id: feature_list, ordering: { feature1.id.to_s => "2", feature2.id.to_s => "1" } }
+
+    assert_response :forbidden
+    assert_equal [feature1, feature2], feature_list.reload.features
+  end
 end
