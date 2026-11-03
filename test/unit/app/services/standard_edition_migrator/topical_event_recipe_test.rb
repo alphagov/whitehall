@@ -496,6 +496,25 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       }
       assert_equal expected_content, recipe.ignore_new_content_fields(content)
     end
+
+    it "ignores appended 'read more link text' on the Topical Event body" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = {
+        details: {
+          some: "content",
+          body: "This is the body text \n<p><a href=\"/topical-events/my-event/about\">Read more</a></p>\n",
+        },
+      }
+      expected_content = {
+        details: {
+          some: "content",
+          body: "This is the body text",
+        },
+      }
+
+      recipe.instance_variable_set(:@appended_about_page_link_govspeak, "[Read more](/topical-events/my-event/about)")
+      assert_equal expected_content[:details][:body], recipe.ignore_new_content_fields(content)[:details][:body].strip
+    end
   end
 
   describe "#ignore_new_links" do
