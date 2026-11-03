@@ -73,4 +73,14 @@ class TopicalEventAboutPageRecipeTest < ActiveSupport::TestCase
       assert_equal("Sample body content", edition.block_content.to_h["body"])
     end
   end
+
+  describe "#ignore_new_content_fields" do
+    it "removes the auth_bypass_ids key from the content" do
+      content = { auth_bypass_ids: [1, 2, 3], other_key: "value" }
+      recipe = StandardEditionMigrator::TopicalEventAboutPageRecipe.new
+      recipe.ignore_new_content_fields(content)
+      assert_not content.key?(:auth_bypass_ids)
+      assert_equal "value", content[:other_key]
+    end
+  end
 end
