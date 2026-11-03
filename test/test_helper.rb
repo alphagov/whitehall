@@ -16,7 +16,7 @@ require "rails/test_help"
 require "mocha/minitest"
 require "factories"
 require "webmock/minitest"
-require "sidekiq/testing"
+Sidekiq.testing!(:fake)
 require "govuk_schemas/assert_matchers"
 
 Sidekiq.logger.level = Logger::WARN
