@@ -11,6 +11,7 @@ class StandardEditionMigrator::TopicalEventAboutPageRecipe < StandardEditionMigr
       configurable_document_type: "topical_event_about_page",
       title: record.name,
       summary: record.summary,
+      slug_override: "about", #  slug is hardcoded, title is not
       block_content: {
         "body" => record.body,
       },
