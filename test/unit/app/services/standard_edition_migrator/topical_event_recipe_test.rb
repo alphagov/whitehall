@@ -434,7 +434,7 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
     it "ignores where we have defaulted the body to a value of '&nbsp;'" do
       recipe = StandardEditionMigrator::TopicalEventRecipe.new
       content = { details: { body: "<div class=\"govspeak\">\n</div>" } }
-      expected_content = { details: { body: "<div class=\"govspeak\"><p>&nbsp;</p>\n</div>" } }
+      expected_content = { details: { body: "<div class=\"govspeak\"><p> </p></div>" } }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
 
