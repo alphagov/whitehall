@@ -82,6 +82,14 @@ class TopicalEventAboutPageRecipeTest < ActiveSupport::TestCase
       assert_not content.key?(:auth_bypass_ids)
       assert_equal "value", content[:other_key]
     end
+
+    it "ignores the links key from the content" do
+      content = { links: { some: "links" }, other_key: "value" }
+      recipe = StandardEditionMigrator::TopicalEventAboutPageRecipe.new
+      recipe.ignore_new_content_fields(content)
+      assert_not content.key?(:links)
+      assert_equal "value", content[:other_key]
+    end
   end
 
   describe "#ignore_legacy_content_fields" do
