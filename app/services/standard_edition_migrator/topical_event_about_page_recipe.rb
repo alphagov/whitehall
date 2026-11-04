@@ -24,6 +24,7 @@ class StandardEditionMigrator::TopicalEventAboutPageRecipe < StandardEditionMigr
 
   def ignore_new_content_fields(content)
     content.delete(:auth_bypass_ids) # these were not present on legacy topical event about pages and are included by default on StandardEdition
+    content.delete(:links) # legacy Topical Event About Pages had no edition links, but StandardEdition ones will
 
     content
   end
