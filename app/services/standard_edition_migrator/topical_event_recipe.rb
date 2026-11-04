@@ -73,8 +73,13 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       content[:details].delete(:about_page_link_text)
     end
 
-    if content[:details] && content[:details][:body] == "<div class=\"govspeak\">\n</div>"
-      content[:details][:body] = "<div class=\"govspeak\"><p>&nbsp;</p>\n</div>"
+    if content[:details] && content[:details][:body]
+      if content[:details][:body] == "<div class=\"govspeak\">\n</div>"
+        # &nbsp; gets converted to special whitespace character ' ' in govspeak_to_html
+        content[:details][:body] = "<div class=\"govspeak\"><p> </p></div>"
+      end
+
+      content[:details][:body] = strip_newlines_surrounding_div(content[:details][:body])
     end
 
     if content[:details] && content[:details][:ordered_featured_documents]
@@ -120,11 +125,28 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       end
     end
 
-    if content[:details] && content[:details][:body] && @appended_about_page_link_govspeak
-      # Remove appended 'read more link text' on the Topical Event body
-      doc = Nokogiri::HTML::Document.new
-      html_string = doc.fragment(Govspeak::Document.new(@appended_about_page_link_govspeak).to_html).to_html
-      content[:details][:body] = content[:details][:body].gsub(html_string, "")
+    if content[:details] && content[:details][:body]
+      if @appended_about_page_link_govspeak
+        body = Nokogiri::HTML.fragment(content[:details][:body])
+        appended_link = Nokogiri::HTML.fragment(
+          Govspeak::Document.new(@appended_about_page_link_govspeak).to_html,
+        ).at_css("a")
+
+        if appended_link
+          matching_link = body.css("a").reverse.find do |link|
+            link["href"] == appended_link["href"] && link.text == appended_link.text
+          end
+
+          if matching_link
+            (matching_link.ancestors("p").first || matching_link).remove
+          end
+        end
+
+        # Remove the appended link
+        content[:details][:body] = body.to_html
+      end
+
+      content[:details][:body] = strip_newlines_surrounding_div(content[:details][:body])
     end
 
     # Delete the 'images' array (replacing old 'image' property)
@@ -251,5 +273,11 @@ private
       body += @appended_about_page_link_govspeak
     end
     body
+  end
+
+  # Replace any number of `\n\n\n\n\</div>` with `</div>`
+  # (Newlines can creep in when removing the 'read more link text', etc)
+  def strip_newlines_surrounding_div(html)
+    html.gsub(/(<div class="govspeak">)\n/, '\1').gsub(/\n+<\/div>/, "</div>")
   end
 end
