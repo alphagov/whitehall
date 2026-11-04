@@ -86,12 +86,19 @@ class TopicalEventAboutPageRecipeTest < ActiveSupport::TestCase
 
   describe "#ignore_legacy_content_fields" do
     it "removes the read_more key from the content details hash" do
-      content = { details: { read_more: "Read more" , some_key: "foo", }, other_key: "value" }
+      content = { details: { read_more: "Read more", some_key: "foo" }, other_key: "value" }
       recipe = StandardEditionMigrator::TopicalEventAboutPageRecipe.new
       recipe.ignore_legacy_content_fields(content)
       assert_not content[:details].key?(:read_more)
       assert_equal "value", content[:other_key]
       assert_equal "foo", content[:details][:some_key]
+    end
+
+    it "converts public_updated_at to a string in the same format as the StandardEdition equivalent" do
+      recipe = StandardEditionMigrator::TopicalEventAboutPageRecipe.new
+      content = { public_updated_at: Time.zone.local(2024, 1, 1, 12, 0, 0) }
+      expected_content = { public_updated_at: "2024-01-01T12:00:00+00:00" }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
   end
 end
