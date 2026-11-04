@@ -59,6 +59,14 @@ class ConfigurableContentBlocks::DefaultCheckboxesRenderingTest < ActionView::Te
     assert_dom "label", text: "Option three"
   end
 
+  test "it gives the first checkbox a unique ID to support targeting by the error summary component" do
+    render @block
+
+    assert_dom "input[type=checkbox][value='one']#edition_choices"
+    assert_dom "input[type=checkbox][value='two']:not(#edition_choices)"
+    assert_dom "input[type=checkbox][value='three']:not(#edition_choices)"
+  end
+
   test "it renders the required label" do
     render @block
 

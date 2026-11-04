@@ -6,13 +6,14 @@
   hint_text: block.hint_text,
   no_hint_text: block.hint_text.blank?,
   error: errors_for_input(block.edition.errors, block.path.validation_error_attribute.to_sym),
-  items: block.items.map do |item|
+  items: block.items.each_with_index.map do |item, index|
     field_blocks = block.conditional_field_blocks(item)
     {
       label: item["label"],
       value: item["value"],
       checked: block.checked?(item),
       conditional: field_blocks.any? ? safe_join(field_blocks.map { |field_block| render(field_block) }) : nil,
+      id: index.zero? ? "edition_#{block.path.validation_error_attribute}" : nil,
     }
   end,
 } %>
