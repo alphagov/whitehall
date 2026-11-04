@@ -33,6 +33,13 @@ class TopicalEventAboutPageRecipeTest < ActiveSupport::TestCase
       assert_equal "Sample summary", edition.summary
     end
 
+    it "sets the slug_override to 'about'" do
+      legacy_topical_event_about_page = create(:topical_event_about_page)
+      recipe = StandardEditionMigrator::TopicalEventAboutPageRecipe.new
+      edition = recipe.build_edition(legacy_topical_event_about_page)
+      assert_equal "about", edition.slug_override
+    end
+
     it "sets the creator as the Scheduled Publishing Robot" do
       create(:user, name: "Scheduled Publishing Robot")
       legacy_topical_event_about_page = create(:topical_event_about_page)
