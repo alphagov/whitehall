@@ -2,10 +2,6 @@
   text: "Currently featured",
 } %>
 
-<%= render "govuk_publishing_components/components/inset_text", {
-  text: "You can feature up to #{maximum_featured_documents} pages.",
-} %>
-
 <% if featured.many? && !read_only %>
   <p class="govuk-body">
     <%= link_to "Reorder pages", reorder_path, class: "govuk-link" %>

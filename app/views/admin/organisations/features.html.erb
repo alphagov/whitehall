@@ -22,10 +22,13 @@
 <%= render "govuk_publishing_components/components/heading", {
   text: @locale.english? ? "Featured" : "Featured (#{@locale.native_language_name})",
   font_size: "l",
-  margin_bottom: 6,
 } %>
 
 <% read_only = !can?(:manage_features, @organisation) %>
+
+<%= render "govuk_publishing_components/components/inset_text", {
+  text: "You can feature up to #{@organisation.featured_documents_display_limit} pages.",
+} %>
 
 <%= render "govuk_publishing_components/components/tabs", {
   disable_ga4: true,
