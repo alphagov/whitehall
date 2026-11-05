@@ -57,11 +57,11 @@ private
   end
   helper_method :typecast_for_attachable_routing
 
-  def parent_or_document_search_path(edition)
+  def parent_or_document_search_path(edition, filters = {})
     parent = edition.try(:latest_parent_edition)
     return admin_edition_path(parent) if parent && can?(:see, parent)
 
-    admin_editions_path
+    admin_editions_path(filters)
   end
 
   # Override the default Rails behaviour to raise an exception when receiving
