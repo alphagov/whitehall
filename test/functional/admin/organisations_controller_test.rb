@@ -438,7 +438,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     create(:feature_list, locale: :en, featurable: organisation, features: [first_feature])
     get :features, params: { id: organisation }
 
-    assert_match(/You can feature up to [\d+] pages.*/, response.body)
+    assert_match(/You can feature up to [\d+] items.*/, response.body)
   end
 
   view_test "GET :features shows actions to users who can edit the organisation" do
