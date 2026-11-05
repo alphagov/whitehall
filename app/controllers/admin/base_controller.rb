@@ -57,6 +57,13 @@ private
   end
   helper_method :typecast_for_attachable_routing
 
+  def parent_or_document_search_path(edition)
+    parent = edition.try(:latest_parent_edition)
+    return admin_edition_path(parent) if parent && can?(:see, parent)
+
+    admin_editions_path
+  end
+
   # Override the default Rails behaviour to raise an exception when receiving
   # unverified requests instead of nullifying the session
   def handle_unverified_request
