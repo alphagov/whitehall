@@ -3,7 +3,7 @@ ARG base_image=ghcr.io/alphagov/govuk-ruby-base:$ruby_version
 ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:$ruby_version
 
 
-FROM --platform=$TARGETPLATFORM $builder_image AS builder
+FROM $builder_image AS builder
 
 ENV JWT_AUTH_SECRET=unused_yet_required
 
@@ -17,7 +17,7 @@ RUN bootsnap precompile --gemfile .
 RUN rails assets:precompile && rm -fr log
 
 
-FROM --platform=$TARGETPLATFORM $base_image
+FROM $base_image
 RUN install_packages imagemagick unzip zip
 
 ENV GOVUK_APP_NAME=whitehall
