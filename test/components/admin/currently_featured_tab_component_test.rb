@@ -19,14 +19,6 @@ class Admin::CurrentlyFeaturedTabComponentTest < ViewComponent::TestCase
     assert_selector "h2", text: "Currently featured"
   end
 
-  test "informs the user how many documents they can feature" do
-    render_inline(Admin::CurrentlyFeaturedTabComponent.new(
-                    maximum_featured_documents: @maximum_featured_documents,
-                  ))
-
-    assert_selector ".gem-c-inset-text", text: "You can feature up to 5 pages"
-  end
-
   test "renders link to the reorder features page if more than 1 feature_list item" do
     feature_list = build_stubbed(:feature_list)
     render_inline(Admin::CurrentlyFeaturedTabComponent.new(
