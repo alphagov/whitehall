@@ -24,7 +24,7 @@ class Admin::EditionAccessLimitedController < Admin::BaseController
         created_at: Time.zone.now,
         updated_at: Time.zone.now,
       )
-      redirect_to admin_editions_path, notice: "Access updated for #{@edition.title}"
+      redirect_to parent_or_document_search_path(@edition), notice: "Access updated for #{@edition.title}"
     else
       flash.now[:alert] = updater.failure_reason
       render :edit
