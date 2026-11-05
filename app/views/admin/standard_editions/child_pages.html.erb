@@ -20,7 +20,15 @@
   font_size: "l",
   margin_bottom: 4,
 } %>
-<p class="govuk-body">Child pages can be added to the navigation menu or featured section.</p>
+<%
+  # TODO: make this dynamic. Not all multi-page documents will have
+  # navigation or featured sections, so we likely need a lookup here
+  # to see if the given content type supports one, both, or neither,
+  # with different text for each.
+  if ["mini_site_landing", "mini_site_child"].include?(@edition.configurable_document_type)
+%>
+  <p class="govuk-body">Child pages can be added to the navigation menu or featured section.</p>
+<% end %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

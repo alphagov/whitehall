@@ -1385,12 +1385,12 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET child_pages links the add new child page button straight to the form when only one child type is allowed" do
-    child_page_type = build_configurable_document_type("test_type_with_child_pages", {
+    child_page_type = build_configurable_document_type("mini_site_landing", {
       "settings" => { "allowed_child_document_types" => [{ "document_type" => "some_child_type" }] },
     })
     ConfigurableDocumentType.setup_test_types(child_page_type)
 
-    edition = create(:standard_edition, configurable_document_type: "test_type_with_child_pages")
+    edition = create(:standard_edition, configurable_document_type: "mini_site_landing")
 
     login_as :managing_editor
     get :child_pages, params: { id: edition.id }

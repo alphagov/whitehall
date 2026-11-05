@@ -5,6 +5,8 @@
   }
 %>
 
+<%= render Admin::Editions::PublishingPrerequisitesComponent.new(edition: edition) %>
+
 <% if edition.rejected? %>
   <%= render "/components/inset_prompt", {
     data_attributes: {

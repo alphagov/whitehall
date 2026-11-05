@@ -1,0 +1,75 @@
+{
+  "key": "topical_event_about_page",
+  "title": "Topical event about page",
+  "description": "Use this to create the About page for a Topical Event.",
+  "forms": {
+    "documents": {
+      "fields": {
+        "body": {
+          "title": "Body",
+          "description": "The main content of the page",
+          "required": true,
+          "block": "govspeak",
+          "attribute_path": ["block_content", "body"],
+          "translatable": true
+        }
+      }
+    }
+  },
+  "schema": {
+    "attributes": {
+      "body": {
+        "type": "string"
+      }
+    },
+    "validations": {
+      "presence": {
+        "attributes": ["body"]
+      },
+      "length": {
+        "attributes": ["body"],
+        "maximum": 16777215
+      },
+      "safe_html": {
+        "attributes": ["body"]
+      },
+      "no_footnotes_allowed": {
+        "attributes": ["body"]
+      },
+      "embedded_contacts_exist": {
+        "attributes": ["body"],
+        "on": "publish"
+      }
+    }
+  },
+  "presenters": {
+    "publishing_api": {
+      "details": {
+        "body": "govspeak"
+      },
+      "links": [
+        "parent"
+      ]
+    }
+  },
+  "settings": {
+    "base_path_prefix": null,
+    "publishing_api_schema_name": "topical_event_about_page",
+    "publishing_api_document_type": "topical_event_about_page",
+    "rendering_app": "frontend",
+    "images": {
+      "enabled": false
+    },
+    "send_change_history": false,
+    "file_attachments_enabled": false,
+    "features_enabled": false,
+    "organisations": null,
+    "backdating_enabled": false,
+    "history_mode_enabled": false,
+    "taxon": {
+      "enabled": false,
+      "required": false
+    },
+    "translations_enabled": false
+  }
+}
