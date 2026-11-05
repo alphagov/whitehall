@@ -40,7 +40,8 @@
         "attributes": ["body"],
         "on": "publish"
       }
-    }
+    },
+    "headings_from": ["body"]
   },
   "presenters": {
     "publishing_api": {
