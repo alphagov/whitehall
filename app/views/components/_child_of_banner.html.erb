@@ -1,5 +1,6 @@
 <%
   title ||= false
+  edition_type ||= false
   path ||= false
   disable_ga4 ||= false
 
@@ -20,7 +21,7 @@
   <%= tag.div(**component_helper.all_attributes) do %>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <strong class="app-c-child-of-banner__part-of">Child of</strong>
+        <strong class="app-c-child-of-banner__part-of">Child of <%= edition_type %></strong>
         <span class="app-c-child-of-banner__title">
           <%= title %>
         </span>
