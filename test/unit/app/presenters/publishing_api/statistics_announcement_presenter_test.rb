@@ -30,7 +30,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
         format_sub_type: "official",
-        release_timestamp: statistics_announcement.release_date,
+        release_timestamp: statistics_announcement.calendar_release_date,
       },
     }
 
@@ -78,7 +78,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         format_sub_type: "official",
         cancelled_at: statistics_announcement.cancelled_at,
         cancellation_reason: "Cancelled for a reason",
-        release_timestamp: statistics_announcement.release_date,
+        release_timestamp: statistics_announcement.calendar_release_date,
       },
     }
 
@@ -130,7 +130,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         latest_change_note: "Reasons",
         state: statistics_announcement.state,
         format_sub_type: "official",
-        release_timestamp: statistics_announcement.release_date,
+        release_timestamp: statistics_announcement.calendar_release_date,
       },
     }
 
@@ -149,5 +149,23 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
 
     assert_equal expected_content, presented_content
     assert_hash_includes presented_item.links, expected_links
+  end
+
+  test "a two month provisional announcement sends the end of the second month as the release timestamp" do
+    statistics_announcement = create(
+      :statistics_announcement,
+      statistics_announcement_dates: [
+        build(
+          :statistics_announcement_date,
+          precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+          release_date: Time.zone.local(2026, 10, 1, 9, 30),
+        ),
+      ],
+    )
+
+    presented_content = present(statistics_announcement).content
+
+    assert_equal "October to November 2026", presented_content[:details][:display_date]
+    assert_equal Time.zone.local(2026, 11, 30, 23, 59, 59), presented_content[:details][:release_timestamp]
   end
 end
