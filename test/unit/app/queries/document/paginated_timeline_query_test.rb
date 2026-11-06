@@ -12,7 +12,7 @@ class Document::PaginatedTimelineQueryTest < ActiveSupport::TestCase
   describe "#raw_entries" do
     it "returns an array of raw entries" do
       query = Document::PaginatedTimelineQuery.new(document: @document, page: 1)
-      assert_equal %w[Version EditorialRemark].to_set,
+      assert_equal %w[Version EditorialRemark ChangeNote].to_set,
                    query.raw_entries.map(&:model).to_set
     end
 
@@ -27,13 +27,28 @@ class Document::PaginatedTimelineQueryTest < ActiveSupport::TestCase
       page2_query = Document::PaginatedTimelineQuery.new(document: @document, page: 2)
 
       assert_equal page1_query.raw_entries.count, 10
-      assert_equal page2_query.raw_entries.count, 1
+      assert_equal page2_query.raw_entries.count, 2
     end
 
     it "returns only `EditorialRemarks` when the only argument is set to `internal_notes`" do
       query = Document::PaginatedTimelineQuery.new(document: @document, page: 1, only: "internal_notes")
       assert_equal %w[EditorialRemark].to_set,
                    query.raw_entries.map(&:model).to_set
+    end
+
+    it "returns only `ChangeNotes` when the only argument is set to `change_notes`" do
+      query = Document::PaginatedTimelineQuery.new(document: @document, page: 1, only: "change_notes")
+      assert_equal [Document::PaginatedTimelineQuery::CHANGE_NOTE_MODEL_NAME],
+                   query.raw_entries.map(&:model)
+    end
+
+    it "returns `ChangeNotes` for major changes only" do
+      acting_as(@user) do
+        @newest_edition.update_columns(state: "published", minor_change: true, major_change_published_at: Time.zone.now)
+      end
+
+      query = Document::PaginatedTimelineQuery.new(document: @document, page: 1, only: "change_notes")
+      assert_equal [@first_edition.id], query.change_note_edition_ids
     end
 
     it "returns only `Versions` when the only argument is set to `history`" do
@@ -47,13 +62,19 @@ class Document::PaginatedTimelineQueryTest < ActiveSupport::TestCase
     it "returns a count of all the results" do
       query = Document::PaginatedTimelineQuery.new(document: @document, page: 1)
 
-      assert_equal query.total_count, 11
+      assert_equal query.total_count, 12
     end
 
     it "returns a count of all the results when the only argument is set to `internal_notes`" do
       query = Document::PaginatedTimelineQuery.new(document: @document, page: 1, only: "internal_notes")
 
       assert_equal query.total_count, 3
+    end
+
+    it "returns a count of all the results when the only argument is set to `change_notes`" do
+      query = Document::PaginatedTimelineQuery.new(document: @document, page: 1, only: "change_notes")
+
+      assert_equal query.total_count, 1
     end
 
     it "returns a count of all the results when the only argument is set to `history`" do
@@ -93,6 +114,7 @@ class Document::PaginatedTimelineQueryTest < ActiveSupport::TestCase
 
     acting_as(@user2) do
       @first_edition.publish!
+      @first_edition.update_column(:major_change_published_at, Time.zone.now)
     end
 
     some_time_passes

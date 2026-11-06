@@ -26,9 +26,12 @@ private
   end
 
   def render_entry(entry)
-    if entry.is_a?(EditorialRemark)
+    case entry
+    when EditorialRemark
       render(Admin::Editions::EditorialRemarkComponent.new(editorial_remark: entry))
-    elsif entry.is_a?(HostContentUpdateEvent)
+    when Document::PaginatedTimeline::ChangeNoteDecorator
+      render(Admin::Editions::ChangeNoteComponent.new(change_note: entry))
+    when HostContentUpdateEvent
       render(Admin::Editions::HostContentUpdateEventComponent.new(entry))
     else
       render(Admin::Editions::AuditTrailEntryComponent.new(entry:, edition:))
