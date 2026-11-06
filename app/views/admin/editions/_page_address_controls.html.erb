@@ -15,6 +15,7 @@
 
   <% live_slug = edition.document.live_edition.slug %>
   <% keep_current_url_checked = edition.slug_override.present? || edition.slug == live_slug %>
+  <% update_url_text = edition.try(:allows_child_documents?) ? "Update URL to match title – this will update child page URLs too" : "Update URL to match title" %>
   <div class="<%= (live_slug == edition.slug_from_title) && "js-url-radio-group" %> govuk-!-margin-bottom-6">
     <p class="govuk-body">
       The title has changed since this URL was created. Choose whether to keep the current URL or update it to match the title.
@@ -30,7 +31,7 @@
         },
         {
           value: "",
-          text: "Update URL to match title",
+          text: update_url_text,
           checked: !keep_current_url_checked,
         },
       ],

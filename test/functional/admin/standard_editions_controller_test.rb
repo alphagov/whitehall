@@ -691,6 +691,22 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "label", text: "Update URL to match title"
   end
 
+  view_test "GET edit warns that child page URLs will also be updated when the edition allows child pages" do
+    configurable_document_type = build_configurable_document_type("test_type", {
+      "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    })
+    ConfigurableDocumentType.setup_test_types(configurable_document_type)
+
+    published_edition = create(:published_standard_edition, configurable_document_type: "test_type")
+    edition = published_edition.create_draft(published_edition.authors.first)
+    create(:standard_edition, configurable_document_type: "test_type", parent_edition_id: edition.id)
+
+    get :edit, params: { id: edition }
+
+    assert_response :ok
+    assert_select "label", text: "Update URL to match title – this will update child page URLs too"
+  end
+
   view_test "GET edit renders only the fields for the selected tab" do
     configurable_document_type = build_configurable_document_type("test_type", {
       "forms" => {
