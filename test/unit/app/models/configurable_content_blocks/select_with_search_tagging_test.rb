@@ -12,6 +12,7 @@ class ConfigurableContentBlocks::SelectWithSearchTaggingTest < ActionView::TestC
       "attribute_path" => %w[worldwide_organisation_document_ids],
       "translatable" => true,
       "container" => "worldwide_organisations",
+      "size" => 4,
     }
     @path = Path.new(%w[worldwide_organisation_document_ids])
     @edition = StandardEdition.new(configurable_document_type: "test_type")
@@ -53,5 +54,49 @@ class ConfigurableContentBlocks::SelectWithSearchTaggingTest < ActionView::TestC
     render @block
 
     assert_dom ".govuk-error-message", text: "Error: #{messages.map { |m| "Test attribute #{m}" }.join}"
+  end
+
+  test "it does inherit from parent, if `inherit_from_parent` set and it is an empty field of a new edition" do
+    options = build_list(:worldwide_organisation, 3)
+    options.each_with_index { |wo, index| wo.document = build(:document, id: index) }
+
+    selected_option = options.last
+
+    selectors = [
+      [
+        "option[selected][value=\"#{selected_option.document.id}\"]",
+      ],
+    ]
+
+    fill_in_field_with_option = proc do |option|
+      proc do |edition|
+        edition.worldwide_organisation_documents = [option.document]
+        WorldwideOrganisation.stubs(:with_translations).returns(stub(latest_edition: [option]))
+      end
+    end
+
+    it_correctly_inherits_from_parent(ConfigurableContentBlocks::OrderedSelectWithSearchTagging, @field, @path, selectors, fill_in_field_with_option.call(selected_option))
+  end
+
+  test "it does not inherit from parent, if `inherit_from_parent` set and it is an empty field of a saved edition" do
+    options = build_list(:worldwide_organisation, 3)
+    options.each_with_index { |wo, index| wo.document = build(:document, id: index) }
+
+    selected_option = options.last
+
+    selectors = [
+      [
+        "option[selected][value=\"#{selected_option.document.id}\"]",
+      ],
+    ]
+
+    fill_in_field_with_option = proc do |option|
+      proc do |edition|
+        edition.worldwide_organisation_documents = [option.document]
+        WorldwideOrganisation.stubs(:with_translations).returns(stub(latest_edition: [option]))
+      end
+    end
+
+    it_does_not_inherit_from_parent(ConfigurableContentBlocks::OrderedSelectWithSearchTagging, @field, @path, selectors, fill_in_field_with_option.call(selected_option))
   end
 end

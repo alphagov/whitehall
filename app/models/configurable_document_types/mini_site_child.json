@@ -19,14 +19,16 @@
           "container": "organisations",
           "attribute_path": ["lead_organisation_ids"],
           "size": 4,
-          "translatable": false
+          "translatable": false,
+          "inherit_from_parent": true
         },
         "supporting_organisations": {
           "title": "Supporting organisations",
           "block": "select_with_search_tagging",
           "container": "organisations",
           "attribute_path": ["supporting_organisation_ids"],
-          "translatable": false
+          "translatable": false,
+          "inherit_from_parent": true
         }
       }
     }

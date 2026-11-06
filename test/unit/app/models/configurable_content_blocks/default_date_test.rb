@@ -74,4 +74,44 @@ class ConfigurableContentBlocks::DefaultDateRenderingTest < ActionView::TestCase
     assert_dom "input[name=\"edition[block_content][test_attribute][1]\"][value=\"#{params['edition']['block_content']['test_attribute']['1']}\"]"
     @edition.errors.clear
   end
+
+  test "it does inherit from parent, if `inherit_from_parent` set and it is an empty field of a new edition" do
+    selectors = [
+      [
+        "input[name=\"edition[block_content][test_attribute][3]\"][value=\"#{@date.day}\"]",
+      ],
+      [
+        "input[name=\"edition[block_content][test_attribute][2]\"][value=\"#{@date.month}\"]",
+      ],
+      [
+        "input[name=\"edition[block_content][test_attribute][1]\"][value=\"#{@date.year}\"]",
+      ],
+    ]
+
+    fill_in_field = proc do |edition|
+      edition.block_content = { "test_attribute" => @date }
+    end
+
+    it_correctly_inherits_from_parent(ConfigurableContentBlocks::DefaultDate, @field, @path, selectors, fill_in_field)
+  end
+
+  test "it does not inherit from parent, if `inherit_from_parent` set and it is an empty field of a saved edition" do
+    selectors = [
+      [
+        "input[name=\"edition[block_content][test_attribute][3]\"][value=\"#{@date.day}\"]",
+      ],
+      [
+        "input[name=\"edition[block_content][test_attribute][2]\"][value=\"#{@date.month}\"]",
+      ],
+      [
+        "input[name=\"edition[block_content][test_attribute][1]\"][value=\"#{@date.year}\"]",
+      ],
+    ]
+
+    fill_in_field = proc do |edition|
+      edition.block_content = { "test_attribute" => @date }
+    end
+
+    it_does_not_inherit_from_parent(ConfigurableContentBlocks::DefaultDate, @field, @path, selectors, fill_in_field)
+  end
 end
