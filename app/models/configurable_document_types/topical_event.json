@@ -187,6 +187,7 @@
     "publishing_api_schema_name": "topical_event",
     "publishing_api_document_type": "topical_event",
     "rendering_app": "frontend",
+    "foo": "bar",
     "images": {
       "enabled": true,
       "usages": {
