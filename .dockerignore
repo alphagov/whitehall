@@ -3,7 +3,6 @@
 .github
 .gitignore
 Dockerfile
-Procfile
 README.md
 asset-manager-tmp
 attachment-cache
