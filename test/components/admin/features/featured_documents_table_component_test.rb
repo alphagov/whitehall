@@ -26,6 +26,7 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
     actions_column.assert_selector "a[href='#{admin_edition_path(edition)}']", text: "Edit #{title}"
     actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(@feature_list, feature)}']", text: "Unfeature #{title}"
+    actions_column.assert_selector "a[href='#{edit_admin_feature_list_feature_path(@feature_list, feature)}']", text: "Edit image for #{title}"
   end
 
   test "renders the correct row when the feature list item belongs to a document with a live standard edition" do
@@ -44,6 +45,7 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
     actions_column.assert_selector "a[href='#{admin_edition_path(edition)}']", text: "Edit #{title}"
     actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(@feature_list, feature)}']", text: "Unfeature #{title}"
+    actions_column.assert_selector "a[href='#{edit_admin_feature_list_feature_path(@feature_list, feature)}']", text: "Edit image for #{title}"
   end
 
   # Delete when legacy topical events are removed.
@@ -60,6 +62,7 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
     actions_column.assert_selector "a[href='#{edit_admin_topical_event_path(feature.topical_event)}']", text: "Edit #{title}"
     actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Unfeature #{title}"
+    actions_column.assert_selector "a[href='#{edit_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Edit image for #{title}"
   end
 
   test "renders the correct row when the feature list item belongs to a offsite link" do
@@ -75,6 +78,7 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
     actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
     actions_column.assert_selector "a[href='#{polymorphic_path([:edit, :admin, feature.offsite_link.parent, feature.offsite_link])}']", text: "Edit #{title}"
     actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Unfeature #{title}"
+    actions_column.assert_selector "a[href='#{edit_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Edit image for #{title}"
   end
 
   test "renders the correct row when the feature list item does not have an association" do

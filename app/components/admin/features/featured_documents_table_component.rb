@@ -72,7 +72,7 @@ private
     return { text: "" } if read_only
 
     {
-      text: sanitize(edit_link(feature) + unfeature_link(feature)),
+      text: sanitize(edit_link(feature) + edit_image_link(feature) + unfeature_link(feature)),
     }
   end
 
@@ -83,6 +83,14 @@ private
       link_to(sanitize("Edit #{tag.span(feature.topical_event, class: 'govuk-visually-hidden')}"), edit_admin_topical_event_path(feature.topical_event), class: "govuk-link")
     elsif feature.offsite_link.present?
       link_to(sanitize("Edit #{tag.span(feature.offsite_link, class: 'govuk-visually-hidden')}"), polymorphic_path([:edit, :admin, feature.offsite_link.parent, feature.offsite_link]), class: "govuk-link")
+    else
+      ""
+    end
+  end
+
+  def edit_image_link(feature)
+    if feature.document&.live_edition.present? || feature.topical_event.present? || feature.offsite_link.present?
+      link_to(sanitize("Edit image #{tag.span("for #{title(feature)}", class: 'govuk-visually-hidden')}"), edit_admin_feature_list_feature_path(feature.feature_list, feature), class: "govuk-link govuk-!-margin-left-2")
     else
       ""
     end
