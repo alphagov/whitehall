@@ -40,6 +40,13 @@ Feature: Administering Organisations
     And I feature "Super topical"
     Then I see that "Super topical" has been featured
 
+  Scenario: Changing the image of a featured document on an organisation
+    When a config-driven document called "Super topical" exists
+    And I visit the the organisation feature page for "Ministry of Pop"
+    And I feature "Super topical"
+    And I change the image of the featured "Super topical" to "big-cheese.960x640.jpg" with alt text "A big cheese"
+    Then I see that the featured "Super topical" has the image "big-cheese.960x640.jpg" with alt text "A big cheese"
+
   Scenario: Requesting publications in alternative format
     And I set the alternative format contact email of "Ministry of Pop" to "alternative.format@ministry-of-pop.gov.uk"
     And a published publication "Charleston styles today" with a PDF attachment and alternative format provider "Ministry of Pop"
