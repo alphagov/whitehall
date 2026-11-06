@@ -23,7 +23,10 @@
 <%= render "govuk_publishing_components/components/heading", {
   text: @locale.english? ? "Featured" : "Featured (#{@locale.native_language_name})",
   font_size: "l",
-  margin_bottom: 6,
+} %>
+
+<%= render "govuk_publishing_components/components/inset_text", {
+  text: "You can feature up to #{@edition.class::FEATURED_DOCUMENTS_DISPLAY_LIMIT} items. These can be child pages, other GOV.UK pages or from external sites.",
 } %>
 
 <%= render "govuk_publishing_components/components/tabs", {
