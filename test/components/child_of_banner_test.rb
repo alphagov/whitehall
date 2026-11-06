@@ -8,16 +8,18 @@ class ChildOfBannerComponentTest < ComponentTestCase
   test "renders the basic component" do
     render_component({
       title: "title",
+      edition_type: "type",
     })
 
     assert_select ".app-c-child-of-banner"
-    assert_select ".app-c-child-of-banner__part-of", text: "Child of"
+    assert_select ".app-c-child-of-banner__part-of", text: "Child of type"
     assert_select ".app-c-child-of-banner__title", text: "title"
   end
 
   test "renders a link if path has been provided" do
     render_component({
       title: "title",
+      edition_type: "type",
       path: "/example-path",
     })
 
