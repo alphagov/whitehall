@@ -59,6 +59,7 @@ module Admin::EditionsHelper
       ["All states", "active"],
       %w[Draft draft],
       %w[Submitted submitted],
+      %w[Approved approved],
       %w[Rejected rejected],
       %w[Scheduled scheduled],
       %w[Published published],
