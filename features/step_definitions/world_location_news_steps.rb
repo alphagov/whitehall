@@ -129,6 +129,24 @@ Then(/^I see that "([^"]*)" has been featured$/) do |title|
   end
 end
 
+And(/^I change the image of the featured "([^"]*)" to "([^"]*)" with alt text "([^"]*)"$/) do |title, filename, alt_text|
+  within "#currently_featured_tab" do
+    click_link "Edit image for #{title}"
+  end
+
+  attach_file "Replace image", Rails.root.join("test/fixtures/#{filename}")
+  fill_in "Image description (alt text)", with: alt_text
+  click_button "Save"
+end
+
+Then(/^I see that the featured "([^"]*)" has the image "([^"]*)" with alt text "([^"]*)"$/) do |title, filename, alt_text|
+  expect(page).to have_content "'#{title}' updated"
+
+  feature = Feature.current.find { |f| f.to_s == title }
+  expect(feature.image.filename).to eq filename
+  expect(feature.alt_text).to eq alt_text
+end
+
 Given(/^the world location has an offsite link with the title "([^"]*)"$/) do |title|
   create(:offsite_link, world_location_news: [@world_location_news], title:)
 end
