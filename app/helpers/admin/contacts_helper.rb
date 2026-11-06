@@ -3,12 +3,6 @@ module Admin::ContactsHelper
     AddressFormatter::HCard.from_contact(contact).render
   end
 
-  def contact_translation_css_class(translated_contact)
-    c = %w[contact-translation]
-    c << "right-to-left" if translated_contact.translation_locale.rtl?
-    c.join(" ")
-  end
-
   def contact_tabs(contacts, contactable)
     tabs = []
     tabs << general_and_media_contacts_tab(contacts, contactable)
