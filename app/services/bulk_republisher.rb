@@ -64,9 +64,9 @@ class BulkRepublisher
 
     if non_editionable_content_types.include?(content_type)
       republish_all_by_non_editionable_type(content_type)
-    else
-      republish_all_by_editionable_type(content_type)
     end
+
+    republish_all_by_editionable_type(content_type)
   end
 
   def republish_all_documents_by_organisation(organisation)
