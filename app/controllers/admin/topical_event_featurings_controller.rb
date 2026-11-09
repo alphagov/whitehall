@@ -22,7 +22,10 @@ class Admin::TopicalEventFeaturingsController < Admin::BaseController
   end
 
   def new
-    featured_edition = Edition.find(params[:edition_id]) if params[:edition_id].present?
+    if params[:edition_id].present?
+      featured_edition = Edition.find(params[:edition_id])
+      enforce_permission!(:see, featured_edition)
+    end
     featured_offsite_link = OffsiteLink.find(params[:offsite_link_id]) if params[:offsite_link_id].present?
     @topical_event_featuring = @topical_event.topical_event_featurings.build(edition: featured_edition, offsite_link: featured_offsite_link)
     @topical_event_featuring.build_image
@@ -86,10 +89,10 @@ private
       @filter.editions
     else
       @topical_event.editions.published
-                              .with_translations
-                              .order("editions.created_at DESC")
-                              .page(params[:page])
-                              .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
+                    .with_translations
+                    .order("editions.created_at DESC")
+                    .page(params[:page])
+                    .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
     end
   end
 

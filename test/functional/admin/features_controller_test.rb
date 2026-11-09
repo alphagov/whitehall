@@ -16,6 +16,17 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     assert_equal edition.document, assigns[:feature].document
   end
 
+  test "get :new is forbidden when given an access-limited edition the user cannot see" do
+    world_location_news = build(:world_location_news)
+    create(:world_location, world_location_news:)
+    feature_list = create(:feature_list, featurable: world_location_news, locale: :en)
+    inaccessible = create(:draft_publication, :access_limited_by_organisations, organisations: [create(:organisation)])
+
+    get :new, params: { feature_list_id: feature_list, edition_id: inaccessible.id }
+
+    assert_response :forbidden
+  end
+
   test "post :unfeature ends the feature" do
     world_location_news = build(:world_location_news)
     create(:world_location, world_location_news:)
