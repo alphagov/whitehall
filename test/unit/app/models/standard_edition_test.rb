@@ -357,6 +357,33 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page_without_translation.translatable?
   end
 
+  test "it allows navigation if the configurable document type settings permit them" do
+    test_type_with_navigation =
+      build_configurable_document_type(
+        "test_type_with_navigation", {
+          "settings" => {
+            "navigation_enabled" => true,
+          },
+        }
+      )
+
+    test_type_without_navigation =
+      build_configurable_document_type(
+        "test_type_without_navigation", {
+          "settings" => {},
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_navigation.merge(test_type_without_navigation))
+
+    edition_with_navigation = StandardEdition.new(configurable_document_type: "test_type_with_navigation")
+
+    edition_without_navigation = StandardEdition.new(configurable_document_type: "test_type_without_navigation")
+
+    assert edition_with_navigation.allows_navigation?
+    assert_not edition_without_navigation.allows_navigation?
+  end
+
   test "it persists a translation's block content when creating a new draft" do
     test_type = build_configurable_document_type("test_type", {
       "schema" => {
