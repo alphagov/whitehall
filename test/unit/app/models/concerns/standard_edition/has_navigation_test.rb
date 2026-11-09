@@ -26,4 +26,9 @@ class StandardEdition::HasNavigationTest < ActiveSupport::TestCase
 
     assert edition.allows_navigation?
   end
+
+  test "defines StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV" do
+    assert defined?(StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV)
+    assert_equal 7, StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV
+  end
 end
