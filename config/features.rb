@@ -33,4 +33,7 @@ Flipflop.configure do
   feature :configurable_document_types,
           description: "Enable 'in development' config-driven document types (alongside the 'live' ones)",
           default: Rails.env.development?
+  feature :mini_sites,
+          description: "Enable Mini Site document types ('mini_site_landing' and 'mini_site_child')",
+          default: Rails.env.development?
 end
