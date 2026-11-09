@@ -53,6 +53,9 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
         link_type: "topical_event",
       )
     end
+    legacy_record.offsite_links.each do |offsite_link|
+      edition.offsite_link_parents.create!(offsite_link:)
+    end
   end
 
   def ignore_legacy_content_fields(content)

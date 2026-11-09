@@ -228,6 +228,23 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal 7, offsite_link_feature.image.assets.size
     end
 
+    it "carries over the legacy Topical Event's offsite links, featured or not, as the new edition's" do
+      legacy_topical_event = create(:topical_event)
+      legacy_offsite_link_featuring = create(:offsite_topical_event_featuring, topical_event: legacy_topical_event)
+      unfeatured_offsite_link = create(:offsite_link, topical_events: [legacy_topical_event])
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+      edition.document = create(:document)
+      edition.save!(validate: false)
+      recipe.after_save_edition(edition, legacy_topical_event)
+      legacy_topical_event.update_column(:state, "deleted")
+      edition.reload
+
+      assert_same_elements [legacy_offsite_link_featuring.offsite_link, unfeatured_offsite_link], edition.offsite_links
+      assert_equal edition, edition.feature_lists.first.features.first.offsite_link.parent
+    end
+
     it "auto-increments the ordering of Features if the legacy TopicalEventFeaturing uses `order: 1` for each of them" do
       legacy_topical_event = create(:topical_event)
       legacy_topical_event.topical_event_featurings = [
