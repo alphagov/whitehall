@@ -920,7 +920,7 @@ GEM
       i18n (>= 0.8.0)
       simpleidn
     version_gem (1.1.17)
-    view_component (4.21.0)
+    view_component (4.23.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
       prism (>= 1.0)
