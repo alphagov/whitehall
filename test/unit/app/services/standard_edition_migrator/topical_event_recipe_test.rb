@@ -245,6 +245,21 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal edition, edition.feature_lists.first.features.first.offsite_link.parent
     end
 
+    it "repoints Features of the legacy Topical Event (e.g. on an organisation) to the new edition's document" do
+      legacy_topical_event = create(:topical_event)
+      feature = create(:feature, :with_topical_event_association, topical_event: legacy_topical_event)
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+      edition.document = create(:document)
+      edition.save!(validate: false)
+      recipe.after_save_edition(edition, legacy_topical_event)
+      feature.reload
+
+      assert_equal edition.document, feature.document
+      assert_nil feature.topical_event_id
+    end
+
     it "auto-increments the ordering of Features if the legacy TopicalEventFeaturing uses `order: 1` for each of them" do
       legacy_topical_event = create(:topical_event)
       legacy_topical_event.topical_event_featurings = [

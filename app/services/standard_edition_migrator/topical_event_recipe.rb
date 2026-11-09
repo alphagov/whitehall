@@ -56,6 +56,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
     legacy_record.offsite_links.each do |offsite_link|
       edition.offsite_link_parents.create!(offsite_link:)
     end
+    Feature.where(topical_event_id: legacy_record.id).update_all(document_id: edition.document_id, topical_event_id: nil)
   end
 
   def ignore_legacy_content_fields(content)
