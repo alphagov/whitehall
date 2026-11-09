@@ -64,6 +64,16 @@ class Admin::StatisticsAnnouncementPublicationsControllerTest < ActionController
     assert_redirected_to admin_statistics_announcement_path(@official_statistics_announcement)
   end
 
+  test "GET :connect is forbidden for an access-limited publication the user cannot see" do
+    login_as create(:writer, organisation: create(:organisation))
+    inaccessible = create(:draft_statistics, :access_limited_by_organisations, organisations: [create(:organisation)])
+
+    get :connect, params: { statistics_announcement_id: @official_statistics_announcement, publication_id: inaccessible }
+
+    assert_response :forbidden
+    assert_nil @official_statistics_announcement.reload.publication
+  end
+
   view_test "GET :connect will handle an error in adding not a statistics publication to statistics announcement" do
     @generic_publication = create(:publication)
 
