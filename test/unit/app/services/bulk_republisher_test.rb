@@ -374,6 +374,23 @@ class BulkRepublisherTest < ActiveSupport::TestCase
       end
     end
 
+    context "for non-editionable content types that also have configurable document types" do
+      test "republishes content for the specified type and configurable types" do
+        ConfigurableDocumentType.setup_test_types(build_configurable_document_type("contact"))
+        contact = create(:contact)
+        standard_edition_contact = create(:published_standard_edition, { configurable_document_type: "contact" })
+
+        Whitehall::PublishingApi.expects(:bulk_republish_async).with(contact)
+        PublishingApiDocumentRepublishingJob.expects(:perform_async_in_queue).with(
+          "bulk_republishing",
+          standard_edition_contact.document_id,
+          true,
+        )
+
+        BulkRepublisher.new.republish_all_by_type("Contact")
+      end
+    end
+
     context "for content types that are exclusive to standard editions" do
       test "republishes content for the specified type via the PublishingApiDocumentRepublishingJob" do
         BulkRepublisher.any_instance.stubs(:republishable_content_types).returns(%w[TestType])
