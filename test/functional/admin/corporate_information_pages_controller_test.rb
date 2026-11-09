@@ -21,6 +21,29 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert assigns(:filter).hide_type
   end
 
+  view_test "GET :index does not list access-limited corporate information pages the user cannot see" do
+    login_as create(:writer, organisation: create(:organisation))
+    visible = create(:corporate_information_page, organisation: @organisation)
+    inaccessible = create(:corporate_information_page, :access_limited_by_organisations, organisation: @organisation, corporate_information_page_type_id: CorporateInformationPageType::PersonalInformationCharter.id)
+
+    get :index, params: { organisation_id: @organisation }
+
+    assert_response :success
+    assert_equal [visible], assigns(:filter).editions.to_a
+    assert_select ".govuk-table", text: /#{Regexp.escape(inaccessible.title)}/, count: 0
+  end
+
+  view_test "GET :index still lists access-limited corporate information pages for GDS Admins, with a link to edit access" do
+    login_as :gds_admin
+    inaccessible = create(:corporate_information_page, :access_limited_by_organisations, organisation: @organisation)
+
+    get :index, params: { organisation_id: @organisation }
+
+    assert_response :success
+    assert_equal [inaccessible], assigns(:filter).editions.to_a
+    assert_select "a[href='#{edit_access_limited_admin_edition_path(inaccessible)}']"
+  end
+
   view_test "GET :new should display form" do
     get :new, params: { organisation_id: @organisation }
 
