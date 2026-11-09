@@ -54,6 +54,14 @@ module Admin::TabbedNavHelper
       }
     end
 
+    if edition.allows_navigation?
+      navigation_tab = {
+        label: "Navigation",
+        href: navigation_admin_standard_edition_path(edition),
+        current: current_path == navigation_admin_standard_edition_path(edition),
+      }
+    end
+
     dynamic_tabs = edition.type_instance.dynamic_tabs.map do |tab|
       {
         label: tab["label"],
@@ -62,7 +70,7 @@ module Admin::TabbedNavHelper
       }
     end
 
-    [document_tab, child_pages_tab, *dynamic_tabs].compact
+    [document_tab, child_pages_tab, navigation_tab, *dynamic_tabs].compact
   end
 
   def features_nav_items(edition, current_path)

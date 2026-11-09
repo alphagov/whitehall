@@ -301,6 +301,7 @@ Whitehall::Application.routes.draw do
           patch :apply_change_type
           get :child_pages
           get "/features(.:locale)", as: "features", to: "standard_editions#features", constraints: { locale: valid_locales_regex }
+          get :navigation
         end
 
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do
