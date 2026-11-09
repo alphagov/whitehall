@@ -1405,6 +1405,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       "settings" => { "allowed_child_document_types" => [{ "document_type" => "some_child_type" }] },
     })
     ConfigurableDocumentType.setup_test_types(child_page_type)
+    @feature_flags.switch!(:mini_sites, true)
 
     edition = create(:standard_edition, configurable_document_type: "mini_site_landing")
 
@@ -1968,6 +1969,76 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     delete :destroy, params: { id: child_edition }
 
     assert_redirected_to admin_editions_path
+  end
+
+  describe "when the mini_sites feature flag is disabled" do
+    setup do
+      ConfigurableDocumentType.setup_test_types(
+        build_configurable_document_type("mini_site_landing").merge(build_configurable_document_type("mini_site_child")),
+      )
+      @feature_flags.switch!(:mini_sites, false)
+    end
+
+    %w[mini_site_landing mini_site_child].each do |configurable_document_type|
+      test "GET :show is forbidden for an existing #{configurable_document_type}" do
+        edition = create(:standard_edition, configurable_document_type:)
+
+        get :show, params: { id: edition }
+
+        assert_response :forbidden
+      end
+
+      test "GET :edit is forbidden for an existing #{configurable_document_type}" do
+        edition = create(:standard_edition, configurable_document_type:)
+
+        get :edit, params: { id: edition }
+
+        assert_response :forbidden
+      end
+
+      test "GET :new is forbidden for #{configurable_document_type}" do
+        get :new, params: { configurable_document_type: }
+
+        assert_response :forbidden
+      end
+
+      test "POST :create is forbidden for #{configurable_document_type}" do
+        post :create, params: { edition: { configurable_document_type:, title: "Title", block_content: {} } }
+
+        assert_response :forbidden
+        assert_not StandardEdition.exists?(configurable_document_type:)
+      end
+    end
+
+    test "GET :show is not affected for other configurable document types" do
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+      edition = create(:standard_edition, configurable_document_type: "test_type")
+
+      get :show, params: { id: edition }
+
+      assert_response :success
+    end
+  end
+
+  describe "when the mini_sites feature flag is enabled" do
+    setup do
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("mini_site_landing"))
+      @feature_flags.switch!(:mini_sites, true)
+    end
+
+    test "GET :show succeeds for an existing mini_site_landing" do
+      edition = create(:standard_edition, configurable_document_type: "mini_site_landing")
+
+      get :show, params: { id: edition }
+
+      assert_response :success
+    end
+
+    test "GET :new succeeds for mini_site_landing" do
+      get :new, params: { configurable_document_type: "mini_site_landing" }
+
+      assert_response :success
+    end
   end
 
   def tabbed_document_type(validations: {})
