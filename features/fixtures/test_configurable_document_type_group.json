@@ -118,5 +118,94 @@
       "file_attachments_enabled": true,
       "history_mode_enabled": true
     }
+  },
+  {
+    "key": "inheritable_type",
+    "title": "Test configurable document with inerhitable field",
+    "description": "A test configurable document on GOV.UK",
+    "forms": {
+      "documents": {
+        "fields": {
+          "body": {
+            "title": "Body",
+            "description": "The main content of the page",
+            "block": "govspeak",
+            "attribute_path": ["block_content", "body"],
+            "translatable": true
+          },
+          "list_of_foods": {
+            "title": "Food",
+            "block": "default_array",
+            "attribute_path": ["block_content", "list_of_foods"],
+            "translatable": true,
+            "inherit_from_parent": true,
+            "fields": {
+              "food": {
+                "title": "Name of food item",
+                "block": "default_string",
+                "attribute_path": ["food"],
+                "translatable": true,
+                "inherit_from_parent": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "schema": {
+      "attributes": {
+        "body": {
+          "type": "string"
+        },
+        "list_of_foods": {
+          "type": "array",
+          "attributes": {
+            "food": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "presenters": {
+      "publishing_api": {
+        "details": {
+          "body": "govspeak"
+        },
+        "links": []
+      }
+    },
+    "settings": {
+      "base_path_prefix": "/government/test-type",
+      "publishing_api_schema_name": "news_article",
+      "publishing_api_document_type": "press_release",
+      "configurable_document_group": "news_article",
+      "rendering_app": "frontend",
+      "organisations": null,
+      "backdating_enabled": false,
+      "translations_enabled": true,
+      "taxon": {
+        "enabled": false,
+        "required": false
+      },
+      "images": {
+        "enabled": true,
+        "usages": {
+          "govspeak_embed": {
+            "kinds": ["default"],
+            "multiple": true,
+            "caption_enabled": true
+          }
+        }
+      },
+      "send_change_history": true,
+      "file_attachments_enabled": true,
+      "history_mode_enabled": true,
+      "allowed_child_document_types": [
+        {
+          "document_type": "inheritable_type"
+        }
+      ]
+    }
   }
 ]
