@@ -288,6 +288,47 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     )
   end
 
+  test ".save_draft raises UnpublishableInstanceError when the base path is reserved by another app" do
+    draft_edition = create(:draft_fatality_notice)
+    payload = PublishingApiPresenters.presenter_for(draft_edition)
+    stub_publishing_api_put_content(
+      payload.content_id,
+      payload.content,
+      status: 422,
+      body: {
+        error: {
+          code: 422,
+          error_code: "base_path_already_in_use",
+          message: "Base path /foo is already reserved by short-url-manager",
+        },
+      },
+    )
+
+    error = assert_raises Whitehall::UnpublishableInstanceError do
+      Whitehall::PublishingApi.save_draft(draft_edition)
+    end
+
+    assert_equal(
+      "Cannot save draft (content_id #{draft_edition.content_id}). Base path /foo is already reserved by short-url-manager. Try changing your title to resolve the conflict.",
+      error.message,
+    )
+  end
+
+  test ".save_draft re-raises the original error when Publishing API returns an array of schema errors" do
+    draft_edition = create(:draft_fatality_notice)
+    payload = PublishingApiPresenters.presenter_for(draft_edition)
+    stub_publishing_api_put_content(
+      payload.content_id,
+      payload.content,
+      status: 422,
+      body: [{ message: "The property '#/base_path' of type string did not match..." }].to_json,
+    )
+
+    assert_raises GdsApi::HTTPUnprocessableEntity do
+      Whitehall::PublishingApi.save_draft(draft_edition)
+    end
+  end
+
   test ".publish_redirect_async publishes a redirect to the Publishing API" do
     document = create(:document)
     destination = "/government/people/milli-vanilli"
