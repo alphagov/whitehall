@@ -467,8 +467,8 @@ private
 
   # legacy
   def republish_topical_event_to_publishing_api
-    topical_event_featurings.each do |topical_event_featuring|
-      Whitehall::PublishingApi.republish_async(topical_event_featuring.topical_event)
+    topical_event_featurings.filter_map(&:topical_event).each do |topical_event|
+      Whitehall::PublishingApi.republish_async(topical_event)
     end
   end
 

@@ -31,6 +31,15 @@ class TopicalEventFeaturingTest < ActiveSupport::TestCase
     feature.destroy!
   end
 
+  test "doesn't republish a linked Topical Event that has been deleted when the feature is deleted" do
+    topical_event = create(:topical_event, :active)
+    feature = create(:topical_event_featuring, topical_event:)
+    topical_event.update_column(:state, "deleted")
+
+    Whitehall::PublishingApi.expects(:republish_async).never
+    feature.reload.destroy!
+  end
+
   test "is not valid without an image" do
     feature = build(:topical_event_featuring)
     feature.image = nil
