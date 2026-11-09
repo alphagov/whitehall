@@ -5,7 +5,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
   MINI_SITE_DOCUMENT_TYPES = %w[mini_site_landing mini_site_child].freeze
 
   before_action :set_current_tab_context, only: %i[edit update]
-  before_action :set_child_editions, only: %i[show child_pages]
+  before_action :set_child_editions, only: %i[show child_pages navigation]
   before_action :enforce_mini_site_feature_flag, except: %i[choose_type]
 
   def choose_type
@@ -105,6 +105,10 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
   def child_pages
     @new_child_page_path = new_child_page_path
+  end
+
+  def navigation
+    render_not_found unless @edition.allows_navigation?
   end
 
 private
