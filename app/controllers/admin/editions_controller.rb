@@ -164,7 +164,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def diff
-    audit_trail_entry = edition_class.find(params[:audit_trail_entry_id])
+    audit_trail_entry = @edition.document.editions.find(params[:audit_trail_entry_id])
+    enforce_permission!(:see, audit_trail_entry)
     @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.primary_locale)
   end
 
