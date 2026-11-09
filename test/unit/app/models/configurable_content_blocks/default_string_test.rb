@@ -83,4 +83,36 @@ class ConfigurableContentBlocks::DefaultStringRenderingTest < ActionView::TestCa
     render @block
     assert_dom ".govuk-error-message", "Error: #{messages.map { |m| "Test attribute #{m}" }.join}"
   end
+
+  test "it does inherit from parent, if `inherit_from_parent` set and it is an empty field of a new edition" do
+    selectors = [
+      [
+        "[name=\"edition[block_content][test_attribute]\"][value=\"foo\"]",
+      ],
+    ]
+
+    fill_in_field = proc do |edition|
+      edition.block_content = {
+        "test_attribute" => "foo",
+      }
+    end
+
+    it_correctly_inherits_from_parent(ConfigurableContentBlocks::DefaultString, @field, @path, selectors, fill_in_field)
+  end
+
+  test "it does not inherit from parent, if `inherit_from_parent` set and it is an empty field of a saved edition" do
+    selectors = [
+      [
+        "[name=\"edition[block_content][test_attribute]\"][value=\"foo\"]",
+      ],
+    ]
+
+    fill_in_field = proc do |edition|
+      edition.block_content = {
+        "test_attribute" => "foo",
+      }
+    end
+
+    it_does_not_inherit_from_parent(ConfigurableContentBlocks::DefaultString, @field, @path, selectors, fill_in_field)
+  end
 end

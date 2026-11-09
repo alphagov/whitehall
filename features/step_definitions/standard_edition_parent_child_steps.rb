@@ -84,3 +84,32 @@ Then(/^I should see the other child document on the summary page$/) do
     expect(page).to have_link(href: admin_edition_path(@other_child_edition))
   end
 end
+
+Then(/^I draft a new child "inheritable_type" edition$/) do
+  visit new_admin_standard_edition_path(parent_edition_id: StandardEdition.where(configurable_document_type: "inheritable_type").first.id, configurable_document_type: "inheritable_type")
+end
+
+And(/^I have created a new child "(.+)" draft$/) do |configurable_document_type|
+  @standard_edition = create(
+    :draft_standard_edition,
+    {
+      configurable_document_type:,
+      title: default_content_for_locale("en")[:title],
+      summary: default_content_for_locale("en")[:summary],
+      block_content: {},
+      parent_edition_id: StandardEdition.where(configurable_document_type:).first.id,
+    },
+  )
+end
+
+Then(/^I should see the new child edition has pre-populated inherited fields$/) do
+  expect(page).to have_css("[name=\"edition[block_content][list_of_foods][0][food]\"][value=\"Apple\"]")
+  expect(page).to have_css("[name=\"edition[block_content][list_of_foods][1][food]\"][value=\"Orange\"]")
+end
+
+Then(/^I should not see that the child edition has pre-populated inherited fields$/) do
+  visit edit_admin_standard_edition_path(@standard_edition)
+  expect(page).to have_css("[name=\"edition[block_content][list_of_foods][0][food]\"]")
+  expect(page).to_not have_css("[name=\"edition[block_content][list_of_foods][0][food]\"][value=\"Apple\"]")
+  expect(page).to_not have_css("[name=\"edition[block_content][list_of_foods][1][food]\"][value=\"Orange\"]")
+end

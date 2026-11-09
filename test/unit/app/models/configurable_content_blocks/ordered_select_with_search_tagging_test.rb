@@ -55,4 +55,44 @@ class ConfigurableContentBlocks::OrderedSelectWithSearchTaggingTest < ActionView
 
     assert_dom ".govuk-error-message", text: "Error: #{messages.map { |m| "Test attribute #{m}" }.join}"
   end
+
+  test "it does inherit from parent, if `inherit_from_parent` set and it is an empty field of a new edition" do
+    options = 1.upto(3).map { |index| build(:world_location, id: index) }
+
+    selected_option = options.last
+
+    selectors = [
+      [
+        "option[selected][value=\"#{selected_option.id}\"]",
+      ],
+    ]
+
+    fill_in_field_with_option = proc do |option|
+      proc do |edition|
+        edition.world_locations = [option]
+      end
+    end
+
+    it_correctly_inherits_from_parent(ConfigurableContentBlocks::OrderedSelectWithSearchTagging, @field, @path, selectors, fill_in_field_with_option.call(selected_option))
+  end
+
+  test "it does not inherit from parent, if `inherit_from_parent` set and it is an empty field of a saved edition" do
+    options = 1.upto(3).map { |index| build(:world_location, id: index) }
+
+    selected_option = options.last
+
+    selectors = [
+      [
+        "option[selected][value=\"#{selected_option.id}\"]",
+      ],
+    ]
+
+    fill_in_field_with_option = proc do |option|
+      proc do |edition|
+        edition.world_locations = [option]
+      end
+    end
+
+    it_does_not_inherit_from_parent(ConfigurableContentBlocks::OrderedSelectWithSearchTagging, @field, @path, selectors, fill_in_field_with_option.call(selected_option))
+  end
 end

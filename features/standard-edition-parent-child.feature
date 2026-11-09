@@ -42,3 +42,18 @@ Feature: Standard Editions
     And a draft standard edition called "Parent Edition" exists
     When I view the summary page of a child document of that edition that has another child document
     Then I should see the other child document on the summary page
+
+  Scenario: A newly created child edition should inherit the values of fields from the parent document if `inherit_from_parent` has been set on those fields
+    Given I am a writer
+    And the test configurable document type group is defined
+    And I have created a new "inheritable_type" draft
+    Then I draft a new child "inheritable_type" edition
+    Then I should see the new child edition has pre-populated inherited fields
+
+  Scenario: A child edition should not inherit the values of fields from the parent document if `inherit_from_parent` has been set on those fields if it has already been saved
+    Given I am a writer
+    And the test configurable document type group is defined
+    And I have created a new "inheritable_type" draft
+    Then I have created a new child "inheritable_type" draft
+    Then I should not see that the child edition has pre-populated inherited fields
+

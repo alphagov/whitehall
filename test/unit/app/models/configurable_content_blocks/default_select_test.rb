@@ -73,4 +73,48 @@ class ConfigurableContentBlocks::DefaultSelectRenderingTest < ActionView::TestCa
 
     assert_dom ".govuk-error-message", text: "Error: #{messages.map { |m| "Test attribute #{m}" }.join}"
   end
+
+  test "it does inherit from parent, if `inherit_from_parent` set and it is an empty field of a new edition" do
+    selected_option = @field["options"].last
+
+    selectors = [
+      [
+        "option[selected][value=\"#{selected_option['value']}\"]",
+      ],
+    ]
+
+    fill_in_field_with_option = proc do |option|
+      selected_option_value = option["value"]
+
+      proc do |edition|
+        edition.block_content = {
+          "test_attribute" => selected_option_value,
+        }
+      end
+    end
+
+    it_correctly_inherits_from_parent(ConfigurableContentBlocks::DefaultSelect, @field, @path, selectors, fill_in_field_with_option.call(selected_option))
+  end
+
+  test "it does not inherit from parent, if `inherit_from_parent` set and it is an empty field of a saved edition" do
+    selected_option = @field["options"].last
+
+    selectors = [
+      [
+        "option[selected][value=\"#{selected_option['value']}\"]",
+      ],
+    ]
+
+    fill_in_field_with_option = proc do |option|
+      selected_option_value = option["value"]
+
+      proc do |edition|
+        edition.block_content = {
+          "test_attribute" => selected_option_value,
+        }
+      end
+    end
+
+    it_does_not_inherit_from_parent(ConfigurableContentBlocks::DefaultSelect, @field, @path, selectors, fill_in_field_with_option.call(selected_option))
+  end
 end
