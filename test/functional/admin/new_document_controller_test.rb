@@ -46,14 +46,14 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
   view_test "GET #index with a `parent_edition_id` only shows the child document types the parent allows" do
     parent_edition = create_parent_edition(allowed_child_types: %w[mini_site_child])
     @test_strategy ||= Flipflop::FeatureSet.current.test!
-    @test_strategy.switch!(:configurable_document_types, true)
+    @test_strategy.switch!(:mini_sites, true)
 
     get :index, params: { parent_edition_id: parent_edition.id }
 
     assert_select ".govuk-radios__item input[type=radio][name=new_document_options]", count: 1
     assert_select "input[type=radio][name=new_document_options][value=mini_site_child]"
 
-    @test_strategy.switch!(:configurable_document_types, false)
+    @test_strategy.switch!(:mini_sites, false)
   end
 
   view_test "GET #index with a `parent_edition_id` for a type that allows no children shows an error" do
@@ -117,14 +117,24 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
 
   view_test "GET #index renders the Mini site option if the feature toggle is on" do
     @test_strategy ||= Flipflop::FeatureSet.current.test!
-    @test_strategy.switch!(:configurable_document_types, true)
+    @test_strategy.switch!(:mini_sites, true)
 
     get :index
 
     assert_response :success
     assert_select "input[type=radio][name=new_document_options][value=mini_site_landing]"
 
-    @test_strategy.switch!(:configurable_document_types, false)
+    @test_strategy.switch!(:mini_sites, false)
+  end
+
+  view_test "GET #index does not render the Mini site option if the feature toggle is off" do
+    @test_strategy ||= Flipflop::FeatureSet.current.test!
+    @test_strategy.switch!(:mini_sites, false)
+
+    get :index
+
+    assert_response :success
+    assert_select "input[type=radio][name=new_document_options][value=mini_site_landing]", count: 0
   end
 
   view_test "GET #index does not render the topical event radio button for users outside the specified organisation" do

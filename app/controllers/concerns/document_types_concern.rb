@@ -39,7 +39,7 @@ module DocumentTypesConcern
         "label" => ConfigurableDocumentType.find("mini_site_child").label,
         "configurable_document_type" => "mini_site_child",
         "redirect" => new_admin_standard_edition_path(configurable_document_type: "mini_site_child"),
-        "requires_feature_flag" => :configurable_document_types,
+        "requires_feature_flag" => :mini_sites,
         "requires_parent" => true,
       },
       "news_article" => {
@@ -86,7 +86,7 @@ module DocumentTypesConcern
         "label" => ConfigurableDocumentType.find("mini_site_landing").label,
         "configurable_document_type" => "mini_site_landing",
         "redirect" => new_admin_standard_edition_path(configurable_document_type: "mini_site_landing"),
-        "requires_feature_flag" => :configurable_document_types,
+        "requires_feature_flag" => :mini_sites,
       },
       "topical_event" => {
         "klass" => StandardEdition,
