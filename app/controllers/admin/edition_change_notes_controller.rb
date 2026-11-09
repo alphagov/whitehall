@@ -14,11 +14,11 @@ class Admin::EditionChangeNotesController < Admin::BaseController
 
   def edit
     # This is the edition the change note was originally set on, not the latest edition
-    @edition_to_change = Edition.find(params[:id])
+    @edition_to_change = @edition.document.editions.find(params[:id])
   end
 
   def update
-    edition_to_change = Edition.find(params[:id])
+    edition_to_change = @edition.document.editions.find(params[:id])
     old_change_note = edition_to_change.change_note
 
     # rubocop:disable Rails/SkipsModelValidations
@@ -40,11 +40,11 @@ class Admin::EditionChangeNotesController < Admin::BaseController
   end
 
   def confirm_destroy
-    @edition_to_change = Edition.find(params[:id])
+    @edition_to_change = @edition.document.editions.find(params[:id])
   end
 
   def destroy
-    edition_to_change = Edition.find(params[:id])
+    edition_to_change = @edition.document.editions.find(params[:id])
     old_change_note = edition_to_change.change_note
 
     edition_to_change[:minor_change] = true
