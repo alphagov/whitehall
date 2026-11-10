@@ -64,6 +64,9 @@ class Admin::EditionImagesController < Admin::BaseController
   rescue GdsApi::HTTPNotFound
     image.errors.add(:image_data_file, "could not be fetched from Asset Manager.")
     render :edit
+  rescue ActiveRecord::RecordInvalid
+    # The image already carries the validation errors, as they're propagated from the new ImageData
+    render :edit
   end
 
   def create

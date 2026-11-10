@@ -769,6 +769,26 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_template "admin/edition_images/edit"
   end
 
+  view_test "POST :update renders edit page with errors if the stored image is too small to be re-cropped" do
+    login_authorised_user
+    image = build(:image)
+    edition = create(:draft_fatality_notice, :with_auth_bypass_id, images: [image])
+    default_kind = Whitehall.image_kinds.fetch("default")
+
+    response = OpenStruct.new
+    response.body = File.binread(Rails.root.join("test/fixtures/horrible-image.64x96.jpg"))
+    Services.asset_manager.stubs(:media).returns(response)
+
+    post :update, params: {
+      edition_id: edition.id,
+      id: image.id,
+      image: { image_data: { image_kind: "default", crop_data: { x: 0, y: 0, width: 64, height: 96 } } },
+    }
+
+    assert_template "admin/edition_images/edit"
+    assert_select ".govuk-error-summary li", count: 1, text: "Image \"#{image.image_data.carrierwave_image}\" is too small. Select an image that is at least #{default_kind.valid_width} pixels wide and at least #{default_kind.valid_height} pixels tall."
+  end
+
   test "POST :create shows success message when all image assets are uploaded" do
     login_authorised_user
     edition = create(:draft_fatality_notice)
