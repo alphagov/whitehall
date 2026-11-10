@@ -198,7 +198,9 @@ class Edition < ApplicationRecord
 
       self.class.new(draft_attributes).tap do |draft|
         traits.each { |t| t.process_associations_before_draft_creation(draft) }
-        if (draft.valid? || !draft.errors.key?(:base)) && draft.save(validate: false)
+        # `save!` rather than `save`: if an associated record fails to save, `save` returns
+        # false without rolling back our outer transaction, leaving a partially-copied draft.
+        if (draft.valid? || !draft.errors.key?(:base)) && draft.save!(validate: false)
           traits.each { |t| t.process_associations_after_draft_creation(draft) }
         end
       end
