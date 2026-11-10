@@ -29,7 +29,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features shows the Child Of Banner for a child edition" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "features" => { "enabled" => true } } }))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } }))
     parent_edition = create(:draft_standard_edition, title: "Parent edition")
     child_edition = create(:draft_standard_edition)
     ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
@@ -986,7 +986,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features renders the currently featured tab with featured editions" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1015,7 +1015,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features renders the currently featured tab with editions that have a translation for the selected locale" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1058,7 +1058,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features renders the documents search tab with editions tagged to a featurable edition" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1087,7 +1087,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features renders the documents search tab without editions already featured" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1116,7 +1116,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features renders the documents search tab with editions that have a translation for the selected locale" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1153,7 +1153,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features renders the documents search tab with only published editions tagged to the featuring edition" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1181,7 +1181,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features filters documents by title" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1220,7 +1220,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features filters documents by author" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1257,7 +1257,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features filters documents by organisation" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1295,7 +1295,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features filters documents by document type" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1320,7 +1320,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features renders the offsite links tab with offsite links created on the edition" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1345,7 +1345,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features filters out already featured offsite links from the offsite links tab" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",
@@ -1373,7 +1373,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET features renders the currently featured tab with featured offsite links" do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",

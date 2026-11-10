@@ -282,7 +282,8 @@
     "translations_enabled": true,
     "file_attachments_enabled": true,
     "features": {
-      "enabled": true
+      "enabled": true,
+      "display_limit": 6
     },
     "history_mode_enabled": true,
     "send_change_history": true,

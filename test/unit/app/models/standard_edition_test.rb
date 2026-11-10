@@ -135,6 +135,22 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_not page_without_features.allows_features?
   end
 
+  test "it returns the configured display limit" do
+    test_type_with_features =
+      build_configurable_document_type(
+        "test_type_with_features", {
+          "settings" => {
+            "features" => { "enabled" => true, "display_limit" => 123_456 },
+          },
+        }
+      )
+
+    ConfigurableDocumentType.setup_test_types(test_type_with_features)
+    page_with_features = StandardEdition.new(configurable_document_type: "test_type_with_features")
+
+    assert page_with_features.featured_documents_display_limit == 123_456
+  end
+
   test "it allows child documents if the configurable document type settings permit them" do
     test_type_with_child_documents =
       build_configurable_document_type(
