@@ -63,6 +63,23 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     assert_equal topical_event.document, new_edition.topical_event_documents.first
   end
 
+  test "new edition does not copy legacy topical event memberships or featurings whose topical event has been soft-deleted, and retains its topical event document links" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    topical_event_document = create(:standard_edition, configurable_document_type: "topical_event").document
+    legacy_topical_event = create(:topical_event)
+    edition = create(:published_speech, topical_events: [legacy_topical_event], topical_event_documents: [topical_event_document])
+    legacy_topical_event.feature(edition_id: edition.id, alt_text: "alt-text", image: create(:topical_event_featuring_image_data))
+
+    # Legacy topical events are soft-deleted once migrated to StandardEdition
+    legacy_topical_event.update_columns(state: "deleted")
+
+    new_edition = edition.create_draft(create(:writer)).reload
+
+    assert_empty new_edition.topical_event_memberships
+    assert_empty new_edition.topical_event_featurings
+    assert_equal [topical_event_document], new_edition.topical_event_documents
+  end
+
   test "can_be_associated_with_topical_events? returns true for legacy content types that include the module" do
     self.class.const_set("DummyLegacyEdition", Class.new(Edition) do
       include Edition::TopicalEvents
