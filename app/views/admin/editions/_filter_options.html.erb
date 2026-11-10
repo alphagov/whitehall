@@ -2,8 +2,227 @@
   read_only ||= false
   filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_invalid_editions, :only_broken_links, :review_overdue]
   anchor ||= anchor || ""
-  raise "filter action required" unless defined?(filter_action)
 %>
+
+<%= render "components/filter_options", {
+  action: filter_action,
+  options: [
+    {
+      fields: [
+        label: {
+          text: "Title",
+          bold: true,
+        },
+        name: "title",
+        id: "title_filter",
+        value: @filter.options[:title],
+        type: "search",
+        filter_type: "input",
+      ]
+    },
+    {
+      fields: [
+        {
+          label: "Author",
+          id: "author_filter",
+          name: "author",
+          heading_size: "s",
+          data_attributes: {
+            ga4_section: "Author",
+            ga4_change_category: "update-filter select",
+            ga4_filter_parent: true,
+          },
+          options: admin_author_filter_options(current_user).map do |name, id|
+            {
+              text: name,
+              value: id,
+              selected: @filter.options[:author] == id.to_s || (@filter.options[:author].blank? && name == "All authors
+          "),
+            }
+          end,
+          filter_type: "select_with_search",
+        }
+      ]
+    },
+    {
+      fields: [
+        {
+          label: "Organisation",
+          id: "organisation_filter",
+          name: "organisation",
+          heading_size: "s",
+          data_attributes: {
+            ga4_section: "Organisation",
+            ga4_change_category: "update-filter select",
+            ga4_filter_parent: true,
+          },
+          grouped_options: admin_organisation_filter_options(@filter.options[:organisation]),
+          filter_type: "select_with_search",
+        }
+      ]
+    },
+    {
+      fields: [
+        {
+          label: "World location",
+          id: "world_location_filter",
+          name: "world_location",
+          heading_size: "s",
+          data_attributes: {
+            ga4_section: "World location",
+            ga4_change_category: "update-filter select",
+            ga4_filter_parent: true,
+          },
+          options: admin_world_location_filter_options(current_user).map do |name, id|
+            {
+              text: name,
+              value: id,
+              selected: @filter.options[:world_location].to_s == id.to_s,
+            }
+          end,
+          filter_type: "select_with_search",
+        }
+      ]
+    },
+    {
+      fields: [
+        {
+          label: "Document type",
+          id: "type_filter",
+          name: "type",
+          heading_size: "s",
+          data_attributes: {
+            ga4_section: "Document type",
+            ga4_change_category: "update-filter select",
+            ga4_filter_parent: true,
+          },
+          grouped_options: filter_edition_type_opt_groups(current_user, @filter.options[:type]),
+          filter_type: "select_with_search",
+        }
+      ]
+    },
+    {
+      fields: [
+        {
+          label: "State",
+          id: "state_filter",
+          name: "state",
+          heading_size: "s",
+          data_attributes: {
+            ga4_section: "State",
+            ga4_change_category: "update-filter select",
+            ga4_filter_parent: true,
+          },
+          options: admin_state_filter_options.map do |text, value|
+            {
+              text: text,
+              value: value,
+              selected: @filter.options[:state] == value,
+            }
+          end,
+          filter_type: "select_with_search",
+        }
+      ]
+    },
+    {
+      section: "Last updated date",
+      fields: [
+        {
+          label: {
+            text: "From",
+            bold: true,
+          },
+          name: "from_date",
+          id: "from_date",
+          value: params["from_date"],
+          hint: "For example, 23/07/2013",
+          data: {
+            ga4_section: "Last updated date from",
+            ga4_change_category: "update-filter text",
+          },
+          filter_type: "input",
+        },
+        {
+          label: {
+            text: "To",
+            bold: true,
+          },
+          name: "to_date",
+          id: "to_date",
+          value: params["to_date"],
+          hint: "For example, 23/08/2013",
+          data: {
+            ga4_section: "Last updated date to",
+            ga4_change_category: "update-filter text",
+          },
+          filter_type: "input",
+        }
+      ]
+    },
+    {
+      fields: [
+        name: "only_invalid_editions",
+        small: true,
+        data_attributes: {
+          ga4_change_category: "update-filter checkbox",
+          ga4_filter_parent: true,
+        },
+        items: [
+          {
+            label: "Only invalid editions",
+            value: "1",
+            bold: true,
+            checked: params["only_invalid_editions"],
+          },
+        ],
+        filter_type: "checkboxes",
+      ]
+    },
+    {
+      fields: [
+        {
+          name: "only_broken_links",
+          small: true,
+          data_attributes: {
+            ga4_change_category: "update-filter checkbox",
+            ga4_filter_parent: true,
+          },
+          items: [
+            {
+              label: "Only broken links",
+              value: "1",
+              bold: true,
+              checked: params["only_broken_links"],
+            },
+          ],
+          filter_type: "checkboxes",
+        }
+      ]
+    },
+    {
+      fields: [
+        name: "review_overdue",
+        small: true,
+        data_attributes: {
+          ga4_change_category: "update-filter checkbox",
+          ga4_filer_parent: true,
+        },
+        items: [
+          {
+            label: "Review overdue",
+            value: "1",
+            bold: true,
+            checked: params["review_overdue"],
+          },
+        ],
+        filter_type: "checkboxes",
+      ]
+    }
+  ],
+  reset_link_data_attributes: { ga4_link: { action: "remove", event_name: "select_content", type: controller_name }}.to_json,
+  reset_link_query_string: reset_search_fields_query_string_params(current_user, filter_action, anchor),
+} %>
+
 
 <div class="app-view-filter govuk-!-margin-right-5 govuk-!-padding-5">
   <%= form_with url: filter_action + anchor, method: :get, data: { module: "ga4-finder-tracker", ga4_section: "Filter by" } do |form| %>
