@@ -16,7 +16,6 @@ class RemoveMpLettersRake < ActiveSupport::TestCase
       member_d = create(:person, forename: "D", surname: "Member", letters: "CBE MP MPhil")
       non_member_a = create(:person, forename: "A", surname: "Non-Member", letters: "CBE MPhil VC")
 
-      Thor::Shell::Basic.any_instance.stubs(:yes?).returns(true)
       out, _err = capture_io { task.invoke }
 
       assert_match(/----------DRY RUN----------/, out)

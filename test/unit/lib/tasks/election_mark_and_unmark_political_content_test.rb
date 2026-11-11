@@ -4,10 +4,6 @@ require "rake"
 class MarkAndUnmarkPoliticalContent < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  setup do
-    Thor::Shell::Basic.any_instance.stubs(:yes?).returns(true)
-  end
-
   teardown { task.reenable }
 
   describe "#mark_political_content_for" do
