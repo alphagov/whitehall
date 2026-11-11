@@ -1,9 +1,3 @@
-require "thor"
-
-def shell
-  @shell ||= Thor::Shell::Basic.new
-end
-
 namespace :data_hygiene do
   desc "Merge people records"
   task :merge_people, %i[person_to_merge person_to_keep] => :environment do |_task, args|
@@ -42,11 +36,6 @@ namespace :data_hygiene do
 
     if person_to_merge.translations.find_by(locale: "en")&.biography != person_to_keep.translations.find_by(locale: "en")&.biography
       puts "The English biographies of the people to merge are different. If the people get merged, you might lose data. Please manually migrate the data and retry."
-      next
-    end
-
-    unless shell.yes?("Proceed with merging person of ID ##{person_to_merge} into person of ID ##{person_to_keep}? (yes/no)")
-      puts "Merging aborted"
       next
     end
 
@@ -98,10 +87,7 @@ namespace :data_hygiene do
       shell.say_error "Cannot find new role appointment: #{args[:new_role_appointment_id]}"
       next
     end
-    unless shell.yes?("Proceed with moving speeches from #{old_role_appointment.role_name} to #{new_role_appointment.role_name} (yes/no)")
-      shell.say_error "Move aborted"
-      next
-    end
+
     shell.say "Found #{old_role_appointment.speeches.count} speech(es) to move."
     old_role_appointment.speeches.find_each do |speech|
       speech.role_appointment_id = new_role_appointment.id
