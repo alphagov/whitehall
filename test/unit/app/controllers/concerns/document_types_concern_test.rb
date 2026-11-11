@@ -22,6 +22,7 @@ class DocumentTypesConcernTest < ActiveSupport::TestCase
     ConfigurableDocumentType.stubs(:find).with("basic_page").returns({})
     ConfigurableDocumentType.stubs(:find).with("mini_site_child").returns({})
     Flipflop.stubs(:enabled?).with(:configurable_document_types).returns(true)
+    Flipflop.stubs(:enabled?).with(:mini_sites).returns(true)
   end
 
   basic_document_type = {

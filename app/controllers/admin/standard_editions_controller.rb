@@ -2,8 +2,11 @@
 class Admin::StandardEditionsController < Admin::EditionsController
   rescue_from ConfigurableDocumentType::NotFoundError, with: :render_not_found
 
+  MINI_SITE_DOCUMENT_TYPES = %w[mini_site_landing mini_site_child].freeze
+
   before_action :set_current_tab_context, only: %i[edit update]
   before_action :set_child_editions, only: %i[show child_pages]
+  before_action :enforce_mini_site_feature_flag, except: %i[choose_type]
 
   def choose_type
     @permitted_configurable_document_types = ConfigurableDocumentType.where_group(params[:group])
@@ -144,6 +147,15 @@ private
 
   def load_edition_from_database(edition)
     LocalisedModel.new(edition_class.find(edition.id), edition.primary_locale)
+  end
+
+  # Mini sites are still in development so we're blocking access in the meantime
+  def enforce_mini_site_feature_flag
+    edition = @edition || edition_class.find_by(id: params[:id])
+    return unless edition && MINI_SITE_DOCUMENT_TYPES.include?(edition.configurable_document_type)
+    return if Flipflop.enabled?(:mini_sites)
+
+    raise Whitehall::Authority::Errors::PermissionDenied.new(action_name.to_sym, edition)
   end
 
   def apply_tab_errors_to_edition(tab_form)
