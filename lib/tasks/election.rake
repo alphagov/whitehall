@@ -1,9 +1,3 @@
-require "thor"
-
-def shell
-  @shell ||= Thor::Shell::Basic.new
-end
-
 namespace :election do
   desc "Remove MP from MP's letters"
   task remove_mp_letters: :environment do
@@ -26,11 +20,6 @@ namespace :election do
       end
     end
 
-    unless shell.yes?("Proceed with the above changes? (yes/no)")
-      shell.say_error "Aborted"
-      next
-    end
-
     puts "----------CHANGES SUMMARY----------"
     people_to_change.each do |person|
       person_record = Person.find(person[:id])
@@ -45,11 +34,6 @@ namespace :election do
       .where(political: true)
       .pluck(:document_id)
       .uniq
-
-    unless shell.yes?("Republishing #{political_document_ids.count} documents. Proceed? (yes/no)")
-      shell.say_error "Aborted"
-      next
-    end
 
     political_document_ids.each do |document_id|
       print "."
@@ -75,11 +59,6 @@ namespace :election do
     begin
       if args[:end_date]
         end_date = Date.parse(args[:end_date])
-      end
-
-      unless shell.yes?("You're about to end #{appointments.size} ministerial appointments (excluding the Prime Minister) with an end date of #{end_date}. Proceed? (yes/no)")
-        shell.say_error "Aborted"
-        next
       end
 
       appointments.each do |appointment|
@@ -143,11 +122,6 @@ namespace :election do
         Post-publication editions (#{post_publication_states}): #{post_publication_editions_about_to_be_marked_political.size}
         Pre-publication editions (#{pre_publication_states}): #{pre_publication_editions_about_to_be_marked_political.size}
     INFO
-
-    unless shell.yes?("You're about to add the 'political' marker to #{editions_about_to_be_marked_political.size} editions associated with '#{org.name}' since #{date}. Dry run is #{dry_run ? 'enabled' : 'disabled'}. Proceed? (yes/no)")
-      shell.say_error "Cancelled"
-      next
-    end
 
     editions_about_to_be_marked_political.each do |edition|
       edition.update_column(:political, true) unless dry_run
@@ -223,11 +197,6 @@ namespace :election do
         Post-publication editions (#{post_publication_states}): #{post_publication_editions_about_to_be_marked_not_political.size} out of #{post_publication_editions_evaluated_as_not_political.size} editions evaluated as not political
         Pre-publication editions (#{pre_publication_states}): #{pre_publication_editions_about_to_be_marked_not_political.size} out of #{pre_publication_editions_evaluated_as_not_political.size} editions evaluated as not political
     INFO
-
-    unless shell.yes?("You're about to remove the political marker for #{all_editions_about_to_be_marked_not_political.size} editions associated with '#{org.name}' since #{date}. Dry run is #{dry_run ? 'enabled' : 'disabled'}. Proceed? (yes/no)")
-      shell.say_error "Cancelled"
-      next
-    end
 
     all_editions_about_to_be_marked_not_political.each do |edition|
       edition.update_column(:political, false) unless dry_run
