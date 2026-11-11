@@ -1,5 +1,6 @@
 class Admin::LinkCheckReportsController < Admin::BaseController
   before_action :find_edition
+  before_action :limit_edition_access!
 
   def create
     @report = LinkCheckerApiService.check_links(
@@ -15,7 +16,7 @@ class Admin::LinkCheckReportsController < Admin::BaseController
   end
 
   def show
-    @report = LinkCheckerApiReport.find(params[:id])
+    @report = LinkCheckerApiReport.where(edition: @edition).find(params[:id])
 
     respond_to do |format|
       format.html { redirect_to [:admin, @edition] }

@@ -46,4 +46,31 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
     get :show, params: { id: link_check_report, edition_id: @publication }, format: :json
     assert_template :show
   end
+
+  test "GET :show only finds reports belonging to the edition in the URL" do
+    other_publication = create(:publication)
+    other_report = create(:link_checker_api_report, edition: other_publication)
+
+    assert_raise(ActiveRecord::RecordNotFound) do
+      get :show, params: { id: other_report, edition_id: @publication }, format: :json
+    end
+  end
+
+  test "GET :show is forbidden for an access-limited edition the user cannot see" do
+    inaccessible = create(:draft_publication, :access_limited_by_organisations, organisations: [create(:organisation)])
+    link_check_report = create(:link_checker_api_report, edition: inaccessible)
+
+    get :show, params: { id: link_check_report, edition_id: inaccessible }, format: :json
+
+    assert_response :forbidden
+  end
+
+  test "POST :create is forbidden for an access-limited edition the user cannot see" do
+    inaccessible = create(:draft_publication, :access_limited_by_organisations, organisations: [create(:organisation)])
+
+    post :create, params: { edition_id: inaccessible }, format: :json
+
+    assert_response :forbidden
+    assert_nil inaccessible.reload.link_check_report
+  end
 end

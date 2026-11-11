@@ -20,15 +20,24 @@ class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseContro
     flash.now[:alert] = "Please enter a search query" if params[:title] && params[:title].empty?
     if params[:title].present?
       results = Edition.active.with_title_containing(params[:title].strip)
-      @editions = results
-                    .page(params[:page])
-                    .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
+                       .page(params[:page])
+                       .per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
+      @editions = Kaminari.paginate_array(
+        visible_to_current_user(results),
+        total_count: results.total_count,
+      ).page(params[:page]).per(Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE)
     end
   end
 
   def add_by_url; end
 
 private
+
+  def visible_to_current_user(editions)
+    return editions.to_a if can?(:perform_administrative_tasks, Edition)
+
+    editions.select { |edition| can?(:see, edition) }
+  end
 
   def load_document_collection
     @collection = DocumentCollection.includes(document: :latest_edition).find(params[:document_collection_id])

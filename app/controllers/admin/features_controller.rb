@@ -56,7 +56,11 @@ private
   end
 
   def find_edition
-    @feature.document = Edition.find(params[:edition_id]).document if params[:edition_id]
+    return unless params[:edition_id]
+
+    edition = Edition.find(params[:edition_id])
+    enforce_permission!(:see, edition)
+    @feature.document = edition.document
   end
 
   # LEGACY

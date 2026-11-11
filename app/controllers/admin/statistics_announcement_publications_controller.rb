@@ -8,6 +8,7 @@ class Admin::StatisticsAnnouncementPublicationsController < Admin::BaseControlle
   end
 
   def connect
+    enforce_permission!(:see, Edition.find(params[:publication_id]))
     @statistics_announcement.assign_attributes(publication_params)
 
     if @statistics_announcement.save
@@ -40,11 +41,11 @@ private
 
   def edition_filter_options
     params_filters_with_default_state
-                       .symbolize_keys
-                       .merge(
-                         type: @statistics_announcement.publication_type.key,
-                         per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
-                       )
+      .symbolize_keys
+      .merge(
+        type: @statistics_announcement.publication_type.key,
+        per_page: Admin::EditionFilter::GOVUK_DESIGN_SYSTEM_PER_PAGE,
+      )
   end
 
   def find_statistics_announcement

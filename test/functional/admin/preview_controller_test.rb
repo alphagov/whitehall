@@ -28,6 +28,15 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     assert_select ".document .body figure.image.embedded img[src=?]", image.embed_url
   end
 
+  test "is forbidden when an image belongs to an access-limited edition the user cannot see" do
+    inaccessible = create(:draft_publication, :access_limited_by_organisations, organisations: [create(:organisation)], body: "!!1")
+    image = create(:image, edition: inaccessible)
+
+    post :preview, params: { body: "!!1", image_ids: [image.id] }
+
+    assert_response :forbidden
+  end
+
   view_test "renders attached files if attachment_ids provided" do
     edition = create(:published_detailed_guide, :with_file_attachment, body: "#Heading\n\n!@1\n\n##Subheading")
 

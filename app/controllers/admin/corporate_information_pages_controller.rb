@@ -5,7 +5,11 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
 
   def index
     params[:state] = "active" # Ensure that state column is displayed.
-    @paginator = @organisation.corporate_information_pages.where("state != ?", "superseded").order("corporate_information_page_type_id").page(params["page"].to_i || 1).per(100)
+    pages = @organisation.corporate_information_pages.where("state != ?", "superseded").order("corporate_information_page_type_id").page(params["page"].to_i || 1).per(100)
+    @paginator = Kaminari.paginate_array(
+      visible_to_current_user(pages),
+      total_count: pages.total_count,
+    ).page(pages.current_page).per(100)
     @filter = FakeEditionFilter.new @paginator, "Corporate information pages", false, true
 
     render :index
@@ -25,6 +29,12 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
   end
 
 private
+
+  def visible_to_current_user(pages)
+    return pages.to_a if can?(:perform_administrative_tasks, Edition)
+
+    pages.select { |page| can?(:see, page) }
+  end
 
   def edition_class
     CorporateInformationPage

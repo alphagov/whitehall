@@ -126,6 +126,32 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_select ".govuk-table tbody tr", text: /Something withdrawn/
   end
 
+  view_test "GET :add_by_title does not list access-limited editions the user cannot see" do
+    my_organisation = create(:organisation)
+    login_as create(:writer, organisation: my_organisation)
+    create(:draft_publication, title: "Something visible", organisations: [my_organisation])
+    create(:draft_publication, :access_limited_by_organisations, title: "Something secret", organisations: [create(:organisation)])
+    @request_params[:title] = "Something"
+
+    get :add_by_title, params: @request_params
+
+    assert_response :success
+    assert_select ".govuk-table tbody tr", text: /Something visible/
+    assert_select ".govuk-table tbody tr", text: /Something secret/, count: 0
+    assert_no_match(/Something secret/, response.body)
+  end
+
+  view_test "GET :add_by_title still lists access-limited editions for GDS Admins" do
+    login_as :gds_admin
+    create(:draft_publication, :access_limited_by_organisations, title: "Something secret", organisations: [create(:organisation)])
+    @request_params[:title] = "Something"
+
+    get :add_by_title, params: @request_params
+
+    assert_response :success
+    assert_select ".govuk-table tbody tr", text: /Something secret/
+  end
+
   view_test "GET :add_by_title with search value does not show Add button for unpublished and withdrawn editions" do
     create(:draft_edition, title: "Something draft")
     create(:rejected_edition, title: "Something rejected")

@@ -107,6 +107,14 @@ class Admin::TopicalEventFeaturingsControllerTest < ActionController::TestCase
     assert_select "#topical_event_featuring_alt_text"
   end
 
+  test "GET :new is forbidden when featuring an access-limited edition the user cannot see" do
+    inaccessible = create(:draft_publication, :access_limited_by_organisations, organisations: [create(:organisation)])
+
+    get :new, params: { topical_event_id: @topical_event.id, edition_id: inaccessible.id }
+
+    assert_response :forbidden
+  end
+
   view_test "GET :new renders all fields if not featuring an edition" do
     offsite_link = create(:offsite_link, topical_events: [@topical_event])
     get :new, params: { topical_event_id: @topical_event.id, offsite_link_id: offsite_link.id }

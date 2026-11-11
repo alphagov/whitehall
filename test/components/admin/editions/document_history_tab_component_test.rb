@@ -80,6 +80,21 @@ class Admin::Editions::DocumentHistoryTabComponentTest < ViewComponent::TestCase
     assert_selector ".app-view-editions__previous-edition-entries div.app-view-editions-host-content-update-event-entry__list-item", count: 2
   end
 
+  test "it renders internal notes on previous editions when the user can see the previous edition" do
+    render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @third_edition, document_history: @timeline))
+
+    assert_selector ".app-view-editions__previous-edition-entries", text: "Drafted to include new changes."
+  end
+
+  test "it hides internal notes on previous editions when the user cannot see the previous edition, but still shows other entries" do
+    Admin::Editions::DocumentHistoryTabComponent.any_instance.stubs(:helpers).returns(stub(paginate: @pagination, can?: false))
+
+    render_inline(Admin::Editions::DocumentHistoryTabComponent.new(edition: @third_edition, document_history: @timeline))
+
+    assert_selector ".app-view-editions__previous-edition-entries", text: "Document published"
+    assert_no_selector ".app-view-editions__previous-edition-entries", text: "Drafted to include new changes."
+  end
+
   def seed_document_event_history
     @events = []
 

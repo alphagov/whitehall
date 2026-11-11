@@ -336,6 +336,31 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  test "diff does not show an edition from a different document" do
+    my_organisation = create(:organisation)
+    other_organisation = create(:organisation)
+    login_as create(:writer, organisation: my_organisation)
+    accessible = create(:draft_publication, organisations: [my_organisation])
+    inaccessible = create(:draft_publication, :access_limited_by_organisations, organisations: [other_organisation])
+
+    assert_not_equal accessible.document, inaccessible.document
+    assert_raise(ActiveRecord::RecordNotFound) do
+      get :diff, params: { id: accessible, audit_trail_entry_id: inaccessible.id }
+    end
+  end
+
+  test "diff is forbidden if the user cannot see the edition being compared against" do
+    my_organisation = create(:organisation)
+    other_organisation = create(:organisation)
+    login_as create(:writer, organisation: my_organisation)
+    inaccessible = create(:superseded_publication, :access_limited_by_organisations, organisations: [other_organisation])
+    accessible = create(:draft_publication, document: inaccessible.document, organisations: [my_organisation])
+
+    get :diff, params: { id: accessible, audit_trail_entry_id: inaccessible.id }
+
+    assert_response :forbidden
+  end
+
   test "passes raw JSON to the export job" do
     login_as :gds_editor
     Admin::EditionFilter.any_instance.stubs(exportable?: true)

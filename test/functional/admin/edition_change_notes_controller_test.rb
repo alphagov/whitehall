@@ -72,6 +72,22 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
     end
   end
 
+  {
+    edit: :get,
+    update: :patch,
+    confirm_destroy: :get,
+    destroy: :delete,
+  }.each do |action_method, http_method|
+    test "#{action_method} only finds editions belonging to the document in the URL" do
+      other_edition = create(:edition, :published, change_note: "Other change note")
+
+      assert_raise(ActiveRecord::RecordNotFound) do
+        process action_method, method: http_method, params: { edition_id: @current_edition.id, id: other_edition.id, new_change_note: "Changed" }
+      end
+      assert_equal "Other change note", other_edition.reload.change_note
+    end
+  end
+
   view_test "edit includes the current change notes" do
     login_as :gds_admin
 
@@ -163,11 +179,11 @@ class Admin::EditionChangeNotesControllerTest < ActionController::TestCase
 
     delete :destroy, params: { edition_id: @sixth_edition_minor.id, id: @third_edition_major.id }
 
-    assert_equal @second_edition_minor.reload.major_change_published_at.to_s, "2022-12-01 10:00:05 +0000" #  unchanged
-    assert_equal @third_edition_major.reload.major_change_published_at.to_s, "2022-12-01 10:00:05 +0000" #  updated
-    assert_equal @fourth_edition_minor.reload.major_change_published_at.to_s, "2022-12-01 10:00:05 +0000" #  updated
-    assert_equal @fifth_edition_major.reload.major_change_published_at.to_s, "2022-12-03 15:00:05 +0000" #  unchanged
-    assert_equal @sixth_edition_minor.reload.major_change_published_at.to_s, "2022-12-03 15:00:05 +0000" #  unchanged
+    assert_equal @second_edition_minor.reload.major_change_published_at.to_s, "2022-12-01 10:00:05 +0000" # unchanged
+    assert_equal @third_edition_major.reload.major_change_published_at.to_s, "2022-12-01 10:00:05 +0000" # updated
+    assert_equal @fourth_edition_minor.reload.major_change_published_at.to_s, "2022-12-01 10:00:05 +0000" # updated
+    assert_equal @fifth_edition_major.reload.major_change_published_at.to_s, "2022-12-03 15:00:05 +0000" # unchanged
+    assert_equal @sixth_edition_minor.reload.major_change_published_at.to_s, "2022-12-03 15:00:05 +0000" # unchanged
   end
 
   test "delete republishes the document" do
