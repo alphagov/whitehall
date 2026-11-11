@@ -11,7 +11,6 @@ class ReassignRoleAppointmentSpeechesTest < ActiveSupport::TestCase
   end
 
   test "it updates the role appointment ID on each speech to the new role appointment ID" do
-    Thor::Shell::Basic.any_instance.stubs(:yes?).returns(true)
     speeches = create_list(:speech, 3)
     old_role_appointment = create(:role_appointment)
     old_role_appointment.speeches = speeches
