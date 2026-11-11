@@ -30,6 +30,12 @@ module StandardEdition::ChildDocument
     parent_edition.child_editions.where.not(document_id:)
   end
 
+  def latest_parent_edition
+    return if parent_edition.blank?
+
+    parent_edition.document.latest_edition
+  end
+
   def parent_publication_requirement_met?
     return true if parent_edition.blank?
     return false if parent_edition.document.live_edition.blank?

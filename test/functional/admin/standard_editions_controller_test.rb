@@ -1950,6 +1950,26 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     end
   end
 
+  test "DELETE destroy redirects a child edition to its parent" do
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    delete :destroy, params: { id: child_edition }
+
+    assert_redirected_to admin_standard_edition_path(parent_edition)
+  end
+
+  test "DELETE destroy redirects a child edition to document search if the user cannot see its parent" do
+    parent_edition = create(:draft_standard_edition, :access_limited_by_organisations)
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    delete :destroy, params: { id: child_edition }
+
+    assert_redirected_to admin_editions_path
+  end
+
   def tabbed_document_type(validations: {})
     config = {
       "forms" => {

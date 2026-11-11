@@ -220,4 +220,18 @@ class StandardEditionTest < ActiveSupport::TestCase
       assert_equal "/government/test/renamed-mini-site/draft-child", @draft_child.reload.base_path
     end
   end
+
+  test "#latest_parent_edition returns the latest edition of the parent when the child is related to several parent editions" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+
+    published_parent_edition = create(:published_standard_edition)
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.new(parent_edition: published_parent_edition, child_document: child_edition.document).save!(validate: false)
+    draft_parent_edition = published_parent_edition.create_draft(create(:writer))
+
+    assert_equal 2, ParentChildRelationship.where(child_document: child_edition.document).count
+    assert_equal draft_parent_edition, child_edition.reload.latest_parent_edition
+  end
 end

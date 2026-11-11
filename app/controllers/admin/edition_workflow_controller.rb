@@ -73,7 +73,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def publish
     edition_publisher = Whitehall.edition_services.publisher(@edition)
     if edition_publisher.perform!
-      redirect_to admin_editions_path(session_filters || { state: :published }),
+      redirect_to parent_or_document_search_path(@edition, session_filters || { state: :published }),
                   notice: "The document #{@edition.title} has been published"
     else
       redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
@@ -91,7 +91,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
     edition_publisher = Whitehall.edition_services.force_publisher(@edition, user: current_user, remark: force_publish_reason)
     if edition_publisher.perform!
-      redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
+      redirect_to parent_or_document_search_path(@edition, state: :published), notice: "The document #{@edition.title} has been published"
     else
       redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
     end
@@ -130,7 +130,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     # This will enqueue a `ScheduledPublishingJob`
     edition_scheduler = Whitehall.edition_services.scheduler(@edition)
     if edition_scheduler.perform!
-      redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
+      redirect_to parent_or_document_search_path(@edition, state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
     else
       redirect_to admin_edition_path(@edition), alert: edition_scheduler.failure_reason
     end
@@ -141,7 +141,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def force_schedule
     force_scheduler = Whitehall.edition_services.force_scheduler(@edition)
     if force_scheduler.perform!
-      redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been force scheduled for publication"
+      redirect_to parent_or_document_search_path(@edition, state: :scheduled), notice: "The document #{@edition.title} has been force scheduled for publication"
     else
       redirect_to admin_edition_path(@edition), alert: force_scheduler.failure_reason
     end
@@ -152,7 +152,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def unschedule
     unscheduler = Whitehall.edition_services.unscheduler(@edition)
     if unscheduler.perform!
-      redirect_to admin_editions_path(state: :submitted), notice: "The document #{@edition.title} has been unscheduled"
+      redirect_to parent_or_document_search_path(@edition, state: :submitted), notice: "The document #{@edition.title} has been unscheduled"
     else
       redirect_to admin_edition_path(@edition), alert: unscheduler.failure_reason
     end

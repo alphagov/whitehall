@@ -460,7 +460,60 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal "test reason", historic_edition.reload.unpublishing.explanation
   end
 
+  test "publish redirects a child edition to its parent" do
+    parent_edition = create(:published_standard_edition)
+    child_edition = child_of(parent_edition, create(:submitted_standard_edition))
+
+    post :publish, params: { id: child_edition, lock_version: child_edition.lock_version }
+
+    assert_redirected_to admin_standard_edition_path(parent_edition)
+  end
+
+  test "POST #force_publish redirects a child edition to its parent" do
+    parent_edition = create(:published_standard_edition)
+    child_edition = child_of(parent_edition, create(:draft_standard_edition))
+
+    post :force_publish, params: { id: child_edition, lock_version: child_edition.lock_version, reason: "urgent" }
+
+    assert_redirected_to admin_standard_edition_path(parent_edition)
+  end
+
+  test "schedule redirects a child edition to its parent" do
+    parent_edition = create(:published_standard_edition)
+    child_edition = child_of(parent_edition, create(:submitted_standard_edition, scheduled_publication: 1.day.from_now))
+
+    post :schedule, params: { id: child_edition, lock_version: child_edition.lock_version }
+
+    assert_redirected_to admin_standard_edition_path(parent_edition)
+  end
+
+  test "POST :force_schedule redirects a child edition to its parent" do
+    parent_edition = create(:published_standard_edition)
+    child_edition = child_of(parent_edition, create(:draft_standard_edition, scheduled_publication: 1.day.from_now))
+
+    post :force_schedule, params: { id: child_edition, lock_version: child_edition.lock_version }
+
+    assert_redirected_to admin_standard_edition_path(parent_edition)
+  end
+
+  test "unschedule redirects a child edition to its parent" do
+    parent_edition = create(:published_standard_edition)
+    child_edition = child_of(parent_edition, create(:scheduled_standard_edition))
+
+    post :unschedule, params: { id: child_edition, lock_version: child_edition.lock_version }
+
+    assert_redirected_to admin_standard_edition_path(parent_edition)
+  end
+
 private
+
+  def child_of(parent_edition, child_edition)
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+    ParentChildRelationship.new(parent_edition:, child_document: child_edition.document).save!(validate: false)
+    child_edition
+  end
 
   def submitted_edition(options = {})
     @submitted_edition ||= create(:submitted_publication, options)
