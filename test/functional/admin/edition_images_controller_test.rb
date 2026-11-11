@@ -2,8 +2,8 @@ require "test_helper"
 
 class Admin::EditionImagesControllerTest < ActionController::TestCase
   setup do
-    io_object = upload_fixture("minister-of-funk.960x640.jpg").tempfile.to_io
-    stub_request(:get, %r{.*/media/.*/minister-of-funk.960x640.jpg}).to_return(status: 200, body: io_object, headers: {})
+    image_data = File.binread(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg"))
+    stub_request(:get, %r{.*/media/.*/minister-of-funk.960x640.jpg}).to_return(status: 200, body: image_data, headers: {})
   end
 
   view_test "GET :index renders link to upload form for single image usage" do
