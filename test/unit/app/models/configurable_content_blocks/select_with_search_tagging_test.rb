@@ -58,7 +58,7 @@ class ConfigurableContentBlocks::SelectWithSearchTaggingTest < ActionView::TestC
 
   test "it does inherit from parent, if `inherit_from_parent` set and it is an empty field of a new edition" do
     options = build_list(:worldwide_organisation, 3)
-    options.each_with_index { |wo, index| wo.document = build(:document, id: index) }
+    options.each { |wo| wo.document = create(:document) }
 
     selected_option = options.last
 
@@ -80,7 +80,7 @@ class ConfigurableContentBlocks::SelectWithSearchTaggingTest < ActionView::TestC
 
   test "it does not inherit from parent, if `inherit_from_parent` set and it is an empty field of a saved edition" do
     options = build_list(:worldwide_organisation, 3)
-    options.each_with_index { |wo, index| wo.document = build(:document, id: index) }
+    options.each { |wo| wo.document = create(:document) }
 
     selected_option = options.last
 
