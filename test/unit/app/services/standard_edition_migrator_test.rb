@@ -436,7 +436,7 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
   end
 
   describe "#bulk_enqueue_migration" do
-    test "enqueues a migration job for each legacy record, with the correct recipe and migration method" do
+    test "enqueues a single migration job for all legacy records, with the correct recipe and migration method" do
       legacy_non_editionable_records = [
         create(:organisation, name: "My first org"),
         create(:organisation, name: "My second org"),
@@ -448,25 +448,24 @@ class StandardEditionMigratorTest < ActiveSupport::TestCase
         raise_if_payloads_differ: true,
       )
 
-      assert_equal 2, StandardEditionMigratorJob.jobs.size
+      assert_equal 1, StandardEditionMigratorJob.jobs.size
 
-      first_job_args = StandardEditionMigratorJob.jobs.first["args"]
-      record_id = first_job_args.first
-      keyword_args = first_job_args.second
-      assert_equal legacy_non_editionable_records.first.id, record_id
+      record_ids, keyword_args = StandardEditionMigratorJob.jobs.first["args"]
+      assert_equal legacy_non_editionable_records.map(&:id), record_ids
       assert_equal "Organisation", keyword_args["model_class"]
       assert_equal "StandardEditionMigrator::RecipeForNonEditionableRecord", keyword_args["recipe_class"]
       assert_equal "create_new_document", keyword_args["migration_method"]
       assert_equal true, keyword_args["raise_if_payloads_differ"]
+    end
 
-      second_job_args = StandardEditionMigratorJob.jobs.second["args"]
-      record_id = second_job_args.first
-      keyword_args = second_job_args.second
-      assert_equal legacy_non_editionable_records.second.id, record_id
-      assert_equal "Organisation", keyword_args["model_class"]
-      assert_equal "StandardEditionMigrator::RecipeForNonEditionableRecord", keyword_args["recipe_class"]
-      assert_equal "create_new_document", keyword_args["migration_method"]
-      assert_equal true, keyword_args["raise_if_payloads_differ"]
+    test "does not enqueue a job when there are no legacy records" do
+      StandardEditionMigrator.new.bulk_enqueue_migration(
+        [],
+        StandardEditionMigrator::RecipeForNonEditionableRecord,
+        migration_method: "create_new_document",
+      )
+
+      assert_equal 0, StandardEditionMigratorJob.jobs.size
     end
   end
 end

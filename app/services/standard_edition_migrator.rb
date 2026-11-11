@@ -139,17 +139,19 @@ class StandardEditionMigrator
   end
 
   def bulk_enqueue_migration(legacy_records, recipe_class, migration_method:, raise_if_payloads_differ: true)
-    legacy_records.each do |legacy_record|
-      StandardEditionMigratorJob.perform_async(
-        legacy_record.id,
-        {
-          "model_class" => legacy_record.class.name,
-          "recipe_class" => recipe_class.name,
-          "migration_method" => migration_method,
-          "raise_if_payloads_differ" => raise_if_payloads_differ,
-        },
-      )
-    end
+    return if legacy_records.empty?
+
+    # Enqueue a single job to migrate the records one after another, as
+    # migrating them in parallel causes MySQL deadlocks.
+    StandardEditionMigratorJob.perform_async(
+      legacy_records.map(&:id),
+      {
+        "model_class" => legacy_records.first.class.name,
+        "recipe_class" => recipe_class.name,
+        "migration_method" => migration_method,
+        "raise_if_payloads_differ" => raise_if_payloads_differ,
+      },
+    )
   end
 
 private

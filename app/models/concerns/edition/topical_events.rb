@@ -4,12 +4,14 @@ module Edition::TopicalEvents
   class Trait < Edition::Traits::Trait
     def process_associations_before_draft_creation(edition)
       # LEGACY
-      edition.topical_event_featurings = @edition.topical_event_featurings.map do |cf|
+      # Skip any whose topical event has been soft-deleted (i.e. migrated to StandardEdition).
+      # It's hidden by the default scope, so copying it would produce an invalid featuring.
+      edition.topical_event_featurings = @edition.topical_event_featurings.select(&:topical_event).map do |cf|
         TopicalEventFeaturing.new(cf.attributes.except("id"))
       end
 
       # LEGACY
-      edition.topical_event_memberships = @edition.topical_event_memberships.map do |dt|
+      edition.topical_event_memberships = @edition.topical_event_memberships.select(&:topical_event).map do |dt|
         TopicalEventMembership.new(dt.attributes.except("id"))
       end
 

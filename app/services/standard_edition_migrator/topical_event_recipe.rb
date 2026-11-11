@@ -3,6 +3,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
 
   def initialize
     @artefacts_to_save = []
+    @appended_about_page_link_govspeak = false
     super
   end
 
@@ -11,8 +12,6 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
   end
 
   def build_edition(record)
-    raise WhitehallError, "Topical Events with About pages are not currently supported by the migrator" if record.topical_event_about_page
-
     attributes = {
       creator: User.find_by(name: "Scheduled Publishing Robot"),
       created_at: record.created_at,
@@ -23,7 +22,7 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       slug_override: record.slug,
       block_content: {
         # A body is now required, and we don't want to loosen the validation on new topical events
-        "body" => record.description || "&nbsp;",
+        "body" => append_about_page_link_text(record, record.description || "&nbsp;"),
         "social_media_links" => social_media_links(record),
       },
       lead_organisations: record.topical_event_organisations.where(lead: true).order(:lead_ordering).map(&:organisation),
@@ -54,6 +53,10 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
         link_type: "topical_event",
       )
     end
+    legacy_record.offsite_links.each do |offsite_link|
+      edition.offsite_link_parents.create!(offsite_link:)
+    end
+    Feature.where(topical_event_id: legacy_record.id).update_all(document_id: edition.document_id, topical_event_id: nil)
   end
 
   def ignore_legacy_content_fields(content)
@@ -69,10 +72,18 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
 
       # 'image' (logo) is replaced by 'images'
       content[:details].delete(:image)
+
+      # 'about_page_link_text' will now be replaced by appended text on the Topical Event body
+      content[:details].delete(:about_page_link_text)
     end
 
-    if content[:details] && content[:details][:body] == "<div class=\"govspeak\">\n</div>"
-      content[:details][:body] = "<div class=\"govspeak\"><p>&nbsp;</p>\n</div>"
+    if content[:details] && content[:details][:body]
+      if content[:details][:body] == "<div class=\"govspeak\">\n</div>"
+        # &nbsp; gets converted to special whitespace character ' ' in govspeak_to_html
+        content[:details][:body] = "<div class=\"govspeak\"><p> </p></div>"
+      end
+
+      content[:details][:body] = strip_newlines_surrounding_div(content[:details][:body])
     end
 
     if content[:details] && content[:details][:ordered_featured_documents]
@@ -116,6 +127,30 @@ class StandardEditionMigrator::TopicalEventRecipe < StandardEditionMigrator::Bas
       content[:details][:social_media_links].each do |social_media_link|
         social_media_link[:title] = social_media_link[:title].gsub(/\s+\(\d+\)$/, "") # Remove the "(1)" or "(2)" suffixes that are added in the StandardEdition equivalent
       end
+    end
+
+    if content[:details] && content[:details][:body]
+      if @appended_about_page_link_govspeak
+        body = Nokogiri::HTML.fragment(content[:details][:body])
+        appended_link = Nokogiri::HTML.fragment(
+          Govspeak::Document.new(@appended_about_page_link_govspeak).to_html,
+        ).at_css("a")
+
+        if appended_link
+          matching_link = body.css("a").reverse.find do |link|
+            link["href"] == appended_link["href"] && link.text == appended_link.text
+          end
+
+          if matching_link
+            (matching_link.ancestors("p").first || matching_link).remove
+          end
+        end
+
+        # Remove the appended link
+        content[:details][:body] = body.to_html
+      end
+
+      content[:details][:body] = strip_newlines_surrounding_div(content[:details][:body])
     end
 
     # Delete the 'images' array (replacing old 'image' property)
@@ -234,5 +269,19 @@ private
     # So deliberately don't save ImageData or its Assets again.
     @artefacts_to_save << image
     image
+  end
+
+  def append_about_page_link_text(record, body)
+    if record.topical_event_about_page&.read_more_link_text.present?
+      @appended_about_page_link_govspeak = "\n\n[#{record.topical_event_about_page.read_more_link_text}](/government/topical-events/#{record.slug}/about)"
+      body += @appended_about_page_link_govspeak
+    end
+    body
+  end
+
+  # Replace any number of `\n\n\n\n\</div>` with `</div>`
+  # (Newlines can creep in when removing the 'read more link text', etc)
+  def strip_newlines_surrounding_div(html)
+    html.gsub(/(<div class="govspeak">)\n/, '\1').gsub(/\n+<\/div>/, "</div>")
   end
 end

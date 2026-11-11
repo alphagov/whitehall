@@ -19,17 +19,6 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
   end
 
   describe "#build_edition" do
-    it "raises an exception if passed a Topical Event that has an About page - we're not ready to migrate those yet" do
-      legacy_topical_event = create(:topical_event)
-      recipe = StandardEditionMigrator::TopicalEventRecipe.new
-
-      create(:topical_event_about_page, topical_event: legacy_topical_event, read_more_link_text: "Read more about this event")
-
-      assert_raises(WhitehallError) do
-        recipe.build_edition(legacy_topical_event)
-      end
-    end
-
     it "maps the basic legacy fields" do
       legacy_topical_event = create(
         :topical_event,
@@ -94,6 +83,19 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       edition = recipe.build_edition(legacy_topical_event)
 
       assert_equal("Sample body content", edition.block_content.to_h["body"])
+    end
+
+    it "appends the 'about_page_link_text' to  block_content" do
+      legacy_topical_event = create(
+        :topical_event,
+        description: "Sample body content",
+        slug: "slug-of-my-topical-event",
+        topical_event_about_page: create(:topical_event_about_page, read_more_link_text: "Read more about this event"),
+      )
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+
+      assert_equal "Sample body content\n\n[Read more about this event](/government/topical-events/slug-of-my-topical-event/about)", edition.block_content.to_h["body"]
     end
 
     it "creates a non-empty body for the new edition, even if the legacy record has no body" do
@@ -224,6 +226,38 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
       assert_equal legacy_offsite_link_featuring.image.filename, offsite_link_feature.image.filename
       assert_equal 7, govuk_content_feature.image.assets.size
       assert_equal 7, offsite_link_feature.image.assets.size
+    end
+
+    it "carries over the legacy Topical Event's offsite links, featured or not, as the new edition's" do
+      legacy_topical_event = create(:topical_event)
+      legacy_offsite_link_featuring = create(:offsite_topical_event_featuring, topical_event: legacy_topical_event)
+      unfeatured_offsite_link = create(:offsite_link, topical_events: [legacy_topical_event])
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+      edition.document = create(:document)
+      edition.save!(validate: false)
+      recipe.after_save_edition(edition, legacy_topical_event)
+      legacy_topical_event.update_column(:state, "deleted")
+      edition.reload
+
+      assert_same_elements [legacy_offsite_link_featuring.offsite_link, unfeatured_offsite_link], edition.offsite_links
+      assert_equal edition, edition.feature_lists.first.features.first.offsite_link.parent
+    end
+
+    it "repoints Features of the legacy Topical Event (e.g. on an organisation) to the new edition's document" do
+      legacy_topical_event = create(:topical_event)
+      feature = create(:feature, :with_topical_event_association, topical_event: legacy_topical_event)
+
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      edition = recipe.build_edition(legacy_topical_event)
+      edition.document = create(:document)
+      edition.save!(validate: false)
+      recipe.after_save_edition(edition, legacy_topical_event)
+      feature.reload
+
+      assert_equal edition.document, feature.document
+      assert_nil feature.topical_event_id
     end
 
     it "auto-increments the ordering of Features if the legacy TopicalEventFeaturing uses `order: 1` for each of them" do
@@ -432,7 +466,14 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
     it "ignores where we have defaulted the body to a value of '&nbsp;'" do
       recipe = StandardEditionMigrator::TopicalEventRecipe.new
       content = { details: { body: "<div class=\"govspeak\">\n</div>" } }
-      expected_content = { details: { body: "<div class=\"govspeak\"><p>&nbsp;</p>\n</div>" } }
+      expected_content = { details: { body: "<div class=\"govspeak\"><p> </p></div>" } }
+      assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
+    end
+
+    it "ignores about_page_link_text as this will now be appended to the Topical Event body" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = { details: { some: "content", about_page_link_text: "Read more about this event" } }
+      expected_content = { details: { some: "content" } }
       assert_equal expected_content, recipe.ignore_legacy_content_fields(content)
     end
   end
@@ -486,6 +527,25 @@ class TopicalEventRecipeTest < ActiveSupport::TestCase
         },
       }
       assert_equal expected_content, recipe.ignore_new_content_fields(content)
+    end
+
+    it "ignores appended 'read more link text' on the Topical Event body" do
+      recipe = StandardEditionMigrator::TopicalEventRecipe.new
+      content = {
+        details: {
+          some: "content",
+          body: "This is the body text \n<p><a href=\"/topical-events/my-event/about\">Read more</a></p>\n",
+        },
+      }
+      expected_content = {
+        details: {
+          some: "content",
+          body: "This is the body text",
+        },
+      }
+
+      recipe.instance_variable_set(:@appended_about_page_link_govspeak, "[Read more](/topical-events/my-event/about)")
+      assert_equal expected_content[:details][:body], recipe.ignore_new_content_fields(content)[:details][:body].strip
     end
   end
 
