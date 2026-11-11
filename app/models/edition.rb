@@ -198,7 +198,24 @@ class Edition < ApplicationRecord
 
       self.class.new(draft_attributes).tap do |draft|
         traits.each { |t| t.process_associations_before_draft_creation(draft) }
-        if (draft.valid? || !draft.errors.key?(:base)) && draft.save(validate: false)
+        # We want to save the draft even if it has field validation errors,
+        # as sometimes we introduce new validation rules that make existing
+        # content technically invalid. If we abort here, it would be
+        # impossible for publishers to create (and fix) new editions of their
+        # content.
+        #
+        # Whilst field errors like "title can't be blank" are allowed (they
+        # can be fixed in the edit form post-save), errors on 'base' mean we
+        # SHOULDN'T save, as they're issues that can't be fixed in the edit
+        # form and would be made worse by saving (e.g. enforcing a maximum of
+        # one of each kind of CorporateInformationPage for an Organisation).
+        draft.validate
+        unless draft.errors.key?(:base)
+          # `save!` is used so that if an associated record fails to save,
+          # the whole transaction is rolled back rather than leaving a partially
+          # saved edition.
+          # And `validate: false` because we've already validated above.
+          draft.save!(validate: false)
           traits.each { |t| t.process_associations_after_draft_creation(draft) }
         end
       end

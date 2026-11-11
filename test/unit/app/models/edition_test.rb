@@ -104,6 +104,17 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil new_draft.auth_bypass_id
   end
 
+  test "#create_draft raises, rather than persisting a partial draft, if an associated record fails to save" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
+    topical_event = create(:standard_edition, configurable_document_type: "topical_event")
+    published_edition = create(:published_speech, topical_event_documents: [topical_event.document])
+    writer = create(:writer)
+    EditionLink.any_instance.stubs(:valid?).returns(false)
+
+    assert_raises(ActiveRecord::RecordInvalid) { published_edition.create_draft(writer) }
+    assert_equal [published_edition], published_edition.document.reload.editions
+  end
+
   test ".latest_edition ignores deleted editions" do
     document = create(:document)
     original_edition = create(:published_edition, document:)
