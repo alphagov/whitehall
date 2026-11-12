@@ -1447,7 +1447,7 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "label[for=edition_topical_event_ids]", text: "Topical events"
+          assert_select "label[for=edition_topical_event_ids]", text: "Topical events (legacy - do not use)"
 
           assert_select "#edition_topical_event_ids" do |elements|
             assert_equal 1, elements.length
@@ -1477,7 +1477,7 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "label[for=edition_topical_event_ids]", text: "Topical events"
+          assert_select "label[for=edition_topical_event_ids]", text: "Topical events (legacy - do not use)"
 
           assert_select "#edition_topical_event_ids" do |elements|
             assert_equal 1, elements.length
@@ -1512,7 +1512,7 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events (experimental)"
+          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events"
 
           assert_select "#edition_topical_event_document_ids" do |elements|
             assert_equal 1, elements.length
@@ -1549,7 +1549,7 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events (experimental)"
+          assert_select "label[for=edition_topical_event_document_ids]", text: "Topical events"
 
           assert_select "#edition_topical_event_document_ids" do |elements|
             assert_equal 1, elements.length

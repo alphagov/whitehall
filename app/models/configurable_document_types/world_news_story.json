@@ -14,14 +14,14 @@
           "translatable": true
         },
         "topical_events": {
-          "title": "Topical Events",
+          "title": "Topical events (legacy - do not use)",
           "block": "select_with_search_tagging",
           "container": "topical_events",
           "attribute_path": ["topical_event_ids"],
           "translatable": false
         },
         "topical_event_documents": {
-          "title": "Topical Events (experimental)",
+          "title": "Topical events",
           "block": "select_with_search_tagging",
           "container": "topical_event_documents",
           "attribute_path": ["topical_event_document_ids"],
