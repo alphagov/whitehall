@@ -17,6 +17,7 @@
           error_items: errors_for(@translated_organisation.errors, :name),
           right_to_left: @translated_organisation.translation_locale.rtl?,
           right_to_left_help: false,
+          readonly: !can?(:edit_identity, @organisation),
         },
         details: {
           text: @organisation.name,
@@ -35,6 +36,7 @@
           error_items: errors_for(@translated_organisation.errors, :acronym),
           right_to_left: @translated_organisation.translation_locale.rtl?,
           right_to_left_help: false,
+          readonly: !can?(:edit_identity, @organisation),
         },
         details: {
           text: @organisation.acronym,
