@@ -10,6 +10,7 @@ class Admin::EmergencyBannerController < Admin::BaseController
 
   def destroy
     redis_client.del(:emergency_banner)
+    k8s_client.update_params(Kubernetes::EmergencyBannerConfigmapClient::EMPTY_PARAMS)
 
     redirect_to admin_emergency_banner_path
   end
@@ -35,6 +36,7 @@ class Admin::EmergencyBannerController < Admin::BaseController
         :link_text,
         emergency_banner_params[:link_text],
       )
+      k8s_client.update_params(emergency_banner_params.to_h.symbolize_keys)
 
       redirect_to admin_emergency_banner_path, notice: "Emergency banner updated sucessfully"
     else
@@ -69,5 +71,9 @@ private
       reconnect_delay: 15,
       reconnect_delay_max: 60,
     )
+  end
+
+  def k8s_client
+    Kubernetes::EmergencyBannerConfigmapClient.new
   end
 end
