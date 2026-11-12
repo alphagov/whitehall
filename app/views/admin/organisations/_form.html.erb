@@ -3,6 +3,12 @@
     text: "Changes to organisations appear instantly on the live site.",
   } %>
 
+  <% identity_locked = !can?(:edit_identity, organisation) %>
+
+  <% if identity_locked %>
+    <fieldset class="app-view-organisation__form__locked-identity" disabled="disabled">
+  <% end %>
+
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Name (required)",
@@ -36,6 +42,10 @@
     rows: 4,
     error_items: errors_for(organisation.errors, :logo_formatted_name),
   } %>
+
+  <% if identity_locked %>
+    </fieldset>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/select_with_search", {
     label: "Logo crest (required)",

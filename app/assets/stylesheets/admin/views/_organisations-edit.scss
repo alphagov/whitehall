@@ -2,3 +2,10 @@
 .app-view-organisation__form__non-departmental-public-body-fields--hidden {
   display: none;
 }
+
+.app-view-organisation__form__locked-identity {
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+}
