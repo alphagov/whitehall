@@ -7,7 +7,7 @@
   <div class="govuk-grid-column-two-thirds">
     <p class="govuk-body-l"><%= t("admin.whats_new.summary") %></p>
 
-    <p class="govuk-body app-view-whats-new__last-updated"><%= t("admin.whats_new.last_updated") %></p>
+    <p class="govuk-body app-view-whats-new__last-updated"><%= t("admin.whats_new.last_updated", date: @last_updated.to_fs(:long_ordinal)) %></p>
 
     <div id="content-list">
       <%= render "govuk_publishing_components/components/contents_list", {
