@@ -155,6 +155,16 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(user, other_org).can?(:manage_featured_links)
   end
 
+  test "can edit the identity of any organisation" do
+    user = gds_editor
+
+    editors_org = user.organisation
+    other_org = build(:organisation)
+
+    assert enforcer_for(user, editors_org).can?(:edit_identity)
+    assert enforcer_for(user, other_org).can?(:edit_identity)
+  end
+
   test "can mark editions as political" do
     assert enforcer_for(gds_editor, normal_edition).can?(:mark_political)
   end
