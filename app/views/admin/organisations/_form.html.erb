@@ -12,6 +12,7 @@
     id: "organisation_name",
     value: organisation.name,
     error_items: errors_for(organisation.errors, :name),
+    readonly: !can?(:edit_identity, organisation),
   } %>
 
   <%= render "govuk_publishing_components/components/input", {
@@ -23,6 +24,7 @@
     id: "organisation_acronym",
     value: organisation.acronym,
     error_items: errors_for(organisation.errors, :acronym),
+    readonly: !can?(:edit_identity, organisation),
   } %>
 
   <%= render "govuk_publishing_components/components/textarea", {
