@@ -65,7 +65,8 @@
         "body": "govspeak"
       },
       "links": [
-        "organisations"
+        "organisations",
+        "parent"
       ]
     }
   },
