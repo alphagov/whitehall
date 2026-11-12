@@ -200,6 +200,103 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisation_translations_path(organisation)
   end
 
+  test "update lets a role without the identity permission translate the identity fields" do
+    organisation = create(
+      :organisation,
+      name: "Afrolasia Field Office",
+      translated_into: {
+        fr: {
+          name: "Bureau Afrolasie",
+          acronym: "AFRO",
+          logo_formatted_name: "Bureau Afrolasie",
+        },
+      },
+    )
+    featured_link = create(:featured_link, linkable: organisation)
+    login_as(:writer, organisation)
+
+    put :update,
+        params: {
+          organisation_id: organisation,
+          id: "fr",
+          organisation: {
+            name: "Bureau du Bruit",
+            acronym: "BDB",
+            logo_formatted_name: "Bureau du Bruit",
+            featured_links_attributes: [
+              { id: featured_link.id, title: "Cliquez ici", url: "https://somewhere" },
+            ],
+          },
+        }
+
+    organisation.reload
+
+    with_locale :fr do
+      assert_equal "Bureau du Bruit", organisation.name
+      assert_equal "BDB", organisation.acronym
+      assert_equal "Bureau du Bruit", organisation.logo_formatted_name
+      assert_equal "Cliquez ici", organisation.featured_links.first.title
+    end
+
+    with_locale :en do
+      assert_equal "Afrolasia Field Office", organisation.name, "translating must not touch the English name"
+    end
+
+    assert_redirected_to admin_organisation_translations_path(organisation)
+  end
+
+  test "update does not let a writer change the English name by passing the en locale" do
+    login_as(:writer, @organisation)
+
+    put :update,
+        params: {
+          organisation_id: @organisation,
+          id: "en",
+          organisation: { name: "Bureau du Bruit" },
+        }
+
+    with_locale :en do
+      assert_equal "Afrolasia Office", @organisation.reload.name
+    end
+  end
+
+  view_test "edit leaves the translated identity fields editable for a role without the identity permission" do
+    organisation = create(:organisation, translated_into: [:fr])
+    login_as(:writer, organisation)
+
+    get :edit, params: { organisation_id: organisation, id: "fr" }
+
+    assert_select "fieldset.app-view-organisation__form__locked-identity", count: 0
+    assert_select "input[name='organisation[name]']"
+    assert_select "input[name='organisation[acronym]']"
+    assert_select "textarea[name='organisation[logo_formatted_name]']"
+  end
+
+  view_test "edit puts the English identity fields in a disabled fieldset for a role without the identity permission" do
+    login_as(:writer, @organisation)
+
+    get :edit, params: { organisation_id: @organisation, id: "en" }
+
+    assert_select "fieldset.app-view-organisation__form__locked-identity[disabled]" do
+      assert_select "input[name='organisation[name]']"
+      assert_select "input[name='organisation[acronym]']"
+      assert_select "textarea[name='organisation[logo_formatted_name]']"
+    end
+  end
+
+  view_test "edit leaves the English identity fields editable for GDS editors and GDS admins" do
+    %i[gds_editor gds_admin].each do |role|
+      login_as(create(role, organisation: @organisation))
+
+      get :edit, params: { organisation_id: @organisation, id: "en" }
+
+      assert_select "fieldset.app-view-organisation__form__locked-identity", count: 0
+      assert_select "input[name='organisation[name]']"
+      assert_select "input[name='organisation[acronym]']"
+      assert_select "textarea[name='organisation[logo_formatted_name]']"
+    end
+  end
+
   view_test "index hides actions from users who cannot edit the organisation" do
     login_as(:writer, create(:organisation))
     organisation = create(:organisation, translated_into: [:fr])
