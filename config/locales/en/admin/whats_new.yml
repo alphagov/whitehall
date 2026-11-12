@@ -7,7 +7,7 @@ en:
       title: What’s new in Whitehall Publisher
       summary: |
         Summary of updates from the last 12 months' work by the GOV.UK publishing team on Whitehall Publisher.
-      last_updated: Last updated 27 August 2026
+      last_updated: Last updated %{date}
       introduction:
         heading: Roadmap overview
         body_govspeak: |
