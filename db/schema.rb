@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_16_110000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_13_094429) do
   create_table "access_limiting_individuals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "edition_id", null: false
     t.string "email", null: false
@@ -676,6 +676,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_16_110000) do
     t.index ["nation_id"], name: "index_nation_inapplicabilities_on_nation_id"
   end
 
+  create_table "navigation_editions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "navigation_id", null: false
+    t.integer "edition_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_navigation_editions_on_edition_id", unique: true
+    t.index ["navigation_id"], name: "index_navigation_editions_on_navigation_id"
+  end
+
+  create_table "navigations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "content_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_navigations_on_content_id", unique: true
+  end
+
   create_table "offsite_link_parents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "offsite_link_id", null: false
     t.string "parent_type", null: false
@@ -1261,6 +1277,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_16_110000) do
   add_foreign_key "editions", "governments", on_delete: :nullify
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "link_checker_api_reports", "editions"
+  add_foreign_key "navigation_editions", "editions"
+  add_foreign_key "navigation_editions", "navigations"
   add_foreign_key "parent_child_relationships", "documents", column: "child_document_id"
   add_foreign_key "parent_child_relationships", "editions", column: "parent_edition_id"
   add_foreign_key "related_mainstreams", "editions"
