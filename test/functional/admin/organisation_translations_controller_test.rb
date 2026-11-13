@@ -200,6 +200,71 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisation_translations_path(organisation)
   end
 
+  test "update ignores identity changes from an unauthorised role, but saves their other changes" do
+    organisation = create(
+      :organisation,
+      translated_into: {
+        fr: {
+          name: "Bureau Afrolasie",
+          acronym: "AFRO",
+          logo_formatted_name: "Bureau Afrolasie",
+        },
+      },
+    )
+    featured_link = create(:featured_link, linkable: organisation)
+    login_as(:writer, organisation)
+
+    put :update,
+        params: {
+          organisation_id: organisation,
+          id: "fr",
+          organisation: {
+            name: "Bureau du Bruit",
+            acronym: "BDB",
+            logo_formatted_name: "Bureau du Bruit",
+            featured_links_attributes: [
+              { id: featured_link.id, title: "Cliquez ici", url: "https://somewhere" },
+            ],
+          },
+        }
+
+    organisation.reload
+
+    with_locale :fr do
+      assert_equal "Bureau Afrolasie", organisation.name
+      assert_equal "AFRO", organisation.acronym
+      assert_equal "Bureau Afrolasie", organisation.logo_formatted_name
+      assert_equal "Cliquez ici", organisation.featured_links.first.title, "a writer should still be able to translate featured links"
+    end
+
+    assert_redirected_to admin_organisation_translations_path(organisation)
+  end
+
+  test "update does not let a writer change the English name by passing the en locale" do
+    login_as(:writer, @organisation)
+
+    put :update,
+        params: {
+          organisation_id: @organisation,
+          id: "en",
+          organisation: { name: "Bureau du Bruit" },
+        }
+
+    with_locale :en do
+      assert_equal "Afrolasia Office", @organisation.reload.name
+    end
+  end
+
+  view_test "edit renders identity fields as readonly for an unauthorised role" do
+    organisation = create(:organisation, translated_into: [:fr])
+    login_as(:writer, organisation)
+
+    get :edit, params: { organisation_id: organisation, id: "fr" }
+
+    assert_select "input[name='organisation[name]'][readonly]"
+    assert_select "input[name='organisation[acronym]'][readonly]"
+  end
+
   view_test "index hides actions from users who cannot edit the organisation" do
     login_as(:writer, create(:organisation))
     organisation = create(:organisation, translated_into: [:fr])
