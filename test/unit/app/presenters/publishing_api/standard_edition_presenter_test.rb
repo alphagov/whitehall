@@ -476,7 +476,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it includes the features of the edition in the details if the document type has features enabled" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
-        "features_enabled" => true,
+        "features" => { "enabled" => true, "display_limit" => 6 },
       },
     }))
     featuring_edition = create(:published_standard_edition)
@@ -523,7 +523,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it does not include features in the details if the document type does not have features enabled" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
-        "features_enabled" => false,
+        "features" => { "enabled" => false },
       },
     }))
     featuring_edition = create(:published_standard_edition)
@@ -543,7 +543,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it includes the features for the correct locale when the edition has multiple locales" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
-        "features_enabled" => true,
+        "features" => { "enabled" => true, "display_limit" => 6 },
       },
     }))
     featuring_edition = create(:published_standard_edition)
@@ -577,7 +577,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it does not include features for a locale with no feature list" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
-        "features_enabled" => true,
+        "features" => { "enabled" => true, "display_limit" => 6 },
       },
     }))
     featuring_edition = create(:published_standard_edition)
@@ -597,7 +597,7 @@ class PublishingApi::StandardEditionPresenterTest < ActiveSupport::TestCase
   test "it includes featured offsite links in the ordered featured documents" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => {
-        "features_enabled" => true,
+        "features" => { "enabled" => true, "display_limit" => 6 },
       },
     }))
     featuring_edition = create(:published_standard_edition)

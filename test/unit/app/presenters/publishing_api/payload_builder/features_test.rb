@@ -7,7 +7,7 @@ module PublishingApi
       test "it returns the expected featured documents" do
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
           "settings" => {
-            "features_enabled" => true,
+            "features" => { "enabled" => true },
           },
         }))
         featuring_edition = create(:published_standard_edition)
@@ -69,7 +69,7 @@ module PublishingApi
       test "it returns an empty array if there are no features" do
         ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
           "settings" => {
-            "features_enabled" => true,
+            "features" => { "enabled" => true },
           },
         }))
 

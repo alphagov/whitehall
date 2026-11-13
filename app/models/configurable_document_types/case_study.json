@@ -107,6 +107,9 @@
     },
     "send_change_history": true,
     "file_attachments_enabled": true,
+    "features": {
+      "enabled": false
+    },
     "organisations": null,
     "backdating_enabled": true,
     "history_mode_enabled": true,

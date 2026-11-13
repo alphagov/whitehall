@@ -3,7 +3,7 @@ require "test_helper"
 class Admin::FeaturesHelperTest < ActionView::TestCase
   extend Minitest::Spec::DSL
   setup do
-    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features_enabled" => true } })
+    topical_event_type = build_configurable_document_type("topical_event", { "settings" => { "features" => { "enabled" => true } } })
     test_type_with_topical_event_association = build_configurable_document_type("test_type", { "associations" => [
       {
         "key" => "topical_event_documents",

@@ -518,6 +518,25 @@
             "required": ["document_type"],
             "additionalProperties": false
           }
+        },
+        "features": {
+          "type": "object",
+          "description": "Featured links help users to highlight important internal and external links on a page.",
+          "additionalProperties": false,
+          "required": ["enabled"],
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether featured links can be set for this document type. When enabled, it renders the 'Featured' tab."
+            },
+            "display_limit": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "The maximum number of featured links that can be published on the page for this document type."
+            }
+          },
+          "if": { "properties": { "enabled": { "const": true } } },
+          "then": { "required": ["display_limit"] }
         }
       },
       "required": [

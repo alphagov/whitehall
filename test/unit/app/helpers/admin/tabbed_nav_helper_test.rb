@@ -235,7 +235,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
   end
 
   test "#secondary_navigation_tabs_items for standard editions with features enabled" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "features_enabled" => true } }))
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "features" => { "enabled" => true } } }))
 
     edition = build_stubbed(:standard_edition, primary_locale: "cy")
 
@@ -427,7 +427,7 @@ class Admin::TabbedNavHelperTest < ActionView::TestCase
 
   test "#secondary_navigation_tabs_items for StandardEdition with tabs does not highlight any config-driven tab when on a legacy tab" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
-      "settings" => { "images" => { "enabled" => true }, "features_enabled" => true },
+      "settings" => { "images" => { "enabled" => true }, "features" => { "enabled" => true } },
       "forms" => {
         "documents" => {
           "fields" => {

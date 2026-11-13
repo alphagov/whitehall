@@ -126,6 +126,28 @@ class ValidateConfigurableDocumentSchemasTest < ActiveSupport::TestCase
           assert_not SchemaValidator.for(document).empty?
         end
       end
+
+      context "`features` has been set" do
+        it "is valid when enabled with a `display_limit`" do
+          document["settings"]["features"] = { "enabled" => true, "display_limit" => 6 }
+          assert SchemaValidator.for(document).empty?
+        end
+
+        it "is invalid when enabled without a `display_limit`" do
+          document["settings"]["features"] = { "enabled" => true }
+          assert_equal SchemaValidator.for(document).first, "object at `/settings/features` is missing required properties: display_limit"
+        end
+
+        it "is valid when disabled without a `display_limit`" do
+          document["settings"]["features"] = { "enabled" => false }
+          assert SchemaValidator.for(document).empty?
+        end
+
+        it "is invalid when `display_limit` is less than 1" do
+          document["settings"]["features"] = { "enabled" => true, "display_limit" => 0 }
+          assert_not SchemaValidator.for(document).empty?
+        end
+      end
     end
 
     context "validating `schema`" do

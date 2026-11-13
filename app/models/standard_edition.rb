@@ -16,8 +16,6 @@ class StandardEdition < Edition
   include StandardEdition::ChildDocument
   include StandardEdition::ParentDocument
 
-  FEATURED_DOCUMENTS_DISPLAY_LIMIT = 6
-
   attr_accessor :current_tab_context
 
   validates :configurable_document_type, presence: true, inclusion: { in: -> { ConfigurableDocumentType.all_keys } }
@@ -96,7 +94,11 @@ class StandardEdition < Edition
   end
 
   def allows_features?
-    type_instance.settings["features_enabled"]
+    type_instance.settings.dig("features", "enabled")
+  end
+
+  def featured_documents_display_limit
+    type_instance.settings.dig("features", "display_limit")
   end
 
   def allows_child_documents?
