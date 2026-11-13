@@ -56,12 +56,6 @@ class ImageUploader < WhitehallUploader
     end
   end
 
-  def image_cache
-    if send("cache_id").present?
-      file.file.gsub("/govuk/whitehall/carrierwave-tmp/", "")
-    end
-  end
-
   def height_range
     return unless bitmap?(file)
 

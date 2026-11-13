@@ -38,10 +38,6 @@ class FeaturedImageUploader < WhitehallUploader
     end
   end
 
-  def image_cache
-    file.file.gsub("/govuk/whitehall/carrierwave-tmp/", "") if send("cache_id").present?
-  end
-
   def check_dimensions!(new_file)
     super
   rescue MiniMagick::Error

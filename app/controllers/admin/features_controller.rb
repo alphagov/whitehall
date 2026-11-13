@@ -3,6 +3,7 @@ class Admin::FeaturesController < Admin::BaseController
   before_action :determine_if_read_only
   before_action :enforce_permissions!
   before_action :build_feature, only: %i[new create]
+  before_action :find_feature, only: %i[edit update]
   before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
 
   def new; end
@@ -15,6 +16,18 @@ class Admin::FeaturesController < Admin::BaseController
     else
       flash.now[:alert] = "Unable to create feature"
       render :new
+    end
+  end
+
+  def edit; end
+
+  def update
+    if @feature.update(update_feature_params)
+      @feature.republish_featurable_to_publishing_api
+      redirect_to admin_feature_list_path(@feature_list), notice: "'#{@feature}' updated"
+    else
+      flash.now[:alert] = "Unable to update feature"
+      render :edit
     end
   end
 
@@ -53,6 +66,29 @@ private
       :offsite_link_id,
       image_attributes: %i[file],
     )
+  end
+
+  def find_feature
+    @feature = @feature_list.features.find(params[:id])
+  end
+
+  # Only the image and alt text can be changed; what is being featured cannot.
+  def update_feature_params
+    params.fetch(:feature, {}).permit(
+      :alt_text,
+      image_attributes: %i[id file file_cache],
+    ).tap do |permitted|
+      image_attributes = permitted[:image_attributes]
+      next if image_attributes.blank?
+
+      if image_attributes[:file].blank?
+        # No new file selected, so keep the existing image
+        image_attributes.delete(:file)
+      else
+        # A newly selected file takes precedence over one cached from a previous failed submission
+        image_attributes.delete(:file_cache)
+      end
+    end
   end
 
   def find_edition

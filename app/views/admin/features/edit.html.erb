@@ -1,0 +1,58 @@
+<% content_for :page_title, "Edit feature" %>
+<% content_for :title, "Edit feature ‘#{@feature}’ within ‘#{@feature_list}’" %>
+<% content_for :error_summary, render(Admin::ErrorSummaryComponent.new(object: @feature)) %>
+
+<% unless @feature_list.featurable_type == "Edition" %>
+  <%= render "govuk_publishing_components/components/warning_text", {
+    text: "Changes to features appear instantly on the live site.",
+  } %>
+<% end %>
+
+<% unless @feature_list.featurable_type == "Organisation" %>
+  <%= render "govuk_publishing_components/components/warning_text", {
+    text: "Any access limiting settings you have set will have no effect on this image.",
+  } %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @feature, url: admin_feature_list_feature_path(@feature_list, @feature), method: :put, multipart: true do |form| %>
+      <%= hidden_field_tag "feature[image_attributes][id]", @feature.image.id %>
+
+      <%= render "components/single_image_upload", {
+        title: "Image",
+        name: "feature[image_attributes]",
+        id: "feature_image",
+        image_id: "feature_image_file",
+        image_name: "feature[image_attributes][file]",
+        remove_alt_text_field: true,
+        filename: @feature.image.filename,
+        page_errors: @feature.errors.any?,
+        error_items: errors_for(@feature.errors, :"image.file"),
+        image_src: @feature.image.url,
+        image_cache_name: "feature[image_attributes][file_cache]",
+        image_cache: @feature.image.file_cache.presence,
+        image_uploaded: @feature.image.all_asset_variants_uploaded?,
+        image_hint: "Select a 960px wide and 640px tall image to be shown when featuring",
+      } %>
+
+      <%= render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Image description (alt text)",
+        },
+        heading_size: "l",
+        name: "feature[alt_text]",
+        id: "feature_alt_text",
+        value: @feature.alt_text,
+        error_message: errors_for_input(@feature.errors, :alt_text),
+      } %>
+
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Save",
+        } %>
+        <%= link_to "Cancel", admin_feature_list_path(@feature_list), class: "govuk-link govuk-link--no-visited-state" %>
+      </div>
+    <% end %>
+  </div>
+</div>

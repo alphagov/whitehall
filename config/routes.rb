@@ -402,7 +402,7 @@ Whitehall::Application.routes.draw do
         get :reorder, on: :member
         post :update_order, on: :member
 
-        resources :features, only: %i[new create] do
+        resources :features, only: %i[new create edit update] do
           get :confirm_unfeature, on: :member
           post :unfeature, on: :member
         end
