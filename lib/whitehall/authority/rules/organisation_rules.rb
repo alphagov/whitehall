@@ -4,6 +4,8 @@ module Whitehall::Authority::Rules
       case action
       when :create, :delete
         actor.gds_admin?
+      # :edit covers the Contacts, People and Promotional features tabs, not the Details screen.
+      # TODO: split :edit into a permission per tab, so each one names what it guards.
       when :edit, :manage_features
         actor.gds_admin? || actor.gds_editor? || actor_is_from_organisation_or_parent?(actor, subject)
       when :edit_details

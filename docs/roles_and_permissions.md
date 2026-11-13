@@ -22,7 +22,8 @@
 - **Organisations:**
   - `index`, `show`, `features`, `about`, `organisations/people#index`, `promotional_features#index`, `#show`
   - `destroy`, `confirm_destroy`
-  - `edit`/`update`, `organisation_people#reorder`/`#order`, `promotional_features` (create/edit/destroy/reorder), contacts, contact translations, organisation translations and features (feature, unfeature, reorder), only for **own org or a child org**
+  - `organisation_people#reorder`/`#order`, `promotional_features` (create/edit/destroy/reorder), contacts, contact translations, and features (feature, unfeature, reorder), only for **own org or a child org**
+  - organisation translations `index` only, for **any** org
   - offsite links and promotional feature items for **any** org
 - **People and roles:**
   - people: new, create, show, index; edit/update/destroy/reorder for anyone who isn't a PM
@@ -49,11 +50,11 @@
 - Unpublishing and withdrawing: `unpublish`, `unwithdraw`, `edition_unpublishing#edit`/`#update`
 - `statistics_announcement_unpublishings#new`, `#create`
 - Marking an edition as political
-- Featured links for own/child org
+- `organisations#edit`/`#update` (the Details screen, including homepage position and featured links) and organisation translations (create/edit/destroy), for **own org or a child org**. The organisation's name, acronym and logo formatted name stay read-only; those need GDS Editor or GDS Admin
 
 ### GDS Editor
 
-- Editing any organisation (including its contacts, translations and features), and managing featured links
+- Editing any organisation (including its contacts, translations and features), and its name, acronym and logo formatted name
 - `cabinet_ministers#*` (reordering)
 - `policy_groups#destroy`
 - `sitewide_settings#*`
