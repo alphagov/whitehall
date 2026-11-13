@@ -101,6 +101,25 @@ class MergePeopleTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { person_to_merge.reload }
   end
 
+  test "does not rewire role appointments for people and delete the person to merge if a dry run" do
+    person_to_merge = create(:person)
+    role_to_merge = create(:role, name: "Role to Merge")
+    ra_merge = create(:role_appointment, role: role_to_merge, person: person_to_merge)
+
+    person_to_keep = create(:person)
+    role_to_keep = create(:role, name: "Role to Keep")
+    ra_keep = create(:role_appointment, role: role_to_keep, person: person_to_keep)
+
+    out, _err = capture_io { task.invoke(person_to_merge.id, person_to_keep.id, true) }
+
+    assert_not_equal ra_merge.reload.person_id, person_to_keep.id
+    assert_equal ra_keep.reload.person_id, person_to_keep.id
+    assert_equal person_to_keep.reload.role_appointments.count, 1
+    assert_includes out, "Linking role appointment #{ra_merge.id}: 'Role to Merge' from person #{person_to_merge.id} (#{person_to_merge.full_name}), to person #{person_to_keep.id} (#{person_to_keep.full_name})"
+    assert_includes out, "Destroying Person ID: #{person_to_merge.id} (#{person_to_merge.full_name})"
+    assert person_to_merge
+  end
+
   test "redirects the deleted person to the person to keep" do
     person_to_merge = create(:person)
     create(:role_appointment, person: person_to_merge)
@@ -117,6 +136,19 @@ class MergePeopleTest < ActiveSupport::TestCase
     ).returns(OpenStruct.new(code: 200, raw_response_body: "success"))
 
     out, _err = capture_io { task.invoke(person_to_merge.id, person_to_keep.id) }
+
+    assert_includes out, "Redirecting the deleted person of content ID: '#{person_to_merge.content_id}' to the person to keep, at path: '/government/people/#{person_to_keep.slug}'"
+  end
+
+  test "does not redirect the deleted person to the person to keep if is a dry run" do
+    person_to_merge = create(:person)
+    create(:role_appointment, person: person_to_merge)
+    person_to_keep = create(:person)
+    create(:role_appointment, person: person_to_keep)
+
+    Services.publishing_api.expects(:unpublish).never
+
+    out, _err = capture_io { task.invoke(person_to_merge.id, person_to_keep.id, true) }
 
     assert_includes out, "Redirecting the deleted person of content ID: '#{person_to_merge.content_id}' to the person to keep, at path: '/government/people/#{person_to_keep.slug}'"
   end
