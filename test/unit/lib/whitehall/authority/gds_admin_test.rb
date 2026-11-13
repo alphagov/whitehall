@@ -20,6 +20,10 @@ class GDSAdminTest < ActiveSupport::TestCase
     assert enforcer_for(gds_admin, Organisation).can?(:create)
   end
 
+  test "gds admin can edit an organisation's details" do
+    assert enforcer_for(gds_admin, build(:organisation)).can?(:edit_details)
+  end
+
   test "non gds admin cannot edit an organisation's identity" do
     assert_not enforcer_for(non_gds_admin, build(:organisation)).can?(:edit_identity)
   end

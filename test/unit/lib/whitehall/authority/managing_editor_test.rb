@@ -142,6 +142,18 @@ class ManagingEditorTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, other_org).can?(:manage_featured_links)
   end
 
+  test "can edit the details of their organisation and child organisation" do
+    user = managing_editor
+
+    editors_org = user.organisation
+    child_org = create(:organisation, parent_organisations: [editors_org])
+    other_org = build(:organisation)
+
+    assert enforcer_for(user, editors_org).can?(:edit_details)
+    assert enforcer_for(user, child_org).can?(:edit_details)
+    assert_not enforcer_for(user, other_org).can?(:edit_details)
+  end
+
   test "cannot edit the identity of any organisation" do
     user = managing_editor
 
