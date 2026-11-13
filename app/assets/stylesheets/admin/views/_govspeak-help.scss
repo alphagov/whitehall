@@ -7,7 +7,7 @@
   padding: govuk-spacing(2);
   background-color: govuk-colour("black", $variant: "tint-95");
   word-break: normal;
-  word-wrap: normal;
+  overflow-wrap: normal;
   overflow: auto;
   white-space: pre-wrap;
 }
