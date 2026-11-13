@@ -447,7 +447,7 @@ GEM
     minitest-stub-const (0.6)
     mocha (3.1.0)
       ruby2_keywords (>= 0.0.5)
-    msgpack (1.8.6)
+    msgpack (1.8.7)
     multi_test (1.1.0)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
