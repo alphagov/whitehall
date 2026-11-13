@@ -283,39 +283,37 @@
     <% end %>
   <% end %>
 
-  <% if can?(:manage_featured_links, @organisation) %>
-    <%= render "govuk_publishing_components/components/radio", {
-      heading: "Position of featured links on organisation homepage",
-      heading_size: "l",
-      name: "organisation[homepage_type]",
-      id: "organisation_homepage_type",
-      error_items: errors_for(@organisation.errors, :homepage_type),
-      items: [
-        {
-          value: "news",
-          text: "News priority",
-          hint_text: "Up to 5 links",
-          checked: @organisation.homepage_type == "news",
-        },
-        {
-          value: "service",
-          text: "Service priority",
-          hint_text: "Up to 10 links",
-          checked:  @organisation.homepage_type == "service",
-        },
-      ],
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: "Position of featured links on organisation homepage",
+    heading_size: "l",
+    name: "organisation[homepage_type]",
+    id: "organisation_homepage_type",
+    error_items: errors_for(@organisation.errors, :homepage_type),
+    items: [
+      {
+        value: "news",
+        text: "News priority",
+        hint_text: "Up to 5 links",
+        checked: @organisation.homepage_type == "news",
+      },
+      {
+        value: "service",
+        text: "Service priority",
+        hint_text: "Up to 10 links",
+        checked:  @organisation.homepage_type == "service",
+      },
+    ],
+  } %>
+
+  <div class="app-view-organisation__featured_links">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Featured links",
+      font_size: "l",
+      margin_bottom: 3,
     } %>
 
-    <div class="app-view-organisation__featured_links">
-      <%= render "govuk_publishing_components/components/heading", {
-        text: "Featured links",
-        font_size: "l",
-        margin_bottom: 3,
-      } %>
-
-      <%= render "admin/shared/featured_links_fields", form: form, remove_banner: true %>
-    </div>
-  <% end %>
+    <%= render "admin/shared/featured_links_fields", form: form, remove_banner: true %>
+  </div>
 
   <div class="app-view-organisation__form__non-departmental-public-body-field js-view-organisation__form__non-departmental-public-body-fields <%= "app-view-organisation__form__non-departmental-public-body-fields--hidden" unless organisation.type&.non_departmental_public_body? %>">
     <%= render "govuk_publishing_components/components/fieldset", {

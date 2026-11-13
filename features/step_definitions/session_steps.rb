@@ -19,7 +19,7 @@ Given(/^I am (?:a|an) (writer|editor|admin|GDS editor|GDS admin|importer|managin
   login_as @user
 end
 
-Given(/^I am (?:an?) (admin|writer|editor|GDS editor) in the organisation "([^"]*)"$/) do |role, organisation_name|
+Given(/^I am (?:an?) (admin|writer|editor|managing editor|GDS editor) in the organisation "([^"]*)"$/) do |role, organisation_name|
   @organisation = Organisation.find_by(name: organisation_name) || create_org_and_stub_content_store(:ministerial_department, name: organisation_name)
   @user = case role
           when "admin"
@@ -28,6 +28,8 @@ Given(/^I am (?:an?) (admin|writer|editor|GDS editor) in the organisation "([^"]
             create(:writer, name: "Wally Writer", organisation: @organisation)
           when "editor"
             create(:departmental_editor, name: "Eddie Depteditor", organisation: @organisation)
+          when "managing editor"
+            create(:managing_editor, name: "Mandy Managingeditor", organisation: @organisation)
           when "GDS editor"
             create(:gds_editor, organisation: @organisation)
           end

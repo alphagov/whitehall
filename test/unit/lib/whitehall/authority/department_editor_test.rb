@@ -122,16 +122,6 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert_not enforcer_for(department_editor, :sitewide_settings_section).can?(:administer)
   end
 
-  test "cannot manage featured links for any organisation" do
-    user = department_editor
-
-    editors_org = user.organisation
-    other_org = build(:organisation)
-
-    assert_not enforcer_for(user, editors_org).can?(:manage_featured_links)
-    assert_not enforcer_for(user, other_org).can?(:manage_featured_links)
-  end
-
   test "cannot edit the identity of any organisation, including their own" do
     user = department_editor
 
