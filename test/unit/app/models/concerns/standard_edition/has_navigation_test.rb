@@ -54,6 +54,25 @@ class StandardEdition::HasNavigationTest < ActiveSupport::TestCase
     assert_nil edition.navigation_edition
   end
 
+  test "creating a new draft creates a new navigation edition for the same navigation" do
+    test_type = build_configurable_document_type("test_type_with_navigation", {
+      "settings" => {
+        "navigation_enabled" => true,
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    edition = create(:published_standard_edition, configurable_document_type: "test_type_with_navigation")
+
+    draft = nil
+    assert_no_difference "Navigation.count" do
+      draft = edition.create_draft(create(:writer))
+    end
+
+    assert_not_equal edition.navigation_edition, draft.navigation_edition
+    assert_equal edition.navigation, draft.navigation
+  end
+
   test "defines StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV" do
     assert defined?(StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV)
     assert_equal 7, StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV
