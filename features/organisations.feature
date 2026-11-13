@@ -48,6 +48,7 @@ Feature: Administering Organisations
     Then I see that the featured "Super topical" has the image "big-cheese.960x640.jpg" with alt text "A big cheese"
 
   Scenario: Requesting publications in alternative format
+    Given I have the "Managing Editor" permission
     And I set the alternative format contact email of "Ministry of Pop" to "alternative.format@ministry-of-pop.gov.uk"
     And a published publication "Charleston styles today" with a PDF attachment and alternative format provider "Ministry of Pop"
     Then the alternative format contact email is "alternative.format@ministry-of-pop.gov.uk"
@@ -60,6 +61,7 @@ Feature: Administering Organisations
 
   Scenario: Admin closes an organisation, superseding it with another one
     Given I am an editor in the organisation "Department of wombat population control"
+    And I have the "Managing Editor" permission
     And the organisation "Wimbledon council of wombat population control" exists
     When I close the organisation "Department of wombat population control", superseding it with the organisation "Wimbledon council of wombat population control"
     Then I can see that the organisation "Department of wombat population control" has been superseded with the organisaion "Wimbledon council of wombat population control"
