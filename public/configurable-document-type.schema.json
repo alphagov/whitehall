@@ -523,6 +523,7 @@
           "type": "object",
           "description": "Featured links help users to highlight important internal and external links on a page.",
           "additionalProperties": false,
+          "required": ["enabled"],
           "properties": {
             "enabled": {
               "type": "boolean",
