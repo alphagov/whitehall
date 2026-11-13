@@ -3,6 +3,7 @@ module StandardEdition::HasNavigation
 
   included do
     has_one :navigation_edition, foreign_key: :edition_id
+    has_one :navigation, through: :navigation_edition
   end
 
   MAX_CHILD_PAGES_IN_NAV = 7
