@@ -1,4 +1,4 @@
-module StandardEdition::Navigation
+module StandardEdition::HasNavigation
   extend ActiveSupport::Concern
 
   MAX_CHILD_PAGES_IN_NAV = 7
