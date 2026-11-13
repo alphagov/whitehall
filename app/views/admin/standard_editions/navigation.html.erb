@@ -23,7 +23,7 @@
       margin_bottom: 4,
     } %>
 
-    <p class="govuk-body">Add an optional navigation menu that will appear on each page of your mini site.  You can include up to <%= StandardEdition::Navigation::MAX_CHILD_PAGES_IN_NAV %> child pages.</p>
+    <p class="govuk-body">Add an optional navigation menu that will appear on each page of your mini site.  You can include up to <%= StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV %> child pages.</p>
 
     <% if @child_editions.blank? %>
       <%= render "govuk_publishing_components/components/inset_text", {
