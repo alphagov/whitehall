@@ -27,7 +27,7 @@ class StandardEdition::HasNavigationTest < ActiveSupport::TestCase
     assert edition.allows_navigation?
   end
 
-  test "allows associating with a navigation edition" do
+  test "creates a navigation and navigation edition when a navigation-enabled edition is created" do
     test_type = build_configurable_document_type("test_type_with_navigation", {
       "settings" => {
         "navigation_enabled" => true,
@@ -36,23 +36,22 @@ class StandardEdition::HasNavigationTest < ActiveSupport::TestCase
     ConfigurableDocumentType.setup_test_types(test_type)
 
     edition = create(:standard_edition, configurable_document_type: "test_type_with_navigation")
-    navigation_edition = create(:navigation_edition, edition: edition)
 
-    assert_equal navigation_edition, edition.navigation_edition
+    assert edition.navigation_edition.persisted?
+    assert edition.navigation.content_id.present?
   end
 
-  test "allows fetching the navigation via the navigation edition" do
-    test_type = build_configurable_document_type("test_type_with_navigation", {
+  test "doesn't create a navigation when a navigation-disabled edition is created" do
+    test_type = build_configurable_document_type("test_type_without_navigation", {
       "settings" => {
-        "navigation_enabled" => true,
+        "navigation_enabled" => false,
       },
     })
     ConfigurableDocumentType.setup_test_types(test_type)
 
-    edition = create(:standard_edition, configurable_document_type: "test_type_with_navigation")
-    navigation_edition = create(:navigation_edition, edition: edition)
+    edition = create(:standard_edition, configurable_document_type: "test_type_without_navigation")
 
-    assert_equal navigation_edition.navigation, edition.navigation
+    assert_nil edition.navigation_edition
   end
 
   test "defines StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV" do
