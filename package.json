@@ -32,8 +32,8 @@
     "postcss": "^8.5.32",
     "prettier": "^3.9.10",
     "standard": "^17.1.2",
-    "stylelint": "^16.26.1",
-    "stylelint-config-gds": "^2.0.0"
+    "stylelint": "^17.16.0",
+    "stylelint-config-gds": "^3.0.0"
   },
   "resolutions": {
     "selenium-webdriver": "4.17.0",

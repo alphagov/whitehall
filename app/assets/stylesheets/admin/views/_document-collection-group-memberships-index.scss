@@ -23,7 +23,7 @@
 }
 
 .app-view-document-collection-group-memberships-index__table .govuk-table__cell {
-  word-break: break-word;
+  overflow-wrap: break-word;
 
   &:last-child {
     white-space: nowrap;
