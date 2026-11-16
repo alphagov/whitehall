@@ -27,7 +27,7 @@ module StandardEdition::ChildDocument
   end
 
   def other_child_editions
-    parent_edition.child_editions.where.not(document_id:)
+    latest_parent_edition.child_editions.where.not(document_id:)
   end
 
   def latest_parent_edition
