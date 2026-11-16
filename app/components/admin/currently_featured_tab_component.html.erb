@@ -2,13 +2,13 @@
   text: "Currently featured",
 } %>
 
-<% if featured.many? && !read_only %>
+<% if features.many? && !read_only %>
   <p class="govuk-body">
     <%= link_to "Reorder pages", reorder_path, class: "govuk-link" %>
   </p>
 <% end %>
 
-<% if featured.present? %>
+<% if features.present? %>
   <div class="app-view-features__table govuk-!-margin-bottom-8">
     <%= table(nil, live) %>
   </div>

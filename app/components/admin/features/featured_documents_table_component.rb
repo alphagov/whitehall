@@ -2,7 +2,6 @@
 
 class Admin::Features::FeaturedDocumentsTableComponent < ViewComponent::Base
   include Admin::EditionRoutesHelper
-  include Admin::OrganisationHelper
   include Admin::FeaturesHelper
 
   attr_reader :caption, :features, :read_only
@@ -35,8 +34,6 @@ private
   def title(feature)
     if feature.document&.live_edition.present?
       feature
-    elsif feature.topical_event.present? # legacy
-      feature.topical_event
     elsif feature.offsite_link.present?
       feature.offsite_link
     else
@@ -53,8 +50,6 @@ private
   def type(feature)
     if feature.document&.live_edition.present?
       feature.document.live_edition.display_type.to_s
-    elsif feature.topical_event.present?
-      "Topical Event"
     elsif feature.offsite_link.present?
       "#{feature.offsite_link.humanized_link_type} (external link)"
     else
@@ -79,8 +74,6 @@ private
   def edit_link(feature)
     if feature.document&.live_edition.present?
       link_to(sanitize("Edit #{tag.span(feature, class: 'govuk-visually-hidden')}"), admin_edition_path(feature.document.live_edition), class: "govuk-link")
-    elsif feature.topical_event.present? # legacy
-      link_to(sanitize("Edit #{tag.span(feature.topical_event, class: 'govuk-visually-hidden')}"), edit_admin_topical_event_path(feature.topical_event), class: "govuk-link")
     elsif feature.offsite_link.present?
       link_to(sanitize("Edit #{tag.span(feature.offsite_link, class: 'govuk-visually-hidden')}"), polymorphic_path([:edit, :admin, feature.offsite_link.parent, feature.offsite_link]), class: "govuk-link")
     else
@@ -89,7 +82,7 @@ private
   end
 
   def edit_image_link(feature)
-    if feature.document&.live_edition.present? || feature.topical_event.present? || feature.offsite_link.present?
+    if feature.document&.live_edition.present? || feature.offsite_link.present?
       link_to(sanitize("Edit image #{tag.span("for #{title(feature)}", class: 'govuk-visually-hidden')}"), edit_admin_feature_list_feature_path(feature.feature_list, feature), class: "govuk-link govuk-!-margin-left-2")
     else
       ""
@@ -97,7 +90,7 @@ private
   end
 
   def unfeature_link(feature)
-    if feature.document&.live_edition.present? || feature.topical_event.present? || feature.offsite_link.present?
+    if feature.document&.live_edition.present? || feature.offsite_link.present?
       link_to(sanitize("Unfeature #{tag.span(title(feature), class: 'govuk-visually-hidden')}"), confirm_unfeature_admin_feature_list_feature_path(feature.feature_list, feature), class: "gem-link--destructive govuk-!-margin-left-2")
     else
       ""
