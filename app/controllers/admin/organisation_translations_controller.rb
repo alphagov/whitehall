@@ -1,5 +1,6 @@
 class Admin::OrganisationTranslationsController < Admin::BaseController
   include TranslationControllerConcern
+  include OrganisationsConcern
 
   before_action :enforce_permissions!, except: %i[index]
 
@@ -20,10 +21,14 @@ private
   end
 
   def translation_params
-    params.require(:organisation).permit(
+    permitted_params = params.require(:organisation).permit(
       :name, :acronym, :logo_formatted_name,
       featured_links_attributes: %i[title url _destroy id]
     )
+
+    return permitted_params unless translation_locale.english?
+
+    without_unauthorised_identity_attributes(permitted_params)
   end
 
   def translatable_item

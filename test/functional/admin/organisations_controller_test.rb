@@ -432,6 +432,100 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "#organisation_political"
   end
 
+  view_test "Organisation identity fields sit in a disabled fieldset for writers, departmental editors and managing editors" do
+    organisation = create(:organisation)
+
+    %i[writer departmental_editor managing_editor].each do |role|
+      login_as(create(role, organisation:))
+
+      get :edit, params: { id: organisation }
+
+      assert_select "fieldset.app-view-organisation__form__locked-identity[disabled]" do
+        assert_select "#organisation_name"
+        assert_select "#organisation_acronym"
+        assert_select "#organisation_logo_formatted_name"
+      end
+    end
+  end
+
+  view_test "Organisation identity fields are editable for GDS editors and GDS admins" do
+    organisation = create(:organisation)
+
+    %i[gds_editor gds_admin].each do |role|
+      login_as(create(role, organisation:))
+
+      get :edit, params: { id: organisation }
+
+      assert_select "fieldset.app-view-organisation__form__locked-identity", count: 0
+      assert_select "#organisation_name"
+      assert_select "#organisation_acronym"
+      assert_select "#organisation_logo_formatted_name"
+    end
+  end
+
+  test "PUT on :update ignores identity changes from writers, departmental editors and managing editors, but saves their other changes" do
+    organisation = create(:organisation, name: "Ministry of Test", acronym: "MoT", logo_formatted_name: "Ministry of\nTest")
+
+    %i[writer departmental_editor managing_editor].each do |role|
+      login_as(create(role, organisation:))
+
+      put :update,
+          params: {
+            id: organisation,
+            organisation: {
+              name: "Ministry of Test",
+              acronym: "CHANGED",
+              logo_formatted_name: "Ministry of\nTest",
+              alternative_format_contact_email: "#{role}@example.com",
+            },
+          }
+
+      assert_response :redirect
+      organisation.reload
+      assert_equal "Ministry of Test", organisation.name
+      assert_equal "MoT", organisation.acronym
+      assert_equal "Ministry of\nTest", organisation.logo_formatted_name
+      assert_equal "#{role}@example.com", organisation.alternative_format_contact_email, "a #{role} should still be able to save non-identity fields"
+    end
+  end
+
+  test "PUT on :update allows a GDS editor to change the organisation identity fields" do
+    organisation = create(:organisation, name: "Ministry of Test", acronym: "MoT", logo_formatted_name: "Ministry of\nTestTest")
+    login_as(create(:gds_editor, organisation:))
+
+    put :update,
+        params: {
+          id: organisation,
+          organisation: {
+            name: "Ministry of Test",
+            acronym: "MoT-Updated",
+            logo_formatted_name: "Ministry of\nTest",
+          },
+        }
+
+    assert_response :redirect
+    organisation.reload
+    assert_equal "Ministry of Test", organisation.name
+    assert_equal "MoT-Updated", organisation.acronym
+    assert_equal "Ministry of\nTest", organisation.logo_formatted_name
+  end
+
+  test "POST on :create lets a GDS admin set the identity fields" do
+    post :create,
+         params: {
+           organisation: example_organisation_attributes.merge(
+             name: "Ministry of Test",
+             acronym: "MoT",
+             logo_formatted_name: "Ministry of\nTest",
+           ),
+         }
+
+    organisation = Organisation.last
+    assert_equal "Ministry of Test", organisation.name
+    assert_equal "MoT", organisation.acronym
+    assert_equal "Ministry of\nTest", organisation.logo_formatted_name
+  end
+
   view_test "the featurables tab should display information regarding max documents" do
     first_feature = build(:feature, document: create(:published_fatality_notice).document, ordering: 1)
     organisation = create(:organisation)

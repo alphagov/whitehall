@@ -5,6 +5,12 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @translated_organisation, url: admin_organisation_translation_path(@translated_organisation, translation_locale) do |form| %>
+      <% identity_locked = translation_locale.english? && !can?(:edit_identity, @organisation) %>
+
+      <% if identity_locked %>
+        <fieldset class="app-view-organisation__form__locked-identity" disabled="disabled">
+      <% end %>
+
       <%= render "components/translated_input", {
         input: {
           label: {
@@ -59,6 +65,10 @@
           text: @organisation.logo_formatted_name,
         },
       } %>
+
+      <% if identity_locked %>
+        </fieldset>
+      <% end %>
 
       <%= render "admin/shared/featured_links_fields", form: form %>
 
