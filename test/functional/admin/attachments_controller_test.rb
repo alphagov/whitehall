@@ -202,4 +202,19 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     assert_select ".app-c-child-of-banner__title", text: /Parent edition/
   end
+
+  view_test "GET :index shows the Child Of Banner which links to the latest parent edition" do
+    parent_edition = create(:draft_standard_edition, title: "Original parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+    new_parent_edition = parent_edition.create_draft(create(:user))
+    new_parent_edition.update!(title: "New parent edition", change_note: "New parent edition change note")
+
+    get :index, params: { edition_id: child_edition }
+
+    assert_select ".app-c-child-of-banner__title", text: /New parent edition/
+    assert_select ".app-c-child-of-banner__link[href='#{admin_standard_edition_path(new_parent_edition)}']"
+  end
 end

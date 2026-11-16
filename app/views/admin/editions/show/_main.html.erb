@@ -203,7 +203,7 @@
 
   <%= render Admin::Editions::Show::Translations.new(@edition) %>
 
-  <%= render partial: "admin/editions/show/parent_edition", locals: { parent_edition: @edition.try(:parent_edition) } %>
+  <%= render partial: "admin/editions/show/parent_edition", locals: { parent_edition: @edition.try(:latest_parent_edition) } %>
   <% if @edition.try(:parent_edition).present? %>
     <%= render partial: "admin/editions/show/child_documents", locals: {
       edition: @edition.parent_edition,
