@@ -37,30 +37,30 @@ default:
 topical_event_header:
   display_name: "Header"
   valid_width: 1536
-  valid_height: 864
+  valid_height: 1024
   version_prefix: true
   versions:
     - name: desktop_2x
       width: 1536
-      height: 864
+      height: 1024
     - name: desktop
       width: 768
-      height: 432
+      height: 512
       from_version: desktop_2x
     - name: mobile_2x
       width: 1280
-      height: 720
+      height: 854
       from_version: tablet_2x
     - name: tablet_2x
       width: 1536
-      height: 864
+      height: 1024
     - name: tablet
       width: 768
-      height: 432
+      height: 512
       from_version: tablet_2x
     - name: mobile
       width: 640
-      height: 360
+      height: 427
       from_version: tablet_2x
   allowed_formats:
     - jpg
