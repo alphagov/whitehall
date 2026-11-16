@@ -274,7 +274,7 @@
     "file_attachments_enabled": false,
     "features": {
       "enabled": true,
-      "display_limit": 6
+      "display_limit": 12
     },
     "organisations": null,
     "backdating_enabled": false,
