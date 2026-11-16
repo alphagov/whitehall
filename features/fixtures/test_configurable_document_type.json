@@ -292,6 +292,7 @@
         "document_type": "test_type"
       }
     ],
+    "navigation_enabled": false,
     "images": {
       "enabled": true,
       "usages": {

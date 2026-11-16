@@ -487,6 +487,10 @@
           "type": "boolean",
           "description": "Whether file attachments are allowed for this document type. When enabled, it renders the Attachments tab."
         },
+        "navigation_enabled": {
+          "type": "boolean",
+          "description": "Whether the navigation tab and routes are available for this document type.  When enabled, it renders the Navigation tab and allows users to add a navigation and associated items."
+        },
         "taxon": {
           "type": "object",
           "properties": {

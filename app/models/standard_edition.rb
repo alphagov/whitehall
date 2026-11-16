@@ -15,6 +15,7 @@ class StandardEdition < Edition
   include StandardEdition::PublishingPrerequisites
   include StandardEdition::ChildDocument
   include StandardEdition::ParentDocument
+  include StandardEdition::HasNavigation
 
   attr_accessor :current_tab_context
 

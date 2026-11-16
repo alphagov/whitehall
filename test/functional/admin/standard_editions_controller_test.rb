@@ -1433,6 +1433,54 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "a[href=?]", admin_new_document_path(parent_edition_id: edition.id), text: "Add new child page"
   end
 
+  view_test "GET navigation returns a 404 for documents that don't support navigation" do
+    edition_without_navigation_type = build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => false },
+    })
+    ConfigurableDocumentType.setup_test_types(edition_without_navigation_type)
+
+    edition = create(:standard_edition, configurable_document_type: "test_type")
+    login_as :managing_editor
+
+    get :navigation, params: { id: edition.id }
+
+    assert_response :not_found
+  end
+
+  view_test "GET navigation shows correct message for a standard edition with no child pages" do
+    edition_with_navigation_type = build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true },
+    })
+    ConfigurableDocumentType.setup_test_types(edition_with_navigation_type)
+
+    edition = create(:standard_edition, configurable_document_type: "test_type")
+    login_as :managing_editor
+
+    get :navigation, params: { id: edition.id }
+
+    assert_response :success
+    assert_select "div", "There are no child pages."
+  end
+
+  view_test "GET navigation shows the 'Add navigation menu' button for a standard edition with  child pages" do
+    edition_with_navigation_type = build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "some_child_type" }] },
+    })
+
+    ConfigurableDocumentType.setup_test_types(edition_with_navigation_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:draft_standard_edition, title: "This child")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    login_as :managing_editor
+
+    get :navigation, params: { id: parent_edition.id }
+
+    assert_response :success
+    assert_select "button", text: "Add navigation menu"
+  end
+
   view_test "PATCH update respects a provided safe relative redirect_to path" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
