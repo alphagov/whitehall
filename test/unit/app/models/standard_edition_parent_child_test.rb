@@ -1,6 +1,6 @@
 require "test_helper"
 
-class StandardEditionTest < ActiveSupport::TestCase
+class StandardEditionParentChildTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   test "is invalid if given a parent_edition_id that does not correspond to an existing edition" do
