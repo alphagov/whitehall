@@ -17,5 +17,5 @@
 
 <%= render Admin::Organisations::Show::SummaryListComponent.new(
   organisation: @organisation,
-  editable: can?(:edit, @organisation),
+  editable: can?(:edit_details, @organisation),
 ) %>

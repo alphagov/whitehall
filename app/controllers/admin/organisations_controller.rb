@@ -86,7 +86,7 @@ private
     when "new", "create"
       enforce_permission!(:create, Organisation)
     when "edit", "update"
-      enforce_permission!(:edit, @organisation)
+      enforce_permission!(:edit_details, @organisation)
     when "confirm_destroy", "destroy"
       enforce_permission!(:delete, @organisation)
     end

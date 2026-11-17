@@ -116,6 +116,10 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     assert_not enforcer_for(department_writer, historic_edition).can?(:update)
   end
 
+  test "cannot edit an organisation's details" do
+    assert_not enforcer_for(department_writer, build(:organisation)).can?(:edit_details)
+  end
+
   test "cannot edit an organisation's identity" do
     assert_not enforcer_for(department_writer, build(:organisation)).can?(:edit_identity)
   end

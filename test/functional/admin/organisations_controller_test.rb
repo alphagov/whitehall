@@ -357,10 +357,74 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "#organisation_homepage_type"
   end
 
-  test "Non-admins can only edit their own organisations or children" do
+  view_test "GET on :edit shows the homepage position and featured links fields to managing editors and above" do
+    organisation = create(:organisation)
+
+    %i[managing_editor gds_editor gds_admin].each do |role|
+      login_as(create(role, organisation:))
+
+      get :edit, params: { id: organisation }
+
+      assert_select "#organisation_homepage_type"
+      assert_select ".app-view-organisation__featured_links"
+    end
+  end
+
+  test "PUT on :update lets managing editors and above change the homepage position and featured links" do
+    %i[managing_editor gds_editor gds_admin].each do |role|
+      organisation = create(:organisation, homepage_type: "news")
+      featured_link = create(:featured_link, linkable: organisation)
+      login_as(create(role, organisation:))
+
+      put :update,
+          params: {
+            id: organisation,
+            organisation: {
+              homepage_type: "service",
+              featured_links_attributes: { "0" => {
+                id: featured_link.id,
+                title: "New title",
+                url: featured_link.url,
+                _destroy: "false",
+              } },
+            },
+          }
+
+      assert_response :redirect
+      assert_equal "service", organisation.reload.homepage_type
+      assert_equal "New title", featured_link.reload.title
+    end
+  end
+
+  view_test "GET on :show hides the Edit link from writers and departmental editors" do
+    organisation = create(:organisation)
+
+    %i[writer departmental_editor].each do |role|
+      login_as(create(role, organisation:))
+
+      get :show, params: { id: organisation }
+
+      assert_response :success
+      refute_select "a[href=?]", edit_admin_organisation_path(organisation)
+    end
+  end
+
+  view_test "GET on :show shows the Edit link to managing editors and GDS editors" do
+    organisation = create(:organisation)
+
+    %i[managing_editor gds_editor].each do |role|
+      login_as(create(role, organisation:))
+
+      get :show, params: { id: organisation }
+
+      assert_select "a[href=?]", edit_admin_organisation_path(organisation)
+    end
+  end
+
+  test "Managing editors can only edit their own organisations or children" do
     organisation1 = create(:organisation)
-    departmental_editor = create(:departmental_editor, organisation: organisation1)
-    login_as(departmental_editor)
+    managing_editor = create(:managing_editor, organisation: organisation1)
+    login_as(managing_editor)
 
     get :edit, params: { id: organisation1 }
     assert_response :success
@@ -372,6 +436,20 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation2.parent_organisations << organisation1
     get :edit, params: { id: organisation2 }
     assert_response :success
+  end
+
+  test "GET on :edit and PUT on :update are forbidden for writers and departmental editors in the organisation" do
+    organisation = create(:organisation)
+
+    %i[writer departmental_editor].each do |role|
+      login_as(create(role, organisation:))
+
+      get :edit, params: { id: organisation }
+      assert_response :forbidden
+
+      put :update, params: { id: organisation, organisation: { url: "https://example.com" } }
+      assert_response :forbidden
+    end
   end
 
   test "GDS editors can edit any organisation" do
@@ -415,11 +493,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   view_test "GDS Editors can set political status" do
     organisation = create(:organisation)
+
     writer = create(:writer, organisation:)
     login_as(writer)
-
     get :edit, params: { id: organisation }
-    refute_select "#organisation_political"
+    assert_response :forbidden
 
     managing_editor = create(:managing_editor, organisation:)
     login_as(managing_editor)
@@ -432,19 +510,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "#organisation_political"
   end
 
-  view_test "Organisation identity fields sit in a disabled fieldset for writers, departmental editors and managing editors" do
+  view_test "Organisation identity fields sit in a disabled fieldset for managing editors" do
     organisation = create(:organisation)
+    login_as(create(:managing_editor, organisation:))
 
-    %i[writer departmental_editor managing_editor].each do |role|
-      login_as(create(role, organisation:))
+    get :edit, params: { id: organisation }
 
-      get :edit, params: { id: organisation }
-
-      assert_select "fieldset.app-view-organisation__form__locked-identity[disabled]" do
-        assert_select "#organisation_name"
-        assert_select "#organisation_acronym"
-        assert_select "#organisation_logo_formatted_name"
-      end
+    assert_select "fieldset.app-view-organisation__form__locked-identity[disabled]" do
+      assert_select "#organisation_name"
+      assert_select "#organisation_acronym"
+      assert_select "#organisation_logo_formatted_name"
     end
   end
 
@@ -463,30 +538,27 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "PUT on :update ignores identity changes from writers, departmental editors and managing editors, but saves their other changes" do
+  test "PUT on :update ignores identity changes from a managing editor, but saves their other changes" do
     organisation = create(:organisation, name: "Ministry of Test", acronym: "MoT", logo_formatted_name: "Ministry of\nTest")
+    login_as(create(:managing_editor, organisation:))
 
-    %i[writer departmental_editor managing_editor].each do |role|
-      login_as(create(role, organisation:))
+    put :update,
+        params: {
+          id: organisation,
+          organisation: {
+            name: "Ministry of Noise",
+            acronym: "CHANGED",
+            logo_formatted_name: "Ministry of\nNoise",
+            alternative_format_contact_email: "managing.editor@example.com",
+          },
+        }
 
-      put :update,
-          params: {
-            id: organisation,
-            organisation: {
-              name: "Ministry of Test",
-              acronym: "CHANGED",
-              logo_formatted_name: "Ministry of\nTest",
-              alternative_format_contact_email: "#{role}@example.com",
-            },
-          }
-
-      assert_response :redirect
-      organisation.reload
-      assert_equal "Ministry of Test", organisation.name
-      assert_equal "MoT", organisation.acronym
-      assert_equal "Ministry of\nTest", organisation.logo_formatted_name
-      assert_equal "#{role}@example.com", organisation.alternative_format_contact_email, "a #{role} should still be able to save non-identity fields"
-    end
+    assert_response :redirect
+    organisation.reload
+    assert_equal "Ministry of Test", organisation.name
+    assert_equal "MoT", organisation.acronym
+    assert_equal "Ministry of\nTest", organisation.logo_formatted_name
+    assert_equal "managing.editor@example.com", organisation.alternative_format_contact_email, "a managing editor should still be able to save non-identity fields"
   end
 
   test "PUT on :update allows a GDS editor to change the organisation identity fields" do
