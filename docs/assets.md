@@ -110,7 +110,7 @@ Images can have various sizes (versions) which are uploaded asynchronously by a 
 ![Image Upload Flow](diagrams/asset_image_upload_flow.png)
 
 ### Featured Image upload flow
-*Immediately published content* types such as **Person**, **Organisation** or **Topical Event** can have an associated image.
+*Immediately published content* types such as **Person** or **Organisation** can have an associated image.
 For example, a **Person** has an image which is displayed both on the person's page, and the pages of its associated speeches.
 When a new **Person** image finishes uploading, both the Person and related Speeches pages need to be republished.
 

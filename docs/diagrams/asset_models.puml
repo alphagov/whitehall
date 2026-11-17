@@ -5,7 +5,6 @@ hide empty members
 object ImmediatelyPublishedDocuments {
  Organisation
  Person
- TopicalEvent
  PolicyGroup
  ...
 }
@@ -43,10 +42,6 @@ Asset -up-> CallForEvidenceResponseFormData
 ConsultationResponseForm -up-> EditionableDocuments
 ConsultationResponseFormData -up-> ConsultationResponseForm
 Asset -up-> ConsultationResponseFormData
-
-TopicalEventFeaturing -up-> ImmediatelyPublishedDocuments
-TopicalEventFeaturingImageData -up-> TopicalEventFeaturing
-Asset -up-> TopicalEventFeaturingImageData
 
 PromotionalFeature -up-> ImmediatelyPublishedDocuments
 PromotionalFeatureItem -up-> PromotionalFeature
