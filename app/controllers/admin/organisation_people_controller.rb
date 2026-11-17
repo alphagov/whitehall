@@ -3,7 +3,7 @@ class Admin::OrganisationPeopleController < Admin::BaseController
   before_action :enforce_permissions!, only: %i[reorder order]
 
   def index
-    @render_reorder = can?(:edit, @organisation)
+    @render_reorder = can?(:edit_people, @organisation)
     @ministerial_organisation_roles = organisation_roles("ministerial")
     @management_organisation_roles = organisation_roles("management")
     @traffic_commissioner_organisation_roles = organisation_roles("traffic_commissioner")
@@ -58,7 +58,7 @@ private
   end
 
   def enforce_permissions!
-    enforce_permission!(:edit, @organisation)
+    enforce_permission!(:edit_people, @organisation)
   end
 
   def load_organisation

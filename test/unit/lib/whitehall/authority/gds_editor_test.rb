@@ -135,14 +135,19 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, :sitewide_settings_section).can?(:administer)
   end
 
-  test "can edit any organisation" do
+  test "can edit the contacts, people and promotional features of any organisation" do
     user = gds_editor
 
     editors_org = user.organisation
     other_org = build(:organisation)
 
-    assert enforcer_for(user, editors_org).can?(:edit)
-    assert enforcer_for(user, other_org).can?(:edit)
+    assert enforcer_for(user, editors_org).can?(:edit_contacts)
+    assert enforcer_for(user, editors_org).can?(:edit_people)
+    assert enforcer_for(user, editors_org).can?(:edit_promotional_features)
+
+    assert enforcer_for(user, other_org).can?(:edit_contacts)
+    assert enforcer_for(user, other_org).can?(:edit_people)
+    assert enforcer_for(user, other_org).can?(:edit_promotional_features)
   end
 
   test "can edit the identity of any organisation" do

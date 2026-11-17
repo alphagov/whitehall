@@ -142,6 +142,26 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, other_org).can?(:edit_details)
   end
 
+  test "can edit the contacts, people and promotional features of their own organisation" do
+    user = department_editor
+
+    editors_org = user.organisation
+
+    assert enforcer_for(user, editors_org).can?(:edit_contacts)
+    assert enforcer_for(user, editors_org).can?(:edit_people)
+    assert enforcer_for(user, editors_org).can?(:edit_promotional_features)
+  end
+
+  test "cannot edit the contacts, people or promotional features of another organisation" do
+    user = department_editor
+
+    other_org = build(:organisation)
+
+    assert_not enforcer_for(user, other_org).can?(:edit_contacts)
+    assert_not enforcer_for(user, other_org).can?(:edit_people)
+    assert_not enforcer_for(user, other_org).can?(:edit_promotional_features)
+  end
+
   test "can export editions" do
     assert enforcer_for(department_editor, Edition).can?(:export)
   end

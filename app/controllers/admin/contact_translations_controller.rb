@@ -27,7 +27,7 @@ private
   end
 
   def enforce_permissions!
-    enforce_permission!(:edit, @contactable)
+    enforce_permission!(:edit_contacts, @contactable)
   end
 
   def load_translated_models

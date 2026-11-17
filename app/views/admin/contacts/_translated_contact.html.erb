@@ -1,7 +1,7 @@
 <%= render "components/summary_card", {
   title: translated_contact.title,
   rows: contact_rows(translated_contact),
-  summary_card_actions: can?(:edit, contactable) ? [
+  summary_card_actions: can?(:edit_contacts, contactable) ? [
     {
       label: "Edit",
       href: edit_polymorphic_path([:admin, contactable, contact, translated_contact.translation_locale]),

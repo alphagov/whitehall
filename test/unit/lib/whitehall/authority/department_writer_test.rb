@@ -124,6 +124,26 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     assert_not enforcer_for(department_writer, build(:organisation)).can?(:edit_identity)
   end
 
+  test "can edit the contacts, people and promotional features of their own organisation" do
+    user = department_writer
+    writers_org = build(:organisation)
+    user.stubs(:organisation).returns(writers_org)
+
+    assert enforcer_for(user, writers_org).can?(:edit_contacts)
+    assert enforcer_for(user, writers_org).can?(:edit_people)
+    assert enforcer_for(user, writers_org).can?(:edit_promotional_features)
+  end
+
+  test "cannot edit the contacts, people or promotional features of another organisation" do
+    user = department_writer
+    user.stubs(:organisation).returns(build(:organisation))
+    other_org = build(:organisation)
+
+    assert_not enforcer_for(user, other_org).can?(:edit_contacts)
+    assert_not enforcer_for(user, other_org).can?(:edit_people)
+    assert_not enforcer_for(user, other_org).can?(:edit_promotional_features)
+  end
+
   test "cannot create social media accounts" do
     assert_not enforcer_for(department_writer, build(:social_media_account)).can?(:create)
   end
