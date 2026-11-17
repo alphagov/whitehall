@@ -39,6 +39,22 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select ".app-c-child-of-banner__title", text: /Parent edition/
   end
 
+  view_test "GET features shows the Child Of Banner which links to the latest parent edition" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", { "settings" => { "features" => { "enabled" => true, "display_limit" => 6 } } }))
+    parent_edition = create(:draft_standard_edition, title: "Original parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+    new_parent_edition = parent_edition.create_draft(create(:user))
+    new_parent_edition.update!(title: "New parent edition", change_note: "New parent edition change note")
+
+    get :features, params: { id: child_edition.id, locale: :en }
+
+    assert_select ".app-c-child-of-banner__title", text: /New parent edition/
+    assert_select ".app-c-child-of-banner__link[href='#{admin_standard_edition_path(new_parent_edition)}']"
+  end
+
   view_test "GET new with a `parent_edition_id` shows the Child Of Banner for the parent edition" do
     parent_edition = create(:standard_edition, title: "Parent edition")
     get :new, params: { configurable_document_type: "test_type", parent_edition_id: parent_edition.id }
@@ -87,6 +103,29 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET show for a child edition shows its most recent parent with links to view and edit it" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type").merge(build_configurable_document_type("parent_landing_page", { "title" => "Parent" })),
+    )
+    parent_edition = create(:draft_standard_edition, configurable_document_type: "parent_landing_page", title: "Original parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+    new_parent_edition = parent_edition.create_draft(create(:user))
+    new_parent_edition.update!(title: "New parent edition", change_note: "New parent edition change note")
+
+    get :show, params: { id: child_edition.id }
+
+    assert_select ".app-view-summary__parent-edition" do
+      assert_select "h2", text: "Parent landing page"
+      assert_select "td", text: "New parent edition"
+      assert_select "a[href='#{admin_standard_edition_path(new_parent_edition)}']", text: /View/
+      assert_select "a[href='#{edit_admin_standard_edition_path(new_parent_edition)}']", text: /Edit/
+      assert_select ".govuk-tag", text: /Draft/i
+    end
+  end
+
   view_test "GET show for a child edition does not link to edit a parent that is not editable" do
     parent_edition = create(:published_standard_edition, title: "Parent edition")
     child_edition = create(:draft_standard_edition)
@@ -129,6 +168,21 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Edit child pages"
       assert_select "p", text: "No other child pages for this document"
     end
+  end
+
+  view_test "GET show for a child edition shows the Child Of Banner which links to the latest parent edition" do
+    parent_edition = create(:draft_standard_edition, title: "Original parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+    new_parent_edition = parent_edition.create_draft(create(:user))
+    new_parent_edition.update!(title: "New parent edition", change_note: "New parent edition change note")
+
+    get :show, params: { id: child_edition.id }
+
+    assert_select ".app-c-child-of-banner__title", text: /New parent edition/
+    assert_select ".app-c-child-of-banner__link[href='#{admin_standard_edition_path(new_parent_edition)}']"
   end
 
   view_test "GET show for a child edition lists the other child pages of its parent" do
@@ -505,6 +559,21 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "legend", text: "Schedule publication"
     assert_select "legend", text: "Review date"
     assert_select "legend", text: "Limit access"
+  end
+
+  view_test "GET edit for a child edition shows the Child Of Banner which links to the latest parent edition" do
+    parent_edition = create(:draft_standard_edition, title: "Original parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+    new_parent_edition = parent_edition.create_draft(create(:user))
+    new_parent_edition.update!(title: "New parent edition", change_note: "New parent edition change note")
+
+    get :edit, params: { id: child_edition.id }
+
+    assert_select ".app-c-child-of-banner__title", text: /New parent edition/
+    assert_select ".app-c-child-of-banner__link[href='#{admin_standard_edition_path(new_parent_edition)}']"
   end
 
   view_test "GET edit renders access limiting fields when organisations are enabled" do

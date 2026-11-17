@@ -962,6 +962,30 @@ class Admin::EditionImagesControllerTest < ActionController::TestCase
     assert_select ".app-c-child-of-banner__title", text: /Parent edition/
   end
 
+  view_test "GET :index shows the Child Of Banner which links to the latest parent edition" do
+    login_authorised_user
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => {
+        "images" => {
+          "enabled" => "true",
+          "usages" => {},
+        },
+      },
+    }))
+    parent_edition = create(:draft_standard_edition, title: "Original parent edition")
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+    new_parent_edition = parent_edition.create_draft(create(:user))
+    new_parent_edition.update!(title: "New parent edition", change_note: "New parent edition change note")
+
+    get :index, params: { edition_id: child_edition.id }
+
+    assert_select ".app-c-child-of-banner__title", text: /New parent edition/
+    assert_select ".app-c-child-of-banner__link[href='#{admin_standard_edition_path(new_parent_edition)}']"
+  end
+
   def login_authorised_user
     user = create(:gds_editor)
     login_as user

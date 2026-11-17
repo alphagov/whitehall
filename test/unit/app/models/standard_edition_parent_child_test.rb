@@ -234,4 +234,18 @@ class StandardEditionTest < ActiveSupport::TestCase
     assert_equal 2, ParentChildRelationship.where(child_document: child_edition.document).count
     assert_equal draft_parent_edition, child_edition.reload.latest_parent_edition
   end
+
+  test "#other_child_editions includes siblings added to the latest parent edition" do
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+    new_parent_edition = parent_edition.create_draft(create(:user))
+
+    sibling_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition: new_parent_edition, child_document: sibling_edition.document)
+
+    assert_equal [sibling_edition], child_edition.reload.other_child_editions
+  end
 end
