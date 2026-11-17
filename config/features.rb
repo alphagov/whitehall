@@ -28,5 +28,5 @@ Flipflop.configure do
           default: Rails.env.development?
   feature :mini_sites,
           description: "Enable Mini Site document types ('mini_site_landing' and 'mini_site_child')",
-          default: Rails.env.development?
+          default: Rails.env.development? || Whitehall.integration_or_staging?
 end
