@@ -73,6 +73,31 @@ class StandardEdition::HasNavigationTest < ActiveSupport::TestCase
     assert_equal edition.navigation, draft.navigation
   end
 
+  test "creating a new draft copies the navigation items to the new navigation edition" do
+    test_type = build_configurable_document_type("test_type_with_navigation", {
+      "settings" => {
+        "navigation_enabled" => true,
+      },
+    })
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    edition = create(:published_standard_edition, configurable_document_type: "test_type_with_navigation")
+    child_documents = create_list(:document, 2)
+    original_items = child_documents.each_with_index.map do |child_document, index|
+      create(:navigation_item, navigation_edition: edition.navigation_edition, child_document:, created_at: (2 - index).days.ago)
+    end
+
+    draft = edition.create_draft(create(:writer))
+
+    draft_items = draft.navigation_edition.navigation_items.order(:id)
+    assert_equal child_documents, draft_items.map(&:child_document)
+    assert_equal original_items.map(&:created_at), draft_items.map(&:created_at)
+    draft_items.each do |draft_item|
+      assert_not_includes original_items, draft_item, "Expected the draft to have new navigation items, not the originals"
+    end
+    assert_equal original_items, edition.navigation_edition.navigation_items.order(:id).to_a
+  end
+
   test "defines StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV" do
     assert defined?(StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV)
     assert_equal 7, StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV
