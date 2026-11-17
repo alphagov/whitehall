@@ -33,6 +33,33 @@
       <%= render "govuk_publishing_components/components/button", {
         text: "Add navigation menu",
       } %>
+
+      <section class="app-view-summary__section">
+        <% if @navigation_items.any? %>
+          <%= render "govuk_publishing_components/components/table", {
+            head: [
+              {
+                text: "Title",
+              },
+              {
+                text: "State",
+              },
+              {
+                text: "Actions",
+              },
+            ],
+            rows: @navigation_items.sort_by(&:created_at).map do |navigation_item|
+              [
+                { text: navigation_item.child_edition.title },
+                { text: render(Admin::Editions::TagsComponent.new(navigation_item.child_edition)) },
+                {
+                  text: link_to(safe_join(["View", tag.span(" #{navigation_item.child_edition.title}", class: "govuk-visually-hidden")]), admin_edition_path(navigation_item.child_edition), class: "govuk-link govuk-link--no-visited-state"),
+                },
+              ]
+            end,
+          } %>
+        <% end %>
+      </section>
     <% end %>
   </div>
 </div>

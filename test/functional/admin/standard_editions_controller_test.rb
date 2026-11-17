@@ -1550,6 +1550,40 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "button", text: "Add navigation menu"
   end
 
+  view_test "GET navigation lists the navigation items" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition, title: "Child in navigation")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: child_edition.document)
+
+    get :navigation, params: { id: parent_edition.id }
+
+    assert_response :success
+    assert_select "td", text: "Child in navigation"
+  end
+
+  view_test "GET navigation does not list navigation items the user cannot see" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+    parent_edition = create(:draft_standard_edition)
+    visible_child = create(:draft_standard_edition, title: "Visible child")
+    hidden_child = create(:draft_standard_edition, :access_limited_by_organisations, title: "Hidden child")
+    [visible_child, hidden_child].each do |child_edition|
+      ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+      create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: child_edition.document)
+    end
+
+    get :navigation, params: { id: parent_edition.id }
+
+    assert_response :success
+    assert_select "td", text: "Visible child"
+    assert_select "td", text: "Hidden child", count: 0
+  end
+
   view_test "PATCH update respects a provided safe relative redirect_to path" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)

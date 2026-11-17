@@ -107,7 +107,9 @@ class Admin::StandardEditionsController < Admin::EditionsController
   end
 
   def navigation
-    render_not_found unless @edition.allows_navigation?
+    return render_not_found unless @edition.allows_navigation?
+
+    @navigation_items = @edition.navigation_edition.navigation_items.select { |navigation_item| can?(:see, navigation_item.child_edition) }
   end
 
 private
