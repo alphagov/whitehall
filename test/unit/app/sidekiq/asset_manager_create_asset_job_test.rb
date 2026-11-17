@@ -153,7 +153,7 @@ class AssetManagerCreateAssetJobTest < ActiveSupport::TestCase
   test "should enqueue republishing of assetable" do
     # We enqueue the republishing of all assetables that implement :republish_on_assets_ready.
     # These are all the classes that use FeaturedImageData to manage their assets, such as
-    # Organisation, Worldwide Organisation, TopicalEvent, Person etc.
+    # Organisation, Worldwide Organisation, Person etc.
     organisation = create(:organisation, :with_default_news_image)
     asset_params = {
       assetable_id: organisation.default_news_image.id,
