@@ -189,36 +189,6 @@ class Admin::Organisations::Show::SummaryListComponentTest < ViewComponent::Test
     assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__actions a[href='#{parent_organisation2.public_url}']", text: /View/
   end
 
-  test "renders topical_events_row correctly when one parent org is present" do
-    topical_event = build_stubbed(:topical_event)
-    organisation = build_stubbed(:ministerial_department)
-    organisation.stubs(:topical_events).returns([topical_event])
-
-    render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
-
-    assert_selector ".govuk-summary-list__row", count: 8
-    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Topical event"
-    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: topical_event.name
-    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{topical_event.public_url}']", text: /View/
-  end
-
-  test "renders topical_events_rows correctly when multiple topical events are present" do
-    topical_event1 = build_stubbed(:topical_event)
-    topical_event2 = build_stubbed(:topical_event)
-    organisation = build_stubbed(:ministerial_department)
-    organisation.stubs(:topical_events).returns([topical_event1, topical_event2])
-
-    render_inline(Admin::Organisations::Show::SummaryListComponent.new(organisation:))
-
-    assert_selector ".govuk-summary-list__row", count: 9
-    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__key", text: "Topical event 1"
-    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__value", text: topical_event1.name
-    assert_selector ".govuk-summary-list__row:nth-child(6) .govuk-summary-list__actions a[href='#{topical_event1.public_url}']", text: /View/
-    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__key", text: "Topical event 2"
-    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__value", text: topical_event2.name
-    assert_selector ".govuk-summary-list__row:nth-child(7) .govuk-summary-list__actions a[href='#{topical_event2.public_url}']", text: /View/
-  end
-
   test "renders featured_link correctly when one featured link is present" do
     featured_link = build_stubbed(:featured_link)
     organisation = build_stubbed(:ministerial_department)

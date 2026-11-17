@@ -346,15 +346,6 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal "Consultation outcome", consultation.display_type
   end
 
-  # To be deleted after legacy topical events have been migrated.
-  # It has a config-driven equivalent test below it which should be kept.
-  test "can associate consultations with (legacy) topical events" do
-    consultation = create(:consultation)
-    assert consultation.can_be_associated_with_topical_events?
-    assert topical_event = consultation.topical_events.create!(name: "Test", description: "Test", summary: "Test")
-    assert_equal [topical_event], consultation.reload.topical_events
-  end
-
   test "can associate consultations with topical events" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
     consultation = create(:consultation)

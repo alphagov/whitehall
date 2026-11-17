@@ -1,6 +1,6 @@
 # LEGACY TOPICAL EVENTS ONLY
 class TopicalEventFeaturing < ApplicationRecord
-  belongs_to :edition, inverse_of: :topical_event_featurings
+  belongs_to :edition
   belongs_to :offsite_link
   belongs_to :topical_event, inverse_of: :topical_event_featurings
   belongs_to :image, class_name: "TopicalEventFeaturingImageData", foreign_key: :topical_event_featuring_image_data_id

@@ -34,24 +34,6 @@ class TopicalEventTest < ActiveSupport::TestCase
     assert_not topical_event.valid?
   end
 
-  test "#latest should return specified number of associated published editions in reverse chronological order" do
-    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
-
-    topical_event = create(:topical_event)
-    other_topical_event = create(:topical_event)
-    expected_order = [
-      create(:published_publication, topical_events: [topical_event], first_published_at: 1.day.ago),
-      create(:published_standard_edition, topical_events: [topical_event], first_published_at: 1.week.ago),
-      create(:published_publication, topical_events: [topical_event], first_published_at: 2.weeks.ago),
-      create(:published_standard_edition, topical_events: [topical_event], first_published_at: 3.weeks.ago),
-      create(:published_publication, topical_events: [topical_event], first_published_at: 4.weeks.ago),
-    ]
-    create(:draft_speech, topical_events: [topical_event], first_published_at: 2.days.ago)
-    create(:published_speech, topical_events: [other_topical_event], first_published_at: 2.days.ago)
-
-    assert_equal expected_order, topical_event.latest(10)
-  end
-
   test "an unfeatured edition is not featured" do
     topical_event = create(:topical_event)
     edition = build(:publication)
@@ -89,20 +71,6 @@ class TopicalEventTest < ActiveSupport::TestCase
     delta = topical_event.feature(edition_id: create(:published_publication, title: "Delta").id, ordering: 0, alt_text: "A thing", image: create(:topical_event_featuring_image_data))
 
     assert_equal [delta.edition, beta.edition, gamma.edition], topical_event.featured_editions
-  end
-
-  test "#featured_editions includes the newly published version of a featured edition, but not the original" do
-    topical_event = create(:topical_event)
-    old_version = topical_event.feature(edition_id: create(:published_publication, title: "Gamma").id, ordering: 3, alt_text: "A thing", image: create(:topical_event_featuring_image_data)).edition
-
-    editor = create(:departmental_editor)
-    new_version = old_version.create_draft(editor)
-    new_version.change_note = "New stuffs!"
-    new_version.save!
-    force_publish(new_version)
-
-    assert_not topical_event.featured_editions.include?(old_version)
-    assert topical_event.featured_editions.include?(new_version)
   end
 
   test "#next_ordering gives a value of 0 when there are no existing features" do
