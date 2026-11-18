@@ -43,7 +43,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
 private
 
   def enforce_permissions!
-    enforce_permission!(:edit, @organisation)
+    enforce_permission!(:edit_promotional_features, @organisation)
   end
 
   def load_organisation

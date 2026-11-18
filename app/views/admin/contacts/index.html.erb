@@ -24,7 +24,7 @@
   margin_bottom: 6,
 } %>
 
-<% if can?(:edit, @contactable) %>
+<% if can?(:edit_contacts, @contactable) %>
   <%= render "govuk_publishing_components/components/button", {
     text: "Add contact",
     href: new_polymorphic_path([:admin, @contactable, Contact.new]),

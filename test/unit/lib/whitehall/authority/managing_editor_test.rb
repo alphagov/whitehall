@@ -154,6 +154,26 @@ class ManagingEditorTest < ActiveSupport::TestCase
     assert_not enforcer_for(user, other_org).can?(:edit_identity)
   end
 
+  test "can edit the contacts, people and promotional features of their organisation and child organisation" do
+    user = managing_editor
+
+    editors_org = user.organisation
+    child_org = create(:organisation, parent_organisations: [editors_org])
+    other_org = build(:organisation)
+
+    assert enforcer_for(user, editors_org).can?(:edit_contacts)
+    assert enforcer_for(user, editors_org).can?(:edit_people)
+    assert enforcer_for(user, editors_org).can?(:edit_promotional_features)
+
+    assert enforcer_for(user, child_org).can?(:edit_contacts)
+    assert enforcer_for(user, child_org).can?(:edit_people)
+    assert enforcer_for(user, child_org).can?(:edit_promotional_features)
+
+    assert_not enforcer_for(user, other_org).can?(:edit_contacts)
+    assert_not enforcer_for(user, other_org).can?(:edit_people)
+    assert_not enforcer_for(user, other_org).can?(:edit_promotional_features)
+  end
+
   test "can export editions" do
     assert enforcer_for(managing_editor, Edition).can?(:export)
   end

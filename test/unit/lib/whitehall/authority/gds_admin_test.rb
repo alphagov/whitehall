@@ -32,6 +32,14 @@ class GDSAdminTest < ActiveSupport::TestCase
     assert enforcer_for(gds_admin, build(:organisation)).can?(:edit_identity)
   end
 
+  test "gds admin can edit the contacts, people and promotional features of any organisation" do
+    organisation = build(:organisation)
+
+    assert enforcer_for(gds_admin, organisation).can?(:edit_contacts)
+    assert enforcer_for(gds_admin, organisation).can?(:edit_people)
+    assert enforcer_for(gds_admin, organisation).can?(:edit_promotional_features)
+  end
+
   test "can export editions" do
     assert enforcer_for(gds_admin, Edition).can?(:export)
   end

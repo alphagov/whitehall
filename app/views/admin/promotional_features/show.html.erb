@@ -8,7 +8,7 @@
 <% content_for :title, @promotional_feature.title %>
 <% content_for :title_margin_bottom, 6 %>
 
-<% if can?(:edit, @organisation) %>
+<% if can?(:edit_promotional_features, @organisation) %>
   <% if @promotional_feature.has_reached_item_limit? %>
     <%= render "govuk_publishing_components/components/inset_text", {
       text: "Maximum number of feature items reached",
