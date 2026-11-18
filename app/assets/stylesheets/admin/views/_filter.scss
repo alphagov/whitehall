@@ -1,3 +1,5 @@
+@use "govuk_publishing_components/base" as *;
+
 .app-view-filter {
   background: govuk-colour("black", $variant: "tint-95");
 

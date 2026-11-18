@@ -1,3 +1,5 @@
+@use "govuk_publishing_components/base" as *;
+
 .app-view-editions-host-content-update-event-entry {
   &__list-item {
     margin-bottom: govuk-spacing(4);

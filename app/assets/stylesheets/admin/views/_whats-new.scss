@@ -1,3 +1,5 @@
+@use "govuk_publishing_components/base" as *;
+
 .app-view-whats-new__last-updated {
   color: govuk-colour("black", $variant: "tint-25");
 }
