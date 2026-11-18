@@ -182,12 +182,20 @@ class ManagingEditorTest < ActiveSupport::TestCase
     assert enforcer_for(managing_editor, normal_edition).can?(:mark_political)
   end
 
-  test "cannot modify historic editions" do
-    assert_not enforcer_for(managing_editor, historic_edition).can?(:update)
+  test "can modify historic editions" do
+    assert enforcer_for(managing_editor, historic_edition).can?(:update)
   end
 
-  test "cannot publish historic editions" do
-    assert_not enforcer_for(managing_editor, historic_edition).can?(:publish)
+  test "can publish historic editions" do
+    assert enforcer_for(managing_editor, historic_edition).can?(:publish)
+  end
+
+  test "can mark historic editions as political" do
+    assert enforcer_for(managing_editor, historic_edition).can?(:mark_political)
+  end
+
+  test "cannot select the government for historical editions" do
+    assert_not enforcer_for(managing_editor, historic_edition).can?(:select_government_for_history_mode)
   end
 
   test "can create social media accounts" do
