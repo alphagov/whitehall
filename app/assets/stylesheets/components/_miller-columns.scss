@@ -20,7 +20,7 @@
   padding: 0;
   list-style-type: none;
   @include govuk-font($size: 16);
-  @include govuk-text-colour;
+  color: govuk-functional-colour(text);
 }
 
 .miller-columns-selected__list-item {
@@ -163,7 +163,7 @@ $mc-active-item-background: govuk-colour("blue");
   margin-bottom: govuk-spacing(3);
   margin-top: 0;
   padding: 0;
-  @include govuk-text-colour;
+  color: govuk-functional-colour(text);
   @include govuk-font($size: 19, $weight: bold);
 
   @include govuk-media-query($from: tablet) {
