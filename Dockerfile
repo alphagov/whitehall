@@ -9,7 +9,7 @@ ENV JWT_AUTH_SECRET=unused_yet_required
 
 WORKDIR $APP_HOME
 COPY Gemfile* .ruby-version ./
-RUN bundle install
+RUN bundle install && bundle binstubs --all
 COPY package.json yarn.lock ./
 RUN yarn install --production --frozen-lockfile --non-interactive --link-duplicates
 COPY . .
