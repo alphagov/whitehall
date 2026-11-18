@@ -40,7 +40,7 @@ jobs:
           show-progress: false
 
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@f9c4492e86def3e644ab32a0ef185eda5b0c20d0 #v1.342
         with:
           bundler-cache: true
 
