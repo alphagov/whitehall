@@ -1,6 +1,8 @@
 // this is from the Home Office Design System
 // https://design.homeoffice.gov.uk/design-system/components?name=Loading%20spinner
 
+@use "govuk_publishing_components/base" as *;
+
 .hods-loading-spinner {
   @include govuk-responsive-padding(4, "top");
 

@@ -1,3 +1,5 @@
+@use "govuk_publishing_components/base" as *;
+
 .app-view-document_collection_group_document_search {
   .govuk-fieldset__heading {
     @include govuk-responsive-margin(3, "bottom");

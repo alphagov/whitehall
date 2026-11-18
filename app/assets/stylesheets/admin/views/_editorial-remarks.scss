@@ -1,3 +1,5 @@
+@use "govuk_publishing_components/base" as *;
+
 .app-view-editions-editorial-remark__list-item-datetime {
   color: $govuk-secondary-text-colour;
 }

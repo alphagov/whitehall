@@ -1,52 +1,56 @@
-$govuk-page-width: 1140px;
+@use "govuk_publishing_components/base" with (
+  $govuk-page-width: 1140px
+);
+@use "govuk_publishing_components/core";
+@use "govuk_publishing_components/lib";
+@use "govuk_publishing_components/all-components";
 
-@import "govuk_publishing_components/all-components";
-@import "content_block_tools";
+@use "content_block_tools";
 
-@import "./components/child-of-banner";
-@import "./components/datetime-fields";
-@import "./components/govspeak-editor";
-@import "./components/image-cropper";
-@import "./components/inset-prompt";
-@import "./components/miller-columns";
-@import "./components/loading-spinner";
-@import "./components/secondary-navigation";
-@import "./components/single-image-upload";
-@import "./components/sub-navigation";
-@import "./components/summary-card";
+@use "./components/child-of-banner";
+@use "./components/datetime-fields";
+@use "./components/govspeak-editor";
+@use "./components/image-cropper";
+@use "./components/inset-prompt";
+@use "./components/miller-columns";
+@use "./components/loading-spinner";
+@use "./components/secondary-navigation";
+@use "./components/single-image-upload";
+@use "./components/sub-navigation";
+@use "./components/summary-card";
 
-@import "./admin/overrides";
+@use "./admin/overrides";
 
-@import "./admin/views/components/worldwide_offices/index/office-summary-card-component";
+@use "./admin/views/components/worldwide_offices/index/office-summary-card-component";
 
-@import "./admin/views/audit-trail";
-@import "./admin/views/dashboard-index";
-@import "./admin/views/document-history-tab";
-@import "./admin/views/document-collection-group-memberships-index";
-@import "./admin/views/document-collection-group-document-search-search-title-slug";
-@import "./admin/views/edit-edition";
-@import "./admin/views/edit-person";
-@import "./admin/views/edition-resource";
-@import "./admin/views/edition-search-results";
-@import "./admin/views/editions-edition";
-@import "./admin/views/editorial-remarks";
-@import "./admin/views/features";
-@import "./admin/views/filter";
-@import "./admin/views/govspeak-help";
-@import "./admin/views/groups-index";
-@import "./admin/views/host-content-update-event";
-@import "./admin/views/historical-accounts-index";
-@import "./admin/views/organisations-index";
-@import "./admin/views/organisations-edit";
-@import "./admin/views/people";
-@import "./admin/views/roles";
-@import "./admin/views/users";
-@import "./admin/views/summary";
-@import "./admin/views/take-part";
-@import "./admin/views/topical-events-index"; // legacy
-@import "./admin/views/unpublish-withdrawal";
-@import "./admin/views/whats-new";
-@import "./admin/views/worldwide-organisations-choose-main-office";
+@use "./admin/views/audit-trail";
+@use "./admin/views/dashboard-index";
+@use "./admin/views/document-history-tab";
+@use "./admin/views/document-collection-group-memberships-index";
+@use "./admin/views/document-collection-group-document-search-search-title-slug";
+@use "./admin/views/edit-edition";
+@use "./admin/views/edit-person";
+@use "./admin/views/edition-resource";
+@use "./admin/views/edition-search-results";
+@use "./admin/views/editions-edition";
+@use "./admin/views/editorial-remarks";
+@use "./admin/views/features";
+@use "./admin/views/filter";
+@use "./admin/views/govspeak-help";
+@use "./admin/views/groups-index";
+@use "./admin/views/host-content-update-event";
+@use "./admin/views/historical-accounts-index";
+@use "./admin/views/organisations-index";
+@use "./admin/views/organisations-edit";
+@use "./admin/views/people";
+@use "./admin/views/roles";
+@use "./admin/views/users";
+@use "./admin/views/summary";
+@use "./admin/views/take-part";
+@use "./admin/views/topical-events-index"; // legacy
+@use "./admin/views/unpublish-withdrawal";
+@use "./admin/views/whats-new";
+@use "./admin/views/worldwide-organisations-choose-main-office";
 
 .app-js-only {
   display: none;

@@ -1,3 +1,5 @@
+@use "govuk_publishing_components/base" as *;
+
 .app-c-secondary-navigation {
   @include govuk-font(19);
   @include govuk-responsive-margin(6, "bottom");

@@ -1,3 +1,5 @@
+@use "govuk_publishing_components/base" as *;
+
 .miller-columns-selected {
   display: block;
   @include govuk-responsive-margin(6, "bottom");
