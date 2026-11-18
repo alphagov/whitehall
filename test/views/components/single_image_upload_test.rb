@@ -16,15 +16,14 @@ class SingleImageUploadTest < ActionView::TestCase
       render("components/single_image_upload", @valid_parameters.except(:name))
     end
 
-    assert error.message.include?("undefined local variable or method `name'")
+    assert error.message.include?("undefined local variable or method 'name'")
   end
 
   test "requires an id to render" do
     error = assert_raises ActionView::Template::Error do
       render("components/single_image_upload", @valid_parameters.except(:id))
     end
-
-    assert error.message.include?("undefined local variable or method `id'")
+    assert error.message.include?("undefined local variable or method 'id'")
   end
 
   test "renders a single image upload component with default parameters" do
