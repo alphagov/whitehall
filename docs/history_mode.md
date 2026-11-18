@@ -68,7 +68,7 @@ The following permissions apply:
 - Managing editors can set or remove the political marker
 - GDS Admins and Editors can set or remove the political marker, as well as change the government association for a piece of content.
 
-When a piece of content is in "history mode", i.e., when its government is closed, the content can no longer be edited by anyone other than GDS Admins and Editors.
+When a piece of content is in "history mode", i.e., when its government is closed, the content can no longer be edited by anyone other than GDS Admins, GDS Editors and Managing Editors. GDS Admins and Editors will be able to perform any action and a Managing Editor will be able to perform the same actions they can perform on a non-historic edition.
 
 > **Note:** During the content auditing process following a government close, permissions may be briefly extended. Permissions around "historical" content will be updated in the [edition rules](../lib/whitehall/authority/rules/edition_rules.rb).
 

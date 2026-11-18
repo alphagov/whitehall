@@ -91,6 +91,9 @@ module Whitehall::Authority::Rules
       # Allow GDS Editors and above to take any action on historic editions
       return true if actor.gds_admin? || actor.gds_editor?
 
+      # Allow managing editors to take their usual actions on historic editions
+      return can_with_an_instance?(action) if actor.managing_editor?
+
       # Handle the special case first: publishers who have been given explicit
       # permission to unpublish historic content, should be able to do so
       return true if action == :unpublish && actor.can_unpublish_historic_content?
