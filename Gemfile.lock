@@ -347,15 +347,17 @@ GEM
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     i18n-coverage (0.2.0)
-    i18n-tasks (1.0.14)
+    i18n-tasks (1.2.1)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
       erubi
-      highline (>= 2.0.0)
+      highline (>= 3.0.0)
       i18n
       parser (>= 3.2.2.1)
+      prism (>= 0.28)
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.8, >= 1.8.1)
       terminal-table (>= 1.5.1)
     image_processing (2.1.0)
     inline_svg (1.10.0)
@@ -1035,4 +1037,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   2.6.2
+  4.0.20
