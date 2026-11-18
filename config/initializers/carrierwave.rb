@@ -1,4 +1,3 @@
-require "pathname"
 require "carrier_wave/sanitized_file"
 
 Whitehall::Application.config.to_prepare do
