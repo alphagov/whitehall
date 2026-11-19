@@ -1,5 +1,7 @@
 class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseController
   before_action :load_document_collection
+  before_action :enforce_permissions!
+  before_action :prevent_modification_of_unmodifiable_edition, except: :index
   before_action :load_document_collection_group
   before_action :load_membership, only: %i[confirm_destroy destroy]
   before_action :find_document, only: :create_whitehall_member
@@ -58,6 +60,16 @@ private
 
   def load_document_collection
     @collection = DocumentCollection.includes(document: :latest_edition).find(params[:document_collection_id])
+    @edition = @collection
+  end
+
+  def enforce_permissions!
+    case action_name
+    when "index"
+      enforce_permission!(:see, @collection)
+    else
+      enforce_permission!(:update, @collection)
+    end
   end
 
   def load_document_collection_group

@@ -8,10 +8,10 @@ When(/^I draft a new document collection called "(.*?)"$/) do |title|
   @document_collection = DocumentCollection.find_by!(title:)
 end
 
-Given(/^a published publication called "(.*?)" in a published document collection$/) do |publication_title|
+Given(/^a published publication called "(.*?)" in a draft document collection$/) do |publication_title|
   @publication = create(:published_publication, title: publication_title)
   @document_collection = create(
-    :published_document_collection,
+    :draft_document_collection,
     groups: [build(:document_collection_group, documents: [@publication.document])],
   )
   @group = @document_collection.groups.first
