@@ -564,6 +564,20 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_nasty_characters], Edition.with_title_containing("[stuff")
   end
 
+  test "should treat a percent sign in the search term as a literal character" do
+    edition_with_percent = create(:edition, title: "100% complete")
+    _edition_without_match = create(:edition, title: "100x complete")
+
+    assert_equal [edition_with_percent], Edition.with_title_containing("100%")
+  end
+
+  test "should treat an underscore in the search term as a literal character" do
+    edition_with_underscore = create(:edition, title: "draft_guidance review")
+    _edition_without_match = create(:edition, title: "draftxguidance review")
+
+    assert_equal [edition_with_underscore], Edition.with_title_containing("draft_guidance")
+  end
+
   test "make_public_at should set first_published_at if its empty" do
     e = build(:edition, first_published_at: nil)
     e.make_public_at(2.days.ago)
