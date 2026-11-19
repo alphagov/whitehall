@@ -1,20 +1,4 @@
 module Admin::OrganisationHelper
-  def organisation_role_ordering_fields(outer_form, organisation_roles)
-    outer_form.fields_for :organisation_roles, organisation_roles do |organisation_role_form|
-      role_name = link_to(organisation_role_form.object.role.name, [:edit, :admin, organisation_role_form.object.role.becomes(Role)])
-      if organisation_role_form.object.role.current_person
-        name = link_to(organisation_role_form.object.role.current_person_name, [:edit, :admin, organisation_role_form.object.role.current_person])
-        label_text = "<span class='normal'>#{role_name}</span><br/>#{name}".html_safe
-      else
-        label_text = "<span class='normal'>#{role_name}</span><br/>#{organisation_role_form.object.role.current_person_name}".html_safe
-      end
-      tag.div(
-        organisation_role_form.text_field(:ordering, label_text:, class: "ordering"),
-        class: "well remove-bottom-padding",
-      )
-    end
-  end
-
   def organisation_nav_items(organisation, current_path)
     tabs = [
       {
@@ -90,14 +74,6 @@ module Admin::OrganisationHelper
       "Yes"
     else
       "No"
-    end
-  end
-
-  def logo_visibility_css(organisation)
-    if organisation.organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
-      nil
-    else
-      "hidden"
     end
   end
 
