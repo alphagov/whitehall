@@ -126,6 +126,7 @@ module Admin
       editions = editions.review_overdue if review_overdue
       editions = editions.excluding_featured_on(feature_list) if feature_list
 
+      editions = editions.preload(:document)
       editions = editions.includes(:unpublishing) if include_unpublishing?
       editions = editions.includes(:link_check_report) if include_link_check_report?
       editions = editions.includes(:last_author) if include_last_author?
