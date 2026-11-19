@@ -55,11 +55,11 @@ module Admin
     end
 
     def published_count
-      unpaginated_editions.published.count
+      @published_count ||= unpaginated_editions.published.count
     end
 
     def force_published_count
-      unpaginated_editions.force_published.count
+      @force_published_count ||= unpaginated_editions.force_published.count
     end
 
     def force_published_percentage
