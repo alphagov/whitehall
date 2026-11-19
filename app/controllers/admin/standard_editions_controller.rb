@@ -17,22 +17,16 @@ class Admin::StandardEditionsController < Admin::EditionsController
   end
 
   def change_type
-    find_edition
-
     @available_types = ConfigurableDocumentType.convertible_from(@edition.configurable_document_type)
-      .select { |type| can?(current_user, type) }
+                                               .select { |type| can?(current_user, type) }
   end
 
   def change_type_preview
-    find_edition
-
-    new_type_id = params.fetch(:configurable_document_type)
     @old_type = ConfigurableDocumentType.find(@edition.configurable_document_type)
-    @new_type = ConfigurableDocumentType.find(new_type_id)
+    @new_type = ConfigurableDocumentType.find(params.fetch(:configurable_document_type))
   end
 
   def apply_change_type
-    find_edition
     new_type_id = params.fetch(:configurable_document_type)
 
     if @edition.update_configurable_document_type(new_type_id)
@@ -111,6 +105,17 @@ class Admin::StandardEditionsController < Admin::EditionsController
   end
 
 private
+
+  def enforce_permissions!
+    super
+
+    case action_name
+    when "create"
+      enforce_permission!(:create, ConfigurableDocumentType.find(@edition.configurable_document_type))
+    when "change_type_preview", "apply_change_type"
+      enforce_permission!(:create, ConfigurableDocumentType.find(params.fetch(:configurable_document_type)))
+    end
+  end
 
   def new_child_page_path
     child_document_types = @edition.type_instance.allowed_child_document_types
