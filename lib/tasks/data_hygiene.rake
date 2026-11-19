@@ -1,12 +1,8 @@
-require "thor"
-
-def shell
-  @shell ||= Thor::Shell::Basic.new
-end
-
 namespace :data_hygiene do
   desc "Merge people records"
-  task :merge_people, %i[person_to_merge person_to_keep] => :environment do |_task, args|
+  task :merge_people, %i[person_to_merge person_to_keep dry_run] => :environment do |_task, args|
+    dry_run = args[:dry_run]&.to_s&.downcase == "true"
+
     begin
       person_to_merge = Person.find(args[:person_to_merge])
       person_to_keep = Person.find(args[:person_to_keep])
@@ -45,22 +41,17 @@ namespace :data_hygiene do
       next
     end
 
-    unless shell.yes?("Proceed with merging person of ID ##{person_to_merge} into person of ID ##{person_to_keep}? (yes/no)")
-      puts "Merging aborted"
-      next
-    end
-
     ActiveRecord::Base.transaction do
       person_to_merge.role_appointments.each do |ra|
         puts "\nLinking role appointment #{ra.id}: '#{ra.role.name}' from person #{person_to_merge.id} (#{person_to_merge.full_name}), to person #{person_to_keep.id} (#{person_to_keep.full_name})"
-        ra.update!(person: person_to_keep)
+        ra.update!(person: person_to_keep) unless dry_run
       end
 
       puts "\nDestroying Person ID: #{person_to_merge.id} (#{person_to_merge.full_name})"
       puts "Person will be permanently deleted, non-retrievable. Please note the following details in Trello tickets for the record"
       puts "==== BEGIN ===="
       puts person_to_merge.attributes
-      person_to_merge.reload.destroy!
+      person_to_merge.reload.destroy! unless dry_run
       puts "==== END ===="
     end
 
@@ -73,41 +64,43 @@ namespace :data_hygiene do
 
     person_to_merge_content_id = person_to_merge.content_id
     puts "\nRedirecting the deleted person of content ID: '#{person_to_merge_content_id}' to the person to keep, at path: '/government/people/#{person_to_keep.slug}'"
-    response = PublishingApiRedirectJob.new.perform(
-      person_to_merge_content_id,
-      "/government/people/#{person_to_keep.slug}",
-      I18n.default_locale.to_s,
-    )
-    puts response.code
-    puts response.raw_response_body
+
+    unless dry_run
+      response = PublishingApiRedirectJob.new.perform(
+        person_to_merge_content_id,
+        "/government/people/#{person_to_keep.slug}",
+        I18n.default_locale.to_s,
+      )
+      puts response.code
+      puts response.raw_response_body
+    end
   end
 
   # Use with caution: This task will reassign speeches that are in an unmodifiable state
   # It bypasses validation on the Speech model
   desc "Reassign role appointment speeches"
-  task :reassign_role_appointment_speeches, %i[old_role_appointment_id new_role_appointment_id] => :environment do |_, args|
+  task :reassign_role_appointment_speeches, %i[old_role_appointment_id new_role_appointment_id dry_run] => :environment do |_, args|
+    dry_run = args[:dry_run]&.to_s&.downcase == "true"
+
     begin
       old_role_appointment = RoleAppointment.find(args[:old_role_appointment_id])
     rescue ActiveRecord::RecordNotFound
-      shell.say_error "Cannot find old role appointment: #{args[:old_role_appointment_id]}"
+      puts "Cannot find old role appointment: #{args[:old_role_appointment_id]}"
       next
     end
     begin
       new_role_appointment = RoleAppointment.find(args[:new_role_appointment_id])
     rescue ActiveRecord::RecordNotFound
-      shell.say_error "Cannot find new role appointment: #{args[:new_role_appointment_id]}"
+      puts "Cannot find new role appointment: #{args[:new_role_appointment_id]}"
       next
-    end
-    unless shell.yes?("Proceed with moving speeches from #{old_role_appointment.role_name} to #{new_role_appointment.role_name} (yes/no)")
-      shell.say_error "Move aborted"
-      next
-    end
-    shell.say "Found #{old_role_appointment.speeches.count} speech(es) to move."
-    old_role_appointment.speeches.find_each do |speech|
-      speech.role_appointment_id = new_role_appointment.id
-      speech.save!(validate: false)
     end
 
-    shell.say "Speeches reassigned to #{new_role_appointment.role_name}"
+    puts "Found #{old_role_appointment.speeches.count} speech(es) to move."
+    old_role_appointment.speeches.find_each do |speech|
+      speech.role_appointment_id = new_role_appointment.id
+      speech.save!(validate: false) unless dry_run
+    end
+
+    puts "Speeches reassigned to #{new_role_appointment.role_name}"
   end
 end

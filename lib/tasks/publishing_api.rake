@@ -41,10 +41,6 @@ namespace :publishing_api do
     desc "Redirect HTML Attachments to a given URL"
     task :by_content_id, %i[content_id destination] => :environment do |_, args|
       DataHygiene::PublishingApiHtmlAttachmentRedirector.call(args[:content_id], args[:destination], dry_run: true)
-      unless Thor::Shell::Basic.new.yes?("Proceed with redirecting these HTML attachments? (yes/no)")
-        puts "Aborted"
-        next
-      end
       DataHygiene::PublishingApiHtmlAttachmentRedirector.call(args[:content_id], args[:destination], dry_run: false)
     end
   end
