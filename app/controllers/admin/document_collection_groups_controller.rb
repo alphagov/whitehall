@@ -1,5 +1,7 @@
 class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection
+  before_action :enforce_permissions!
+  before_action :prevent_modification_of_unmodifiable_edition, except: %i[index show]
   before_action :load_document_collection_group, only: %i[confirm_destroy destroy edit update show]
 
   def index
@@ -67,6 +69,16 @@ private
 
   def load_document_collection
     @collection = DocumentCollection.find(params[:document_collection_id])
+    @edition = @collection
+  end
+
+  def enforce_permissions!
+    case action_name
+    when "index", "show"
+      enforce_permission!(:see, @collection)
+    else
+      enforce_permission!(:update, @collection)
+    end
   end
 
   def load_document_collection_group
