@@ -102,6 +102,19 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_not filter.send(:editions_with_translations).eager_loading?
   end
 
+  test "preloads associations rather than eager loading them when the source already joins translations" do
+    filter = Admin::EditionFilter.new(
+      Edition.with_translations(I18n.locale),
+      @current_user,
+      title: "test",
+      include_unpublishing: true,
+      include_link_check_report: true,
+      include_last_author: true,
+    )
+
+    assert_not filter.send(:editions_with_translations).eager_loading?
+  end
+
   test "can preload unpublishing data when filtering by title" do
     publication = create(:publication, title: "Test mcTest")
     create(:unpublishing, edition: publication)
