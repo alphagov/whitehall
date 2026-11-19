@@ -450,9 +450,8 @@ Whitehall::Application.routes.draw do
 
   mount GovukSidekiq::GdsSsoMiddleware, at: "/sidekiq"
 
-  mount Flipflop::Engine => "/flipflop"
-
   constraints(GDS::SSO::AuthorisedUserConstraint.new(User::Permissions::SIGNIN)) do
+    mount Flipflop::Engine => "/flipflop"
     mount GovukPublishingComponents::Engine, at: "/component-guide"
   end
 end
