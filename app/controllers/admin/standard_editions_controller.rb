@@ -77,7 +77,7 @@ class Admin::StandardEditionsController < Admin::EditionsController
 
     return render_not_found unless @edition.translations.pluck(:locale).include?(@locale.code.to_s)
 
-    filter_params = params.slice(:page, :type, :author, :organisation, :title)
+    filter_params = params.slice(:page, :type, :author, :organisation, :title, :content_source)
                           .permit!
                           .to_h
                           .merge(
