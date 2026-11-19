@@ -559,6 +559,47 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_slug], Edition.with_title_containing("https://www.gov.uk/government/news/klingons-rule?foo=bar#details")
   end
 
+  test "should find editions by slug, when given a slug with capital letters" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_slug], Edition.with_title_containing("Klingons-Rule")
+  end
+
+  test "should find editions by slug, when given a full URL with capital letters" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_slug], Edition.with_title_containing("https://www.GOV.UK/government/news/Klingons-Rule")
+  end
+
+  test "should prefer the slug match over title matches, when given an exact slug" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_with_matching_title = create(:edition, title: "guidance for klingons-rule compliance")
+
+    assert_equal [edition_with_slug], Edition.with_title_containing("klingons-rule")
+  end
+
+  test "should fall back to the title search, when given a slug that matches no edition" do
+    edition_with_matching_title = create(:edition, title: "guidance for klingons-rule compliance")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_matching_title], Edition.with_title_containing("klingons-rule")
+  end
+
+  test "should fall back to the title search, when given a mixed case slug that matches no edition" do
+    edition_with_matching_title = create(:edition, title: "A guide to UK-gov services")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_matching_title], Edition.with_title_containing("UK-gov")
+  end
+
+  test "should return no editions, when given a search term with no slug candidate" do
+    create(:edition, title: "this document is about muppets")
+
+    assert_empty Edition.with_title_containing("/")
+  end
+
   test "should find editions with title containing regular expression characters" do
     edition_with_nasty_characters = create(:edition, title: "title with [stuff in brackets]")
     assert_equal [edition_with_nasty_characters], Edition.with_title_containing("[stuff")
