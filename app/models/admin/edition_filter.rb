@@ -107,8 +107,9 @@ module Admin
 
   private
 
-    def unpaginated_editions
-      return @unpaginated_editions if @unpaginated_editions
+    def unpaginated_editions(locale = nil)
+      @unpaginated_editions ||= {}
+      return @unpaginated_editions[locale] if @unpaginated_editions[locale]
 
       editions = @source
       editions = scope_by_type(editions, options[:type]) if options[:type].present?
@@ -116,7 +117,7 @@ module Admin
       editions = editions.authored_by(author) if author
       editions = editions.in_organisation(organisation) if organisation
       editions = editions.with_topical_event(topical_event) if topical_event # Legacy
-      editions = editions.with_title_containing(title) if title
+      editions = editions.with_title_containing(title, locale: locale || I18n.default_locale) if title
       editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
       editions = editions.from_date(from_date) if from_date
       editions = editions.to_date(to_date) if to_date
@@ -126,21 +127,22 @@ module Admin
       editions = editions.review_overdue if review_overdue
       editions = editions.excluding_featured_on(feature_list) if feature_list
 
-      editions = editions.includes(:unpublishing) if include_unpublishing?
-      editions = editions.includes(:link_check_report) if include_link_check_report?
-      editions = editions.includes(:last_author) if include_last_author?
+      editions = editions.preload(:document)
+      editions = editions.preload(:unpublishing) if include_unpublishing?
+      editions = editions.preload(:link_check_report) if include_link_check_report?
+      editions = editions.preload(:last_author) if include_last_author?
 
-      @unpaginated_editions = editions
+      @unpaginated_editions[locale] = editions
     end
 
     def editions_with_translations(locale = nil)
-      editions_without_translations = unpaginated_editions
+      editions_without_translations = unpaginated_editions(locale)
                                         .order("editions.updated_at DESC")
 
       if locale
         editions_without_translations.with_translations(locale)
       else
-        editions_without_translations.includes(:translations)
+        editions_without_translations.preload(:translations)
       end
     end
 

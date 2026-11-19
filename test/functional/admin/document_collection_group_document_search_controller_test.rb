@@ -91,6 +91,15 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_select "nav.govuk-pagination"
   end
 
+  test "GET :add_by_title preloads the document of each result" do
+    create(:published_edition, title: "Something")
+    @request_params[:title] = "Something"
+
+    get :add_by_title, params: @request_params
+
+    assert assigns(:editions).first.association(:document).loaded?
+  end
+
   view_test "GET :add_by_title with search value renders results without pagination if length of result is 15" do
     15.times { create(:published_edition, title: "Something") }
     @request_params[:title] = "Something "

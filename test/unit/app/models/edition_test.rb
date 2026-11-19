@@ -619,6 +619,33 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_underscore], Edition.with_title_containing("draft_guidance")
   end
 
+  test "should not find editions whose matching title is not in the default locale" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = "english title" }
+    with_locale(:es) { edition.title = "spanishkeyword" }
+    edition.save!
+
+    assert_empty Edition.with_title_containing("spanishkeyword")
+  end
+
+  test "should find editions by a title in another locale, when that locale is asked for" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = "english title" }
+    with_locale(:es) { edition.title = "spanishkeyword" }
+    edition.save!
+
+    assert_equal [edition], Edition.with_title_containing("spanishkeyword", locale: :es)
+  end
+
+  test "should find an edition once when more than one of its translations matches" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = "shared keyword" }
+    with_locale(:es) { edition.title = "shared keyword" }
+    edition.save!
+
+    assert_equal [edition], Edition.with_title_containing("shared keyword")
+  end
+
   test "make_public_at should set first_published_at if its empty" do
     e = build(:edition, first_published_at: nil)
     e.make_public_at(2.days.ago)
