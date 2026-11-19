@@ -6,7 +6,7 @@ class SummaryCardListTest < ActionView::TestCase
       render("components/summary_card_list")
     end
 
-    assert error.message.include?("undefined local variable or method `title'")
+    assert error.message.include?("undefined local variable or method 'title'")
   end
 
   test "renders a summary card component with a title" do
