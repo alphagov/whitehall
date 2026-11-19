@@ -4,9 +4,9 @@ module Edition::Scopes::SearchableByTitle
   included do
     scope :with_title_containing, lambda { |keywords|
       like_clause = "%#{sanitize_sql_like(keywords)}%"
-      slug_keyword_candidate = keywords.to_s.sub(%r{[?#].*\z}, "").split("/").last
+      slug_keyword_candidate = keywords.to_s.sub(%r{[?#].*\z}, "").split("/").last.to_s.downcase
 
-      if slug_keyword_candidate.match?(/\A[a-z0-9]+(-[a-z0-9]+)+\z/)
+      if slug_keyword_candidate.match?(/\A[a-z0-9]+(-[a-z0-9]+)+\z/) && exists?(slug: slug_keyword_candidate)
         where(slug: slug_keyword_candidate)
       else
         in_default_locale
