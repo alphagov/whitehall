@@ -603,6 +603,146 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_equal "Could not change document type.", flash[:alert]
   end
 
+  test "GET change_type is forbidden for an edition access-limited to another organisation" do
+    setup_convertible_test_types
+    edition = create(:draft_standard_edition, :access_limited_by_organisations, configurable_document_type: "original_type")
+
+    get :change_type, params: { id: edition.id }
+
+    assert_response :forbidden
+  end
+
+  test "GET change_type_preview is forbidden for an edition access-limited to another organisation" do
+    setup_convertible_test_types
+    edition = create(:draft_standard_edition, :access_limited_by_organisations, configurable_document_type: "original_type")
+
+    get :change_type_preview, params: { id: edition.id, configurable_document_type: "new_type" }
+
+    assert_response :forbidden
+  end
+
+  test "PATCH apply_change_type is forbidden for an edition access-limited to another organisation and does not change the type" do
+    setup_convertible_test_types
+    edition = create(:draft_standard_edition, :access_limited_by_organisations, configurable_document_type: "original_type")
+
+    patch :apply_change_type, params: { id: edition.id, configurable_document_type: "new_type" }
+
+    assert_response :forbidden
+    assert_equal "original_type", edition.reload.configurable_document_type
+  end
+
+  test "GET change_type redirects a writer with the historic content message for a historic edition" do
+    setup_convertible_test_types
+    edition = historic_draft_standard_edition
+
+    get :change_type, params: { id: edition.id }
+
+    assert_redirected_to admin_standard_edition_path(edition)
+    assert_match(/history mode/, flash[:alert])
+  end
+
+  test "GET change_type_preview redirects a writer with the historic content message for a historic edition" do
+    setup_convertible_test_types
+    edition = historic_draft_standard_edition
+
+    get :change_type_preview, params: { id: edition.id, configurable_document_type: "new_type" }
+
+    assert_redirected_to admin_standard_edition_path(edition)
+    assert_match(/history mode/, flash[:alert])
+  end
+
+  test "PATCH apply_change_type redirects a writer with the historic content message for a historic edition and does not change the type" do
+    setup_convertible_test_types
+    edition = historic_draft_standard_edition
+
+    patch :apply_change_type, params: { id: edition.id, configurable_document_type: "new_type" }
+
+    assert_redirected_to admin_standard_edition_path(edition)
+    assert_match(/history mode/, flash[:alert])
+    assert_equal "original_type", edition.reload.configurable_document_type
+  end
+
+  test "PATCH apply_change_type is allowed for a GDS editor on a historic edition" do
+    setup_convertible_test_types
+    edition = historic_draft_standard_edition
+    login_as :gds_editor, @organisation
+    StandardEdition.any_instance.stubs(:update_configurable_document_type).returns(true)
+
+    patch :apply_change_type, params: { id: edition.id, configurable_document_type: "new_type" }
+
+    assert_redirected_to admin_standard_edition_path(edition)
+    assert_equal "Document type changed successfully.", flash[:notice]
+  end
+
+  test "GET change_type_preview is forbidden for a target type the user cannot create" do
+    setup_convertible_test_types(new_type_organisations: [SecureRandom.uuid])
+    edition = create(:draft_standard_edition, configurable_document_type: "original_type")
+
+    get :change_type_preview, params: { id: edition.id, configurable_document_type: "new_type" }
+
+    assert_response :forbidden
+  end
+
+  test "PATCH apply_change_type is forbidden for a target type the user cannot create and does not change the type" do
+    setup_convertible_test_types(new_type_organisations: [SecureRandom.uuid])
+    edition = create(:draft_standard_edition, configurable_document_type: "original_type")
+
+    patch :apply_change_type, params: { id: edition.id, configurable_document_type: "new_type" }
+
+    assert_response :forbidden
+    assert_equal "original_type", edition.reload.configurable_document_type
+  end
+
+  test "POST create for an organisation-restricted type is forbidden for a user outside the permitted organisations and creates nothing" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("restricted_type", { "settings" => { "organisations" => [SecureRandom.uuid] } }),
+    )
+
+    assert_no_difference -> { StandardEdition.count } do
+      post :create, params: { edition: { configurable_document_type: "restricted_type", title: "Title", summary: "Summary", block_content: { "field_attribute" => "Body" }, previously_published: false } }
+    end
+
+    assert_response :forbidden
+  end
+
+  test "POST create for an organisation-restricted type is allowed for a user in a permitted organisation" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("restricted_type", { "settings" => { "organisations" => [@organisation.content_id] } }),
+    )
+
+    assert_difference -> { StandardEdition.count }, 1 do
+      post :create, params: { edition: { configurable_document_type: "restricted_type", title: "Title", summary: "Summary", block_content: { "field_attribute" => "Body" }, previously_published: false } }
+    end
+
+    assert_response :redirect
+  end
+
+  %i[writer gds_admin].each do |role|
+    view_test "POST create by a #{role} access-limiting a new edition to another organisation shows a validation error rather than a permission error" do
+      ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type"))
+      login_as role, @organisation
+      other_organisation = create(:organisation)
+
+      assert_no_difference -> { StandardEdition.count } do
+        post :create, params: {
+          edition: {
+            configurable_document_type: "test_type",
+            title: "Title",
+            summary: "Summary",
+            block_content: { "field_attribute" => "Body" },
+            previously_published: false,
+            access_limiting: "organisations",
+            access_limiting_organisation_ids: [other_organisation.id],
+          },
+        }
+      end
+
+      assert_response :ok
+      assert_template "admin/editions/new"
+      assert_select ".govuk-error-summary a", text: "Access limiting organisations must include your own organisation"
+    end
+  end
+
   view_test "GET edit renders default fields for a standard document" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
@@ -2285,6 +2425,19 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
 
       assert_response :success
     end
+  end
+
+  def setup_convertible_test_types(new_type_organisations: nil)
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("original_type", { "settings" => { "configurable_document_group" => "group_type" } })
+        .merge(build_configurable_document_type("new_type", { "settings" => { "configurable_document_group" => "group_type", "organisations" => new_type_organisations } })),
+    )
+  end
+
+  def historic_draft_standard_edition
+    previous_government = create(:previous_government)
+    create(:current_government)
+    create(:draft_standard_edition, configurable_document_type: "original_type", political: true, government_id: previous_government.id)
   end
 
   def tabbed_document_type(validations: {})
