@@ -1,0 +1,70 @@
+name: Filter options
+accessibility_criteria: |
+  Inputs in the component must:
+
+  * accept focus
+  * be focusable with a keyboard
+  * be usable with a keyboard
+  * be usable with touch
+  * indicate when they have focus
+  * be recognisable as form input elements
+  * have correctly associated labels
+  * be of the appropriate type for their use
+
+  Labels use the [label component](/component-guide/label).
+
+  Avoid using [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autofocus) and `tabindex` unless you have user research to support this behaviour.
+description: |
+  For filtering searches
+uses_component_wrapper_helper: true
+examples:
+  default:
+    data:
+      action: "/search"
+      options:
+      - fields:
+        - label:
+            text: "Title"
+            bold: true
+          name: "title"
+          id: "title_filter"
+          type: "search"
+          filter_type: "input"
+      - fields:
+        - label: "Author"
+          id: "author_filter"
+          name: "author"
+          heading_size: "s"
+          data_attributes:
+            ga4_section: "Author"
+            ga4_change_category: "update-filter select"
+            ga4_filter_parent: true
+          options:
+          - text: "Text"
+            value: "something"
+            selected: true
+          filter_type: "select_with_search"
+      - fields:
+        - label:
+            text: "From"
+            bold: true
+          name: "from_date"
+          id: "from_date"
+          hint: "For example, 23/07/2013"
+          filter_type: "input"
+        - label:
+            text: "To"
+            bold: true
+          name: "to_date"
+          id: "to_date"
+          hint: "For example, 23/07/2013"
+          filter_type: "input"
+        section: Last updated date
+      - fields:
+        - name: "only_invalid_editions"
+          small: true
+          items:
+          - label: "Only invalid editions"
+            value: "1"
+            bold: true
+          filter_type: "checkboxes"

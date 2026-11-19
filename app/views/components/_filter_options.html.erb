@@ -1,0 +1,63 @@
+<%
+  raise "filter action required" unless defined?(local_assigns[:action])
+
+  filter_options_helper = Components::FilterOptionsPresenter.new(local_assigns)
+
+  options ||= nil
+
+  data_attributes ||= {}
+  disable_ga4 ||= nil
+
+  heading_text ||= nil
+  heading_margin_bottom ||= 4
+
+  submit_button_text ||= "Search"
+
+  reset_link_text ||= "Reset all fields"
+  reset_link_data_attributes ||= {}
+
+  unless disable_ga4
+    data_attributes[:module] = "ga4-finder-tracker"
+  end
+%>
+
+<% if options.present? %>
+  <%= content_tag :div, class: "gem-c-filter-options" do %>
+    <%= form_with url: filter_options_helper.form_action, method: :get, data: data_attributes do |form| %>
+
+      <%= render "govuk_publishing_components/components/heading", {
+        text: heading_text,
+        margin_bottom: heading_margin_bottom,
+      } %>
+
+      <% options.each do |option| %>
+        <% fields = capture do %>
+          <% option[:fields].each do |field| %>
+            <% field => {filter_type:, **args} %>
+            <% raise "Unsupported filter_type: #{filter_type}" unless filter_options_helper.valid_filter_type?(filter_type) %>
+            <%= render "govuk_publishing_components/components/#{filter_type}", **args %>
+          <% end %>
+        <% end %>
+
+        <% if option[:section] %>
+          <%= render "govuk_publishing_components/components/fieldset", {
+            legend_text: option[:section],
+            heading_level: 3,
+            heading_size: "s",
+            text: fields,
+          } %>
+        <% else %>
+          <%= fields %>
+        <% end %>
+      <% end %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: submit_button_text,
+        margin_bottom: 4,
+      } %>
+
+      <p class="govuk-body">
+      <%= link_to reset_link_text, filter_options_helper.reset_fields_link, class: "govuk-link", data: reset_link_data_attributes %></p>
+    <% end %>
+  <% end %>
+<% end %>
