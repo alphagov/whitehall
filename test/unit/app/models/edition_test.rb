@@ -867,6 +867,16 @@ class EditionTest < ActiveSupport::TestCase
     assert_not edition.historic?
   end
 
+  test "#historic? looks the government up once" do
+    create(:current_government)
+    previous_government = create(:previous_government)
+    edition = create(:edition, political: true, first_published_at: previous_government.start_date)
+
+    Government.expects(:on_date).once.returns(previous_government)
+
+    assert edition.historic?
+  end
+
   test "#historic? is false when the document has no government" do
     edition = create(:edition, political: true, first_published_at: nil)
     assert_not edition.historic?
