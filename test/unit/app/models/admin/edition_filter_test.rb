@@ -540,6 +540,15 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_includes filter.editions.to_a, featured_edition
   end
 
+  test "does not recount editions when working out the force published percentage" do
+    create(:published_publication)
+    filter = Admin::EditionFilter.new(Edition, @current_user, state: "published")
+    filter.published_count
+    filter.force_published_count
+
+    assert_equal 0, count_queries { filter.force_published_percentage }
+  end
+
   test "exportable? if number of editions is below threshold" do
     filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
     filter.stubs(:unpaginated_editions).returns(stub(count: 8000))
