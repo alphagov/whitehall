@@ -5,46 +5,70 @@ class Admin::ErrorsControllerTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   extend Minitest::Spec::DSL
 
+  ERRORS = {
+    "400": { template: :bad_request, exception: ActionController::BadRequest },
+    "404": { template: :not_found, exception: ActiveRecord::RecordNotFound },
+    "422": { template: :unprocessable_content, exception: ActionController::InvalidAuthenticityToken },
+    "500": { template: :internal_server_error, exception: StandardError },
+  }.freeze
+
   setup do
+    @env_config = Rails.application.env_config.slice(
+      "action_dispatch.show_exceptions",
+      "action_dispatch.show_detailed_exceptions",
+    )
+    Rails.application.env_config["action_dispatch.show_exceptions"] = :all
+    Rails.application.env_config["action_dispatch.show_detailed_exceptions"] = false
+
     login_as_admin
   end
 
-  ERROR_LOOKUPS = {
-    "400": :bad_request,
-    "403": :forbidden,
-    "404": :not_found,
-    "422": :unprocessable_content,
-    "500": :internal_server_error,
-  }.freeze
+  teardown do
+    Rails.application.env_config.merge!(@env_config)
+  end
 
-  ERROR_LOOKUPS.each do |error_code, error|
-    it "should show the #{error} page" do
-      get "/#{error_code}"
+  ERRORS.each do |error_code, error|
+    it "should show the #{error[:template]} page when a #{error[:exception]} is raised" do
+      Admin::DashboardController.any_instance.stubs(:index).raises(error[:exception])
 
-      assert_template error
-    end
+      get admin_root_path
 
-    it "should render the #{error} page when not authenticated" do
-      logout
-      ENV["GDS_SSO_MOCK_INVALID"] = "true"
-
-      get "/#{error_code}"
-
-      assert_template error
-    ensure
-      ENV.delete("GDS_SSO_MOCK_INVALID")
-    end
-
-    it "should render the correct headers" do
-      get "/#{error_code}"
-
+      assert_response error_code.to_s.to_i
+      assert_template error[:template]
       assert_select ".govuk-header__product-name", text: Whitehall.product_name
-    end
-
-    it "should render the product name in the title" do
-      get "/#{error_code}"
-
       assert_select "title", text: /#{Whitehall.product_name}/
     end
+  end
+
+  it "should show the forbidden page when a route constraint denies permission" do
+    login_as(create(:user, permissions: []))
+
+    get "/component-guide"
+
+    assert_response :forbidden
+    assert_template :forbidden
+    assert_select ".govuk-header__product-name", text: Whitehall.product_name
+    assert_select "title", text: /#{Whitehall.product_name}/
+  end
+
+  %w[400 403 404 422 500].each do |error_code|
+    it "should return a 404 when /#{error_code} is requested directly" do
+      get "/#{error_code}"
+
+      assert_response :not_found
+      assert_template :not_found
+    end
+  end
+
+  it "should render the not_found page when not authenticated" do
+    logout
+    ENV["GDS_SSO_MOCK_INVALID"] = "true"
+
+    get "/a-page-that-does-not-exist"
+
+    assert_response :not_found
+    assert_template :not_found
+  ensure
+    ENV.delete("GDS_SSO_MOCK_INVALID")
   end
 end
