@@ -48,7 +48,7 @@
         filter: @filter,
         paginator: @tagged_editions,
         featurable_editions: featurable_editions_for_feature_list(@tagged_editions, @feature_list),
-        filter_by: [:title, :type, :author, :organisation],
+        filter_by: [:title, :type, :author, :organisation, :content_source],
         anchor: "#documents_tab",
         filter_action: polymorphic_url([:features, :admin, @feature_list.featurable], locale: @feature_list.locale),
         feature_path: [:new, :admin, @feature_list, :feature],
