@@ -382,9 +382,10 @@ class Edition < ApplicationRecord
   end
 
   def historic?
-    return false unless government
+    edition_government = government
+    return false unless edition_government
 
-    political? && !government.current?
+    political? && !edition_government.current?
   end
 
   def withdrawn?

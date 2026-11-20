@@ -55,11 +55,11 @@ module Admin
     end
 
     def published_count
-      unpaginated_editions.published.count
+      @published_count ||= unpaginated_editions.published.count
     end
 
     def force_published_count
-      unpaginated_editions.force_published.count
+      @force_published_count ||= unpaginated_editions.force_published.count
     end
 
     def force_published_percentage
@@ -126,9 +126,10 @@ module Admin
       editions = editions.review_overdue if review_overdue
       editions = editions.excluding_featured_on(feature_list) if feature_list
 
-      editions = editions.includes(:unpublishing) if include_unpublishing?
-      editions = editions.includes(:link_check_report) if include_link_check_report?
-      editions = editions.includes(:last_author) if include_last_author?
+      editions = editions.preload(:document)
+      editions = editions.preload(:unpublishing) if include_unpublishing?
+      editions = editions.preload(:link_check_report) if include_link_check_report?
+      editions = editions.preload(:last_author) if include_last_author?
 
       @unpaginated_editions = editions
     end
@@ -140,7 +141,7 @@ module Admin
       if locale
         editions_without_translations.with_translations(locale)
       else
-        editions_without_translations.includes(:translations)
+        editions_without_translations.preload(:translations)
       end
     end
 

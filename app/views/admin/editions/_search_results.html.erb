@@ -48,18 +48,21 @@
     } %>
   </div>
 
-  <% if paginate(paginator, theme: "govuk_paginator").present? && show_export && can?(:export, Edition) %>
+  <% pagination = paginate(paginator, theme: "govuk_paginator") %>
+  <% show_csv_export = show_export && can?(:export, Edition) %>
+
+  <% if pagination.present? && show_csv_export %>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-three-quarters">
-        <%= paginate(paginator, theme: "govuk_paginator") %>
+        <%= pagination %>
       </div>
       <div class="govuk-grid-column-one-quarter">
         <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
       </div>
     </div>
-  <% elsif paginate(paginator, theme: "govuk_paginator").present? && !(show_export && can?(:export, Edition)) %>
-    <%= paginate(paginator, theme: "govuk_paginator") %>
-  <% elsif show_export && can?(:export, Edition) %>
+  <% elsif pagination.present? %>
+    <%= pagination %>
+  <% elsif show_csv_export %>
     <p class="govuk-body app-view-edition-search-results__csv-export"><%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}", class: "govuk-link" %></p>
   <% end %>
 <% end %>

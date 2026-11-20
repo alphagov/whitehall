@@ -30,7 +30,6 @@ module Edition::Translatable
       on: :update,
     )
 
-    scope :in_default_locale, -> { joins(:translations).where("edition_translations.locale" => I18n.default_locale) }
     validate :locale_is_valid
 
     # We are overriding globalize3's default behaviour so that editions will fallback
