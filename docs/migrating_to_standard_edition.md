@@ -39,13 +39,13 @@ The migrator itself offers a few methods:
 
 - `preview_migration(legacy_record, recipe)` - given an old record and a recipe, this will build the StandardEdition in memory and summarise its before-and-after payloads, including any diff.
 - `migrate_existing_document(legacy_record, recipe, raise_if_payloads_differ: boolean<true>)` - overwrites an existing (legacy) Document and all of its Editions. It is intended to be called for legacy edition types such as Publication, Speech, etc. It is not compatible with other content types. Passing `raise_if_payloads_differ: true` aborts the migration if the normalised payloads don't match.
-- `create_new_document(legacy_record, recipe, raise_if_payloads_differ: boolean<true>)` - creates a new Document instance and one 'published' Edition. It is intended to be called for legacy content types that don't follow the Document/Edition model, e.g. TopicalEvent, Organisation etc. It could in theory support legacy edition types too, so that we have an alternative to overwriting-in-place (could instead duplicate a given Document and then delete the old one).
+- `create_new_document(legacy_record, recipe, raise_if_payloads_differ: boolean<true>)` - creates a new Document instance and one 'published' Edition. It is intended to be called for legacy content types that don't follow the Document/Edition model, e.g. Organisation. It could in theory support legacy edition types too, so that we have an alternative to overwriting-in-place (could instead duplicate a given Document and then delete the old one).
 - `bulk_enqueue_migration(scope, recipe, migration_method: string, raise_if_payloads_differ: boolean<true>)` - enqueues the migration of an array of legacy records, using the migration method provided ("migrate_existing_document" or "create_new_document"), using StandardEditionJob.
 
 With that in mind, the steps for migrating a legacy content type to being config-driven is roughly as follows:
 
-1. Choose a guinea pig legacy document, e.g. `TopicalEvent.find(123)` and use it as the basis of writing your recipe.
-   `StandardEditionMigrator.preview_migration(TopicalEvent.find(123), StandardEditionMigrator::TopicalEventRecipe)`.
+1. Choose a guinea pig legacy document, e.g. `Organisation.find(123)` and use it as the basis of writing your recipe.
+   `StandardEditionMigrator.preview_migration(Organisation.find(123), StandardEditionMigrator::OrganisationRecipe)`.
    Gradually build up your recipe (and associated tests) until you have a recipe that fully carries over all the relevant fields and the normalised payloads match.
 
 2. Try migrating that one document locally (using `migrate_existing_document` or `create_new_document`).
@@ -63,7 +63,8 @@ With that in mind, the steps for migrating a legacy content type to being config
    Typically a little manual intervention is required, e.g. to patch up some data first.
 
 8. Test running the full migration (and any manual patches) on Integration.
-   If you've used `create_new_document`, you'll need to delete the old legacy records, e.g. `TopicalEvent.destroy_all`, so that you don't have two competing items per document.
+   If you've used `create_new_document`, you'll need to remove the old legacy records so that you don't have two competing items per document.
+   Do this without running callbacks, e.g. a soft-delete with `update_all(state: "deleted")` or `delete_all`. The new document reuses the legacy `content_id`, and `destroy` on a model that publishes to Publishing API sends a 'gone' for it.
    When you're down to one item per document, [bulk republish by type](https://whitehall-admin.integration.publishing.service.gov.uk/government/admin/republishing/bulk/by-type/new) to present them all downstream.
    Then keep an eye out for Sentry errors, and manually check a handful of documents to see if they've been updated as expected.
 

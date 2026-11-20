@@ -17,7 +17,7 @@ class StandardEditionMigrator::RecipeForNonEditionableRecord < StandardEditionMi
     edition = StandardEdition.new(edition_attrs)
 
     # NOTE: implementation will vary depending on non-editionable model.
-    # E.g. Organisation has `translations` we can iterate over, but TopicalEvent does not.
+    # E.g. Organisation has `translations` we can iterate over.
     legacy_record.translations.each do |translation|
       edition.translations.find_or_initialize_by(locale: translation.locale).update(
         title: translation.name,

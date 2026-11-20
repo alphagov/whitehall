@@ -6,8 +6,7 @@ class Admin::OffsiteLinksHelperTest < ActionView::TestCase
     assert offsite_link_date_enabled?(build(:world_location_news))
   end
 
-  test "#offsite_link_date_enabled? is false for topical events" do
+  test "#offsite_link_date_enabled? is false for editions" do
     assert_not offsite_link_date_enabled?(build(:standard_edition))
-    assert_not offsite_link_date_enabled?(build(:topical_event))
   end
 end

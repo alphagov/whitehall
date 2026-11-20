@@ -186,24 +186,6 @@ Whitehall::Application.routes.draw do
       end
       resources :operational_fields, except: [:show]
 
-      resources :topical_events, path: "topical-events" do
-        resource :topical_event_about_pages, path: "about"
-        resources :topical_event_featurings, path: "featurings" do
-          get :reorder, on: :collection
-          put :order, on: :collection
-          get :confirm_destroy, on: :member
-        end
-        resources :topical_event_organisations, path: "organisations" do
-          get :reorder, on: :collection
-          put :order, on: :collection
-          get :toggle_lead, on: :member
-        end
-        resources :offsite_links do
-          get :confirm_destroy, on: :member
-        end
-        get :confirm_destroy, on: :member
-      end
-
       resources :editions, only: [:index], concerns: %i[attachable attachable_with_html attachable_with_external] do
         resource :tags, only: %i[edit update], controller: :edition_tags
         resource :legacy_associations, only: %i[edit update], controller: :edition_legacy_associations

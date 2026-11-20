@@ -61,15 +61,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert guide.has_additional_related_mainstream_content?
   end
 
-  # To be deleted after legacy topical events have been migrated.
-  # It has a config-driven equivalent test below it which should be kept.
-  test "can be associated with (legacy) topical events" do
-    detailed_guide = create(:detailed_guide)
-    assert detailed_guide.can_be_associated_with_topical_events?
-    assert topical_event = detailed_guide.topical_events.create!(name: "Test", description: "Test", summary: "Test")
-    assert_equal [topical_event], detailed_guide.reload.topical_events
-  end
-
   test "can associate detailed guides with topical events" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
     detailed_guide = create(:detailed_guide)

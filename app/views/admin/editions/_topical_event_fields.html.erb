@@ -1,14 +1,5 @@
 <% if edition.can_be_associated_with_topical_events? %>
   <%= render "govuk_publishing_components/components/select_with_search", {
-    id: "edition_topical_event_ids",
-    name: "edition[topical_event_ids][]",
-    include_blank: true,
-    label: "Topical events (legacy - do not use)",
-    heading_size: "m",
-    options: taggable_topical_events_container(edition.topical_event_ids),
-    multiple: true,
-  } %>
-  <%= render "govuk_publishing_components/components/select_with_search", {
     id: "edition_topical_event_document_ids",
     name: "edition[topical_event_document_ids][]",
     include_blank: true,
