@@ -170,4 +170,106 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     assert_select "h1", /Remove document/
     assert_select "p", /Are you sure you want to remove "Unavailable Document" from this collection?/
   end
+
+  view_test "GET #index renders for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+
+    get :index, params: { document_collection_id: collection, group_id: collection.groups.first }
+
+    assert_response :ok
+  end
+
+  test "GET #confirm_destroy redirects for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+    group = collection.groups.first
+    group.memberships << membership = create(:document_collection_group_membership)
+
+    get :confirm_destroy, params: { document_collection_id: collection, group_id: group, id: membership }
+
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "GET #reorder redirects for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+
+    get :reorder, params: { document_collection_id: collection, group_id: collection.groups.first }
+
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "POST #create_whitehall_member does not add a document for a published collection" do
+    document = create(:publication).document
+    collection = create(:published_document_collection, :with_group)
+    group = collection.groups.first
+
+    assert_no_difference "group.reload.documents.size" do
+      post :create_whitehall_member, params: { document_collection_id: collection, group_id: group, document_id: document.id }
+    end
+    assert_redirected_to admin_document_collection_path(collection)
+    assert_equal "You cannot modify a published Document collection", flash[:alert]
+  end
+
+  test "POST #create_member_by_govuk_url does not add a URL for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+    group = collection.groups.first
+    Services.publishing_api.expects(:lookup_content_id).never
+
+    post :create_member_by_govuk_url, params: { document_collection_id: collection, group_id: group, document_url: "https://www.gov.uk/example" }
+
+    assert_redirected_to admin_document_collection_path(collection)
+    assert_empty group.reload.memberships
+  end
+
+  test "DELETE #destroy does not remove a document for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+    group = collection.groups.first
+    group.memberships << membership = create(:document_collection_group_membership)
+
+    assert_no_difference "group.reload.memberships.count" do
+      delete :destroy, params: { document_collection_id: collection, group_id: group, id: membership }
+    end
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "PUT #order does not reorder documents for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+    group = collection.groups.first
+    group.memberships << membership1 = create(:document_collection_group_membership)
+    group.memberships << membership2 = create(:document_collection_group_membership)
+
+    assert_no_changes -> { group.memberships.reload.pluck(:id, :ordering) } do
+      put :order, params: { document_collection_id: collection, group_id: group, document_collection_group_memberships: { ordering: { membership1.id => "20", membership2.id => "10" } } }
+    end
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "GET #index is forbidden for an access-limited collection the user cannot see" do
+    collection = create(:document_collection, :with_group, :access_limited_by_organisations)
+
+    get :index, params: { document_collection_id: collection, group_id: collection.groups.first }
+
+    assert_response :forbidden
+  end
+
+  test "DELETE #destroy is forbidden for an access-limited collection the user cannot see" do
+    collection = create(:document_collection, :with_group, :access_limited_by_organisations)
+    group = collection.groups.first
+    group.memberships << membership = create(:document_collection_group_membership)
+
+    assert_no_difference "group.reload.memberships.count" do
+      delete :destroy, params: { document_collection_id: collection, group_id: group, id: membership }
+    end
+    assert_response :forbidden
+  end
+
+  test "DELETE #destroy is allowed for an access-limited collection the user can see" do
+    collection = create(:document_collection, :with_group, :access_limited_by_organisations)
+    group = collection.groups.first
+    group.memberships << membership = create(:document_collection_group_membership)
+    login_as create(:writer, organisation: collection.access_limiting_organisations.first)
+
+    assert_difference "group.reload.memberships.count", -1 do
+      delete :destroy, params: { document_collection_id: collection, group_id: group, id: membership }
+    end
+  end
 end

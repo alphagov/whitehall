@@ -183,4 +183,30 @@ class Admin::DocumentCollectionGroupDocumentSearchControllerTest < ActionControl
     assert_select ".govuk-table tbody tr", text: /Unpublished/
     assert_select ".govuk-table tbody tr", text: /Draft/
   end
+
+  test "GET #search_options redirects for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+
+    get :search_options, params: { document_collection_id: collection, group_id: collection.groups.first }
+
+    assert_redirected_to admin_document_collection_path(collection)
+    assert_equal "You cannot modify a published Document collection", flash[:alert]
+  end
+
+  test "GET #add_by_title is forbidden for an access-limited collection the user cannot see" do
+    collection = create(:document_collection, :with_group, :access_limited_by_organisations)
+
+    get :add_by_title, params: { document_collection_id: collection, group_id: collection.groups.first, title: "Something" }
+
+    assert_response :forbidden
+  end
+
+  test "GET #add_by_title is allowed for an access-limited collection the user can see" do
+    collection = create(:document_collection, :with_group, :access_limited_by_organisations)
+    login_as create(:gds_editor, organisation: collection.access_limiting_organisations.first)
+
+    get :add_by_title, params: { document_collection_id: collection, group_id: collection.groups.first }
+
+    assert_response :ok
+  end
 end

@@ -117,4 +117,119 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_redirected_to admin_document_collection_groups_path(@collection)
     assert_equal "Group has been deleted", flash[:notice]
   end
+
+  view_test "GET #index renders for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+
+    get :index, params: { document_collection_id: collection }
+
+    assert_response :ok
+  end
+
+  test "GET #show renders for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+
+    get :show, params: { document_collection_id: collection, id: collection.groups.first }
+
+    assert_response :ok
+  end
+
+  test "GET #new redirects for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+
+    get :new, params: { document_collection_id: collection }
+
+    assert_redirected_to admin_document_collection_path(collection)
+    assert_equal "You cannot modify a published Document collection", flash[:alert]
+  end
+
+  test "GET #edit redirects for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+
+    get :edit, params: { document_collection_id: collection, id: collection.groups.first }
+
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "GET #confirm_destroy redirects for a published collection" do
+    collection = create(:published_document_collection, :with_groups)
+
+    get :confirm_destroy, params: { document_collection_id: collection, id: collection.groups.first }
+
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "GET #reorder redirects for a published collection" do
+    collection = create(:published_document_collection, :with_groups)
+
+    get :reorder, params: { document_collection_id: collection }
+
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "POST #create does not create a group for a published collection" do
+    collection = create(:published_document_collection, :with_group)
+    PublishingApiDocumentRepublishingJob.expects(:perform_async).never
+
+    assert_no_difference "collection.groups.count" do
+      post :create, params: { document_collection_id: collection, document_collection_group: { heading: "Heading" } }
+    end
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "PUT #update does not change a group for a scheduled collection" do
+    collection = create(:scheduled_document_collection, :with_group)
+    group = collection.groups.first
+
+    put :update, params: { document_collection_id: collection, id: group, document_collection_group: { heading: "New heading" } }
+
+    assert_redirected_to admin_document_collection_path(collection)
+    assert_not_equal "New heading", group.reload.heading
+  end
+
+  test "DELETE #destroy does not delete a group for a published collection" do
+    collection = create(:published_document_collection, :with_groups)
+
+    assert_no_difference "collection.groups.count" do
+      delete :destroy, params: { document_collection_id: collection, id: collection.groups.first }
+    end
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "PUT #order does not reorder groups for a published collection" do
+    collection = create(:published_document_collection, :with_groups)
+    group1, group2 = collection.groups
+
+    assert_no_changes -> { collection.groups.reload.pluck(:id, :ordering) } do
+      put :order, params: { document_collection_id: collection, document_collection_groups: { ordering: { group1.id => "20", group2.id => "10" } } }
+    end
+    assert_redirected_to admin_document_collection_path(collection)
+  end
+
+  test "GET #index is forbidden for an access-limited collection the user cannot see" do
+    collection = create(:document_collection, :with_group, :access_limited_by_organisations)
+
+    get :index, params: { document_collection_id: collection }
+
+    assert_response :forbidden
+  end
+
+  test "PUT #update is forbidden for an access-limited collection the user cannot see" do
+    collection = create(:document_collection, :with_group, :access_limited_by_organisations)
+    group = collection.groups.first
+
+    put :update, params: { document_collection_id: collection, id: group, document_collection_group: { heading: "New heading" } }
+
+    assert_response :forbidden
+    assert_not_equal "New heading", group.reload.heading
+  end
+
+  test "PUT #update is allowed for an access-limited collection the user can see" do
+    collection = create(:document_collection, :with_group, :access_limited_by_organisations)
+    login_as create(:writer, organisation: collection.access_limiting_organisations.first)
+
+    put :update, params: { document_collection_id: collection, id: collection.groups.first, document_collection_group: { heading: "New heading" } }
+
+    assert_redirected_to admin_document_collection_groups_path(collection)
+  end
 end
