@@ -111,6 +111,7 @@ module Admin
       return @unpaginated_editions if @unpaginated_editions
 
       editions = @source
+      editions = scope_by_content_type(editions, options[:content_source]) if options[:content_source].present? && options[:content_source] != "all"
       editions = scope_by_type(editions, options[:type]) if options[:type].present?
       editions = editions.in_state(state) if state
       editions = editions.authored_by(author) if author
@@ -158,6 +159,16 @@ module Admin
 
     def title
       options[:title].presence
+    end
+
+    def scope_by_content_type(editions, content_type)
+      edition = Edition.find(content_type)
+
+      if edition.respond_to?(:child_editions)
+        edition.child_editions
+      else
+        editions
+      end
     end
 
     def scope_by_type(editions, type)

@@ -14,6 +14,26 @@
       margin_bottom: 4,
     } %>
 
+    <% if filter_by.include?(:content_source) && @edition.present? %>
+      <%= render "govuk_publishing_components/components/radio", {
+        name: "content_source",
+        description: sanitize("<legend><span class=\"gem-c-label govuk-label govuk-label--s\">Content source</span></legend>"),
+        id: "content_source",
+        items: [
+          {
+            value: "all",
+            text: "All GOV.UK content",
+            checked: @filter.options[:content_source].blank? || @filter.options[:content_source] == "all",
+          },
+          {
+            value: @edition.id,
+            text: "This mini site",
+            checked: @filter.options[:content_source] == "#{@edition.id}",
+          },
+        ],
+      } %>
+    <% end %>
+
     <% if filter_by.include?(:title) %>
       <%= render "govuk_publishing_components/components/input", {
         label: {

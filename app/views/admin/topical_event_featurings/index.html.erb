@@ -43,7 +43,7 @@
         filter: @filter,
         paginator: @tagged_editions,
         featurable_editions: @topical_event.featurable_editions(@tagged_editions),
-        filter_by: [:title, :type, :author, :organisation],
+        filter_by: [:title, :type, :author, :organisation, :content_source],
         anchor: "#documents_tab",
         filter_action: admin_topical_event_topical_event_featurings_url(@topical_event),
         feature_path: [:new, :admin, @topical_event, :topical_event_featuring],

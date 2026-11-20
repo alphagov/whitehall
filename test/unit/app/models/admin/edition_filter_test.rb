@@ -502,4 +502,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     filter.stubs(:unpaginated_editions).returns(stub(count: 8001))
     assert_not filter.exportable?
   end
+
+  test "should return only child editions if `content_source` filter has been set" do
+  end
 end
