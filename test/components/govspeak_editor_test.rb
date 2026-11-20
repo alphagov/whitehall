@@ -1,6 +1,14 @@
 require "component_test_helper"
 
 class GovspeakeditorComponentTest < ComponentTestCase
+  attr_reader :current_user
+
+  helper_method :current_user
+
+  setup do
+    @current_user = build_stubbed(:user)
+  end
+
   def component_name
     "govspeak_editor"
   end

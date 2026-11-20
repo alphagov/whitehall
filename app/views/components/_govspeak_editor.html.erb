@@ -30,6 +30,8 @@
   dir = right_to_left ? "rtl" : nil
 %>
 
+<%= render "components/content_block_picker_loader" %>
+
 <%= tag.div class: classes, data: data_attributes do %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half ">
@@ -41,6 +43,8 @@
       }.merge(label.symbolize_keys) %>
     </div>
     <div class="govuk-grid-column-one-half app-c-govspeak-editor__preview-button-wrapper">
+      <%= render "components/content_block_picker_insert_button" %>
+
       <%= render "govuk_publishing_components/components/button", {
         text: "Preview",
         secondary_quiet: true,

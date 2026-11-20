@@ -1,0 +1,15 @@
+<% return unless current_user.content_block_picker_user? %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const textarea = document.getElementById('edition_body');
+    const insertButton = document.getElementById('insert-content-block-button');
+    if (!textarea || !insertButton) return;
+
+    const baseUrl = "<%= Plek.find("content-block-manager") %>/api";
+
+    const ContentBlockPicker = window['content-block-picker'].ContentBlockPicker;
+
+    new ContentBlockPicker({ baseUrl, textarea, insertButton });
+  });
+</script>
