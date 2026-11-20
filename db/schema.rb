@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_17_145933) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_20_110000) do
   create_table "access_limiting_individuals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "edition_id", null: false
     t.string "email", null: false
@@ -342,7 +342,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_145933) do
     t.datetime "updated_at", precision: nil
     t.json "block_content"
     t.index ["edition_id"], name: "index_edition_translations_on_edition_id"
-    t.index ["locale"], name: "index_edition_translations_on_locale"
+    t.index ["locale", "title", "edition_id"], name: "index_edition_translations_on_locale_and_title_and_edition_id"
   end
 
   create_table "edition_world_locations", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
