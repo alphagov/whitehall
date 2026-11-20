@@ -5,7 +5,10 @@ module StandardEdition::HasNavigation
     def process_associations_before_draft_creation(new_edition)
       return unless @edition.navigation
 
-      new_edition.build_navigation_edition(navigation: @edition.navigation)
+      navigation_edition = new_edition.build_navigation_edition(navigation: @edition.navigation)
+      @edition.navigation_edition.navigation_items.each do |navigation_item|
+        navigation_edition.navigation_items.build(navigation_item.attributes.except("id", "navigation_edition_id"))
+      end
     end
   end
 
