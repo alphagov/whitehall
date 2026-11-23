@@ -304,7 +304,7 @@ Whitehall::Application.routes.draw do
           get :navigation
         end
 
-        resource :navigation, only: %i[edit], controller: "standard_edition_navigations"
+        resource :navigation, only: %i[edit update], controller: "standard_edition_navigations"
 
         resources :translations, controller: "standard_edition_translations", except: %i[index show create] do
           get :confirm_destroy, on: :member

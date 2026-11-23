@@ -11,8 +11,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%# TODO: replace "#" with the real update path; this is implemented in the next commit %>
-    <%= form_with url: "#", method: :patch do %>
+    <%= form_with url: admin_standard_edition_navigation_path(@edition), method: :patch do %>
       <%= render "govuk_publishing_components/components/checkboxes", {
         name: "child_document_ids[]",
         heading: "Select child pages to include in the navigation menu",

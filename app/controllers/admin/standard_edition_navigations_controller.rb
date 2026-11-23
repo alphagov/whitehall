@@ -9,6 +9,24 @@ class Admin::StandardEditionNavigationsController < Admin::BaseController
     @navigation_items = @edition.navigation_edition.navigation_items
   end
 
+  def update
+    navigation_edition = @edition.navigation_edition
+    visible_child_documents = @edition.child_documents.where(id: @child_editions.to_a.map(&:document_id))
+    selected_document_ids = Array(params[:child_document_ids]).map(&:to_i).uniq
+    selected_child_documents = visible_child_documents.where(id: selected_document_ids)
+
+    if selected_child_documents.size != selected_document_ids.size
+      @navigation_items = navigation_edition.navigation_items
+      flash.now[:alert] = "You can only add child pages of this document to the navigation menu"
+      return render :edit, status: :unprocessable_entity
+    end
+
+    navigation_edition.navigation_items.where.not(child_document: selected_child_documents).destroy_all
+    selected_child_documents.each { |child_document| navigation_edition.navigation_items.find_or_create_by!(child_document:) }
+
+    redirect_to navigation_admin_standard_edition_path(@edition), notice: "Navigation menu saved"
+  end
+
 private
 
   def find_edition

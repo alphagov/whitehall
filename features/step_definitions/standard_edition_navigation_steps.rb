@@ -18,13 +18,12 @@ Given(/^the edition has child pages titled (.+)$/) do |titles|
 end
 
 When(/^I add (.+) to the navigation of the edition$/) do |titles|
-  # TODO: there's no UI for adding navigation items yet. Once there is, replace
-  # this with what the user does: e.g. clicking "Add navigation menu", choosing
-  # the child pages and submitting the form.
+  visit navigation_admin_standard_edition_path(@edition)
+  click_link "Add navigation menu"
   titles.scan(/"([^"]*)"/).flatten.each do |title|
-    child_edition = StandardEdition.find_by!(title:)
-    NavigationItem.create!(navigation_edition: @edition.navigation_edition, child_document: child_edition.document)
+    check title
   end
+  click_button "Add navigation menu"
 end
 
 Then(/^I should (not )?see the "Add navigation menu" button$/) do |negate|
