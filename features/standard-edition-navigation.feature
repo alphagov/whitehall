@@ -20,6 +20,7 @@ Feature: Standard Edition navigation
   Scenario: Adding child pages to the navigation of a standard edition
     Given a draft standard edition called "Parent edition" exists
     And the edition has child pages titled "First child edition", "Second child edition" and "Third child edition"
+    Then I should see "First child edition", "Second child edition" and "Third child edition" as options in the navigation form
     When I add "First child edition" and "Third child edition" to the navigation of the edition
     And I view the "Navigation" tab
     Then I should see "First child edition" and "Third child edition" in the navigation table

@@ -46,3 +46,11 @@ Then(/^I should not see (.+) in the navigation table$/) do |titles|
     expect(page).not_to have_css("table td", text: title)
   end
 end
+
+Then(/^I should see (.+) as options in the navigation form$/) do |titles|
+  visit navigation_admin_standard_edition_path(@edition)
+  click_link "Add navigation menu"
+  titles.scan(/"([^"]*)"/).flatten.each do |title|
+    expect(page).to have_unchecked_field(title)
+  end
+end
