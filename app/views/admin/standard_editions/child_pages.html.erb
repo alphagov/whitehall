@@ -15,6 +15,10 @@
   } %>
 </div>
 
+<% unless @edition.editable? %>
+  <%= render "admin/shared/read_only_notice", { edition: @edition } %>
+<% end %>
+
 <%= render "govuk_publishing_components/components/heading", {
   text: "Child pages",
   font_size: "l",
