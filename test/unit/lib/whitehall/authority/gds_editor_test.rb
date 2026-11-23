@@ -131,7 +131,7 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
   end
 
-  test "cannot administer the sitewide_settings section" do
+  test "can administer the sitewide_settings section" do
     assert enforcer_for(gds_editor, :sitewide_settings_section).can?(:administer)
   end
 

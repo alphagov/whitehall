@@ -21,7 +21,7 @@ module Whitehall::Authority::Rules
     end
 
     def can_for_sitewide_settings_section?(_action)
-      actor.gds_editor?
+      actor.gds_editor? || actor.gds_admin?
     end
   end
 end

@@ -51,6 +51,12 @@ class GDSAdminTest < ActiveSupport::TestCase
     assert_not enforcer_for(non_gds_admin, Government).can?(:manage)
   end
 
+  test "can administer the sitewide settings section" do
+    assert enforcer_for(gds_admin, :sitewide_settings_section).can?(:administer)
+
+    assert_not enforcer_for(non_gds_admin, :sitewide_settings_section).can?(:administer)
+  end
+
   test "can mark editions as political" do
     assert enforcer_for(gds_admin, normal_edition).can?(:mark_political)
   end
