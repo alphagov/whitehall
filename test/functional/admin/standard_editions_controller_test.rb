@@ -1550,6 +1550,23 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "a[href=?]", edit_admin_standard_edition_navigation_path(parent_edition), text: "Add navigation menu"
   end
 
+  view_test "GET navigation shows the 'Update navigation menu' button when there are navigation items" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: child_edition.document)
+    login_as :writer
+
+    get :navigation, params: { id: parent_edition.id }
+
+    assert_response :success
+    assert_select "a[href=?]", edit_admin_standard_edition_navigation_path(parent_edition), text: "Update navigation menu"
+    assert_select "a", text: "Add navigation menu", count: 0
+  end
+
   view_test "GET navigation lists the navigation items" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },

@@ -31,7 +31,7 @@
       } %>
     <% else %>
       <%= render "govuk_publishing_components/components/button", {
-        text: "Add navigation menu",
+        text: @navigation_items.any? ? "Update navigation menu" : "Add navigation menu",
         href: edit_admin_standard_edition_navigation_path(@edition),
       } %>
 
