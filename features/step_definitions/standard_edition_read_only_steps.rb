@@ -94,8 +94,10 @@ And("there is no image upload form") do
   assert_no_selector "form#govspeak_embed_image_upload_form"
 end
 
-And(/^there is no (.+) link/) do |link_text|
-  assert_no_selector "a", text: link_text
+And(/^there is no "(.+)" link$/) do |link_text|
+  # Match on the start of the link text, as links often have visually hidden text after
+  # the visible text (e.g. "Edit details"), but not so loosely that "Feature" matches "Featured"
+  assert_no_selector "a", text: /\A#{Regexp.escape(link_text)}\b/
 end
 
 And(/^there is a "(.+)" link next to the (.+) attachment/) do |_link_text, attachment_type|
