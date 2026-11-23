@@ -87,6 +87,25 @@ class EditionDeleterTest < ActiveSupport::TestCase
     assert_equal "You must delete this document's draft children before you can delete this document", deleter.failure_reason
   end
 
+  test "can delete an edition whose only child editions have already been deleted" do
+    test_type = build_configurable_document_type("test_type")
+    ConfigurableDocumentType.setup_test_types(test_type)
+
+    parent_edition = create(:standard_edition, configurable_document_type: "test_type")
+    child_edition = create(:standard_edition, configurable_document_type: "test_type")
+    create(
+      :parent_child_relationship,
+      parent_edition: parent_edition,
+      child_document: child_edition.document,
+    )
+
+    assert EditionDeleter.new(child_edition).perform!
+
+    deleter = EditionDeleter.new(parent_edition.reload)
+    assert deleter.can_perform?
+    assert_nil deleter.failure_reason
+  end
+
   test "can delete an edition with a child document associated with another edition" do
     test_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(test_type)
