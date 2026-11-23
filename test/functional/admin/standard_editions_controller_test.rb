@@ -157,6 +157,9 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET show for a child edition without other child pages shows an empty other child pages section" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
     parent_edition = create(:draft_standard_edition)
     child_edition = create(:draft_standard_edition)
     ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
@@ -186,6 +189,9 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
   end
 
   view_test "GET show for a child edition lists the other child pages of its parent" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
     parent_edition = create(:draft_standard_edition)
     child_edition = create(:draft_standard_edition, title: "This child")
     other_child_edition = create(:draft_standard_edition, title: "Other child")
@@ -263,6 +269,59 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
       assert_select "td", text: /ago\s*by #{child_edition.last_author.name}/
       assert_select ".govuk-tag", text: /draft/i
       assert_select "a[href='#{admin_standard_edition_path(child_edition)}']", text: /View/
+    end
+  end
+
+  view_test "GET show for a published parent edition with child pages does not show the \"Edit child pages\" link" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition, title: "Child edition")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    get :show, params: { id: parent_edition.id }
+
+    assert_select ".app-view-summary__child-documents" do
+      assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Edit child pages", count: 0
+      assert_select "td", text: "Child edition"
+    end
+  end
+
+  view_test "GET show for a scheduled parent edition with child pages shows the \"Edit child pages\" link" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+    parent_edition = create(:scheduled_standard_edition)
+    child_edition = create(:draft_standard_edition, title: "Child edition")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+
+    get :show, params: { id: parent_edition.id }
+
+    assert_select ".app-view-summary__child-documents" do
+      assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Edit child pages"
+    end
+  end
+
+  view_test "GET show for a child edition of a published parent does not show the \"Edit child pages\" link" do
+    ConfigurableDocumentType.setup_test_types(
+      build_configurable_document_type("test_type", { "settings" => { "allowed_child_document_types" => [{ "document_type" => "test_type" }] } }),
+    )
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition, title: "This child")
+    other_child_edition = create(:draft_standard_edition, title: "Other child")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    ParentChildRelationship.create!(parent_edition:, child_document: other_child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    get :show, params: { id: child_edition.id }
+
+    assert_select ".app-view-summary__other-child-documents" do
+      assert_select "a[href='#{child_pages_admin_standard_edition_path(parent_edition)}']", text: "Edit child pages", count: 0
+      assert_select "td", text: "Other child"
     end
   end
 
