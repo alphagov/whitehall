@@ -142,6 +142,10 @@ lv:
   direction: ltr
   english_name: Latvian
   native_name: Latviešu
+mfe:
+  direction: ltr
+  english_name: Mauritian Creole
+  native_name: Kreol Morisien
 ms:
   direction: ltr
   english_name: Malay
