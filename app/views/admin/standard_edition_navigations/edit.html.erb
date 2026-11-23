@@ -1,4 +1,5 @@
 <% button_text = @navigation_items.empty? ? "Add navigation menu" : "Update navigation menu" %>
+<% selected_document_ids = @navigation_items.map(&:child_document_id) %>
 <% content_for :page_title, button_text %>
 <% content_for :title, button_text %>
 <% content_for :context, @edition.title %>
@@ -20,6 +21,7 @@
           {
             label: child_edition.title,
             value: child_edition.document_id,
+            checked: selected_document_ids.include?(child_edition.document_id),
           }
         end,
       } %>

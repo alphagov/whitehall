@@ -208,6 +208,27 @@ class Admin::StandardEditionNavigationsControllerTest < ActionController::TestCa
     assert_empty parent_edition.navigation_edition.navigation_items.reload
   end
 
+  view_test "GET edit pre-checks the child pages already in the navigation" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+    parent_edition = create(:draft_standard_edition)
+    in_navigation_child = create(:draft_standard_edition)
+    not_in_navigation_child = create(:draft_standard_edition)
+    [in_navigation_child, not_in_navigation_child].each do |child_edition|
+      ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    end
+    create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: in_navigation_child.document)
+    login_as :writer
+
+    get :edit, params: { standard_edition_id: parent_edition.id }
+
+    assert_response :success
+    assert_select "input[type=checkbox][value=?][checked]", in_navigation_child.document_id.to_s
+    assert_select "input[type=checkbox][value=?]", not_in_navigation_child.document_id.to_s
+    assert_select "input[type=checkbox][value=?][checked]", not_in_navigation_child.document_id.to_s, count: 0
+  end
+
   describe "when the mini_sites feature flag is disabled" do
     setup do
       ConfigurableDocumentType.setup_test_types(
