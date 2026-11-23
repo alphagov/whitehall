@@ -25,15 +25,12 @@ class EditionDeleter < EditionService
 private
 
   def deletion_would_cause_orphaned_children?
-    return unless edition.try(:child_documents)
+    # child_editions excludes deleted editions, so already-deleted children don't block deletion
+    return unless edition.try(:child_editions)
 
-    return if edition.child_documents.empty?
-
-    child_documents_with_orphaned_children = edition.child_documents.map do |child_document|
-      ParentChildRelationship.where(child_document_id: child_document.id).where.not(parent_edition_id: edition.id).empty?
+    edition.child_editions.any? do |child_edition|
+      ParentChildRelationship.where(child_document_id: child_edition.document_id).where.not(parent_edition_id: edition.id).empty?
     end
-
-    child_documents_with_orphaned_children.any?
   end
 
   def fire_transition!
