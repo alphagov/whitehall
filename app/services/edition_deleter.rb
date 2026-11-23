@@ -42,5 +42,6 @@ private
     edition.delete_all_attachments if edition.respond_to?(:delete_all_attachments)
     edition.edition_roles.clear if edition.respond_to?(:edition_roles)
     edition.remove_orphaned_offsite_links if edition.respond_to?(:remove_orphaned_offsite_links)
+    edition.remove_from_parent_navigation if edition.respond_to?(:remove_from_parent_navigation)
   end
 end
