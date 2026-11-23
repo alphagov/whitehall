@@ -1,3 +1,5 @@
+@use "govuk_publishing_components/base" as *;
+
 .app-view-unpublish-withdrawal__form-wrapper {
   border-top: 1px solid govuk-functional-colour(border);
   display: none;

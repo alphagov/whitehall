@@ -29,8 +29,10 @@
     "jasmine-ajax": "^5.0.0",
     "jasmine-browser-runner": "^5.0.0",
     "jasmine-core": "^7.0.2",
+    "jasmine-snapshot": "^1.8.1",
     "postcss": "^8.5.33",
     "prettier": "^3.10.1",
+    "sass": "^1.108.2",
     "standard": "^17.1.2",
     "stylelint": "^16.26.1",
     "stylelint-config-gds": "^2.0.0"

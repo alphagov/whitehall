@@ -1,7 +1,8 @@
+@use "govuk_publishing_components/base" as *;
+
 // stylelint-disable max-nesting-depth
 
 // Diff of two editions
-
 $added-color: #ddffdd;
 $strong-added-color: #77f177;
 $removed-color: #ffdddd;

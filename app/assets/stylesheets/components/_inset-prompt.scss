@@ -1,7 +1,9 @@
+@use "govuk_publishing_components/base" as *;
+
 .app-c-inset-prompt {
   border-left: $govuk-border-width-narrow solid govuk-colour("black", $variant: "tint-25");
   background-color: govuk-colour("black", $variant: "tint-95");
-  @include govuk-text-colour;
+  color: govuk-functional-colour(text);
   @include govuk-responsive-padding(4);
   @include govuk-responsive-margin(6, "bottom");
 
