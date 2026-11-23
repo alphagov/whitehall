@@ -229,6 +229,47 @@ class Admin::StandardEditionNavigationsControllerTest < ActionController::TestCa
     assert_select "input[type=checkbox][value=?][checked]", not_in_navigation_child.document_id.to_s, count: 0
   end
 
+  def published_parent_with_child_and_navigation_item
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition)
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+    [parent_edition, child_edition]
+  end
+
+  test "GET edit is forbidden for an edition that is not editable" do
+    parent_edition, = published_parent_with_child_and_navigation_item
+
+    get :edit, params: { standard_edition_id: parent_edition.id }
+
+    assert_response :forbidden
+  end
+
+  test "PATCH update is forbidden and changes nothing for an edition that is not editable" do
+    parent_edition, child_edition = published_parent_with_child_and_navigation_item
+
+    patch :update, params: { standard_edition_id: parent_edition.id }
+
+    assert_response :forbidden
+    assert_equal [child_edition.document_id], parent_edition.navigation_edition.navigation_items.reload.pluck(:child_document_id)
+  end
+
+  view_test "GET edit is allowed for a submitted edition" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+    edition = create(:submitted_standard_edition)
+
+    get :edit, params: { standard_edition_id: edition.id }
+
+    assert_response :success
+  end
+
   describe "when the mini_sites feature flag is disabled" do
     setup do
       ConfigurableDocumentType.setup_test_types(

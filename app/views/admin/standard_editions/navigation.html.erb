@@ -30,10 +30,12 @@
         text: "There are no child pages.",
       } %>
     <% else %>
-      <%= render "govuk_publishing_components/components/button", {
-        text: @navigation_items.any? ? "Update navigation menu" : "Add navigation menu",
-        href: edit_admin_standard_edition_navigation_path(@edition),
-      } %>
+      <% if @edition.editable? %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: @navigation_items.any? ? "Update navigation menu" : "Add navigation menu",
+          href: edit_admin_standard_edition_navigation_path(@edition),
+        } %>
+      <% end %>
 
       <section class="app-view-summary__section">
         <% if @navigation_items.any? %>

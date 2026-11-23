@@ -1567,6 +1567,25 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "a", text: "Add navigation menu", count: 0
   end
 
+  view_test "GET navigation does not show the navigation menu button when the edition is not editable" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition, title: "Child in navigation")
+    ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    get :navigation, params: { id: parent_edition.id }
+
+    assert_response :success
+    assert_select "td", text: "Child in navigation"
+    assert_select "a", text: "Update navigation menu", count: 0
+    assert_select "a", text: "Add navigation menu", count: 0
+  end
+
   view_test "GET navigation lists the navigation items" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },

@@ -38,6 +38,8 @@ private
 
   def enforce_permissions!
     enforce_permission!(:update, @edition)
+
+    raise Whitehall::Authority::Errors::PermissionDenied.new(action_name, @edition) unless @edition.editable?
   end
 
   def enforce_mini_site_feature_flag
