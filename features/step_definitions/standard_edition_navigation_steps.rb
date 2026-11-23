@@ -29,9 +29,9 @@ end
 
 Then(/^I should (not )?see the "Add navigation menu" button$/) do |negate|
   if negate
-    expect(page).not_to have_button("Add navigation menu")
+    expect(page).not_to have_link("Add navigation menu")
   else
-    expect(page).to have_button("Add navigation menu")
+    expect(page).to have_link("Add navigation menu")
   end
 end
 

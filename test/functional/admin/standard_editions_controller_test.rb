@@ -1547,7 +1547,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     get :navigation, params: { id: parent_edition.id }
 
     assert_response :success
-    assert_select "button", text: "Add navigation menu"
+    assert_select "a[href='#']", text: "Add navigation menu"
   end
 
   view_test "GET navigation lists the navigation items" do
