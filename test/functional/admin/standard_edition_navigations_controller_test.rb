@@ -171,6 +171,27 @@ class Admin::StandardEditionNavigationsControllerTest < ActionController::TestCa
     assert_equal [child_edition.document_id], published_parent_edition.navigation_edition.navigation_items.reload.pluck(:child_document_id)
   end
 
+  test "PATCH update does not remove any navigation items if adding a new one fails" do
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+    parent_edition = create(:draft_standard_edition)
+    existing_child, new_child = create_list(:draft_standard_edition, 2)
+    [existing_child, new_child].each do |child_edition|
+      ParentChildRelationship.create!(parent_edition:, child_document: child_edition.document)
+    end
+    create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: existing_child.document)
+    login_as :writer
+
+    NavigationItem.any_instance.stubs(:save!).raises(ActiveRecord::RecordInvalid)
+
+    assert_raises(ActiveRecord::RecordInvalid) do
+      patch :update, params: { standard_edition_id: parent_edition.id, child_document_ids: [new_child.document_id] }
+    end
+
+    assert_equal [existing_child.document_id], parent_edition.navigation_edition.navigation_items.reload.pluck(:child_document_id)
+  end
+
   test "PATCH update with no child pages selected empties the navigation" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
       "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },

@@ -21,8 +21,10 @@ class Admin::StandardEditionNavigationsController < Admin::BaseController
       return render :edit, status: :unprocessable_entity
     end
 
-    navigation_edition.navigation_items.where.not(child_document: selected_child_documents).destroy_all
-    selected_child_documents.each { |child_document| navigation_edition.navigation_items.find_or_create_by!(child_document:) }
+    navigation_edition.transaction do
+      navigation_edition.navigation_items.where.not(child_document: selected_child_documents).destroy_all
+      selected_child_documents.each { |child_document| navigation_edition.navigation_items.find_or_create_by!(child_document:) }
+    end
 
     redirect_to navigation_admin_standard_edition_path(@edition), notice: "Navigation menu saved"
   end
