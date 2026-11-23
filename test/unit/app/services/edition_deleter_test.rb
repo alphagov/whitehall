@@ -110,4 +110,56 @@ class EditionDeleterTest < ActiveSupport::TestCase
 
     assert EditionDeleter.new(draft_parent_edition).perform!
   end
+
+  def setup_navigation_types
+    ConfigurableDocumentType.setup_test_types(build_configurable_document_type("test_type", {
+      "settings" => { "navigation_enabled" => true, "allowed_child_document_types" => [{ "document_type" => "test_type" }] },
+    }))
+  end
+
+  test "deleting the only edition of a child page removes it from its parent's navigation" do
+    setup_navigation_types
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition)
+    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+    create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: child_edition.document)
+
+    assert EditionDeleter.new(child_edition).perform!
+
+    assert_empty parent_edition.navigation_edition.navigation_items.reload
+  end
+
+  test "deleting only the new draft of a published child page keeps it in its parent's navigation" do
+    setup_navigation_types
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition)
+    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+    create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: child_edition.document)
+
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+    child_edition.major_change_published_at = Time.zone.now
+    child_edition.force_publish!
+
+    draft_parent_edition = parent_edition.create_draft(child_edition.authors.first)
+    draft_child_edition = child_edition.create_draft(child_edition.authors.first)
+
+    assert EditionDeleter.new(draft_child_edition).perform!
+
+    assert_equal [child_edition.document_id], draft_parent_edition.navigation_edition.navigation_items.reload.pluck(:child_document_id)
+  end
+
+  test "deleting the only edition of a child page also removes it from the navigation of an already published parent edition" do
+    setup_navigation_types
+    parent_edition = create(:draft_standard_edition)
+    child_edition = create(:draft_standard_edition)
+    create(:parent_child_relationship, parent_edition:, child_document: child_edition.document)
+    create(:navigation_item, navigation_edition: parent_edition.navigation_edition, child_document: child_edition.document)
+    parent_edition.major_change_published_at = Time.zone.now
+    parent_edition.force_publish!
+
+    assert EditionDeleter.new(child_edition).perform!
+
+    assert_empty parent_edition.navigation_edition.navigation_items.reload
+  end
 end
