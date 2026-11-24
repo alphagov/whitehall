@@ -190,7 +190,7 @@ GEM
     debug_inspector (1.2.0)
     diff-lcs (1.6.2)
     diffy (3.4.4)
-    domain_name (0.7.20261007)
+    domain_name (0.7.20261117)
     drb (2.2.3)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
@@ -254,7 +254,7 @@ GEM
     fugit (1.12.1)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
-    gds-api-adapters (103.5.0)
+    gds-api-adapters (104.0.0)
       addressable
       link_header
       null_logger
@@ -460,7 +460,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.1027)
+    mime-types-data (3.2026.1103)
     mini_magick (5.4.0)
       logger
     mini_mime (1.1.5)
