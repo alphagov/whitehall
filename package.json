@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "yarn run lint:js && yarn run lint:scss && yarn run lint:prettier",
-    "lint:js": "eslint --cache --cache-location .cache/eslint --color --ignore-path .gitignore -- \"**/*.js\"",
+    "lint:js": "eslint --cache --cache-location .cache/eslint --color --ignore-pattern .gitignore -- \"**/*.js\"",
     "lint:scss": "stylelint app/assets/stylesheets/",
     "lint:prettier": "prettier --cache --cache-location .cache/prettier --cache-strategy content --check -- \"**/*.{js,scss}\"",
     "lint:prettier:fix": "prettier --write \"**/*.{js,scss}\"",
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",
-    "eslint": "^8.57.1",
+    "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.32.0",
