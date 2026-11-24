@@ -106,7 +106,7 @@ GEM
       debug_inspector (>= 1.2.0)
     bootsnap (1.26.2)
       msgpack (~> 1.5)
-    brakeman (8.0.4)
+    brakeman (8.1.1)
       racc
     builder (3.3.0)
     byebug (13.0.0)
@@ -335,7 +335,7 @@ GEM
       govuk_app_config (>= 1.1)
       redis-client (>= 0.22.2)
       sidekiq (>= 8.1.1, < 9)
-    govuk_test (4.1.3)
+    govuk_test (5.0.0)
       brakeman (>= 5.0.2)
       capybara (>= 3.36)
       puma
@@ -815,7 +815,7 @@ GEM
     redis (4.8.1)
     redis-client (0.31.0)
       connection_pool
-    regexp_parser (2.13.1)
+    regexp_parser (2.13.4)
     reline (0.7.0)
       io-console (~> 0.5)
     request_store (1.7.0)
@@ -887,10 +887,9 @@ GEM
     sass-embedded (1.102.0-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     securerandom (0.4.1)
-    selenium-webdriver (4.43.0)
+    selenium-webdriver (4.54.0)
       base64 (~> 0.2)
       logger (~> 1.4)
-      rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
     sentry-rails (7.3.0)
