@@ -75,6 +75,17 @@ Feature: Standard Editions - read-only mode
     And there is no "Delete" link
     And there is a back button taking me to the document summary screen
 
+  Scenario: Viewing the Child pages tab of the published edition
+    When I view the "Child pages" tab
+    Then the tab navigation is still visible
+    And I see the "read-only view" message
+    And there is no "Add new child page" link
+
+  Scenario: Viewing the Navigation tab of the published edition
+    When I view the "Navigation" tab
+    Then the tab navigation is still visible
+    And I see the "read-only view" message
+
   Scenario: Viewing the Features tab (and its sub-tabs)
     When I view the "Featured" tab
     Then I can see the currently featured items
