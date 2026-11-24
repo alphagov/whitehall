@@ -58,6 +58,28 @@ module OrganisationResluggerTest
       "/government/organisations"
     end
 
+    test "republishes the documents of all the organisation's corporate information pages, once each" do
+      published_page = create(:published_corporate_information_page, organisation: @organisation)
+      draft_of_published_page = create(
+        :draft_corporate_information_page,
+        organisation: @organisation,
+        document: published_page.document,
+        corporate_information_page_type_id: published_page.corporate_information_page_type_id,
+      )
+      draft_only_page = create(
+        :draft_corporate_information_page,
+        organisation: @organisation,
+        corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id,
+      )
+      assert_equal published_page.document, draft_of_published_page.document
+
+      Whitehall::PublishingApi.stubs(:republish_document_async)
+      Whitehall::PublishingApi.expects(:republish_document_async).with(published_page.document).once
+      Whitehall::PublishingApi.expects(:republish_document_async).with(draft_only_page.document).once
+
+      @reslugger.run!
+    end
+
     test "updates users belonging to the organisation" do
       user = create(:user, organisation_slug: @organisation.slug)
 
