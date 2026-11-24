@@ -125,11 +125,14 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       created_fatality_notice = create(:published_fatality_notice, title: "fatality-notice-#{i}")
       build(:feature, document: created_fatality_notice.document, ordering: i)
     end
-    organisation = create(:organisation, slug: "prime-ministers-office-10-downing-street")
+    organisation_10_downing_street = create(:organisation, slug: "prime-ministers-office-10-downing-street")
+    organisation_no_10 = create(:organisation, slug: "prime-ministers-office-no-10")
 
-    create(:feature_list, featurable: organisation, features:)
+    create(:feature_list, featurable: organisation_10_downing_street, features:)
+    assert_equal 7, present(organisation_10_downing_street).content.dig(:details, :ordered_featured_documents).size
 
-    assert_equal 7, present(organisation).content.dig(:details, :ordered_featured_documents).size
+    create(:feature_list, featurable: organisation_no_10, features:)
+    assert_equal 7, present(organisation_no_10).content.dig(:details, :ordered_featured_documents).size
   end
 
   test "presents an organisation’s custom logo" do
