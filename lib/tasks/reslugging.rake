@@ -91,7 +91,8 @@ namespace :reslug do
 
   It performs the following steps:
   - updates the Organisation's slug
-  - republishes the org to Publishing API (which creates a redirect)"
+  - republishes the org to Publishing API (which creates a redirect)
+  - republishes the org's corporate information pages"
   task :organisation, %i[old_slug new_slug] => :environment do |_task, args|
     organisation = Organisation.find_by!(slug: args[:old_slug])
     DataHygiene::OrganisationReslugger.new(organisation, args[:new_slug]).run!
