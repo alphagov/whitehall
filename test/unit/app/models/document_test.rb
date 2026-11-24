@@ -518,9 +518,9 @@ class DocumentTest < ActiveSupport::TestCase
 
       versions = [version1, version2, version3]
 
-      version1_stub =  stub(id: version1.id)
-      version2_stub =  stub(id: version2.id)
-      version3_stub =  stub(id: version3.id)
+      version1_stub = stub(id: version1.id)
+      version2_stub = stub(id: version2.id)
+      version3_stub = stub(id: version3.id)
 
       Document::PaginatedTimeline::VersionDecorator.stubs(:new).with { |v, **args|
         v.id == version1.id &&

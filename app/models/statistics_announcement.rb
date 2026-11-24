@@ -160,7 +160,7 @@ class StatisticsAnnouncement < ApplicationRecord
     self.cancellation_reason = reason
     self.cancelled_at = Time.zone.now
     self.cancelled_by = user
-    save # rubocop:disable Rails/SaveBang
+    save
   end
 
   def cancelled?

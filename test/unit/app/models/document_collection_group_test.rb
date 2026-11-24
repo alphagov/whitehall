@@ -59,8 +59,8 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
 
     assert_not_equal group.memberships[0],          new_group.memberships[0]
     assert_equal     group.memberships[0].document, new_group.memberships[0].document
-    assert_equal     1,                             new_group.memberships[1].ordering
-    assert_equal     3,                             new_group.memberships[2].ordering
+    assert_equal 1, new_group.memberships[1].ordering
+    assert_equal 3, new_group.memberships[2].ordering
   end
 
   test "#slug generates slugs of the heading" do
