@@ -206,7 +206,8 @@ GEM
     et-orbi (1.4.0)
       tzinfo
     excon (1.10.0)
-    execjs (2.10.1)
+    execjs (2.10.2)
+      json (>= 2)
     factory_bot (6.6.0)
       activesupport (>= 6.1.0)
     fakeredis (0.9.2)
