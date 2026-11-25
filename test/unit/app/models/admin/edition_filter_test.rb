@@ -80,6 +80,51 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_not editions.first.association(:last_author).loaded?
   end
 
+  test "preloads documents" do
+    publication = create(:publication)
+
+    editions = Admin::EditionFilter.new(Edition, @current_user).editions
+
+    assert_equal publication, editions.first
+    assert editions.first.association(:document).loaded?
+  end
+
+  test "preloads associations rather than eager loading them when filtering by title" do
+    filter = Admin::EditionFilter.new(
+      Edition,
+      @current_user,
+      title: "test",
+      include_unpublishing: true,
+      include_link_check_report: true,
+      include_last_author: true,
+    )
+
+    assert_not filter.send(:editions_with_translations).eager_loading?
+  end
+
+  test "preloads associations rather than eager loading them when the source already joins translations" do
+    filter = Admin::EditionFilter.new(
+      Edition.with_translations(I18n.locale),
+      @current_user,
+      title: "test",
+      include_unpublishing: true,
+      include_link_check_report: true,
+      include_last_author: true,
+    )
+
+    assert_not filter.send(:editions_with_translations).eager_loading?
+  end
+
+  test "can preload unpublishing data when filtering by title" do
+    publication = create(:publication, title: "Test mcTest")
+    create(:unpublishing, edition: publication)
+
+    editions = Admin::EditionFilter.new(Edition, @current_user, title: "test", include_unpublishing: true).editions
+
+    assert_equal publication, editions.first
+    assert editions.first.association(:unpublishing).loaded?
+  end
+
   test "ignores invalid state scopes" do
     publication = create(:draft_publication)
 
@@ -493,6 +538,15 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     filter = Admin::EditionFilter.new(Edition, build(:gds_editor), state: "published")
 
     assert_includes filter.editions.to_a, featured_edition
+  end
+
+  test "does not recount editions when working out the force published percentage" do
+    create(:published_publication)
+    filter = Admin::EditionFilter.new(Edition, @current_user, state: "published")
+    filter.published_count
+    filter.force_published_count
+
+    assert_equal(0, count_queries { filter.force_published_percentage })
   end
 
   test "exportable? if number of editions is below threshold" do

@@ -559,9 +559,105 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_slug], Edition.with_title_containing("https://www.gov.uk/government/news/klingons-rule?foo=bar#details")
   end
 
+  test "should find editions by slug, when given a slug with capital letters" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_slug], Edition.with_title_containing("Klingons-Rule")
+  end
+
+  test "should find editions by slug, when given a full URL with capital letters" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_slug], Edition.with_title_containing("https://www.GOV.UK/government/news/Klingons-Rule")
+  end
+
+  test "should prefer the slug match over title matches, when given an exact slug" do
+    edition_with_slug = create(:edition, title: "New title", slug_override: "klingons-rule")
+    _edition_with_matching_title = create(:edition, title: "guidance for klingons-rule compliance")
+
+    assert_equal [edition_with_slug], Edition.with_title_containing("klingons-rule")
+  end
+
+  test "should find editions by slug, when the slug carries a duplicate-slug suffix" do
+    edition_with_suffixed_slug = create(:edition, title: "RIPA forms", slug_override: "ripa-forms--2")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_suffixed_slug], Edition.with_title_containing("ripa-forms--2")
+  end
+
+  test "should find editions by slug, when given a URL for a slug carrying a duplicate-slug suffix" do
+    edition_with_suffixed_slug = create(:edition, title: "RIPA forms", slug_override: "ripa-forms--2")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_suffixed_slug], Edition.with_title_containing("https://www.gov.uk/government/collections/ripa-forms--2")
+  end
+
+  test "should fall back to the title search, when given a slug that matches no edition" do
+    edition_with_matching_title = create(:edition, title: "guidance for klingons-rule compliance")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_matching_title], Edition.with_title_containing("klingons-rule")
+  end
+
+  test "should fall back to the title search, when given a mixed case slug that matches no edition" do
+    edition_with_matching_title = create(:edition, title: "A guide to UK-gov services")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_matching_title], Edition.with_title_containing("UK-gov")
+  end
+
+  test "should return no editions, when given a search term with no slug candidate" do
+    create(:edition, title: "this document is about muppets")
+
+    assert_empty Edition.with_title_containing("/")
+  end
+
   test "should find editions with title containing regular expression characters" do
     edition_with_nasty_characters = create(:edition, title: "title with [stuff in brackets]")
     assert_equal [edition_with_nasty_characters], Edition.with_title_containing("[stuff")
+  end
+
+  test "should treat a percent sign in the search term as a literal character" do
+    edition_with_percent = create(:edition, title: "100% complete")
+    _edition_without_match = create(:edition, title: "100x complete")
+
+    assert_equal [edition_with_percent], Edition.with_title_containing("100%")
+  end
+
+  test "should treat an underscore in the search term as a literal character" do
+    edition_with_underscore = create(:edition, title: "draft_guidance review")
+    _edition_without_match = create(:edition, title: "draftxguidance review")
+
+    assert_equal [edition_with_underscore], Edition.with_title_containing("draft_guidance")
+  end
+
+  test "should not find editions whose matching title is not in the default locale" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = "english title" }
+    with_locale(:es) { edition.title = "spanishkeyword" }
+    edition.save!
+
+    assert_empty Edition.with_title_containing("spanishkeyword")
+  end
+
+  test "should find editions by a title in another locale, when that locale is asked for" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = "english title" }
+    with_locale(:es) { edition.title = "spanishkeyword" }
+    edition.save!
+
+    assert_equal [edition], Edition.with_title_containing("spanishkeyword", locale: :es)
+  end
+
+  test "should find an edition once when more than one of its translations matches" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = "shared keyword" }
+    with_locale(:es) { edition.title = "shared keyword" }
+    edition.save!
+
+    assert_equal [edition], Edition.with_title_containing("shared keyword")
   end
 
   test "make_public_at should set first_published_at if its empty" do
@@ -783,6 +879,16 @@ class EditionTest < ActiveSupport::TestCase
 
     edition = create(:edition, political: true, first_published_at: current_government.start_date)
     assert_not edition.historic?
+  end
+
+  test "#historic? looks the government up once" do
+    create(:current_government)
+    previous_government = create(:previous_government)
+    edition = create(:edition, political: true, first_published_at: previous_government.start_date)
+
+    Government.expects(:on_date).once.returns(previous_government)
+
+    assert edition.historic?
   end
 
   test "#historic? is false when the document has no government" do
