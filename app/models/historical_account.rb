@@ -2,8 +2,8 @@ class HistoricalAccount < ApplicationRecord
   include PublishesToPublishingApi
 
   belongs_to :person, inverse_of: :historical_account
-  has_one   :historical_account_role
-  has_one   :role, through: :historical_account_role
+  has_one :historical_account_role
+  has_one :role, through: :historical_account_role
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body

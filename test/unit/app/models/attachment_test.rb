@@ -89,7 +89,7 @@ class AttachmentTest < ActiveSupport::TestCase
   end
 
   test "#is_act_paper? should be true if attachment has an act paper number or is flagged as an unnumbered act paper" do
-    assert_not build(:html_attachment, hoc_paper_number: nil,     unnumbered_hoc_paper: false).is_act_paper?
+    assert_not build(:html_attachment, hoc_paper_number: nil, unnumbered_hoc_paper: false).is_act_paper?
     assert build(:html_attachment, hoc_paper_number: "12345", unnumbered_hoc_paper: false).is_act_paper?
     assert build(:html_attachment, hoc_paper_number: nil,     unnumbered_hoc_paper: true).is_act_paper?
   end

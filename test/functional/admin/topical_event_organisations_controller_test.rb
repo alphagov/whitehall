@@ -94,7 +94,7 @@ class Admin::TopicalEventOrganisationsControllerTest < ActionController::TestCas
 
     get :toggle_lead,
         params: { topical_event_id: @topical_event,
-                  id: topical_event_organisation  }
+                  id: topical_event_organisation }
 
     assert_response :redirect
     assert topical_event_organisation.reload.lead
@@ -108,7 +108,7 @@ class Admin::TopicalEventOrganisationsControllerTest < ActionController::TestCas
 
     get :toggle_lead,
         params: { topical_event_id: @topical_event,
-                  id: topical_event_organisation  }
+                  id: topical_event_organisation }
 
     assert_response :redirect
     assert_not topical_event_organisation.reload.lead
