@@ -1,6 +1,8 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
+  include StripsWhitespace
+
   def append_url_options(path, options = {})
     locale = normalise_locale(options[:locale])
 
