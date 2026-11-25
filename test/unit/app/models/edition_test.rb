@@ -580,6 +580,20 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_slug], Edition.with_title_containing("klingons-rule")
   end
 
+  test "should find editions by slug, when the slug carries a duplicate-slug suffix" do
+    edition_with_suffixed_slug = create(:edition, title: "RIPA forms", slug_override: "ripa-forms--2")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_suffixed_slug], Edition.with_title_containing("ripa-forms--2")
+  end
+
+  test "should find editions by slug, when given a URL for a slug carrying a duplicate-slug suffix" do
+    edition_with_suffixed_slug = create(:edition, title: "RIPA forms", slug_override: "ripa-forms--2")
+    _edition_without_match = create(:edition, title: "this document is about muppets")
+
+    assert_equal [edition_with_suffixed_slug], Edition.with_title_containing("https://www.gov.uk/government/collections/ripa-forms--2")
+  end
+
   test "should fall back to the title search, when given a slug that matches no edition" do
     edition_with_matching_title = create(:edition, title: "guidance for klingons-rule compliance")
     _edition_without_match = create(:edition, title: "this document is about muppets")
