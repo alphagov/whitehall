@@ -1,0 +1,38 @@
+<% button_text = @navigation_items.empty? ? "Add navigation menu" : "Update navigation menu" %>
+<% selected_document_ids = @navigation_items.map(&:child_document_id) %>
+<% content_for :page_title, button_text %>
+<% content_for :title, button_text %>
+<% content_for :context, @edition.title %>
+<% content_for :title_margin_bottom, 4 %>
+<% content_for :back_link do %>
+  <%= render "govuk_publishing_components/components/back_link", {
+    href: navigation_admin_standard_edition_path(@edition),
+  } %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: admin_standard_edition_navigation_path(@edition), method: :patch do %>
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "child_document_ids[]",
+        heading: "Select child pages to include in the navigation menu",
+        hint: "You can include up to #{StandardEdition::HasNavigation::MAX_CHILD_PAGES_IN_NAV} child pages.",
+        items: @child_editions.map do |child_edition|
+          {
+            label: child_edition.title,
+            value: child_edition.document_id,
+            checked: selected_document_ids.include?(child_edition.document_id),
+          }
+        end,
+      } %>
+
+      <div class="govuk-button-group govuk-!-margin-bottom-6">
+        <%= render "govuk_publishing_components/components/button", {
+          text: button_text,
+        } %>
+
+        <%= link_to("Cancel", navigation_admin_standard_edition_path(@edition), class: "govuk-link govuk-link--no-visited-state") %>
+      </div>
+    <% end %>
+  </div>
+</div>

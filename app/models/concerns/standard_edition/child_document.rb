@@ -26,6 +26,12 @@ module StandardEdition::ChildDocument
     end
   end
 
+  def remove_from_parent_navigation
+    return if document.editions.exists?
+
+    NavigationItem.where(child_document_id: document_id).destroy_all
+  end
+
   def other_child_editions
     latest_parent_edition.child_editions.where.not(document_id:)
   end
