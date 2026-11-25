@@ -1,5 +1,7 @@
 class Admin::DocumentCollectionGroupDocumentSearchController < Admin::BaseController
   before_action :load_document_collection
+  before_action :enforce_permissions!
+  before_action :prevent_modification_of_unmodifiable_edition
   before_action :load_document_collection_group
 
   def search_options; end
@@ -41,6 +43,11 @@ private
 
   def load_document_collection
     @collection = DocumentCollection.includes(document: :latest_edition).find(params[:document_collection_id])
+    @edition = @collection
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:update, @collection)
   end
 
   def load_document_collection_group

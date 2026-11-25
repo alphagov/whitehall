@@ -43,7 +43,7 @@ Feature: Grouping documents into a collection
     Then I can see that "Document 1" has been removed from the group
 
   Scenario: Removing a document from a group
-    Given a published publication called "Document to be removed" in a published document collection
+    Given a published publication called "Document to be removed" in a draft document collection
     When I remove the document "Document to be removed" from the group
     Then I can see that "Document to be removed" has been removed from the group
 
