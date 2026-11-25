@@ -37,6 +37,7 @@
   },
   "resolutions": {
     "selenium-webdriver": "4.17.0",
-    "glob": "^10.5.0"
+    "glob": "^13.0.7",
+    "**/glob/minimatch": "^11.0.1"
   }
 }
