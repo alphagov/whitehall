@@ -17,8 +17,7 @@ module PublishingApi::PayloadBuilder
     end
 
     def self.topical_events(item)
-      topical_events = item.topical_events.map(&:content_id) + item.topical_event_documents.map(&:content_id)
-      { topical_events: }
+      { topical_events: item.topical_event_documents.map(&:content_id) }
     end
 
     def self.world_locations(item)

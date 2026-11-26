@@ -1,19 +1,6 @@
 require "test_helper"
 
 class Admin::TaggableContentHelperTest < ActionView::TestCase
-  test "#taggable_topical_events_container returns an array of select options for all topical events ordered by name" do
-    event_c = create(:topical_event, name: "event C")
-    event_b = create(:topical_event, name: "event B")
-    event_a = create(:topical_event, name: "event A")
-
-    assert_equal [
-      { text: "event A", value: event_a.id, selected: false },
-      { text: "event B", value: event_b.id, selected: true },
-      { text: "event C", value: event_c.id, selected: false },
-    ],
-                 taggable_topical_events_container([event_b.id])
-  end
-
   test "#taggable_topical_event_documents_container returns one document per topical event, using the latest edition title, ordered alphabetically" do
     ConfigurableDocumentType.setup_test_types(build_configurable_document_type("topical_event"))
 

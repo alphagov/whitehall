@@ -32,7 +32,6 @@ private
       recruitment_url_row,
       political_row,
       parent_organisations_row,
-      topical_events_row, # legacy
       featured_links_position_row,
       featured_links_row,
       foi_exempt_row,
@@ -193,13 +192,6 @@ private
     associations_rows(parent_organisations, "Sponsoring organisation")
   end
 
-  # legacy
-  def topical_events_row
-    return if topical_events.blank?
-
-    associations_rows(topical_events, "Topical event")
-  end
-
   def featured_links_position_row
     {
       field: "Featured link position",
@@ -257,11 +249,6 @@ private
 
   def parent_organisations
     @parent_organisations ||= organisation.parent_organisations
-  end
-
-  # legacy
-  def topical_events
-    @topical_events ||= organisation.topical_events
   end
 
   def featured_links

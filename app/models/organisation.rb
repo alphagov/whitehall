@@ -91,14 +91,6 @@ class Organisation < ApplicationRecord
            -> { extending UserOrderableExtension },
            through: :roles
 
-  has_many :topical_event_organisations, # Legacy
-           -> { order("topical_event_organisations.ordering") },
-           dependent: :destroy
-
-  has_many :topical_events, # Legacy
-           -> { order("topical_event_organisations.ordering") },
-           through: :topical_event_organisations
-
   has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
 
   has_many :contacts, as: :contactable, dependent: :destroy
@@ -151,7 +143,6 @@ class Organisation < ApplicationRecord
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
-  accepts_nested_attributes_for :topical_event_organisations, reject_if: ->(attributes) { attributes["topical_event_id"].blank? }, allow_destroy: true
   accepts_nested_attributes_for :offsite_links
 
   validates :slug, presence: true, uniqueness: { case_sensitive: false }

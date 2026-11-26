@@ -7,14 +7,6 @@ module Admin::FeaturesHelper
     end
   end
 
-  def featurable_topical_events_for_feature_list(featurable_topical_events, feature_list)
-    @featurable_topical_events_for_feature_list ||= featurable_topical_events.reject do |topical_event|
-      feature_list.features.current.detect do |feature|
-        feature.topical_event == topical_event
-      end
-    end
-  end
-
   def featurable_editions_for_feature_list(editions, feature_list)
     @featurable_editions_for_feature_list ||= editions
                                                 .select { |ed| feature_list.features.current.none? { |f| f.document == ed.document } }
@@ -24,8 +16,6 @@ module Admin::FeaturesHelper
   def feature_published_on(feature)
     if feature.document&.live_edition.present?
       localize(feature.document.live_edition.major_change_published_at.to_date)
-    elsif feature.topical_event.present?
-      topical_event_dates_string(feature.topical_event)
     elsif feature.offsite_link.present?
       (localize(feature.offsite_link.date.to_date) if feature.offsite_link.date) || ""
     else

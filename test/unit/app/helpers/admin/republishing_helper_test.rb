@@ -25,8 +25,6 @@ class Admin::RepublishingHelperTest < ActionView::TestCase
     Role
     RoleAppointment
     StatisticsAnnouncement
-    TopicalEvent
-    TopicalEventAboutPage
     WorldLocation
     WorldLocationNews
   ].freeze

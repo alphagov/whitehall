@@ -233,10 +233,6 @@ Then(/^the roles should be in the following order:$/) do |roles|
   end
 end
 
-Given(/^an active topical event called "([^"]*)" exists$/) do |name|
-  create(:topical_event, :active, name:)
-end
-
 Given(/^a config-driven document called "([^"]*)" exists$/) do |name|
   create(:published_standard_edition, configurable_document_type: "test_type", title: name, lead_organisations: [@organisation])
 end
