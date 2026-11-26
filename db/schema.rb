@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_17_145933) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_26_142840) do
   create_table "access_limiting_individuals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "edition_id", null: false
     t.string "email", null: false
@@ -690,6 +690,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_145933) do
     t.integer "child_document_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["child_document_id"], name: "index_navigation_items_on_child_document_id"
     t.index ["navigation_edition_id"], name: "index_navigation_items_on_navigation_edition_id"
   end
