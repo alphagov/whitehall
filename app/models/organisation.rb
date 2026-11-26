@@ -106,7 +106,7 @@ class Organisation < ApplicationRecord
   has_many :offsite_links, through: :offsite_link_parents
 
   def featured_documents_display_limit
-    return 7 if %w[prime-ministers-office-10-downing-street prime-ministers-office-no-10].include?(slug)
+    return 7 if slug == "prime-ministers-office-no-10"
 
     FEATURED_DOCUMENTS_DISPLAY_LIMIT
   end
