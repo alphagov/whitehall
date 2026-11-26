@@ -31,7 +31,6 @@
   - role and person translations
   - historical accounts
 - **Other:**
-  - topical events (full CRUD, featurings, organisations, about page)
   - world location news (edit, update, translations, offsite links)
   - statistics announcements: everything except unpublishing (create, edit, cancel, date changes, tags, link to publication)
   - policy groups: create and edit

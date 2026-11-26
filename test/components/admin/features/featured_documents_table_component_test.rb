@@ -5,7 +5,6 @@ require "test_helper"
 class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::TestCase
   include Rails.application.routes.url_helpers
   include Admin::EditionRoutesHelper
-  include Admin::OrganisationHelper
 
   setup do
     @feature_list = build_stubbed(:feature_list)
@@ -46,23 +45,6 @@ class Admin::Features::FeaturedDocumentsTableComponentTest < ViewComponent::Test
     actions_column.assert_selector "a[href='#{admin_edition_path(edition)}']", text: "Edit #{title}"
     actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(@feature_list, feature)}']", text: "Unfeature #{title}"
     actions_column.assert_selector "a[href='#{edit_admin_feature_list_feature_path(@feature_list, feature)}']", text: "Edit image for #{title}"
-  end
-
-  # Delete when legacy topical events are removed.
-  test "renders the correct row when the feature list item belongs to a topical event" do
-    feature = build_stubbed(:feature, :with_topical_event_association, feature_list: @feature_list)
-    title = feature.topical_event.name
-
-    render_inline(Admin::Features::FeaturedDocumentsTableComponent.new(caption: "caption", features: [feature]))
-
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[0].text, title
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[1].text, "Topical Event"
-    assert_equal page.all(".govuk-table .govuk-table__row .govuk-table__cell")[2].text, topical_event_dates_string(feature.topical_event)
-
-    actions_column = page.all(".govuk-table .govuk-table__row .govuk-table__cell")[3]
-    actions_column.assert_selector "a[href='#{edit_admin_topical_event_path(feature.topical_event)}']", text: "Edit #{title}"
-    actions_column.assert_selector "a[href='#{confirm_unfeature_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Unfeature #{title}"
-    actions_column.assert_selector "a[href='#{edit_admin_feature_list_feature_path(feature.feature_list, feature)}']", text: "Edit image for #{title}"
   end
 
   test "renders the correct row when the feature list item belongs to a offsite link" do

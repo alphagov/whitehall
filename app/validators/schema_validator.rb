@@ -3,7 +3,7 @@ require "json_schemer"
 class SchemaValidator
   attr_reader :errors, :schema
 
-  NON_BLOCK_CONTENT_FIELDS = %w[ministerial_role_appointments topical_events topical_event_documents world_locations lead_organisations supporting_organisations worldwide_organisations].freeze
+  NON_BLOCK_CONTENT_FIELDS = %w[ministerial_role_appointments topical_event_documents world_locations lead_organisations supporting_organisations worldwide_organisations].freeze
 
   def initialize(document)
     @document = document

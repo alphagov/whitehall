@@ -156,8 +156,6 @@ module Admin::RepublishingHelper
       Role
       RoleAppointment
       StatisticsAnnouncement
-      TopicalEvent
-      TopicalEventAboutPage
       WorldLocation
       WorldLocationNews
     ]

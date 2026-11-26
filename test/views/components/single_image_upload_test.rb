@@ -97,7 +97,6 @@ class SingleImageUploadTest < ActionView::TestCase
     assert_select ".app-c-single-image-upload .gem-c-inset-text", count: 1, text: "This is my inset text"
   end
 
-  # TODO: delete when legacy topical events are migrated
   test "does not render an alt text input when alt text is removed" do
     # Whilst the default behaviour is to include the alt text field,
     # it's cleaner to test the alt text behaviour by opting in and
@@ -108,7 +107,6 @@ class SingleImageUploadTest < ActionView::TestCase
     refute_select "input[type='text'][name='foo[image_alt_text]']"
   end
 
-  # TODO: delete when legacy topical events are migrated
   context "when alt text is enabled" do
     test "renders an alt text input" do
       render("components/single_image_upload", @valid_parameters.merge({
