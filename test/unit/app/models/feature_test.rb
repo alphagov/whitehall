@@ -1,6 +1,10 @@
 require "test_helper"
 
 class FeatureTest < ActiveSupport::TestCase
+  test "does not load the legacy topical_event_id column" do
+    assert_not_includes Feature.column_names, "topical_event_id"
+  end
+
   test "invalid without document" do
     assert_not build(:feature, document: nil).valid?
   end
