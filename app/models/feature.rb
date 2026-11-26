@@ -1,4 +1,6 @@
 class Feature < ApplicationRecord
+  self.ignored_columns += %w[topical_event_id]
+
   belongs_to :document
   belongs_to :offsite_link
   belongs_to :feature_list
