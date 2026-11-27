@@ -30,6 +30,14 @@ class ScheduledPublishingJobTest < ActiveSupport::TestCase
     assert_nil ScheduledPublishingJob.new.perform(edition.id)
   end
 
+  test "#perform tags the Sentry scope with the edition id so failures can be traced" do
+    edition = create(:superseded_edition)
+
+    Sentry.expects(:set_tags).with(edition_id: edition.id)
+
+    ScheduledPublishingJob.new.perform(edition.id)
+  end
+
   test ".queue queues a job for a scheduled edition" do
     edition = create(:scheduled_edition)
 
