@@ -25,6 +25,19 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
     assert LinkCheckerApiReport.where(edition:).count == 1
   end
 
+  test "locks the edition when creating a noop report, to serialise concurrent jobs" do
+    edition = create(:publication, body: "no links")
+
+    assert_locks_edition { LinkCheckerApiReport.create_noop_report(edition) }
+  end
+
+  test "locks the edition when creating an in progress report, to serialise concurrent jobs" do
+    edition = create(:publication, body: "no links")
+    batch_report = link_checker_api_batch_report_hash(id: 123, status: "in_progress").with_indifferent_access
+
+    assert_locks_edition { LinkCheckerApiReport.create_in_progress_report(batch_report, edition) }
+  end
+
   test "creates a RemoveDangerousLinksJob if dangerous links detected" do
     edition = create(:publication, body: "[dangerous link](http://www.example.com)")
     report = LinkCheckerApiReport.create!(
@@ -76,5 +89,16 @@ class LinkCheckerApiReportTest < ActiveSupport::TestCase
     RemoveDangerousLinksJob.expects(:perform_async).never
 
     report.mark_report_as_completed(batch_report)
+  end
+
+private
+
+  def assert_locks_edition
+    queries = []
+    subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") { |*, payload| queries << payload[:sql] }
+    yield
+    assert(queries.any? { |sql| sql.include?("FOR UPDATE") && sql.include?("`editions`") })
+  ensure
+    ActiveSupport::Notifications.unsubscribe(subscriber)
   end
 end
