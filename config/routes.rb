@@ -424,12 +424,14 @@ Whitehall::Application.routes.draw do
 
   resources :document_list_export_request, path: "/export/:document_type_slug", param: :export_id, only: [:show]
 
-  scope via: :all do
-    match "/400", to: "admin/errors#bad_request"
-    match "/403", to: "admin/errors#forbidden"
-    match "/404", to: "admin/errors#not_found"
-    match "/422", to: "admin/errors#unprocessable_content"
-    match "/500", to: "admin/errors#internal_server_error"
+  constraints(->(request) { request.has_header?("action_dispatch.original_path") }) do
+    scope via: :all do
+      match "/400", to: "admin/errors#bad_request"
+      match "/403", to: "admin/errors#forbidden"
+      match "/404", to: "admin/errors#not_found"
+      match "/422", to: "admin/errors#unprocessable_content"
+      match "/500", to: "admin/errors#internal_server_error"
+    end
   end
 
   mount GovukSidekiq::GdsSsoMiddleware, at: "/sidekiq"
