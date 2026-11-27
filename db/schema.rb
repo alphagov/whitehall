@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_26_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_26_140000) do
   create_table "access_limiting_individuals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "edition_id", null: false
     t.string "email", null: false
@@ -511,7 +511,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_26_120000) do
     t.integer "ordering"
     t.datetime "started_at", precision: nil
     t.datetime "ended_at", precision: nil
-    t.integer "topical_event_id"
     t.integer "offsite_link_id"
     t.index ["document_id"], name: "index_features_on_document_id"
     t.index ["feature_list_id", "ordering"], name: "index_features_on_feature_list_id_and_ordering", unique: true
