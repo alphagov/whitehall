@@ -56,6 +56,20 @@ class Admin::FeaturesHelperTest < ActionView::TestCase
     end
   end
 
+  context "query count" do
+    test "#featurable_editions_for_feature_list only queries the feature list once overall, not once for every edition" do
+      organisation = create(:organisation)
+      feature_list = organisation.feature_lists.create!(locale: :en)
+      featured_edition = create(:published_standard_edition, :with_organisations)
+      create(:feature, feature_list:, document: featured_edition.document)
+      editions = [featured_edition] + create_list(:published_standard_edition, 5, :with_organisations)
+
+      queries = count_queries { featurable_editions_for_feature_list(editions, feature_list) }
+
+      assert_equal 1, queries
+    end
+  end
+
   context "for legacy editions" do
     test "#featurable_editions_for_feature_list filters out any edition in the feature list" do
       organisation = create(:organisation)
