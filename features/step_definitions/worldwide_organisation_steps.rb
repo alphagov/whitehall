@@ -265,7 +265,7 @@ Then(/^the worldwide organisation "([^"]*)" should have been created$/) do |titl
   @worldwide_organisation = WorldwideOrganisation.find_by(title:)
 
   expect(@worldwide_organisation).to be_present
-  expect(@worldwide_organisation.logo_formatted_name).to eq("Logo\r\nformatted\r\nname\r\n")
+  expect(@worldwide_organisation.logo_formatted_name).to eq("Logo\r\nformatted\r\nname")
   expect(page).not_to have_text("Topic taxonomy tags")
 end
 
