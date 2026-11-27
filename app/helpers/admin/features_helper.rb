@@ -8,9 +8,12 @@ module Admin::FeaturesHelper
   end
 
   def featurable_editions_for_feature_list(editions, feature_list)
-    @featurable_editions_for_feature_list ||= editions
-                                                .select { |ed| feature_list.features.current.none? { |f| f.document == ed.document } }
-                                                .map { |ed| LocalisedModel.new(ed, feature_list.locale) }
+    @featurable_editions_for_feature_list ||= begin
+      currently_featured_document_ids = feature_list.features.current.pluck(:document_id)
+      editions
+        .reject { |ed| currently_featured_document_ids.include?(ed.document_id) }
+        .map { |ed| LocalisedModel.new(ed, feature_list.locale) }
+    end
   end
 
   def feature_published_on(feature)
