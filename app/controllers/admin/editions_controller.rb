@@ -6,7 +6,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
   before_action :clear_response_form_file_cache, only: %i[create update]
-  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id destroy_bypass_id features child_pages navigation]
+  before_action :find_edition, only: %i[show edit update revise diff confirm_destroy destroy update_bypass_id destroy_bypass_id features child_pages navigation change_type change_type_preview apply_change_type]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_national_exclusion_params, only: %i[create update]
@@ -16,7 +16,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :set_edition_defaults, only: :new
   before_action :build_edition_dependencies, only: %i[new edit]
   before_action :set_current_user_for_validation, only: %i[create update]
-  before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise]
+  before_action :forbid_editing_of_historic_content!, only: %i[create edit update destroy revise change_type change_type_preview apply_change_type]
   before_action :enforce_permissions!
   before_action :limit_edition_access!, only: %i[show edit update revise diff destroy]
   before_action :redirect_to_controller_for_type, only: [:show]
@@ -32,11 +32,12 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:see, @edition)
     when "new"
       enforce_permission!(:create, @edition)
-    when "choose_type", "change_type", "change_type_preview", "apply_change_type"
+    when "choose_type"
       enforce_permission!(:create, edition_class || Edition)
     when "create"
       enforce_permission!(:create, @edition) if @edition.persisted?
-    when "edit", "update", "revise", "diff", "update_bypass_id", "destroy_bypass_id", "features", "child_pages", "navigation"
+    when "edit", "update", "revise", "diff", "update_bypass_id", "destroy_bypass_id", "features", "child_pages", "navigation",
+      "change_type", "change_type_preview", "apply_change_type"
       enforce_permission!(:update, @edition)
     when "destroy", "confirm_destroy"
       enforce_permission!(:delete, @edition)
