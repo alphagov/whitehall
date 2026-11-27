@@ -41,6 +41,10 @@ class ScheduledPublishingJob < JobBase
   sidekiq_options queue: :scheduled_publishing
 
   def perform(edition_id)
+    # Sentry doesn't show Sidekiq job arguments, so tag the edition to make
+    # failures traceable without digging through the Sidekiq retry set.
+    Sentry.set_tags(edition_id:)
+
     edition = Edition.find(edition_id)
     return if edition.published? || !edition.scheduled?
 
